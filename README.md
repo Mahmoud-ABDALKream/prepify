@@ -5,8 +5,7 @@
 <h1 align="center">Prepify</h1>
 
 <p align="center">
-  <strong>Interactive Quiz & Exam Review Platform</strong><br/>
-  Built with ❤️ by <strong>Mahmoud ABD ELKream</strong>
+  <strong>Interactive Quiz & Exam Review Platform</strong>
 </p>
 
 <p align="center">
@@ -18,10 +17,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/TypeScript-87.4%25-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript 87.4%" />
-  <img src="https://img.shields.io/badge/CSS-7.8%25-563D7C?style=flat-square&logo=css3&logoColor=white" alt="CSS 7.8%" />
-  <img src="https://img.shields.io/badge/JavaScript-3.2%25-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript 3.2%" />
-  <img src="https://img.shields.io/badge/Prisma-1.6%25-2D3748?style=flat-square&logo=prisma&logoColor=white" alt="Prisma 1.6%" />
+  <img src="https://img.shields.io/badge/TypeScript-97.7%25-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript 97.7%" />
+  <img src="https://img.shields.io/badge/CSS-1.7%25-563D7C?style=flat-square&logo=css3&logoColor=white" alt="CSS 1.7%" />
+  <img src="https://img.shields.io/badge/JavaScript-0.6%25-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript 0.6%" />
 </p>
 
 ---
@@ -209,20 +207,6 @@ The database file (`db/custom.db`) is excluded from version control for security
 
 ---
 
-## Author
-
-**Mahmoud ABD ELKream**
-
-- Designed, developed, and maintained with passion
-
----
-
 ## License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
----
-
-<p align="center">
-  Made with ❤️ by <strong>Mahmoud ABD ELKream</strong>
-</p>
