@@ -1,8 +1,15 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
-// GET /api/feedback — retrieve all feedback (admin)
-export async function GET() {
+// GET /api/feedback — retrieve all feedback (requires admin secret)
+export async function GET(request: NextRequest) {
+  const secret = request.headers.get('x-admin-secret')
+  const adminSecret = process.env.ADMIN_SECRET
+
+  if (!adminSecret || secret !== adminSecret) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   try {
     const feedbacks = await prisma.feedback.findMany({
       orderBy: { createdAt: 'desc' },
@@ -14,7 +21,7 @@ export async function GET() {
   }
 }
 
-// POST /api/feedback — submit new feedback
+// POST /api/feedback — submit new feedback (public)
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -49,5 +56,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to submit feedback' }, { status: 500 })
   }
 }
-
-// DELETE is disabled — feedback data is never deleted
