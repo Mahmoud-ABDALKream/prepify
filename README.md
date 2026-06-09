@@ -97,7 +97,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/prepify.git
+git clone https://github.com/Mahmoud-ABDALKream/prepify.git
 cd prepify
 
 # Install dependencies
