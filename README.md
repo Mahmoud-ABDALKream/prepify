@@ -17,6 +17,13 @@
   <img src="https://img.shields.io/badge/Users-1000+-brightgreen?style=for-the-badge&logo=users" alt="1000+ Users" />
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/TypeScript-87.4%25-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript 87.4%" />
+  <img src="https://img.shields.io/badge/CSS-7.8%25-563D7C?style=flat-square&logo=css3&logoColor=white" alt="CSS 7.8%" />
+  <img src="https://img.shields.io/badge/JavaScript-3.2%25-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript 3.2%" />
+  <img src="https://img.shields.io/badge/Prisma-1.6%25-2D3748?style=flat-square&logo=prisma&logoColor=white" alt="Prisma 1.6%" />
+</p>
+
 ---
 
 ## Overview
