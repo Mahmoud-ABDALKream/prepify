@@ -14,13 +14,14 @@
   <img src="https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss" alt="Tailwind CSS" />
   <img src="https://img.shields.io/badge/Prisma-SQLite-2D3748?style=for-the-badge&logo=prisma" alt="Prisma" />
+  <img src="https://img.shields.io/badge/Users-1000+-brightgreen?style=for-the-badge&logo=users" alt="1000+ Users" />
 </p>
 
 ---
 
 ## Overview
 
-**Prepify** is a modern, interactive quiz and exam review platform designed to help university students prepare for their exams effectively. It features a beautiful dark-themed UI with real-time progress tracking, instant answer verification, and comprehensive question banks covering key CS subjects.
+**Prepify** is a modern, interactive quiz and exam review platform designed to help university students prepare for their exams effectively. Trusted by **1,000+ users**, it features a beautiful dark-themed UI with real-time progress tracking, instant answer verification, and comprehensive question banks covering key CS subjects.
 
 ## Features
 
@@ -68,7 +69,6 @@
 ### Feedback System
 - **Star Rating** — Rate your quiz experience (1–5 stars)
 - **Text Feedback** — Submit detailed feedback
-- **Admin Dashboard** — View all submitted feedback at `/admin`
 
 ---
 
@@ -140,10 +140,9 @@ prepify/
 │   │   ├── page.tsx           # Landing page
 │   │   ├── layout.tsx         # Root layout
 │   │   ├── globals.css        # Global styles
-│   │   ├── admin/page.tsx     # Admin feedback dashboard
 │   │   ├── api/
 │   │   │   ├── route.ts       # Health check API
-│   │   │   └── feedback/      # Feedback CRUD API
+│   │   │   └── feedback/      # Feedback API
 │   │   │       └── route.ts
 │   │   ├── c-programming/     # C Programming quiz page
 │   │   │   └── page.tsx
@@ -188,7 +187,6 @@ The database file (`db/custom.db`) is excluded from version control for security
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/api` | Health check |
-| `GET` | `/api/feedback` | Get all feedback (admin) |
 | `POST` | `/api/feedback` | Submit new feedback |
 
 ---
@@ -199,6 +197,7 @@ The database file (`db/custom.db`) is excluded from version control for security
 - Database files are excluded from version control
 - Upload directories are excluded from version control
 - Input validation on all API endpoints
+- Sensitive endpoints require server-side authentication
 - No deletion endpoint for feedback data
 
 ---
