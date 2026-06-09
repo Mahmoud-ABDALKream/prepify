@@ -1,0 +1,12 @@
+# Linguist language detection overrides
+# Ensure GitHub correctly identifies project languages
+
+*.tsx linguist-language=TypeScript
+*.ts linguist-language=TypeScript
+*.prisma linguist-language=Prisma
+*.css linguist-language=CSS
+*.mjs linguist-language=JavaScript
+
+# Don't count generated/config files toward language stats
+package-lock.json linguist-generated
+components.json linguist-vendored
