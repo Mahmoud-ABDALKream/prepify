@@ -13,44 +13,50 @@ interface Feedback {
   createdAt: string
 }
 
-const ADMIN_PASSWORD = 'prepify2025'
-
 export default function AdminPage() {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([])
   const [loading, setLoading] = useState(true)
   const [authenticated, setAuthenticated] = useState(false)
   const [password, setPassword] = useState('')
   const [authError, setAuthError] = useState('')
-  const [deletingId, setDeletingId] = useState<string | null>(null) // kept for type compat but unused
   const [filterRating, setFilterRating] = useState<number | null>(null)
   const [filterSubject, setFilterSubject] = useState<string>('')
 
   const fetchFeedbacks = useCallback(async () => {
     try {
-      const res = await fetch('/api/feedback')
+      const res = await fetch('/api/feedback', {
+        headers: { 'x-admin-secret': password },
+      })
       if (res.ok) {
         const data = await res.json()
         setFeedbacks(data.feedbacks)
+      } else if (res.status === 401) {
+        setAuthenticated(false)
+        setAuthError('Session expired. Please re-enter the password.')
       }
     } catch { /* ignore */ }
     setLoading(false)
-  }, [])
+  }, [password])
 
   useEffect(() => {
     if (authenticated) fetchFeedbacks()
   }, [authenticated, fetchFeedbacks])
 
   const handleLogin = () => {
-    if (password === ADMIN_PASSWORD) {
-      setAuthenticated(true)
-      setAuthError('')
-    } else {
-      setAuthError('Wrong password. Try again.')
-    }
+    // Try to authenticate by fetching feedback with the password
+    fetch('/api/feedback', {
+      headers: { 'x-admin-secret': password },
+    }).then(res => {
+      if (res.ok) {
+        setAuthenticated(true)
+        setAuthError('')
+      } else {
+        setAuthError('Wrong password. Try again.')
+      }
+    }).catch(() => {
+      setAuthError('Connection error. Try again.')
+    })
   }
-
-  // Delete is disabled — feedback is never removed
-  const handleDelete = async (_id: string) => { /* disabled */ }
 
   const filteredFeedbacks = feedbacks.filter(f => {
     if (filterRating !== null && f.rating !== filterRating) return false
@@ -67,12 +73,6 @@ export default function AdminPage() {
     count: feedbacks.filter(f => f.rating === r).length,
   }))
 
-  const subjectCounts = feedbacks.reduce((acc, f) => {
-    const key = f.subject || 'general'
-    acc[key] = (acc[key] || 0) + 1
-    return acc
-  }, {} as Record<string, number>)
-
   if (!authenticated) {
     return (
       <div className="min-h-screen bg-[#080c18] text-[#e2e8f0] font-sans flex items-center justify-center px-4">
@@ -86,7 +86,7 @@ export default function AdminPage() {
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
           </div>
           <h1 className="text-2xl font-black text-center mb-2">Admin Panel</h1>
-          <p className="text-[#64748b] text-sm text-center mb-6">Enter password to access feedback dashboard</p>
+          <p className="text-[#64748b] text-sm text-center mb-6">Enter password to access dashboard</p>
           {authError && (
             <div className="mb-4 bg-[#ef4444]/10 border border-[#ef4444]/30 text-[#ef4444] text-sm rounded-xl px-4 py-3">{authError}</div>
           )}
@@ -126,7 +126,7 @@ export default function AdminPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl sm:text-3xl font-black">Feedback Dashboard</h1>
-            <p className="text-[#64748b] text-sm mt-1">View and manage all submitted feedback</p>
+            <p className="text-[#64748b] text-sm mt-1">View all submitted feedback</p>
           </div>
           <div className="flex gap-3">
             <button
@@ -202,7 +202,7 @@ export default function AdminPage() {
             className="bg-[#111827] border border-[#1e2d45] rounded-xl px-4 py-2 text-sm text-[#e2e8f0] cursor-pointer focus:border-[#7c3aed] focus:outline-none transition-all"
           >
             <option value="">All Subjects</option>
-            <option value="">General</option>
+            <option value="general">General</option>
             <option value="bug">Bug Report</option>
             <option value="feature">Feature Request</option>
             <option value="content">Content / Questions</option>
@@ -244,11 +244,10 @@ export default function AdminPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, x: -100 }}
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
-                  className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5 hover:border-[#2d3f5e] transition-colors group"
+                  className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5 hover:border-[#2d3f5e] transition-colors"
                 >
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-start gap-4">
                     <div className="flex-1 min-w-0">
-                      {/* Header row */}
                       <div className="flex items-center gap-3 mb-2 flex-wrap">
                         <span className="font-bold text-sm">{fb.name}</span>
                         <span className="text-[#475569] text-xs">{fb.email}</span>
@@ -263,16 +262,13 @@ export default function AdminPage() {
                           ))}
                         </span>
                       </div>
-                      {/* Message */}
                       <p className="text-[#94a3b8] text-sm leading-relaxed whitespace-pre-wrap">{fb.message}</p>
-                      {/* Date */}
                       <p className="text-[#475569] text-xs mt-2">
                         {new Date(fb.createdAt).toLocaleDateString('en-US', {
                           year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
                         })}
                       </p>
                     </div>
-                    {/* Delete disabled — feedback is preserved */}
                   </div>
                 </motion.div>
               ))}
