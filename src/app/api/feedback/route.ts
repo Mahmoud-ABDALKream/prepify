@@ -1,5 +1,5 @@
-import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 
 export const dynamic = 'force-dynamic'
 
@@ -13,9 +13,17 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const feedbacks = await prisma.feedback.findMany({
-      orderBy: { createdAt: 'desc' },
-    })
+    const supabase = getSupabaseAdmin()
+    const { data: feedbacks, error } = await supabase
+      .from('Feedback')
+      .select('*')
+      .order('createdAt', { ascending: false })
+
+    if (error) {
+      console.error('Failed to fetch feedback:', error)
+      return NextResponse.json({ error: 'Failed to fetch feedback' }, { status: 500 })
+    }
+
     return NextResponse.json({ feedbacks })
   } catch (error) {
     console.error('Failed to fetch feedback:', error)
@@ -42,15 +50,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Rating must be between 1 and 5' }, { status: 400 })
     }
 
-    const feedback = await prisma.feedback.create({
-      data: {
+    const supabase = getSupabaseAdmin()
+    const { data: feedback, error } = await supabase
+      .from('Feedback')
+      .insert({
         name: name.trim(),
         email: emailValue,
         message: message.trim(),
         rating,
         subject: subject || null,
-      },
-    })
+      })
+      .select()
+      .single()
+
+    if (error) {
+      console.error('Failed to submit feedback:', error)
+      return NextResponse.json({ error: 'Failed to submit feedback' }, { status: 500 })
+    }
 
     return NextResponse.json({ feedback }, { status: 201 })
   } catch (error) {

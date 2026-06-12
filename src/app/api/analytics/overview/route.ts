@@ -1,23 +1,42 @@
-import { prisma } from '@/lib/prisma'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import { getUserStats } from '@/lib/analytics-utils'
-import { daysAgo, MS_PER_DAY } from '@/lib/date-utils'
+import { daysAgo } from '@/lib/date-utils'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
+    const supabase = getSupabaseAdmin()
+
     const [
-      attempts,
-      exams,
+      attemptsResult,
+      examsResult,
       users,
-      totalFeedback,
+      feedbackCountResult,
     ] = await Promise.all([
-      prisma.quizAttempt.findMany(),
-      prisma.examResult.findMany(),
+      supabase.from('QuizAttempt').select('*'),
+      supabase.from('ExamResult').select('*'),
       getUserStats(),
-      prisma.feedback.count(),
+      supabase.from('Feedback').select('*', { count: 'exact', head: true }),
     ])
+
+    if (attemptsResult.error) {
+      console.error('Failed to fetch quiz attempts:', attemptsResult.error)
+      return NextResponse.json({ error: 'Failed to compute overview analytics' }, { status: 500 })
+    }
+    if (examsResult.error) {
+      console.error('Failed to fetch exam results:', examsResult.error)
+      return NextResponse.json({ error: 'Failed to compute overview analytics' }, { status: 500 })
+    }
+    if (feedbackCountResult.error) {
+      console.error('Failed to count feedback:', feedbackCountResult.error)
+      return NextResponse.json({ error: 'Failed to compute overview analytics' }, { status: 500 })
+    }
+
+    const attempts = attemptsResult.data
+    const exams = examsResult.data
+    const totalFeedback = feedbackCountResult.count ?? 0
 
     const weekAgo = daysAgo(7)
     const activeIds = new Set(attempts.filter(a => new Date(a.attemptDate) >= weekAgo).map(a => a.userId))

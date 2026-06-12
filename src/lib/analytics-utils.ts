@@ -1,9 +1,9 @@
-import { prisma } from '@/lib/prisma'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import { todayCairo, yesterdayCairo, toCairoDayString, MS_PER_DAY } from '@/lib/date-utils'
 
 // ─── Helpers ──────────────────────────────────────────
 
-export function calcStreak(dates: Date[]): number {
+export function calcStreak(dates: (string | Date)[]): number {
   if (dates.length === 0) return 0
   const uniqueDays = [...new Set(dates.map(d => toCairoDayString(d)))].sort().reverse()
   if (uniqueDays.length === 0) return 0
@@ -60,15 +60,29 @@ export interface UserStats {
   subjs: Set<string>
   qtypes: Map<string, { t: number; c: number; s: number[] }>
   time: number
-  dates: Date[]
+  dates: (string | Date)[]
   streak: number
-  last: Date | null
+  last: string | Date | null
   exams: { score: number; subject: string; pf: string }[]
 }
 
 export async function getUserStats(): Promise<Map<string, UserStats>> {
-  const attempts = await prisma.quizAttempt.findMany({ orderBy: { attemptDate: 'asc' } })
-  const exams = await prisma.examResult.findMany()
+  const supabase = getSupabaseAdmin()
+
+  const [attemptsResult, examsResult] = await Promise.all([
+    supabase.from('QuizAttempt').select('*').order('attemptDate', { ascending: true }),
+    supabase.from('ExamResult').select('*'),
+  ])
+
+  if (attemptsResult.error) {
+    throw new Error(`Failed to fetch quiz attempts: ${attemptsResult.error.message}`)
+  }
+  if (examsResult.error) {
+    throw new Error(`Failed to fetch exam results: ${examsResult.error.message}`)
+  }
+
+  const attempts = attemptsResult.data
+  const exams = examsResult.data
 
   const map = new Map<string, UserStats>()
 
@@ -98,5 +112,3 @@ export async function getUserStats(): Promise<Map<string, UserStats>> {
   }
   return map
 }
-
-export { prisma }

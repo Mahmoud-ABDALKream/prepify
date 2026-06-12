@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import { getUserStats } from '@/lib/analytics-utils'
 import { formatDisplayDate } from '@/lib/date-utils'
 import { NextResponse } from 'next/server'
@@ -7,8 +7,18 @@ export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
-    const users = await getUserStats()
-    const exams = await prisma.examResult.findMany()
+    const supabase = getSupabaseAdmin()
+    const [users, examsResult] = await Promise.all([
+      getUserStats(),
+      supabase.from('ExamResult').select('*'),
+    ])
+
+    if (examsResult.error) {
+      console.error('Failed to fetch exam results:', examsResult.error)
+      return NextResponse.json({ error: 'Failed to compute student analytics' }, { status: 500 })
+    }
+
+    const exams = examsResult.data
 
     const students = Array.from(users.values()).map(u => {
       const avgScore = u.scores.reduce((a, b) => a + b, 0) / u.scores.length

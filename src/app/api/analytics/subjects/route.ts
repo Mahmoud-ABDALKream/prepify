@@ -1,12 +1,27 @@
-import { prisma } from '@/lib/prisma'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
-    const attempts = await prisma.quizAttempt.findMany()
-    const exams = await prisma.examResult.findMany()
+    const supabase = getSupabaseAdmin()
+    const [attemptsResult, examsResult] = await Promise.all([
+      supabase.from('QuizAttempt').select('*'),
+      supabase.from('ExamResult').select('*'),
+    ])
+
+    if (attemptsResult.error) {
+      console.error('Failed to fetch quiz attempts:', attemptsResult.error)
+      return NextResponse.json({ error: 'Failed to compute subject analytics' }, { status: 500 })
+    }
+    if (examsResult.error) {
+      console.error('Failed to fetch exam results:', examsResult.error)
+      return NextResponse.json({ error: 'Failed to compute subject analytics' }, { status: 500 })
+    }
+
+    const attempts = attemptsResult.data
+    const exams = examsResult.data
 
     const sMap = new Map<string, { subject: string; attempts: typeof attempts; exams: typeof exams }>()
     for (const a of attempts) { const e = sMap.get(a.subject); if (e) e.attempts.push(a); else sMap.set(a.subject, { subject: a.subject, attempts: [a], exams: [] }) }
