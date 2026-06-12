@@ -22,7 +22,8 @@ node_modules/
 db/*.db
 db/*.db-journal
 
-# Environment variables (secrets) - .env is committed with safe defaults for deployment
+# Environment variables (secrets) — NEVER commit .env with real credentials
+.env
 .env.local
 .env.*.local
 

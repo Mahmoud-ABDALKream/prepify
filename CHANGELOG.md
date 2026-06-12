@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.2.0] - 2026-06-13
+### Added
+- Full Supabase integration with browser, server, and admin client SDKs
+- Supabase auth session refresh in middleware
+- `.env.example` with complete Supabase configuration template
+### Changed
+- Migrated from local SQLite to Supabase PostgreSQL (production-ready)
+- `.env` removed from git tracking to protect credentials
+- Updated README.md with comprehensive project documentation
+- Updated tech stack to reflect Supabase + Prisma 7 + PostgreSQL
+
+## [4.1.0] - 2026-06-13
+### Changed
+- Migrated database adapter from `@prisma/adapter-better-sqlite3` to `@prisma/adapter-pg`
+- Updated Prisma schema provider from SQLite to PostgreSQL
+- Updated `prisma.config.ts` to use Supabase connection string
+
+## [4.0.0] - 2026-06-13
+### Added
+- Internet of Things (IoT) subject with 115 questions from 5 tutorials
+### Changed
+- Latest quiz section changed to IoT
+
+## [3.3.1] - 2026-06-13
+### Fixed
+- Use real wall-clock time for quiz timer instead of setInterval decrement
+
+## [3.3.0] - 2026-06-13
+### Added
+- IoT subject page with full quiz interface
+
+## [3.2.1] - 2026-06-13
+### Fixed
+- Use process.env with fallback in prisma.config.ts for CI/CD compatibility
+
+## [3.2.0] - 2026-06-13
+### Changed
+- Upgraded to Prisma 7 with better-sqlite3 adapter
+
+## [3.1.0] - 2026-06-13
+### Fixed
+- All date/time operations now use Africa/Cairo timezone instead of UTC
+
+## [3.0.0] - 2026-06-13
+### Added
+- Sitemap, security middleware, SEO optimizations, accessibility improvements
+
 ## [2.0.0] - 2026-06-13
 ### Changed
 - Remove unused heavy dependencies (sharp, next-auth, next-intl, etc.)
