@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
 // POST /api/quiz-attempts — submit a quiz attempt
 export async function POST(request: NextRequest) {
   try {

@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
 // GET /api/leaderboard — get leaderboard data
 // Query params: type=global|subject|quiz, subject=?, quizId=?
 export async function GET(request: NextRequest) {

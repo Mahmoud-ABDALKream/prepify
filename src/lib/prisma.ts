@@ -13,19 +13,25 @@ function resolveDatabaseUrl(): string {
     const absolutePath = path.resolve(process.cwd(), relativePath)
     const dir = path.dirname(absolutePath)
 
-    // Ensure the directory exists
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true })
+    try {
+      // Ensure the directory exists
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true })
+      }
+      return `file:${absolutePath}`
+    } catch (err) {
+      console.error('[Prisma] Failed to create database directory:', err)
+      // Return the original URL and let Prisma handle the error
+      return envUrl
     }
-
-    return `file:${absolutePath}`
   }
 
   return envUrl
 }
 
 // Set the resolved DATABASE_URL before creating PrismaClient
-process.env.DATABASE_URL = resolveDatabaseUrl()
+const resolvedUrl = resolveDatabaseUrl()
+process.env.DATABASE_URL = resolvedUrl
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
@@ -37,12 +43,12 @@ export const prisma = globalForPrisma.prisma ?? new PrismaClient({
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 
-// Auto-connect and ensure schema exists
+// Auto-connect and verify database is accessible
 prisma.$connect().then(async () => {
   try {
     await prisma.$queryRaw`SELECT name FROM sqlite_master WHERE type='table' LIMIT 1`
   } catch {
-    console.warn('[Prisma] Database appears empty - tables may not exist. Run: npx prisma db push')
+    console.warn('[Prisma] Database appears empty - tables may not exist yet.')
   }
 }).catch((err) => {
   console.error('[Prisma] Connection error:', err.message)
