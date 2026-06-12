@@ -199,6 +199,7 @@ export default function LandingPage() {
           <div className="hidden sm:flex items-center gap-5">
             <a href="#subjects" className="text-[#64748b] hover:text-[#00d4ff] text-sm transition-colors">Subjects</a>
             <a href="#features" className="text-[#64748b] hover:text-[#00d4ff] text-sm transition-colors">Features</a>
+            <a href="/leaderboard" className="text-[#64748b] hover:text-[#8b5cf6] text-sm transition-colors">Leaderboard</a>
             <a href="#feedback" className="text-[#64748b] hover:text-[#f59e0b] text-sm transition-colors">Feedback</a>
             <a href="#about" className="text-[#64748b] hover:text-[#00d4ff] text-sm transition-colors">About</a>
             <a
@@ -235,6 +236,7 @@ export default function LandingPage() {
               <div className="px-4 py-4 flex flex-col gap-1">
                 <a href="#subjects" onClick={() => setMobileMenuOpen(false)} className="text-[#64748b] hover:text-[#00d4ff] text-sm py-2.5 px-3 rounded-xl hover:bg-[#111827] transition-all">Subjects</a>
                 <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-[#64748b] hover:text-[#00d4ff] text-sm py-2.5 px-3 rounded-xl hover:bg-[#111827] transition-all">Features</a>
+                <a href="/leaderboard" onClick={() => setMobileMenuOpen(false)} className="text-[#64748b] hover:text-[#8b5cf6] text-sm py-2.5 px-3 rounded-xl hover:bg-[#111827] transition-all">🏆 Leaderboard</a>
                 <a href="#feedback" onClick={() => setMobileMenuOpen(false)} className="text-[#64748b] hover:text-[#f59e0b] text-sm py-2.5 px-3 rounded-xl hover:bg-[#111827] transition-all">Feedback</a>
                 <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-[#64748b] hover:text-[#00d4ff] text-sm py-2.5 px-3 rounded-xl hover:bg-[#111827] transition-all">About</a>
                 <a href="/cyber-security-2" className="bg-gradient-to-r from-[#ef4444] to-[#dc2626] text-white rounded-xl py-2.5 px-3 text-sm font-bold text-center mt-1 hover:opacity-90 transition-opacity shadow-[0_0_15px_rgba(239,68,68,0.2)]">
