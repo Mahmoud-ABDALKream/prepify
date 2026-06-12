@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react'
 
-export function useQuizTracking(subject: string, quizId: string) {
+export function useQuizTracking(subject: string, quizId: string, questionType: string = 'multiple-choice') {
   const [quizStarted, setQuizStarted] = useState(false)
   const [userName, setUserName] = useState('')
   const [userId, setUserId] = useState('')
@@ -110,6 +110,7 @@ export function useQuizTracking(subject: string, quizId: string) {
           wrongAnswers: wrongCount,
           totalQuestions,
           timeTaken,
+          questionType,
         }),
       })
 

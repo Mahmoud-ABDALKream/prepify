@@ -28,10 +28,27 @@ model QuizAttempt {
   wrongAnswers    Int
   totalQuestions  Int
   timeTaken       Int      // in seconds, 0 = no timer
+  questionType    String   @default("multiple-choice") // multiple-choice, true-false, problem-solving, coding, practical
   attemptDate     DateTime @default(now())
 
   @@index([userId])
   @@index([subject])
   @@index([quizId])
   @@index([score])
+  @@index([questionType])
+  @@index([attemptDate])
+}
+
+model ExamResult {
+  id            String   @id @default(cuid())
+  userId        String
+  userName      String
+  subject       String
+  examScore     Float    // 0-100
+  passFail      String   @default("pass") // pass or fail
+  gradeCategory String   @default("C")    // A, B, C, D, F
+  examDate      DateTime @default(now())
+
+  @@index([userId])
+  @@index([subject])
 }

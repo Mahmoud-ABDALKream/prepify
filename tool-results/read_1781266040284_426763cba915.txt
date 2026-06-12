@@ -1,0 +1,460 @@
+     1→import { prisma } from '@/lib/prisma'
+     2→import { NextRequest, NextResponse } from 'next/server'
+     3→
+     4→export async function GET(request: NextRequest) {
+     5→  try {
+     6→    const { searchParams } = new URL(request.url)
+     7→    const section = searchParams.get('section') || 'overview'
+     8→
+     9→    switch (section) {
+    10→      case 'overview':
+    11→        return await getOverview()
+    12→      case 'students':
+    13→        return await getStudentAnalytics()
+    14→      case 'subjects':
+    15→        return await getSubjectAnalytics()
+    16→      case 'question-types':
+    17→        return await getQuestionTypeAnalytics()
+    18→      case 'behavior':
+    19→        return await getBehaviorAnalytics()
+    20→      case 'at-risk':
+    21→        return await getAtRiskStudents()
+    22→      case 'readiness':
+    23→        return await getReadinessSystem()
+    24→      case 'predictions':
+    25→        return await getPredictions()
+    26→      case 'findings':
+    27→        return await getResearchFindings()
+    28→      case 'correlations':
+    29→        return await getCorrelationMatrix()
+    30→      default:
+    31→        return NextResponse.json({ error: 'Invalid section' }, { status: 400 })
+    32→    }
+    33→  } catch (error) {
+    34→    console.error('Analytics error:', error)
+    35→    return NextResponse.json({ error: 'Failed to compute analytics', details: error instanceof Error ? error.message : String(error) }, { status: 500 })
+    36→  }
+    37→}
+    38→
+    39→// ─── Helpers ──────────────────────────────────────────
+    40→function calcStreak(dates: Date[]): number {
+    41→  if (dates.length === 0) return 0
+    42→  const uniqueDays = [...new Set(dates.map(d => new Date(d).toISOString().split('T')[0]))].sort().reverse()
+    43→  if (uniqueDays.length === 0) return 0
+    44→  const today = new Date().toISOString().split('T')[0]
+    45→  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
+    46→  if (uniqueDays[0] !== today && uniqueDays[0] !== yesterday) return 0
+    47→  let streak = 1
+    48→  for (let i = 1; i < uniqueDays.length; i++) {
+    49→    const diff = (new Date(uniqueDays[i - 1]).getTime() - new Date(uniqueDays[i]).getTime()) / 86400000
+    50→    if (Math.abs(diff - 1) < 0.5) streak++
+    51→    else break
+    52→  }
+    53→  return streak
+    54→}
+    55→
+    56→function consistencyBonus(scores: number[]): number {
+    57→  if (scores.length < 2) return 0.5
+    58→  const mean = scores.reduce((a, b) => a + b, 0) / scores.length
+    59→  const stdDev = Math.sqrt(scores.reduce((s, v) => s + Math.pow(v - mean, 2), 0) / scores.length)
+    60→  return Math.max(0, Math.min(1, 1 - stdDev / 30))
+    61→}
+    62→
+    63→function pearson(x: number[], y: number[]): number {
+    64→  const n = Math.min(x.length, y.length)
+    65→  if (n < 3) return 0
+    66→  const xs = x.slice(0, n), ys = y.slice(0, n)
+    67→  const xm = xs.reduce((a, b) => a + b, 0) / n, ym = ys.reduce((a, b) => a + b, 0) / n
+    68→  let num = 0, dx2 = 0, dy2 = 0
+    69→  for (let i = 0; i < n; i++) { const dx = xs[i] - xm, dy = ys[i] - ym; num += dx * dy; dx2 += dx * dx; dy2 += dy * dy }
+    70→  const den = Math.sqrt(dx2 * dy2)
+    71→  return den === 0 ? 0 : num / den
+    72→}
+    73→
+    74→function linReg(x: number[], y: number[]): { slope: number; intercept: number; r2: number } {
+    75→  const n = Math.min(x.length, y.length)
+    76→  if (n < 2) return { slope: 0, intercept: 0, r2: 0 }
+    77→  const xs = x.slice(0, n), ys = y.slice(0, n)
+    78→  const xm = xs.reduce((a, b) => a + b, 0) / n, ym = ys.reduce((a, b) => a + b, 0) / n
+    79→  let sxx = 0, sxy = 0, syy = 0
+    80→  for (let i = 0; i < n; i++) { const dx = xs[i] - xm, dy = ys[i] - ym; sxx += dx * dx; sxy += dx * dy; syy += dy * dy }
+    81→  const slope = sxx !== 0 ? sxy / sxx : 0
+    82→  return { slope, intercept: ym - slope * xm, r2: syy !== 0 ? (sxy * sxy) / (sxx * syy) : 0 }
+    83→}
+    84→
+    85→async function getUserStats() {
+    86→  const attempts = await prisma.quizAttempt.findMany({ orderBy: { attemptDate: 'asc' } })
+    87→  const exams = await prisma.examResult.findMany()
+    88→
+    89→  const map = new Map<string, {
+    90→    id: string; name: string; att: number; q: number; c: number; w: number; best: number;
+    91→    scores: number[]; subjs: Set<string>; qtypes: Map<string, { t: number; c: number; s: number[] }>;
+    92→    time: number; dates: Date[]; streak: number; last: Date | null;
+    93→    exams: { score: number; subject: string; pf: string }[]
+    94→  }>()
+    95→
+    96→  for (const a of attempts) {
+    97→    const e = map.get(a.userId)
+    98→    if (e) {
+    99→      e.att++; e.q += a.totalQuestions; e.c += a.correctAnswers; e.w += a.wrongAnswers
+   100→      e.scores.push(a.score); if (a.score > e.best) e.best = a.score
+   101→      e.subjs.add(a.subject); e.time += a.timeTaken; e.dates.push(a.attemptDate)
+   102→      const qt = e.qtypes.get(a.questionType) || { t: 0, c: 0, s: [] }
+   103→      qt.t += a.totalQuestions; qt.c += a.correctAnswers; qt.s.push(a.score)
+   104→      e.qtypes.set(a.questionType, qt)
+   105→    } else {
+   106→      const qm = new Map<string, { t: number; c: number; s: number[] }>()
+   107→      qm.set(a.questionType, { t: a.totalQuestions, c: a.correctAnswers, s: [a.score] })
+   108→      map.set(a.userId, {
+   109→        id: a.userId, name: a.userName, att: 1, q: a.totalQuestions, c: a.correctAnswers,
+   110→        w: a.wrongAnswers, best: a.score, scores: [a.score], subjs: new Set([a.subject]),
+   111→        qtypes: qm, time: a.timeTaken, dates: [a.attemptDate], streak: 1, last: a.attemptDate, exams: []
+   112→      })
+   113→    }
+   114→  }
+   115→  for (const ex of exams) { const u = map.get(ex.userId); if (u) u.exams.push({ score: ex.examScore, subject: ex.subject, pf: ex.passFail }) }
+   116→  for (const u of map.values()) {
+   117→    u.streak = calcStreak(u.dates)
+   118→    u.last = u.dates.length > 0 ? u.dates[u.dates.length - 1] : null
+   119→  }
+   120→  return map
+   121→}
+   122→
+   123→// ─── Overview ──────────────────────────────────────────
+   124→async function getOverview() {
+   125→  const attempts = await prisma.quizAttempt.findMany()
+   126→  const exams = await prisma.examResult.findMany()
+   127→  const users = await getUserStats()
+   128→
+   129→  const weekAgo = new Date(Date.now() - 7 * 86400000)
+   130→  const activeIds = new Set(attempts.filter(a => new Date(a.attemptDate) >= weekAgo).map(a => a.userId))
+   131→
+   132→  const totalStudents = users.size
+   133→  const avgAccuracy = attempts.length > 0 ? attempts.reduce((s, a) => s + (a.correctAnswers / a.totalQuestions) * 100, 0) / attempts.length : 0
+   134→  const avgStreak = totalStudents > 0 ? Array.from(users.values()).reduce((s, u) => s + u.streak, 0) / totalStudents : 0
+   135→  const passRate = exams.length > 0 ? (exams.filter(e => e.passFail === 'pass').length / exams.length) * 100 : 0
+   136→  const atRisk = Array.from(users.values()).filter(u => (u.q > 0 ? (u.c / u.q) * 100 : 0) < 60 || (u.streak <= 1 && u.att < 3)).length
+   137→
+   138→  return NextResponse.json({
+   139→    totalStudents, activeStudents: activeIds.size, totalQuizAttempts: attempts.length,
+   140→    avgAccuracy: Math.round(avgAccuracy * 10) / 10, avgStudyStreak: Math.round(avgStreak * 10) / 10,
+   141→    passRate: Math.round(passRate * 10) / 10, atRiskStudents: atRisk,
+   142→  })
+   143→}
+   144→
+   145→// ─── Students ──────────────────────────────────────────
+   146→async function getStudentAnalytics() {
+   147→  const users = await getUserStats()
+   148→  const exams = await prisma.examResult.findMany()
+   149→
+   150→  const students = Array.from(users.values()).map(u => {
+   151→    const avgScore = u.scores.reduce((a, b) => a + b, 0) / u.scores.length
+   152→    const avgAcc = u.q > 0 ? (u.c / u.q) * 100 : 0
+   153→    const examScore = u.exams.length > 0 ? u.exams.reduce((s, e) => s + e.score, 0) / u.exams.length : null
+   154→    return { userId: u.id, userName: u.name, totalAttempts: u.att, avgScore: Math.round(avgScore * 10) / 10, avgAccuracy: Math.round(avgAcc * 10) / 10, bestScore: Math.round(u.best * 10) / 10, studyStreak: u.streak, subjectsCount: u.subjs.size, timeSpent: u.time, lastActive: u.last, examScore: examScore !== null ? Math.round(examScore * 10) / 10 : null }
+   155→  })
+   156→
+   157→  const mkBuckets = (arr: number[]) => {
+   158→    const b = [{ range: '0-20%', count: 0 }, { range: '20-40%', count: 0 }, { range: '40-60%', count: 0 }, { range: '60-80%', count: 0 }, { range: '80-100%', count: 0 }]
+   159→    for (const v of arr) { if (v < 20) b[0].count++; else if (v < 40) b[1].count++; else if (v < 60) b[2].count++; else if (v < 80) b[3].count++; else b[4].count++ }
+   160→    return b
+   161→  }
+   162→
+   163→  const topPerformers = [...students].filter(s => s.totalAttempts >= 3).sort((a, b) => b.avgScore - a.avgScore).slice(0, 10)
+   164→  const improvements: { userId: string; userName: string; improvement: number }[] = []
+   165→  for (const u of users.values()) {
+   166→    if (u.scores.length >= 3) {
+   167→      const h = Math.floor(u.scores.length / 2)
+   168→      const first = u.scores.slice(0, h).reduce((a, b) => a + b, 0) / h
+   169→      const second = u.scores.slice(h).reduce((a, b) => a + b, 0) / (u.scores.length - h)
+   170→      improvements.push({ userId: u.id, userName: u.name, improvement: Math.round((second - first) * 10) / 10 })
+   171→    }
+   172→  }
+   173→  improvements.sort((a, b) => b.improvement - a.improvement)
+   174→
+   175→  return NextResponse.json({
+   176→    students,
+   177→    accuracyDistribution: mkBuckets(students.map(s => s.avgAccuracy)),
+   178→    scoreDistribution: mkBuckets(students.map(s => s.avgScore)),
+   179→    examScoreDistribution: mkBuckets(exams.map(e => e.examScore)),
+   180→    topPerformers,
+   181→    mostImproved: improvements.slice(0, 10),
+   182→  })
+   183→}
+   184→
+   185→// ─── Subjects ──────────────────────────────────────────
+   186→async function getSubjectAnalytics() {
+   187→  const attempts = await prisma.quizAttempt.findMany()
+   188→  const exams = await prisma.examResult.findMany()
+   189→
+   190→  const sMap = new Map<string, { subject: string; attempts: typeof attempts; exams: typeof exams }>()
+   191→  for (const a of attempts) { const e = sMap.get(a.subject); if (e) e.attempts.push(a); else sMap.set(a.subject, { subject: a.subject, attempts: [a], exams: [] }) }
+   192→  for (const e of exams) { const s = sMap.get(e.subject); if (s) s.exams.push(e) }
+   193→
+   194→  const subjects = Array.from(sMap.values()).map(s => {
+   195→    const tc = s.attempts.reduce((sum, a) => sum + a.correctAnswers, 0)
+   196→    const tq = s.attempts.reduce((sum, a) => sum + a.totalQuestions, 0)
+   197→    const avgAcc = tq > 0 ? (tc / tq) * 100 : 0
+   198→    const avgScore = s.attempts.length > 0 ? s.attempts.reduce((sum, a) => sum + a.score, 0) / s.attempts.length : 0
+   199→    const avgExam = s.exams.length > 0 ? s.exams.reduce((sum, e) => sum + e.examScore, 0) / s.exams.length : 0
+   200→    const passRate = s.exams.length > 0 ? (s.exams.filter(e => e.passFail === 'pass').length / s.exams.length) * 100 : 0
+   201→    return {
+   202→      subject: s.subject, totalAttempts: s.attempts.length, uniqueStudents: new Set(s.attempts.map(a => a.userId)).size,
+   203→      avgAccuracy: Math.round(avgAcc * 10) / 10, avgScore: Math.round(avgScore * 10) / 10, avgExamScore: Math.round(avgExam * 10) / 10,
+   204→      passRate: Math.round(passRate * 10) / 10, difficultyIndex: Math.round((100 - avgAcc) * 10) / 10,
+   205→    }
+   206→  })
+   207→
+   208→  const sorted = [...subjects]
+   209→  const hardest = sorted.length > 0 ? [...sorted].sort((a, b) => b.difficultyIndex - a.difficultyIndex)[0] : null
+   210→  const easiest = sorted.length > 0 ? [...sorted].sort((a, b) => a.difficultyIndex - b.difficultyIndex)[0] : null
+   211→  const mostStudied = sorted.length > 0 ? [...sorted].sort((a, b) => b.totalAttempts - a.totalAttempts)[0] : null
+   212→
+   213→  return NextResponse.json({ subjects, rankings: { hardestSubject: hardest, easiestSubject: easiest, mostStudiedSubject: mostStudied } })
+   214→}
+   215→
+   216→// ─── Question Types ────────────────────────────────────
+   217→async function getQuestionTypeAnalytics() {
+   218→  const attempts = await prisma.quizAttempt.findMany()
+   219→  const users = await getUserStats()
+   220→
+   221→  const qtMap = new Map<string, { total: number; correct: number; scores: number[]; users: Set<string> }>()
+   222→  for (const a of attempts) {
+   223→    const e = qtMap.get(a.questionType)
+   224→    if (e) { e.total += a.totalQuestions; e.correct += a.correctAnswers; e.scores.push(a.score); e.users.add(a.userId) }
+   225→    else qtMap.set(a.questionType, { total: a.totalQuestions, correct: a.correctAnswers, scores: [a.score], users: new Set([a.userId]) })
+   226→  }
+   227→
+   228→  const questionTypes = Array.from(qtMap.entries()).map(([type, d]) => ({
+   229→    type, totalQuestions: d.total,
+   230→    avgScore: Math.round((d.scores.reduce((a, b) => a + b, 0) / d.scores.length) * 10) / 10,
+   231→    successRate: Math.round((d.total > 0 ? (d.correct / d.total) * 100 : 0) * 10) / 10,
+   232→    totalAttempts: d.scores.length, uniqueUsers: d.users.size,
+   233→  }))
+   234→
+   235→  const qtCorrs: { type: string; correlation: number }[] = []
+   236→  const usersWithExams = Array.from(users.values()).filter(u => u.exams.length > 0)
+   237→  for (const [qtType] of qtMap) {
+   238→    const qs: number[] = [], es: number[] = []
+   239→    for (const u of usersWithExams) {
+   240→      const qt = u.qtypes.get(qtType)
+   241→      if (qt && qt.s.length > 0) { qs.push(qt.s.reduce((a, b) => a + b, 0) / qt.s.length); es.push(u.exams.reduce((s, e) => s + e.score, 0) / u.exams.length) }
+   242→    }
+   243→    qtCorrs.push({ type: qtType, correlation: qs.length >= 3 ? Math.round(pearson(qs, es) * 1000) / 1000 : 0 })
+   244→  }
+   245→  const predRanking = [...qtCorrs].sort((a, b) => Math.abs(b.correlation) - Math.abs(a.correlation))
+   246→
+   247→  return NextResponse.json({ questionTypes, correlations: qtCorrs, predictiveRanking: predRanking, mostPredictive: predRanking[0] || null })
+   248→}
+   249→
+   250→// ─── Behavior ──────────────────────────────────────────
+   251→async function getBehaviorAnalytics() {
+   252→  const users = await getUserStats()
+   253→  const attempts = await prisma.quizAttempt.findMany()
+   254→  const uArr = Array.from(users.values())
+   255→
+   256→  const qs = uArr.map(u => u.q), acc = uArr.map(u => u.q > 0 ? (u.c / u.q) * 100 : 0)
+   257→  const st = uArr.map(u => u.streak), tm = uArr.map(u => u.time / 60)
+   258→  const es = uArr.map(u => u.exams.length > 0 ? u.exams.reduce((s, e) => s + e.score, 0) / u.exams.length : u.scores.reduce((a, b) => a + b, 0) / u.scores.length)
+   259→
+   260→  const daily: { date: string; attempts: number; uniqueUsers: number }[] = []
+   261→  for (let i = 29; i >= 0; i--) {
+   262→    const d = new Date(Date.now() - i * 86400000).toISOString().split('T')[0]
+   263→    const da = attempts.filter(a => new Date(a.attemptDate).toISOString().split('T')[0] === d)
+   264→    daily.push({ date: d, attempts: da.length, uniqueUsers: new Set(da.map(a => a.userId)).size })
+   265→  }
+   266→
+   267→  return NextResponse.json({
+   268→    correlations: {
+   269→      questionsSolvedVsExam: Math.round(pearson(qs, es) * 1000) / 1000,
+   270→      accuracyVsExam: Math.round(pearson(acc, es) * 1000) / 1000,
+   271→      studyStreakVsExam: Math.round(pearson(st, es) * 1000) / 1000,
+   272→      timeSpentVsExam: Math.round(pearson(tm, es) * 1000) / 1000,
+   273→    },
+   274→    regressionModels: {
+   275→      questionsSolved: { ...linReg(qs, es), r2: Math.round(linReg(qs, es).r2 * 1000) / 1000 },
+   276→      accuracy: { ...linReg(acc, es), r2: Math.round(linReg(acc, es).r2 * 1000) / 1000 },
+   277→      studyStreak: { ...linReg(st, es), r2: Math.round(linReg(st, es).r2 * 1000) / 1000 },
+   278→      timeSpent: { ...linReg(tm, es), r2: Math.round(linReg(tm, es).r2 * 1000) / 1000 },
+   279→    },
+   280→    dailyActivity: daily,
+   281→    scatterData: {
+   282→      questionsVsScore: qs.map((v, i) => ({ x: v, y: es[i] })),
+   283→      accuracyVsScore: acc.map((v, i) => ({ x: Math.round(v * 10) / 10, y: es[i] })),
+   284→      streakVsScore: st.map((v, i) => ({ x: v, y: es[i] })),
+   285→      timeVsScore: tm.map((v, i) => ({ x: Math.round(v * 10) / 10, y: es[i] })),
+   286→    },
+   287→    sampleSize: users.size,
+   288→  })
+   289→}
+   290→
+   291→// ─── At-Risk ───────────────────────────────────────────
+   292→async function getAtRiskStudents() {
+   293→  const users = await getUserStats()
+   294→  const atRisk = Array.from(users.values()).map(u => {
+   295→    const avgAcc = u.q > 0 ? (u.c / u.q) * 100 : 0
+   296→    const avgScore = u.scores.reduce((a, b) => a + b, 0) / u.scores.length
+   297→    const lowAcc = avgAcc < 60, lowAct = u.att < 3, lowStr = u.streak <= 1, lowComp = avgScore < 50
+   298→    const decl = u.scores.length >= 3 && u.scores[u.scores.length - 1] < u.scores[u.scores.length - 3]
+   299→    let rs = 0; if (lowAcc) rs += 30; if (lowAct) rs += 25; if (lowStr) rs += 20; if (lowComp) rs += 15; if (decl) rs += 10
+   300→    rs = Math.min(rs, 100)
+   301→    let rl: 'Low' | 'Medium' | 'High' = 'Low'
+   302→    if (rs >= 60) rl = 'High'; else if (rs >= 35) rl = 'Medium'
+   303→    let rec = 'Continue current study patterns.'
+   304→    if (rl === 'High') rec = 'Immediate intervention recommended: schedule tutoring, provide additional resources, and increase practice frequency.'
+   305→    else if (rl === 'Medium') rec = 'Monitor closely: encourage more consistent study habits and provide targeted practice materials.'
+   306→    return { userId: u.id, userName: u.name, avgAccuracy: Math.round(avgAcc * 10) / 10, totalAttempts: u.att, studyStreak: u.streak, avgScore: Math.round(avgScore * 10) / 10, riskScore: rs, riskLevel: rl, riskFactors: { lowAccuracy: lowAcc, lowActivity: lowAct, lowStreak: lowStr, lowCompletion: lowComp, decliningTrend: decl }, recommendedAction: rec }
+   307→  }).filter(s => s.riskScore >= 25).sort((a, b) => b.riskScore - a.riskScore)
+   308→
+   309→  return NextResponse.json({ atRiskStudents: atRisk, total: atRisk.length })
+   310→}
+   311→
+   312→// ─── Readiness ─────────────────────────────────────────
+   313→async function getReadinessSystem() {
+   314→  const users = await getUserStats()
+   315→  const readinessData = Array.from(users.values()).map(u => {
+   316→    const avgAcc = u.q > 0 ? (u.c / u.q) * 100 : 0
+   317→    const aw = avgAcc * 0.35, cw = consistencyBonus(u.scores) * 25, actw = Math.min(u.att * 2, 20)
+   318→    const scw = Math.min(u.subjs.size * 5, 10), hw = u.best >= 80 ? 10 : u.best >= 60 ? 5 : 0
+   319→    const rs = Math.min(Math.round(aw + cw + actw + scw + hw), 100)
+   320→    const pl = Math.max(0, Math.round(rs - 4 - (100 - rs) * 0.1))
+   321→    const ph = Math.min(100, Math.round(rs + 3 + rs * 0.05))
+   322→    let trend: 'improving' | 'stable' | 'declining' = 'stable'
+   323→    if (u.scores.length >= 4) {
+   324→      const h = Math.floor(u.scores.length / 2)
+   325→      const ra = u.scores.slice(h).reduce((a, b) => a + b, 0) / (u.scores.length - h)
+   326→      const oa = u.scores.slice(0, h).reduce((a, b) => a + b, 0) / h
+   327→      if (ra > oa + 5) trend = 'improving'; else if (ra < oa - 5) trend = 'declining'
+   328→    }
+   329→    return { userId: u.id, userName: u.name, readinessScore: rs, predictedRange: { low: pl, high: ph }, trend, breakdown: { accuracy: Math.round(aw * 10) / 10, consistency: Math.round(cw * 10) / 10, activity: Math.round(actw * 10) / 10, subjectCoverage: Math.round(scw * 10) / 10, historical: hw } }
+   330→  }).sort((a, b) => b.readinessScore - a.readinessScore)
+   331→
+   332→  return NextResponse.json({ readinessData })
+   333→}
+   334→
+   335→// ─── Predictions ───────────────────────────────────────
+   336→async function getPredictions() {
+   337→  const users = await getUserStats()
+   338→  const uArr = Array.from(users.values())
+   339→
+   340→  if (uArr.length < 3) return NextResponse.json({ comparison: { mae: {}, rmse: {}, r2: {}, accuracy: {}, precision: {}, recall: {}, f1: {} }, predictions: [], message: 'Insufficient data for ML predictions. Need at least 3 students.' })
+   341→
+   342→  const features: number[][] = [], labels: number[] = [], names: string[] = []
+   343→  for (const u of uArr) {
+   344→    const avgAcc = u.q > 0 ? (u.c / u.q) * 100 : 0
+   345→    const avgScore = u.scores.reduce((a, b) => a + b, 0) / u.scores.length
+   346→    const examScore = u.exams.length > 0 ? u.exams.reduce((s, e) => s + e.score, 0) / u.exams.length : avgScore
+   347→    features.push([avgAcc, u.att, u.streak, u.subjs.size, avgScore, u.time / 60])
+   348→    labels.push(examScore); names.push(u.name)
+   349→  }
+   350→
+   351→  const n = features.length, p = features[0].length
+   352→  const means = Array(p).fill(0), stds = Array(p).fill(1)
+   353→  for (let j = 0; j < p; j++) { const c = features.map(r => r[j]); means[j] = c.reduce((a, b) => a + b, 0) / n; stds[j] = Math.sqrt(c.reduce((s, v) => s + Math.pow(v - means[j], 2), 0) / n) || 1 }
+   354→  const normed = features.map(r => r.map((v, j) => (v - means[j]) / stds[j]))
+   355→
+   356→  const w = Array(p + 1).fill(0)
+   357→  for (let ep = 0; ep < 500; ep++) { const g = Array(p + 1).fill(0); for (let i = 0; i < n; i++) { let pr = w[0]; for (let j = 0; j < p; j++) pr += w[j + 1] * normed[i][j]; const err = pr - labels[i]; g[0] += err / n; for (let j = 0; j < p; j++) g[j + 1] += (err * normed[i][j]) / n } for (let j = 0; j <= p; j++) w[j] -= 0.01 * g[j] }
+   358→  const lrPred = normed.map(r => { let pr = w[0]; for (let j = 0; j < p; j++) pr += w[j + 1] * r[j]; return Math.max(0, Math.min(100, pr)) })
+   359→
+   360→  const accV = features.map(f => f[0])
+   361→  let bSplit = 0, bMSE = Infinity
+   362→  for (const sv of [...accV].sort((a, b) => a - b)) { const li = accV.map((v, i) => v <= sv ? i : -1).filter(i => i >= 0); const ri = accV.map((v, i) => v > sv ? i : -1).filter(i => i >= 0); if (li.length === 0 || ri.length === 0) continue; const lm = li.reduce((s, i) => s + labels[i], 0) / li.length; const rm = ri.reduce((s, i) => s + labels[i], 0) / ri.length; const mse = [...li.map(i => Math.pow(labels[i] - lm, 2)), ...ri.map(i => Math.pow(labels[i] - rm, 2))].reduce((a, b) => a + b, 0) / n; if (mse < bMSE) { bMSE = mse; bSplit = sv } }
+   363→  const dtPred = features.map(f => { const idx = accV.map((v, i) => (f[0] <= bSplit ? v <= bSplit : v > bSplit) ? i : -1).filter(i => i >= 0); return idx.length > 0 ? idx.reduce((s, i) => s + labels[i], 0) / idx.length : 50 })
+   364→
+   365→  const tPreds: number[][] = []
+   366→  for (const sub of [[0, 1, 2], [0, 3, 4], [1, 2, 4], [0, 2, 5], [0, 1, 4]]) {
+   367→    const pf = sub[0], fv = features.map(f => f[pf]); let bs = 0, bm = Infinity
+   368→    for (const sv of [...fv].sort((a, b) => a - b)) { const li = fv.map((v, i) => v <= sv ? i : -1).filter(i => i >= 0); const ri = fv.map((v, i) => v > sv ? i : -1).filter(i => i >= 0); if (li.length === 0 || ri.length === 0) continue; const lm = li.reduce((s, i) => s + labels[i], 0) / li.length; const rm = ri.reduce((s, i) => s + labels[i], 0) / ri.length; const mse = [...li.map(i => Math.pow(labels[i] - lm, 2)), ...ri.map(i => Math.pow(labels[i] - rm, 2))].reduce((a, b) => a + b, 0) / n; if (mse < bm) { bm = mse; bs = sv } }
+   369→    tPreds.push(features.map(f => { const idx = fv.map((v, i) => (f[pf] <= bs ? v <= bs : v > bs) ? i : -1).filter(i => i >= 0); return idx.length > 0 ? idx.reduce((s, i) => s + labels[i], 0) / idx.length : 50 }))
+   370→  }
+   371→  const rfPred = features.map((_, i) => Math.max(0, Math.min(100, tPreds.reduce((s, p) => s + p[i], 0) / tPreds.length)))
+   372→
+   373→  const mae = (a: number[], p: number[]) => a.reduce((s, v, i) => s + Math.abs(v - p[i]), 0) / a.length
+   374→  const rmse = (a: number[], p: number[]) => Math.sqrt(a.reduce((s, v, i) => s + Math.pow(v - p[i], 2), 0) / a.length)
+   375→  const r2 = (a: number[], p: number[]) => { const m = a.reduce((x, y) => x + y, 0) / a.length; const st = a.reduce((s, v) => s + Math.pow(v - m, 2), 0); const sr = a.reduce((s, v, i) => s + Math.pow(v - p[i], 2), 0); return st !== 0 ? 1 - sr / st : 0 }
+   376→  const cls = (a: number[], p: number[], t = 60) => { const ab = a.map(v => v >= t ? 1 : 0), pb = p.map(v => v >= t ? 1 : 0); const tp = ab.filter((v, i) => v === 1 && pb[i] === 1).length, fp = ab.filter((v, i) => v === 0 && pb[i] === 1).length, fn = ab.filter((v, i) => v === 1 && pb[i] === 0).length, tn = ab.filter((v, i) => v === 0 && pb[i] === 0).length; const ac = (tp + tn) / a.length, pr = tp + fp > 0 ? tp / (tp + fp) : 0, re = tp + fn > 0 ? tp / (tp + fn) : 0, f1 = pr + re > 0 ? 2 * pr * re / (pr + re) : 0; return { accuracy: ac, precision: pr, recall: re, f1 } }
+   377→  const lc = cls(labels, lrPred), dc = cls(labels, dtPred), rc = cls(labels, rfPred)
+   378→
+   379→  return NextResponse.json({
+   380→    comparison: {
+   381→      mae: { linearRegression: Math.round(mae(labels, lrPred) * 100) / 100, decisionTree: Math.round(mae(labels, dtPred) * 100) / 100, randomForest: Math.round(mae(labels, rfPred) * 100) / 100 },
+   382→      rmse: { linearRegression: Math.round(rmse(labels, lrPred) * 100) / 100, decisionTree: Math.round(rmse(labels, dtPred) * 100) / 100, randomForest: Math.round(rmse(labels, rfPred) * 100) / 100 },
+   383→      r2: { linearRegression: Math.round(r2(labels, lrPred) * 1000) / 1000, decisionTree: Math.round(r2(labels, dtPred) * 1000) / 1000, randomForest: Math.round(r2(labels, rfPred) * 1000) / 1000 },
+   384→      accuracy: { linearRegression: Math.round(lc.accuracy * 1000) / 1000, decisionTree: Math.round(dc.accuracy * 1000) / 1000, randomForest: Math.round(rc.accuracy * 1000) / 1000 },
+   385→      precision: { linearRegression: Math.round(lc.precision * 1000) / 1000, decisionTree: Math.round(dc.precision * 1000) / 1000, randomForest: Math.round(rc.precision * 1000) / 1000 },
+   386→      recall: { linearRegression: Math.round(lc.recall * 1000) / 1000, decisionTree: Math.round(dc.recall * 1000) / 1000, randomForest: Math.round(rc.recall * 1000) / 1000 },
+   387→      f1: { linearRegression: Math.round(lc.f1 * 1000) / 1000, decisionTree: Math.round(dc.f1 * 1000) / 1000, randomForest: Math.round(rc.f1 * 1000) / 1000 },
+   388→    },
+   389→    predictions: names.map((name, i) => ({ userName: name, actual: Math.round(labels[i] * 10) / 10, linearRegression: Math.round(lrPred[i] * 10) / 10, decisionTree: Math.round(dtPred[i] * 10) / 10, randomForest: Math.round(rfPred[i] * 10) / 10, passProbability: Math.round(Math.min(100, rfPred[i]) * 10) / 10 })),
+   390→  })
+   391→}
+   392→
+   393→// ─── Findings ──────────────────────────────────────────
+   394→async function getResearchFindings() {
+   395→  const users = await getUserStats()
+   396→  const attempts = await prisma.quizAttempt.findMany()
+   397→  const exams = await prisma.examResult.findMany()
+   398→  const findings: { category: string; finding: string; metric: string; impact: 'high' | 'medium' | 'low' }[] = []
+   399→
+   400→  if (users.size === 0) return NextResponse.json({ findings: [], message: 'No data available yet.' })
+   401→
+   402→  const uArr = Array.from(users.values())
+   403→  const highStr = uArr.filter(u => u.streak >= 10), lowStr = uArr.filter(u => u.streak < 3)
+   404→  if (highStr.length > 0 && lowStr.length > 0) {
+   405→    const ha = highStr.reduce((s, u) => s + u.scores.reduce((a, b) => a + b, 0) / u.scores.length, 0) / highStr.length
+   406→    const la = lowStr.reduce((s, u) => s + u.scores.reduce((a, b) => a + b, 0) / u.scores.length, 0) / lowStr.length
+   407→    const d = Math.round(ha - la)
+   408→    findings.push({ category: 'Study Behavior', finding: `Students with study streaks above 10 days score ${d}% higher on average than those with streaks under 3 days.`, metric: `${d}% score difference`, impact: d >= 15 ? 'high' : d >= 8 ? 'medium' : 'low' })
+   409→  }
+   410→
+   411→  const scores = uArr.map(u => u.scores.reduce((a, b) => a + b, 0) / u.scores.length)
+   412→  const preds = [
+   413→    { name: 'Accuracy', corr: Math.abs(pearson(uArr.map(u => u.q > 0 ? (u.c / u.q) * 100 : 0), scores)) },
+   414→    { name: 'Questions Solved', corr: Math.abs(pearson(uArr.map(u => u.q), scores)) },
+   415→    { name: 'Study Streak', corr: Math.abs(pearson(uArr.map(u => u.streak), scores)) },
+   416→  ].sort((a, b) => b.corr - a.corr)
+   417→  findings.push({ category: 'Prediction', finding: `${preds[0].name} is the strongest predictor of exam performance (r=${Math.round(preds[0].corr * 100) / 100}), followed by ${preds[1].name} (r=${Math.round(preds[1].corr * 100) / 100}).`, metric: `r=${Math.round(preds[0].corr * 100) / 100}`, impact: preds[0].corr >= 0.7 ? 'high' : preds[0].corr >= 0.4 ? 'medium' : 'low' })
+   418→
+   419→  const sMap = new Map<string, { t: number; c: number }>()
+   420→  for (const a of attempts) { const e = sMap.get(a.subject); if (e) { e.t += a.totalQuestions; e.c += a.correctAnswers } else sMap.set(a.subject, { t: a.totalQuestions, c: a.correctAnswers }) }
+   421→  if (sMap.size > 0) {
+   422→    const sa = Array.from(sMap.entries()).map(([s, d]) => ({ subject: s, acc: d.t > 0 ? (d.c / d.t) * 100 : 0 })).sort((a, b) => a.acc - b.acc)
+   423→    findings.push({ category: 'Subject Difficulty', finding: `${sa[0].subject.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} is currently the most difficult subject with an average accuracy of ${Math.round(sa[0].acc)}%.`, metric: `${Math.round(sa[0].acc)}% avg accuracy`, impact: sa[0].acc < 50 ? 'high' : 'medium' })
+   424→  }
+   425→
+   426→  const hp = uArr.filter(u => u.att >= 5), lp = uArr.filter(u => u.att < 3)
+   427→  if (hp.length > 0 && lp.length > 0) {
+   428→    const ha = hp.reduce((s, u) => s + u.scores.reduce((a, b) => a + b, 0) / u.scores.length, 0) / hp.length
+   429→    const la = lp.reduce((s, u) => s + u.scores.reduce((a, b) => a + b, 0) / u.scores.length, 0) / lp.length
+   430→    findings.push({ category: 'Practice Frequency', finding: `Students who completed 5+ quizzes average ${Math.round(ha)}%, compared to ${Math.round(la)}% for those with fewer than 3 attempts — a ${Math.round(ha - la)}% difference.`, metric: `${Math.round(ha - la)}% gap`, impact: (ha - la) >= 15 ? 'high' : 'medium' })
+   431→  }
+   432→
+   433→  if (exams.length > 0) {
+   434→    const pr = (exams.filter(e => e.passFail === 'pass').length / exams.length) * 100
+   435→    findings.push({ category: 'Exam Results', finding: `The overall exam pass rate is ${Math.round(pr)}%. ${pr < 70 ? 'This suggests a need for curriculum review or additional student support.' : 'This indicates students are generally well-prepared.'}`, metric: `${Math.round(pr)}% pass rate`, impact: pr < 60 ? 'high' : pr < 75 ? 'medium' : 'low' })
+   436→  }
+   437→
+   438→  return NextResponse.json({ findings })
+   439→}
+   440→
+   441→// ─── Correlations ──────────────────────────────────────
+   442→async function getCorrelationMatrix() {
+   443→  const users = await getUserStats()
+   444→  const uArr = Array.from(users.values())
+   445→  if (uArr.length < 3) return NextResponse.json({ matrix: [], labels: [] })
+   446→
+   447→  const vars: Record<string, number[]> = {
+   448→    'Questions Solved': uArr.map(u => u.q),
+   449→    'Accuracy': uArr.map(u => u.q > 0 ? (u.c / u.q) * 100 : 0),
+   450→    'Study Streak': uArr.map(u => u.streak),
+   451→    'Avg Score': uArr.map(u => u.scores.reduce((a, b) => a + b, 0) / u.scores.length),
+   452→    'Time Spent (min)': uArr.map(u => u.time / 60),
+   453→    'Subject Coverage': uArr.map(u => u.subjs.size),
+   454→    'Total Attempts': uArr.map(u => u.att),
+   455→  }
+   456→  const labels = Object.keys(vars)
+   457→  const matrix = labels.map(rk => labels.map(ck => Math.round(pearson(vars[rk], vars[ck]) * 1000) / 1000))
+   458→  return NextResponse.json({ matrix, labels })
+   459→}
+   460→
