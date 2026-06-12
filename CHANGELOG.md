@@ -87,3 +87,80 @@ All notable changes to this project will be documented in this file.
 - Leaderboard system
 - Analytics dashboard
 - Feedback system
+
+## [2.8.1] - 2026-06-13
+### Changed
+- Add Dependabot config for weekly npm dependency updates
+- Add Dependabot config for monthly GitHub Actions updates
+
+## [2.8.0] - 2026-06-13
+### Security
+- Add security middleware with X-Frame-Options, X-Content-Type-Options, Referrer-Policy headers
+- Add Permissions-Policy to restrict camera, microphone, and geolocation access
+- Add X-XSS-Protection header
+
+## [2.7.1] - 2026-06-13
+### Added
+- Loading spinner component for smoother page transitions
+
+## [2.7.0] - 2026-06-13
+### Performance
+- Use Promise.all for parallel database queries in analytics overview
+- Add totalFeedback and totalExams to overview response
+
+## [2.6.1] - 2026-06-13
+### Added
+- Error boundary with animated UI and retry button
+
+## [2.6.0] - 2026-06-13
+### Added
+- Custom animated 404 page with gradient styling and back-to-home link
+
+## [2.5.1] - 2026-06-13
+### SEO
+- Add robots.txt with sitemap reference
+- Disallow /admin and /api/ from search engine indexing
+
+## [2.5.0] - 2026-06-13
+### Accessibility
+- Add skip-to-content link for keyboard navigation
+- Improve screen reader support
+
+## [2.4.1] - 2026-06-13
+### Style
+- Custom dark scrollbar for WebKit and Firefox
+- Smooth scroll behavior for anchor navigation
+
+## [2.4.0] - 2026-06-13
+### Documentation
+- Expand .env.example with AI, analytics, and app configuration sections
+- Document all environment variables
+
+## [2.3.1] - 2026-06-13
+### Fixed
+- Auto-seed database on first-time setup in dev.sh
+
+## [2.3.0] - 2026-06-13
+### Performance
+- Add compound indexes (userId+subject, subject+attemptDate) for faster analytics
+- Add indexes on Feedback.rating, Feedback.createdAt, ExamResult.passFail, ExamResult.gradeCategory
+
+## [2.2.1] - 2026-06-13
+### SEO
+- Enhanced metadata with OpenGraph tags
+- Structured title template for sub-pages
+- Add keywords, authors, and metadataBase
+
+## [2.2.0] - 2026-06-13
+### Added
+- Graceful Prisma shutdown on process exit
+- Improved connection handling
+
+## [2.1.1] - 2026-06-13
+### Security
+- Remove X-Powered-By header for enhanced security
+
+## [2.1.0] - 2026-06-13
+### Added
+- Version info and timestamp in API health endpoint
+- Add force-dynamic to root API route
