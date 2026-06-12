@@ -1,13 +1,3 @@
-import { PrismaClient } from '@prisma/client'
-
-const globalForPrisma = globalThis as unknown as {
-  db: PrismaClient | undefined
-}
-
-export const db =
-  globalForPrisma.db ??
-  new PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['query'] : ['error'],
-  })
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.db = db
+// Re-export from the canonical prisma instance
+// This ensures all database connections use the same resolved path
+export { prisma as db } from './prisma'
