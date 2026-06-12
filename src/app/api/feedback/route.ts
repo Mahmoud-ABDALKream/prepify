@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
 // GET /api/feedback — retrieve all feedback (requires admin secret)
 export async function GET(request: NextRequest) {
   const secret = request.headers.get('x-admin-secret')
