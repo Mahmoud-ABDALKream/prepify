@@ -184,27 +184,28 @@ export default function LandingPage() {
 
       {/* ─── Navbar ─── */}
       <motion.nav
-        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#080c18]/80 border-b border-[#1e2d45]"
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#080c18]/85 border-b border-[#1e2d45]/60"
         initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-3 group">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 sm:h-[68px] flex items-center justify-between">
+          <a href="/" className="flex items-center gap-2.5 group shrink-0">
             <img src="/logo.png" alt="Prepify" className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl shadow-[0_0_15px_rgba(124,58,237,0.3)] group-hover:shadow-[0_0_25px_rgba(124,58,237,0.5)] transition-shadow" />
             <span className="font-black text-lg bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] bg-clip-text text-transparent">Prepify</span>
           </a>
 
           {/* Desktop Nav Links */}
-          <div className="hidden sm:flex items-center gap-5">
-            <a href="#subjects" className="text-[#64748b] hover:text-[#00d4ff] text-sm transition-colors">Subjects</a>
-            <a href="#features" className="text-[#64748b] hover:text-[#00d4ff] text-sm transition-colors">Features</a>
-            <a href="/leaderboard" className="text-[#64748b] hover:text-[#8b5cf6] text-sm transition-colors">Leaderboard</a>
-            <a href="#feedback" className="text-[#64748b] hover:text-[#f59e0b] text-sm transition-colors">Feedback</a>
-            <a href="#about" className="text-[#64748b] hover:text-[#00d4ff] text-sm transition-colors">About</a>
+          <div className="hidden sm:flex items-center gap-1">
+            <a href="#subjects" className="text-[#94a3b8] hover:text-[#00d4ff] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(0,212,255,0.06)] transition-all">Subjects</a>
+            <a href="#features" className="text-[#94a3b8] hover:text-[#00d4ff] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(0,212,255,0.06)] transition-all">Features</a>
+            <a href="/leaderboard" className="text-[#94a3b8] hover:text-[#8b5cf6] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(139,92,246,0.06)] transition-all flex items-center gap-1.5">🏆 Leaderboard</a>
+            <a href="#feedback" className="text-[#94a3b8] hover:text-[#f59e0b] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(245,158,11,0.06)] transition-all">Feedback</a>
+            <a href="#about" className="text-[#94a3b8] hover:text-[#00d4ff] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(0,212,255,0.06)] transition-all">About</a>
+            <div className="w-px h-5 bg-[#1e2d45] mx-2" />
             <a
               href="/cyber-security-2"
-              className="bg-gradient-to-r from-[#ef4444] to-[#dc2626] text-white rounded-lg px-4 py-2 text-sm font-bold hover:opacity-90 transition-opacity shadow-[0_0_15px_rgba(239,68,68,0.2)]"
+              className="bg-gradient-to-r from-[#ef4444] to-[#dc2626] text-white rounded-lg px-4 py-2 text-[13px] font-bold hover:opacity-90 transition-all shadow-[0_0_15px_rgba(239,68,68,0.2)] hover:shadow-[0_0_25px_rgba(239,68,68,0.3)] hover:-translate-y-0.5 active:translate-y-0"
             >
               Latest Quiz
             </a>
@@ -233,13 +234,14 @@ export default function LandingPage() {
               transition={{ duration: 0.3 }}
               className="sm:hidden overflow-hidden bg-[#080c18]/95 backdrop-blur-xl border-t border-[#1e2d45]"
             >
-              <div className="px-4 py-4 flex flex-col gap-1">
-                <a href="#subjects" onClick={() => setMobileMenuOpen(false)} className="text-[#64748b] hover:text-[#00d4ff] text-sm py-2.5 px-3 rounded-xl hover:bg-[#111827] transition-all">Subjects</a>
-                <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-[#64748b] hover:text-[#00d4ff] text-sm py-2.5 px-3 rounded-xl hover:bg-[#111827] transition-all">Features</a>
-                <a href="/leaderboard" onClick={() => setMobileMenuOpen(false)} className="text-[#64748b] hover:text-[#8b5cf6] text-sm py-2.5 px-3 rounded-xl hover:bg-[#111827] transition-all">🏆 Leaderboard</a>
-                <a href="#feedback" onClick={() => setMobileMenuOpen(false)} className="text-[#64748b] hover:text-[#f59e0b] text-sm py-2.5 px-3 rounded-xl hover:bg-[#111827] transition-all">Feedback</a>
-                <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-[#64748b] hover:text-[#00d4ff] text-sm py-2.5 px-3 rounded-xl hover:bg-[#111827] transition-all">About</a>
-                <a href="/cyber-security-2" className="bg-gradient-to-r from-[#ef4444] to-[#dc2626] text-white rounded-xl py-2.5 px-3 text-sm font-bold text-center mt-1 hover:opacity-90 transition-opacity shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+              <div className="px-5 py-3 flex flex-col gap-0.5">
+                <a href="#subjects" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#00d4ff] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(0,212,255,0.06)] transition-all">Subjects</a>
+                <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#00d4ff] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(0,212,255,0.06)] transition-all">Features</a>
+                <a href="/leaderboard" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#8b5cf6] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(139,92,246,0.06)] transition-all">🏆 Leaderboard</a>
+                <a href="#feedback" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#f59e0b] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(245,158,11,0.06)] transition-all">Feedback</a>
+                <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#00d4ff] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(0,212,255,0.06)] transition-all">About</a>
+                <div className="h-px bg-[#1e2d45] my-1.5" />
+                <a href="/cyber-security-2" className="bg-gradient-to-r from-[#ef4444] to-[#dc2626] text-white rounded-xl py-2.5 px-3 text-sm font-bold text-center hover:opacity-90 transition-all shadow-[0_0_15px_rgba(239,68,68,0.2)]">
                   Latest Quiz →
                 </a>
               </div>
