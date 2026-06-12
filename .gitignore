@@ -22,8 +22,7 @@ node_modules/
 db/*.db
 db/*.db-journal
 
-# Environment variables (secrets)
-.env
+# Environment variables (secrets) - .env is committed with safe defaults for deployment
 .env.local
 .env.*.local
 
