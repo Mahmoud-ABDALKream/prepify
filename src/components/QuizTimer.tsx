@@ -13,38 +13,87 @@ interface QuizTimerProps {
 export default function QuizTimer({ minutes, onTimeUp, onTick, paused = false }: QuizTimerProps) {
   const [secondsLeft, setSecondsLeft] = useState(minutes * 60)
   const [isTimeUp, setIsTimeUp] = useState(false)
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const rafRef = useRef<number | null>(null)
+  const startTimestampRef = useRef<number>(0)   // absolute time when timer started
+  const pausedElapsedRef = useRef<number>(0)     // elapsed seconds when pause began
+  const onTimeUpRef = useRef(onTimeUp)
+  const onTickRef = useRef(onTick)
 
+  // Keep callback refs up-to-date without re-triggering the effect
+  useEffect(() => { onTimeUpRef.current = onTimeUp }, [onTimeUp])
+  useEffect(() => { onTickRef.current = onTick }, [onTick])
+
+  // Reset when minutes change
   useEffect(() => {
-    if (minutes === 0) return // no timer
-    setSecondsLeft(minutes * 60)
+    if (minutes === 0) return
+    const totalSeconds = minutes * 60
+    setSecondsLeft(totalSeconds)
     setIsTimeUp(false)
+    startTimestampRef.current = Date.now()
+    pausedElapsedRef.current = 0
   }, [minutes])
 
+  // Main tick loop — uses requestAnimationFrame + real wall-clock time
   useEffect(() => {
-    if (minutes === 0 || paused || isTimeUp) {
-      if (intervalRef.current) clearInterval(intervalRef.current)
+    if (minutes === 0 || isTimeUp) {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
       return
     }
 
-    intervalRef.current = setInterval(() => {
-      setSecondsLeft(prev => {
-        const next = prev - 1
-        if (next <= 0) {
-          if (intervalRef.current) clearInterval(intervalRef.current)
-          setIsTimeUp(true)
-          onTimeUp()
-          return 0
-        }
-        onTick?.(next)
-        return next
-      })
-    }, 1000)
+    const totalSeconds = minutes * 60
+    let lastTickSecond = -1
+
+    const tick = () => {
+      if (paused) {
+        // Don't update while paused — just keep requesting frames
+        rafRef.current = requestAnimationFrame(tick)
+        return
+      }
+
+      const elapsedMs = Date.now() - startTimestampRef.current
+      const elapsedSeconds = Math.floor(elapsedMs / 1000)
+      const remaining = totalSeconds - elapsedSeconds - pausedElapsedRef.current
+
+      if (remaining <= 0) {
+        setSecondsLeft(0)
+        setIsTimeUp(true)
+        onTimeUpRef.current()
+        return
+      }
+
+      setSecondsLeft(remaining)
+
+      // Only call onTick once per real second
+      if (remaining !== lastTickSecond) {
+        lastTickSecond = remaining
+        onTickRef.current?.(remaining)
+      }
+
+      rafRef.current = requestAnimationFrame(tick)
+    }
+
+    rafRef.current = requestAnimationFrame(tick)
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
-  }, [minutes, paused, isTimeUp, onTimeUp, onTick])
+  }, [minutes, paused, isTimeUp])
+
+  // Handle pause/resume — save elapsed time so the clock doesn't jump
+  useEffect(() => {
+    if (minutes === 0) return
+
+    if (paused) {
+      // Pausing: record how much real time has elapsed
+      const elapsedMs = Date.now() - startTimestampRef.current
+      pausedElapsedRef.current += Math.floor(elapsedMs / 1000)
+      // Reset start timestamp so when we resume, we measure from resume point
+      startTimestampRef.current = Date.now()
+    } else if (startTimestampRef.current === 0 && pausedElapsedRef.current > 0) {
+      // Resuming: set the start timestamp to now
+      startTimestampRef.current = Date.now()
+    }
+  }, [paused, minutes])
 
   if (minutes === 0) return null
 
