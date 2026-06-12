@@ -6,9 +6,17 @@ export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
-    const attempts = await prisma.quizAttempt.findMany()
-    const exams = await prisma.examResult.findMany()
-    const users = await getUserStats()
+    const [
+      attempts,
+      exams,
+      users,
+      totalFeedback,
+    ] = await Promise.all([
+      prisma.quizAttempt.findMany(),
+      prisma.examResult.findMany(),
+      getUserStats(),
+      prisma.feedback.count(),
+    ])
 
     const weekAgo = new Date(Date.now() - 7 * 86400000)
     const activeIds = new Set(attempts.filter(a => new Date(a.attemptDate) >= weekAgo).map(a => a.userId))
@@ -23,6 +31,7 @@ export async function GET() {
       totalStudents, activeStudents: activeIds.size, totalQuizAttempts: attempts.length,
       avgAccuracy: Math.round(avgAccuracy * 10) / 10, avgStudyStreak: Math.round(avgStreak * 10) / 10,
       passRate: Math.round(passRate * 10) / 10, atRiskStudents: atRisk,
+      totalFeedback, totalExams: exams.length,
     })
   } catch (error) {
     console.error('Analytics overview error:', error)
