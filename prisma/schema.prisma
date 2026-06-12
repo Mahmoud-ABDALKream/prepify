@@ -15,6 +15,9 @@ model Feedback {
   rating    Int
   subject   String?
   createdAt DateTime @default(now())
+
+  @@index([rating])
+  @@index([createdAt])
 }
 
 model QuizAttempt {
@@ -37,6 +40,8 @@ model QuizAttempt {
   @@index([score])
   @@index([questionType])
   @@index([attemptDate])
+  @@index([userId, subject])
+  @@index([subject, attemptDate])
 }
 
 model ExamResult {
@@ -51,4 +56,8 @@ model ExamResult {
 
   @@index([userId])
   @@index([subject])
+  @@index([passFail])
+  @@index([gradeCategory])
+  @@index([examDate])
+  @@index([userId, subject])
 }
