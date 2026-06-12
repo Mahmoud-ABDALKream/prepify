@@ -52,6 +52,9 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-background text-foreground" style={{ fontFamily: "'Cairo', sans-serif", backgroundColor: '#080c18', margin: 0, padding: 0 }}>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-violet-600 focus:text-white focus:rounded-md">
+          Skip to main content
+        </a>
         <PrepifyLoader>{children}</PrepifyLoader>
         <Toaster />
       </body>
