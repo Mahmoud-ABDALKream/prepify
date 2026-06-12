@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import PrepifyLoader from "@/components/PrepifyLoader";
 
 export const metadata: Metadata = {
   title: "Prepify — Interactive Quiz & Exam Review",
@@ -38,7 +39,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-background text-foreground" style={{ fontFamily: "'Cairo', sans-serif", backgroundColor: '#080c18', margin: 0, padding: 0 }}>
-        {children}
+        <PrepifyLoader>{children}</PrepifyLoader>
         <Toaster />
       </body>
     </html>
