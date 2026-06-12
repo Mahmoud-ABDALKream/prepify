@@ -4,8 +4,21 @@ import { Toaster } from "@/components/ui/toaster";
 import PrepifyLoader from "@/components/PrepifyLoader";
 
 export const metadata: Metadata = {
-  title: "Prepify — Interactive Quiz & Exam Review",
+  title: {
+    default: "Prepify — Interactive Quiz & Exam Review",
+    template: "%s | Prepify",
+  },
   description: "Interactive Quiz & Exam Review Platform — Practice Cyber Security, C Programming, and more with instant feedback and progress tracking.",
+  keywords: ["quiz", "exam", "review", "cyber security", "C programming", "education", "prepify"],
+  authors: [{ name: "Mahmoud ABD ELKream" }],
+  creator: "Mahmoud ABD ELKream",
+  metadataBase: new URL("https://prepify.space-z.ai"),
+  openGraph: {
+    title: "Prepify — Interactive Quiz & Exam Review",
+    description: "Practice Cyber Security, C Programming, and more with instant feedback and progress tracking.",
+    type: "website",
+    locale: "en_US",
+  },
   icons: {
     icon: "/favicon.png",
   },
