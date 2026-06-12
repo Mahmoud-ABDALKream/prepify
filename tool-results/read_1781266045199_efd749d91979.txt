@@ -1,0 +1,1130 @@
+     1→     1→'use client'
+     2→     2→
+     3→     3→import { useState, useEffect } from 'react'
+     4→     4→import { motion, AnimatePresence } from 'framer-motion'
+     5→     5→import {
+     6→     6→  BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, ScatterChart, Scatter,
+     7→     7→  XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer,
+     8→     8→  RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+     9→     9→  AreaChart, Area,
+    10→    10→} from 'recharts'
+    11→    11→
+    12→    12→// ─── Types ──────────────────────────────────────────────
+    13→    13→interface OverviewData {
+    14→    14→  totalStudents: number
+    15→    15→  activeStudents: number
+    16→    16→  totalQuizAttempts: number
+    17→    17→  avgAccuracy: number
+    18→    18→  avgStudyStreak: number
+    19→    19→  passRate: number
+    20→    20→  atRiskStudents: number
+    21→    21→}
+    22→    22→
+    23→    23→interface StudentAnalytics {
+    24→    24→  students: { userId: string; userName: string; totalAttempts: number; avgScore: number; avgAccuracy: number; bestScore: number; studyStreak: number; subjectsCount: number; timeSpent: number; lastActive: string | null; examScore: number | null }[]
+    25→    25→  accuracyDistribution: { range: string; count: number }[]
+    26→    26→  scoreDistribution: { range: string; count: number }[]
+    27→    27→  examScoreDistribution: { range: string; count: number }[]
+    28→    28→  topPerformers: { userId: string; userName: string; avgScore: number; totalAttempts: number }[]
+    29→    29→  mostImproved: { userId: string; userName: string; improvement: number }[]
+    30→    30→}
+    31→    31→
+    32→    32→interface SubjectAnalytics {
+    33→    33→  subjects: { subject: string; totalAttempts: number; uniqueStudents: number; avgAccuracy: number; avgScore: number; avgExamScore: number; passRate: number; difficultyIndex: number }[]
+    34→    34→  rankings: { hardestSubject: { subject: string; difficultyIndex: number } | null; easiestSubject: { subject: string; difficultyIndex: number } | null; mostStudiedSubject: { subject: string; totalAttempts: number } | null }
+    35→    35→}
+    36→    36→
+    37→    37→interface QuestionTypeAnalytics {
+    38→    38→  questionTypes: { type: string; totalQuestions: number; avgScore: number; successRate: number; totalAttempts: number; uniqueUsers: number }[]
+    39→    39→  correlations: { type: string; correlation: number }[]
+    40→    40→  predictiveRanking: { type: string; correlation: number }[]
+    41→    41→  mostPredictive: { type: string; correlation: number } | null
+    42→    42→}
+    43→    43→
+    44→    44→interface BehaviorAnalytics {
+    45→    45→  correlations: { questionsSolvedVsExam: number; accuracyVsExam: number; studyStreakVsExam: number; timeSpentVsExam: number }
+    46→    46→  regressionModels: { questionsSolved: { slope: number; intercept: number; r2: number }; accuracy: { slope: number; intercept: number; r2: number }; studyStreak: { slope: number; intercept: number; r2: number }; timeSpent: { slope: number; intercept: number; r2: number } }
+    47→    47→  dailyActivity: { date: string; attempts: number; uniqueUsers: number }[]
+    48→    48→  scatterData: { questionsVsScore: { x: number; y: number }[]; accuracyVsScore: { x: number; y: number }[]; streakVsScore: { x: number; y: number }[]; timeVsScore: { x: number; y: number }[] }
+    49→    49→  sampleSize: number
+    50→    50→}
+    51→    51→
+    52→    52→interface AtRiskData {
+    53→    53→  atRiskStudents: { userId: string; userName: string; avgAccuracy: number; totalAttempts: number; studyStreak: number; avgScore: number; riskScore: number; riskLevel: 'Low' | 'Medium' | 'High'; riskFactors: { lowAccuracy: boolean; lowActivity: boolean; lowStreak: boolean; lowCompletion: boolean; decliningTrend: boolean }; recommendedAction: string }[]
+    54→    54→  total: number
+    55→    55→}
+    56→    56→
+    57→    57→interface ReadinessData {
+    58→    58→  readinessData: { userId: string; userName: string; readinessScore: number; predictedRange: { low: number; high: number }; trend: 'improving' | 'stable' | 'declining'; breakdown: { accuracy: number; consistency: number; activity: number; subjectCoverage: number; historical: number } }[]
+    59→    59→}
+    60→    60→
+    61→    61→interface PredictionsData {
+    62→    62→  comparison: { mae: Record<string, number>; rmse: Record<string, number>; r2: Record<string, number>; accuracy: Record<string, number>; precision: Record<string, number>; recall: Record<string, number>; f1: Record<string, number> }
+    63→    63→  predictions: { userName: string; actual: number; linearRegression: number; decisionTree: number; randomForest: number; passProbability: number }[]
+    64→    64→  message?: string
+    65→    65→}
+    66→    66→
+    67→    67→interface FindingsData {
+    68→    68→  findings: { category: string; finding: string; metric: string; impact: 'high' | 'medium' | 'low' }[]
+    69→    69→  message?: string
+    70→    70→}
+    71→    71→
+    72→    72→interface CorrelationData {
+    73→    73→  matrix: number[][]
+    74→    74→  labels: string[]
+    75→    75→}
+    76→    76→
+    77→    77→interface Feedback {
+    78→    78→  id: string
+    79→    79→  name: string
+    80→    80→  email: string
+    81→    81→  message: string
+    82→    82→  rating: number
+    83→    83→  subject: string | null
+    84→    84→  createdAt: string
+    85→    85→}
+    86→    86→
+    87→    87→type DashboardTab = 'overview' | 'students' | 'subjects' | 'question-types' | 'behavior' | 'at-risk' | 'readiness' | 'predictions' | 'findings' | 'feedback'
+    88→    88→
+    89→    89→// ─── Color Constants ────────────────────────────────────
+    90→    90→const COLORS = {
+    91→    91→  purple: '#8b5cf6',
+    92→    92→  blue: '#6366f1',
+    93→    93→  cyan: '#06b6d4',
+    94→    94→  emerald: '#10b981',
+    95→    95→  amber: '#f59e0b',
+    96→    96→  red: '#ef4444',
+    97→    97→  pink: '#ec4899',
+    98→    98→  slate: '#64748b',
+    99→    99→}
+   100→   100→
+   101→   101→const CHART_COLORS = ['#8b5cf6', '#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#ec4899']
+   102→   102→
+   103→   103→const RISK_COLORS = { Low: '#10b981', Medium: '#f59e0b', High: '#ef4444' }
+   104→   104→const TREND_COLORS = { improving: '#10b981', stable: '#6366f1', declining: '#ef4444' }
+   105→   105→
+   106→   106→// ─── Component ──────────────────────────────────────────
+   107→   107→export default function AdminPage() {
+   108→   108→  const [feedbacks, setFeedbacks] = useState<Feedback[]>([])
+   109→   109→  const [loading, setLoading] = useState(true)
+   110→   110→  const [authenticated, setAuthenticated] = useState(false)
+   111→   111→  const [password, setPassword] = useState('')
+   112→   112→  const [authError, setAuthError] = useState('')
+   113→   113→  const [activeTab, setActiveTab] = useState<DashboardTab>('overview')
+   114→   114→
+   115→   115→  // Analytics data states
+   116→   116→  const [overview, setOverview] = useState<OverviewData | null>(null)
+   117→   117→  const [studentData, setStudentData] = useState<StudentAnalytics | null>(null)
+   118→   118→  const [subjectData, setSubjectData] = useState<SubjectAnalytics | null>(null)
+   119→   119→  const [qtData, setQtData] = useState<QuestionTypeAnalytics | null>(null)
+   120→   120→  const [behaviorData, setBehaviorData] = useState<BehaviorAnalytics | null>(null)
+   121→   121→  const [atRiskData, setAtRiskData] = useState<AtRiskData | null>(null)
+   122→   122→  const [readinessData, setReadinessData] = useState<ReadinessData | null>(null)
+   123→   123→  const [predictionsData, setPredictionsData] = useState<PredictionsData | null>(null)
+   124→   124→  const [findingsData, setFindingsData] = useState<FindingsData | null>(null)
+   125→   125→  const [correlationData, setCorrelationData] = useState<CorrelationData | null>(null)
+   126→   126→  const [analyticsLoading, setAnalyticsLoading] = useState(false)
+   127→   127→
+   128→   128→  useEffect(() => {
+   129→   129→    if (authenticated) {
+   130→   130→      fetch('/api/feedback', { headers: { 'x-admin-secret': password } })
+   131→   131→        .then(res => {
+   132→   132→          if (res.ok) return res.json()
+   133→   133→          else if (res.status === 401) { setAuthenticated(false); setAuthError('Session expired.') }
+   134→   134→          return null
+   135→   135→        })
+   136→   136→        .then(data => { if (data) setFeedbacks(data.feedbacks) })
+   137→   137→        .catch(() => {})
+   138→   138→        .finally(() => setLoading(false))
+   139→   139→    }
+   140→   140→  }, [authenticated, password])
+   141→   141→
+   142→   142→  useEffect(() => {
+   143→   143→    if (authenticated && activeTab !== 'feedback') {
+   144→   144→      fetch(`/api/analytics?section=${activeTab}`)
+   145→   145→        .then(res => res.ok ? res.json() : null)
+   146→   146→        .then(data => {
+   147→   147→          setAnalyticsLoading(false)
+   148→   148→          if (!data) return
+   149→   149→          switch (activeTab) {
+   150→   150→            case 'overview': setOverview(data); break
+   151→   151→            case 'students': setStudentData(data); break
+   152→   152→            case 'subjects': setSubjectData(data); break
+   153→   153→            case 'question-types': setQtData(data); break
+   154→   154→            case 'behavior': setBehaviorData(data); break
+   155→   155→            case 'at-risk': setAtRiskData(data); break
+   156→   156→            case 'readiness': setReadinessData(data); break
+   157→   157→            case 'predictions': setPredictionsData(data); break
+   158→   158→            case 'findings': setFindingsData(data); break
+   159→   159→          }
+   160→   160→        })
+   161→   161→        .catch(err => { console.error('Analytics fetch error:', err); setAnalyticsLoading(false) })
+   162→   162→    }
+   163→   163→  }, [authenticated, activeTab])
+   164→   164→
+   165→   165→  const handleLogin = () => {
+   166→   166→    fetch('/api/feedback', { headers: { 'x-admin-secret': password } }).then(res => {
+   167→   167→      if (res.ok) { setAuthenticated(true); setAuthError('') }
+   168→   168→      else setAuthError('Wrong password.')
+   169→   169→    }).catch(() => setAuthError('Connection error.'))
+   170→   170→  }
+   171→   171→
+   172→   172→  const handleExport = () => {
+   173→   173→    window.open('/api/analytics/export?type=csv', '_blank')
+   174→   174→  }
+   175→   175→
+   176→   176→  // ─── Auth Gate ──────────────────────────────────
+   177→   177→  if (!authenticated) {
+   178→   178→    return (
+   179→   179→      <div className="min-h-screen bg-[#080c18] text-[#e2e8f0] font-sans flex items-center justify-center px-4">
+   180→   180→        <motion.div
+   181→   181→          className="bg-[#111827] border border-[#1e2d45] rounded-3xl p-8 sm:p-12 w-full max-w-md shadow-[0_0_40px_rgba(0,0,0,0.5)]"
+   182→   182→          initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, type: 'spring' }}
+   183→   183→        >
+   184→   184→          <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(124,58,237,0.3)]">
+   185→   185→            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+   186→   186→          </div>
+   187→   187→          <h1 className="text-2xl font-black text-center mb-2">Admin Panel</h1>
+   188→   188→          <p className="text-[#64748b] text-sm text-center mb-6">Enter password to access dashboard</p>
+   189→   189→          {authError && <div className="mb-4 bg-[#ef4444]/10 border border-[#ef4444]/30 text-[#ef4444] text-sm rounded-xl px-4 py-3">{authError}</div>}
+   190→   190→          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleLogin()} placeholder="Password" className="w-full bg-[#080c18] border border-[#1e2d45] rounded-xl px-4 py-3 text-sm text-[#e2e8f0] placeholder-[#475569] focus:border-[#7c3aed] focus:outline-none focus:shadow-[0_0_15px_rgba(124,58,237,0.15)] transition-all mb-4" />
+   191→   191→          <button onClick={handleLogin} className="w-full bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] text-white border-none rounded-xl px-6 py-3 font-bold text-sm cursor-pointer hover:opacity-90 transition-all">Login</button>
+   192→   192→          <a href="/" className="block text-center text-[#64748b] text-sm mt-4 hover:text-[#00d4ff] transition-colors">Back to Home</a>
+   193→   193→        </motion.div>
+   194→   194→      </div>
+   195→   195→    )
+   196→   196→  }
+   197→   197→
+   198→   198→  // ─── Sidebar Tabs ──────────────────────────────
+   199→   199→  const tabs: { id: DashboardTab; label: string; icon: string }[] = [
+   200→   200→    { id: 'overview', label: 'Overview', icon: '📊' },
+   201→   201→    { id: 'students', label: 'Students', icon: '🎓' },
+   202→   202→    { id: 'subjects', label: 'Subjects', icon: '📚' },
+   203→   203→    { id: 'question-types', label: 'Q Types', icon: '❓' },
+   204→   204→    { id: 'behavior', label: 'Behavior', icon: '🧠' },
+   205→   205→    { id: 'at-risk', label: 'At-Risk', icon: '⚠️' },
+   206→   206→    { id: 'readiness', label: 'Readiness', icon: '🎯' },
+   207→   207→    { id: 'predictions', label: 'ML Models', icon: '🤖' },
+   208→   208→    { id: 'findings', label: 'Findings', icon: '💡' },
+   209→   209→    { id: 'feedback', label: 'Feedback', icon: '💬' },
+   210→   210→  ]
+   211→   211→
+   212→   212→  const formatSubject = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+   213→   213→  const formatQt = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+   214→   214→
+   215→   215→  // ─── Dashboard Render ──────────────────────────
+   216→   216→  return (
+   217→   217→    <div className="min-h-screen bg-[#080c18] text-[#e2e8f0] font-sans">
+   218→   218→      {/* Background */}
+   219→   219→      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+   220→   220→        <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+   221→   221→        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, #7c3aed, transparent 70%)' }} />
+   222→   222→        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, #6366f1, transparent 70%)' }} />
+   223→   223→      </div>
+   224→   224→
+   225→   225→      <div className="relative z-1 flex">
+   226→   226→        {/* Sidebar */}
+   227→   227→        <aside className="hidden lg:flex flex-col w-[220px] min-h-screen bg-[#0a0f1e]/80 border-r border-[#1e2d45] sticky top-0 p-4 gap-1">
+   228→   228→          <div className="flex items-center gap-2 mb-6 px-2">
+   229→   229→            <div className="w-9 h-9 rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] flex items-center justify-center text-white text-sm font-black shadow-[0_0_15px_rgba(124,58,237,0.3)]">P</div>
+   230→   230→            <div>
+   231→   231→              <div className="text-sm font-black bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] bg-clip-text text-transparent">Prepify</div>
+   232→   232→              <div className="text-[9px] text-[#64748b] tracking-wider uppercase">Research Dashboard</div>
+   233→   233→            </div>
+   234→   234→          </div>
+   235→   235→          {tabs.map(tab => (
+   236→   236→            <button
+   237→   237→              key={tab.id}
+   238→   238→              onClick={() => setActiveTab(tab.id)}
+   239→   239→              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer text-left"
+   240→   240→              style={{
+   241→   241→                background: activeTab === tab.id ? 'rgba(139,92,246,0.15)' : 'transparent',
+   242→   242→                border: activeTab === tab.id ? '1px solid rgba(139,92,246,0.3)' : '1px solid transparent',
+   243→   243→                color: activeTab === tab.id ? '#c4b5fd' : '#94a3b8',
+   244→   244→              }}
+   245→   245→            >
+   246→   246→              <span className="text-base">{tab.icon}</span>
+   247→   247→              {tab.label}
+   248→   248→            </button>
+   249→   249→          ))}
+   250→   250→          <div className="mt-auto pt-4 border-t border-[#1e2d45] flex flex-col gap-2">
+   251→   251→            <button onClick={handleExport} className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold bg-[#111827] border border-[#1e2d45] text-[#94a3b8] hover:border-[#7c3aed] hover:text-[#c4b5fd] transition-all cursor-pointer">
+   252→   252→              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+   253→   253→              Export CSV
+   254→   254→            </button>
+   255→   255→            <a href="/" className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-[#64748b] hover:text-[#94a3b8] transition-colors">
+   256→   256→              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+   257→   257→              Back to Home
+   258→   258→            </a>
+   259→   259→          </div>
+   260→   260→        </aside>
+   261→   261→
+   262→   262→        {/* Mobile Header */}
+   263→   263→        <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-[#080c18]/95 backdrop-blur-xl border-b border-[#1e2d45] px-4 py-2">
+   264→   264→          <div className="flex items-center justify-between mb-2">
+   265→   265→            <div className="text-sm font-black bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] bg-clip-text text-transparent">Prepify Analytics</div>
+   266→   266→            <a href="/" className="text-[#64748b] text-xs hover:text-[#00d4ff]">Home</a>
+   267→   267→          </div>
+   268→   268→          <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-hide">
+   269→   269→            {tabs.map(tab => (
+   270→   270→              <button
+   271→   271→                key={tab.id}
+   272→   272→                onClick={() => setActiveTab(tab.id)}
+   273→   273→                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer shrink-0"
+   274→   274→                style={{
+   275→   275→                  background: activeTab === tab.id ? 'rgba(139,92,246,0.2)' : 'rgba(255,255,255,0.05)',
+   276→   276→                  border: activeTab === tab.id ? '1px solid rgba(139,92,246,0.4)' : '1px solid rgba(255,255,255,0.08)',
+   277→   277→                  color: activeTab === tab.id ? '#c4b5fd' : '#94a3b8',
+   278→   278→                }}
+   279→   279→              >
+   280→   280→                <span>{tab.icon}</span> {tab.label}
+   281→   281→              </button>
+   282→   282→            ))}
+   283→   283→          </div>
+   284→   284→        </div>
+   285→   285→
+   286→   286→        {/* Main Content */}
+   287→   287→        <main className="flex-1 lg:pl-0 px-4 lg:px-8 pt-20 lg:pt-6 pb-10 max-w-[1200px]">
+   288→   288→          <AnimatePresence mode="wait">
+   289→   289→            {analyticsLoading && activeTab !== 'feedback' ? (
+   290→   290→              <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center justify-center py-32">
+   291→   291→                <div className="w-12 h-12 border-3 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" />
+   292→   292→                <p className="text-[#64748b] text-sm mt-4">Analyzing data...</p>
+   293→   293→              </motion.div>
+   294→   294→            ) : (
+   295→   295→              <motion.div key={activeTab} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3 }}>
+   296→   296→                {/* ─── OVERVIEW ─── */}
+   297→   297→                {activeTab === 'overview' && overview && (
+   298→   298→                  <div>
+   299→   299→                    <div className="mb-6">
+   300→   300→                      <h1 className="text-2xl font-black">Learning Analytics Overview</h1>
+   301→   301→                      <p className="text-[#64748b] text-sm mt-1">Real-time insights into student learning behavior and performance</p>
+   302→   302→                    </div>
+   303→   303→
+   304→   304→                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+   305→   305→                      {[
+   306→   306→                        { label: 'Total Students', value: overview.totalStudents, color: '#8b5cf6', icon: '👥' },
+   307→   307→                        { label: 'Active Students', value: overview.activeStudents, color: '#6366f1', icon: '🟢' },
+   308→   308→                        { label: 'Quiz Attempts', value: overview.totalQuizAttempts, color: '#06b6d4', icon: '📝' },
+   309→   309→                        { label: 'Avg Accuracy', value: `${overview.avgAccuracy}%`, color: '#10b981', icon: '🎯' },
+   310→   310→                        { label: 'Avg Study Streak', value: `${overview.avgStudyStreak}d`, color: '#f59e0b', icon: '🔥' },
+   311→   311→                        { label: 'Pass Rate', value: `${overview.passRate}%`, color: '#8b5cf6', icon: '✅' },
+   312→   312→                        { label: 'At-Risk Students', value: overview.atRiskStudents, color: '#ef4444', icon: '⚠️' },
+   313→   313→                      ].map(card => (
+   314→   314→                        <div key={card.label} className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-4 hover:border-[#2d3f5e] transition-colors">
+   315→   315→                          <div className="text-lg mb-1">{card.icon}</div>
+   316→   316→                          <div className="text-2xl font-black tabular-nums" style={{ color: card.color }}>{card.value}</div>
+   317→   317→                          <div className="text-[11px] text-[#64748b] mt-0.5">{card.label}</div>
+   318→   318→                        </div>
+   319→   319→                      ))}
+   320→   320→                    </div>
+   321→   321→
+   322→   322→                    {/* Quick Charts */}
+   323→   323→                    {studentData && (
+   324→   324→                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+   325→   325→                        <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   326→   326→                          <h3 className="text-sm font-bold mb-4">Score Distribution</h3>
+   327→   327→                          <ResponsiveContainer width="100%" height={250}>
+   328→   328→                            <BarChart data={studentData.scoreDistribution}>
+   329→   329→                              <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" />
+   330→   330→                              <XAxis dataKey="range" tick={{ fill: '#64748b', fontSize: 11 }} />
+   331→   331→                              <YAxis tick={{ fill: '#64748b', fontSize: 11 }} />
+   332→   332→                              <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   333→   333→                              <Bar dataKey="count" fill="#8b5cf6" radius={[6, 6, 0, 0]} />
+   334→   334→                            </BarChart>
+   335→   335→                          </ResponsiveContainer>
+   336→   336→                        </div>
+   337→   337→
+   338→   338→                        {behaviorData && behaviorData.dailyActivity.length > 0 && (
+   339→   339→                          <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   340→   340→                            <h3 className="text-sm font-bold mb-4">Daily Activity (Last 30 Days)</h3>
+   341→   341→                            <ResponsiveContainer width="100%" height={250}>
+   342→   342→                              <AreaChart data={behaviorData.dailyActivity}>
+   343→   343→                                <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" />
+   344→   344→                                <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 9 }} tickFormatter={(v: string) => v.slice(5)} />
+   345→   345→                                <YAxis tick={{ fill: '#64748b', fontSize: 11 }} />
+   346→   346→                                <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   347→   347→                                <Area type="monotone" dataKey="attempts" stroke="#8b5cf6" fill="rgba(139,92,246,0.15)" strokeWidth={2} />
+   348→   348→                                <Area type="monotone" dataKey="uniqueUsers" stroke="#6366f1" fill="rgba(99,102,241,0.1)" strokeWidth={2} />
+   349→   349→                                <Legend />
+   350→   350→                              </AreaChart>
+   351→   351→                            </ResponsiveContainer>
+   352→   352→                          </div>
+   353→   353→                        )}
+   354→   354→                      </div>
+   355→   355→                    )}
+   356→   356→
+   357→   357→                    {!overview.totalStudents && (
+   358→   358→                      <div className="text-center py-20">
+   359→   359→                        <div className="text-5xl mb-4">📊</div>
+   360→   360→                        <h3 className="text-xl font-black mb-2">No Data Yet</h3>
+   361→   361→                        <p className="text-[#64748b] text-sm">Analytics will appear as students start taking quizzes.</p>
+   362→   362→                      </div>
+   363→   363→                    )}
+   364→   364→                  </div>
+   365→   365→                )}
+   366→   366→
+   367→   367→                {/* ─── STUDENTS ─── */}
+   368→   368→                {activeTab === 'students' && studentData && (
+   369→   369→                  <div>
+   370→   370→                    <div className="mb-6">
+   371→   371→                      <h1 className="text-2xl font-black">Student Performance Analytics</h1>
+   372→   372→                      <p className="text-[#64748b] text-sm mt-1">Detailed analysis of individual student performance and progress</p>
+   373→   373→                    </div>
+   374→   374→
+   375→   375→                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+   376→   376→                      <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   377→   377→                        <h3 className="text-sm font-bold mb-4">Accuracy Distribution</h3>
+   378→   378→                        <ResponsiveContainer width="100%" height={250}>
+   379→   379→                          <BarChart data={studentData.accuracyDistribution}>
+   380→   380→                            <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" />
+   381→   381→                            <XAxis dataKey="range" tick={{ fill: '#64748b', fontSize: 11 }} />
+   382→   382→                            <YAxis tick={{ fill: '#64748b', fontSize: 11 }} />
+   383→   383→                            <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   384→   384→                            <Bar dataKey="count" fill="#10b981" radius={[6, 6, 0, 0]} />
+   385→   385→                          </BarChart>
+   386→   386→                        </ResponsiveContainer>
+   387→   387→                      </div>
+   388→   388→
+   389→   389→                      <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   390→   390→                        <h3 className="text-sm font-bold mb-4">Exam Score Distribution</h3>
+   391→   391→                        <ResponsiveContainer width="100%" height={250}>
+   392→   392→                          <BarChart data={studentData.examScoreDistribution}>
+   393→   393→                            <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" />
+   394→   394→                            <XAxis dataKey="range" tick={{ fill: '#64748b', fontSize: 11 }} />
+   395→   395→                            <YAxis tick={{ fill: '#64748b', fontSize: 11 }} />
+   396→   396→                            <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   397→   397→                            <Bar dataKey="count" fill="#6366f1" radius={[6, 6, 0, 0]} />
+   398→   398→                          </BarChart>
+   399→   399→                        </ResponsiveContainer>
+   400→   400→                      </div>
+   401→   401→                    </div>
+   402→   402→
+   403→   403→                    {/* Top Performers & Most Improved */}
+   404→   404→                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+   405→   405→                      <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   406→   406→                        <h3 className="text-sm font-bold mb-4 flex items-center gap-2"><span>🏆</span> Top Performers</h3>
+   407→   407→                        <div className="space-y-2 max-h-72 overflow-y-auto">
+   408→   408→                          {studentData.topPerformers.map((s, i) => (
+   409→   409→                            <div key={s.userId} className="flex items-center gap-3 px-3 py-2 rounded-xl bg-[rgba(139,92,246,0.05)] border border-[rgba(139,92,246,0.1)]">
+   410→   410→                              <span className="text-sm font-black w-6 text-center" style={{ color: i < 3 ? '#fbbf24' : '#64748b' }}>#{i + 1}</span>
+   411→   411→                              <span className="text-sm font-medium flex-1 truncate">{s.userName}</span>
+   412→   412→                              <span className="text-sm font-black text-[#8b5cf6]">{s.avgScore}%</span>
+   413→   413→                              <span className="text-[10px] text-[#64748b]">{s.totalAttempts} attempts</span>
+   414→   414→                            </div>
+   415→   415→                          ))}
+   416→   416→                          {studentData.topPerformers.length === 0 && <p className="text-[#64748b] text-xs text-center py-4">Need at least 3 attempts per student</p>}
+   417→   417→                        </div>
+   418→   418→                      </div>
+   419→   419→
+   420→   420→                      <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   421→   421→                        <h3 className="text-sm font-bold mb-4 flex items-center gap-2"><span>📈</span> Most Improved</h3>
+   422→   422→                        <div className="space-y-2 max-h-72 overflow-y-auto">
+   423→   423→                          {studentData.mostImproved.map((s, i) => (
+   424→   424→                            <div key={s.userId} className="flex items-center gap-3 px-3 py-2 rounded-xl bg-[rgba(16,185,129,0.05)] border border-[rgba(16,185,129,0.1)]">
+   425→   425→                              <span className="text-sm font-black w-6 text-center text-[#64748b]">#{i + 1}</span>
+   426→   426→                              <span className="text-sm font-medium flex-1 truncate">{s.userName}</span>
+   427→   427→                              <span className="text-sm font-black" style={{ color: s.improvement >= 0 ? '#10b981' : '#ef4444' }}>{s.improvement >= 0 ? '+' : ''}{s.improvement}%</span>
+   428→   428→                            </div>
+   429→   429→                          ))}
+   430→   430→                          {studentData.mostImproved.length === 0 && <p className="text-[#64748b] text-xs text-center py-4">Need at least 3 attempts per student</p>}
+   431→   431→                        </div>
+   432→   432→                      </div>
+   433→   433→                    </div>
+   434→   434→
+   435→   435→                    {/* Student Table */}
+   436→   436→                    <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   437→   437→                      <h3 className="text-sm font-bold mb-4">All Students</h3>
+   438→   438→                      <div className="overflow-x-auto">
+   439→   439→                        <table className="w-full text-sm">
+   440→   440→                          <thead>
+   441→   441→                            <tr className="text-[#64748b] text-xs uppercase tracking-wider">
+   442→   442→                              <th className="text-left py-2 px-3">Student</th>
+   443→   443→                              <th className="text-center py-2 px-3">Attempts</th>
+   444→   444→                              <th className="text-center py-2 px-3">Avg Score</th>
+   445→   445→                              <th className="text-center py-2 px-3">Accuracy</th>
+   446→   446→                              <th className="text-center py-2 px-3">Best</th>
+   447→   447→                              <th className="text-center py-2 px-3">Streak</th>
+   448→   448→                              <th className="text-center py-2 px-3">Subjects</th>
+   449→   449→                            </tr>
+   450→   450→                          </thead>
+   451→   451→                          <tbody>
+   452→   452→                            {studentData.students.sort((a, b) => b.avgScore - a.avgScore).map(s => (
+   453→   453→                              <tr key={s.userId} className="border-t border-[#1e2d45] hover:bg-[rgba(139,92,246,0.03)]">
+   454→   454→                                <td className="py-2.5 px-3 font-medium">{s.userName}</td>
+   455→   455→                                <td className="text-center py-2.5 px-3 text-[#8b5cf6] font-bold">{s.totalAttempts}</td>
+   456→   456→                                <td className="text-center py-2.5 px-3 font-bold">{s.avgScore}%</td>
+   457→   457→                                <td className="text-center py-2.5 px-3" style={{ color: s.avgAccuracy >= 70 ? '#10b981' : s.avgAccuracy >= 50 ? '#f59e0b' : '#ef4444' }}>{s.avgAccuracy}%</td>
+   458→   458→                                <td className="text-center py-2.5 px-3">{s.bestScore}%</td>
+   459→   459→                                <td className="text-center py-2.5 px-3">{s.studyStreak}d</td>
+   460→   460→                                <td className="text-center py-2.5 px-3">{s.subjectsCount}</td>
+   461→   461→                              </tr>
+   462→   462→                            ))}
+   463→   463→                          </tbody>
+   464→   464→                        </table>
+   465→   465→                      </div>
+   466→   466→                    </div>
+   467→   467→                  </div>
+   468→   468→                )}
+   469→   469→
+   470→   470→                {/* ─── SUBJECTS ─── */}
+   471→   471→                {activeTab === 'subjects' && subjectData && (
+   472→   472→                  <div>
+   473→   473→                    <div className="mb-6">
+   474→   474→                      <h1 className="text-2xl font-black">Subject Analytics</h1>
+   475→   475→                      <p className="text-[#64748b] text-sm mt-1">Performance breakdown by subject area</p>
+   476→   476→                    </div>
+   477→   477→
+   478→   478→                    {/* Rankings */}
+   479→   479→                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+   480→   480→                      {subjectData.rankings.hardestSubject && (
+   481→   481→                        <div className="bg-[#111827] border border-[#ef4444]/20 rounded-2xl p-4">
+   482→   482→                          <div className="text-xs text-[#ef4444] font-bold uppercase tracking-wider mb-1">Hardest Subject</div>
+   483→   483→                          <div className="text-lg font-black">{formatSubject(subjectData.rankings.hardestSubject.subject)}</div>
+   484→   484→                          <div className="text-xs text-[#64748b]">Difficulty: {subjectData.rankings.hardestSubject.difficultyIndex}</div>
+   485→   485→                        </div>
+   486→   486→                      )}
+   487→   487→                      {subjectData.rankings.easiestSubject && (
+   488→   488→                        <div className="bg-[#111827] border border-[#10b981]/20 rounded-2xl p-4">
+   489→   489→                          <div className="text-xs text-[#10b981] font-bold uppercase tracking-wider mb-1">Easiest Subject</div>
+   490→   490→                          <div className="text-lg font-black">{formatSubject(subjectData.rankings.easiestSubject.subject)}</div>
+   491→   491→                          <div className="text-xs text-[#64748b]">Difficulty: {subjectData.rankings.easiestSubject.difficultyIndex}</div>
+   492→   492→                        </div>
+   493→   493→                      )}
+   494→   494→                      {subjectData.rankings.mostStudiedSubject && (
+   495→   495→                        <div className="bg-[#111827] border border-[#8b5cf6]/20 rounded-2xl p-4">
+   496→   496→                          <div className="text-xs text-[#8b5cf6] font-bold uppercase tracking-wider mb-1">Most Studied</div>
+   497→   497→                          <div className="text-lg font-black">{formatSubject(subjectData.rankings.mostStudiedSubject.subject)}</div>
+   498→   498→                          <div className="text-xs text-[#64748b]">{subjectData.rankings.mostStudiedSubject.totalAttempts} attempts</div>
+   499→   499→                        </div>
+   500→   500→                      )}
+   501→   501→                    </div>
+   502→   502→
+   503→   503→                    {/* Subject Comparison Chart */}
+   504→   504→                    {subjectData.subjects.length > 0 && (
+   505→   505→                      <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5 mb-6">
+   506→   506→                        <h3 className="text-sm font-bold mb-4">Subject Comparison</h3>
+   507→   507→                        <ResponsiveContainer width="100%" height={300}>
+   508→   508→                          <BarChart data={subjectData.subjects.map(s => ({ ...s, subject: formatSubject(s.subject) }))}>
+   509→   509→                            <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" />
+   510→   510→                            <XAxis dataKey="subject" tick={{ fill: '#64748b', fontSize: 11 }} />
+   511→   511→                            <YAxis tick={{ fill: '#64748b', fontSize: 11 }} />
+   512→   512→                            <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   513→   513→                            <Bar dataKey="avgAccuracy" fill="#8b5cf6" name="Avg Accuracy" radius={[4, 4, 0, 0]} />
+   514→   514→                            <Bar dataKey="avgScore" fill="#6366f1" name="Avg Score" radius={[4, 4, 0, 0]} />
+   515→   515→                            <Bar dataKey="difficultyIndex" fill="#ef4444" name="Difficulty" radius={[4, 4, 0, 0]} />
+   516→   516→                            <Legend />
+   517→   517→                          </BarChart>
+   518→   518→                        </ResponsiveContainer>
+   519→   519→                      </div>
+   520→   520→                    )}
+   521→   521→
+   522→   522→                    {/* Subject Detail Cards */}
+   523→   523→                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+   524→   524→                      {subjectData.subjects.map(s => (
+   525→   525→                        <div key={s.subject} className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   526→   526→                          <h4 className="font-bold mb-3">{formatSubject(s.subject)}</h4>
+   527→   527→                          <div className="grid grid-cols-2 gap-2 text-xs">
+   528→   528→                            <div><span className="text-[#64748b]">Accuracy:</span> <span className="font-bold" style={{ color: s.avgAccuracy >= 70 ? '#10b981' : '#f59e0b' }}>{s.avgAccuracy}%</span></div>
+   529→   529→                            <div><span className="text-[#64748b]">Avg Score:</span> <span className="font-bold">{s.avgScore}%</span></div>
+   530→   530→                            <div><span className="text-[#64748b]">Attempts:</span> <span className="font-bold text-[#8b5cf6]">{s.totalAttempts}</span></div>
+   531→   531→                            <div><span className="text-[#64748b]">Students:</span> <span className="font-bold">{s.uniqueStudents}</span></div>
+   532→   532→                            <div><span className="text-[#64748b]">Difficulty:</span> <span className="font-bold" style={{ color: s.difficultyIndex > 50 ? '#ef4444' : '#10b981' }}>{s.difficultyIndex}</span></div>
+   533→   533→                            <div><span className="text-[#64748b]">Pass Rate:</span> <span className="font-bold">{s.passRate}%</span></div>
+   534→   534→                          </div>
+   535→   535→                        </div>
+   536→   536→                      ))}
+   537→   537→                    </div>
+   538→   538→
+   539→   539→                    {subjectData.subjects.length === 0 && (
+   540→   540→                      <div className="text-center py-20"><div className="text-5xl mb-4">📚</div><h3 className="text-xl font-black mb-2">No Subject Data</h3><p className="text-[#64748b] text-sm">Data will appear as students take quizzes.</p></div>
+   541→   541→                    )}
+   542→   542→                  </div>
+   543→   543→                )}
+   544→   544→
+   545→   545→                {/* ─── QUESTION TYPES ─── */}
+   546→   546→                {activeTab === 'question-types' && qtData && (
+   547→   547→                  <div>
+   548→   548→                    <div className="mb-6">
+   549→   549→                      <h1 className="text-2xl font-black">Question Type Analytics</h1>
+   550→   550→                      <p className="text-[#64748b] text-sm mt-1">How different question types predict exam performance</p>
+   551→   551→                    </div>
+   552→   552→
+   553→   553→                    {qtData.questionTypes.length > 0 && (
+   554→   554→                      <>
+   555→   555→                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+   556→   556→                          <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   557→   557→                            <h3 className="text-sm font-bold mb-4">Performance by Question Type</h3>
+   558→   558→                            <ResponsiveContainer width="100%" height={280}>
+   559→   559→                              <BarChart data={qtData.questionTypes.map(q => ({ ...q, type: formatQt(q.type) }))}>
+   560→   560→                                <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" />
+   561→   561→                                <XAxis dataKey="type" tick={{ fill: '#64748b', fontSize: 10 }} angle={-20} textAnchor="end" height={60} />
+   562→   562→                                <YAxis tick={{ fill: '#64748b', fontSize: 11 }} />
+   563→   563→                                <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   564→   564→                                <Bar dataKey="successRate" fill="#8b5cf6" name="Success Rate" radius={[6, 6, 0, 0]} />
+   565→   565→                                <Bar dataKey="avgScore" fill="#6366f1" name="Avg Score" radius={[6, 6, 0, 0]} />
+   566→   566→                                <Legend />
+   567→   567→                              </BarChart>
+   568→   568→                            </ResponsiveContainer>
+   569→   569→                          </div>
+   570→   570→
+   571→   571→                          <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   572→   572→                            <h3 className="text-sm font-bold mb-4">Correlation with Exam Score</h3>
+   573→   573→                            <ResponsiveContainer width="100%" height={280}>
+   574→   574→                              <BarChart data={qtData.correlations.map(q => ({ ...q, type: formatQt(q.type) }))}>
+   575→   575→                                <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" />
+   576→   576→                                <XAxis dataKey="type" tick={{ fill: '#64748b', fontSize: 10 }} angle={-20} textAnchor="end" height={60} />
+   577→   577→                                <YAxis tick={{ fill: '#64748b', fontSize: 11 }} domain={[-1, 1]} />
+   578→   578→                                <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   579→   579→                                <Bar dataKey="correlation" name="Pearson r" radius={[6, 6, 0, 0]}>
+   580→   580→                                  {qtData.correlations.map((entry, i) => (
+   581→   581→                                    <Cell key={i} fill={Math.abs(entry.correlation) >= 0.6 ? '#10b981' : Math.abs(entry.correlation) >= 0.3 ? '#f59e0b' : '#64748b'} />
+   582→   582→                                  ))}
+   583→   583→                                </Bar>
+   584→   584→                              </BarChart>
+   585→   585→                            </ResponsiveContainer>
+   586→   586→                          </div>
+   587→   587→                        </div>
+   588→   588→
+   589→   589→                        {/* Predictive Power Ranking */}
+   590→   590→                        <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5 mb-6">
+   591→   591→                          <h3 className="text-sm font-bold mb-4 flex items-center gap-2"><span>🔮</span> Predictive Power Ranking</h3>
+   592→   592→                          <div className="space-y-2">
+   593→   593→                            {qtData.predictiveRanking.map((q, i) => (
+   594→   594→                              <div key={q.type} className="flex items-center gap-3 px-3 py-2.5 rounded-xl" style={{ background: i === 0 ? 'rgba(139,92,246,0.1)' : 'rgba(255,255,255,0.02)', border: i === 0 ? '1px solid rgba(139,92,246,0.2)' : '1px solid rgba(255,255,255,0.05)' }}>
+   595→   595→                                <span className="text-sm font-black w-6 text-center" style={{ color: i === 0 ? '#8b5cf6' : '#64748b' }}>#{i + 1}</span>
+   596→   596→                                <span className="text-sm font-medium flex-1">{formatQt(q.type)}</span>
+   597→   597→                                <div className="flex items-center gap-2">
+   598→   598→                                  <div className="w-20 h-2 bg-[#1e2d45] rounded-full overflow-hidden">
+   599→   599→                                    <div className="h-full rounded-full" style={{ width: `${Math.abs(q.correlation) * 100}%`, background: Math.abs(q.correlation) >= 0.6 ? '#10b981' : Math.abs(q.correlation) >= 0.3 ? '#f59e0b' : '#64748b' }} />
+   600→   600→                                  </div>
+   601→   601→                                  <span className="text-xs font-bold" style={{ color: Math.abs(q.correlation) >= 0.6 ? '#10b981' : '#64748b' }}>r={q.correlation}</span>
+   602→   602→                                </div>
+   603→   603→                              </div>
+   604→   604→                            ))}
+   605→   605→                          </div>
+   606→   606→                        </div>
+   607→   607→
+   608→   608→                        {qtData.mostPredictive && (
+   609→   609→                          <div className="bg-[rgba(139,92,246,0.08)] border border-[rgba(139,92,246,0.2)] rounded-2xl p-5">
+   610→   610→                            <p className="text-sm text-[#c4b5fd]">
+   611→   611→                              <strong>Key Finding:</strong> {formatQt(qtData.mostPredictive.type)} questions show the strongest relationship with exam success (r={qtData.mostPredictive.correlation}), making them the best predictor of final exam performance.
+   612→   612→                            </p>
+   613→   613→                          </div>
+   614→   614→                        )}
+   615→   615→                      </>
+   616→   616→                    )}
+   617→   617→
+   618→   618→                    {qtData.questionTypes.length === 0 && (
+   619→   619→                      <div className="text-center py-20"><div className="text-5xl mb-4">❓</div><h3 className="text-xl font-black mb-2">No Question Type Data</h3><p className="text-[#64748b] text-sm">Data will appear as students take quizzes.</p></div>
+   620→   620→                    )}
+   621→   621→                  </div>
+   622→   622→                )}
+   623→   623→
+   624→   624→                {/* ─── BEHAVIOR ─── */}
+   625→   625→                {activeTab === 'behavior' && behaviorData && (
+   626→   626→                  <div>
+   627→   627→                    <div className="mb-6">
+   628→   628→                      <h1 className="text-2xl font-black">Learning Behavior Analytics</h1>
+   629→   629→                      <p className="text-[#64748b] text-sm mt-1">How study behaviors correlate with exam performance (n={behaviorData.sampleSize})</p>
+   630→   630→                    </div>
+   631→   631→
+   632→   632→                    {/* Correlation Cards */}
+   633→   633→                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+   634→   634→                      {[
+   635→   635→                        { label: 'Questions vs Score', value: behaviorData.correlations.questionsSolvedVsExam, icon: '📝' },
+   636→   636→                        { label: 'Accuracy vs Score', value: behaviorData.correlations.accuracyVsExam, icon: '🎯' },
+   637→   637→                        { label: 'Streak vs Score', value: behaviorData.correlations.studyStreakVsExam, icon: '🔥' },
+   638→   638→                        { label: 'Time vs Score', value: behaviorData.correlations.timeSpentVsExam, icon: '⏱️' },
+   639→   639→                      ].map(c => (
+   640→   640→                        <div key={c.label} className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-4">
+   641→   641→                          <div className="text-lg mb-1">{c.icon}</div>
+   642→   642→                          <div className="text-xl font-black" style={{ color: Math.abs(c.value) >= 0.6 ? '#10b981' : Math.abs(c.value) >= 0.3 ? '#f59e0b' : '#64748b' }}>r={c.value}</div>
+   643→   643→                          <div className="text-[10px] text-[#64748b] mt-0.5">{c.label}</div>
+   644→   644→                        </div>
+   645→   645→                      ))}
+   646→   646→                    </div>
+   647→   647→
+   648→   648→                    {/* Regression Models */}
+   649→   649→                    <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5 mb-6">
+   650→   650→                      <h3 className="text-sm font-bold mb-4">Linear Regression Models (R-squared)</h3>
+   651→   651→                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+   652→   652→                        {[
+   653→   653→                          { label: 'Questions Solved', r2: behaviorData.regressionModels.questionsSolved.r2 },
+   654→   654→                          { label: 'Accuracy', r2: behaviorData.regressionModels.accuracy.r2 },
+   655→   655→                          { label: 'Study Streak', r2: behaviorData.regressionModels.studyStreak.r2 },
+   656→   656→                          { label: 'Time Spent', r2: behaviorData.regressionModels.timeSpent.r2 },
+   657→   657→                        ].map(m => (
+   658→   658→                          <div key={m.label} className="text-center">
+   659→   659→                            <div className="text-lg font-black" style={{ color: m.r2 >= 0.5 ? '#10b981' : m.r2 >= 0.2 ? '#f59e0b' : '#64748b' }}>{(m.r2 * 100).toFixed(1)}%</div>
+   660→   660→                            <div className="text-[10px] text-[#64748b]">{m.label}</div>
+   661→   661→                            <div className="w-full h-1.5 bg-[#1e2d45] rounded-full mt-1.5 overflow-hidden">
+   662→   662→                              <div className="h-full rounded-full" style={{ width: `${Math.max(m.r2 * 100, 2)}%`, background: m.r2 >= 0.5 ? '#10b981' : m.r2 >= 0.2 ? '#f59e0b' : '#64748b' }} />
+   663→   663→                            </div>
+   664→   664→                          </div>
+   665→   665→                        ))}
+   666→   666→                      </div>
+   667→   667→                    </div>
+   668→   668→
+   669→   669→                    {/* Scatter Plots */}
+   670→   670→                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+   671→   671→                      {[
+   672→   672→                        { title: 'Questions Solved vs Score', data: behaviorData.scatterData.questionsVsScore, xLabel: 'Questions', color: '#8b5cf6' },
+   673→   673→                        { title: 'Accuracy vs Score', data: behaviorData.scatterData.accuracyVsScore, xLabel: 'Accuracy %', color: '#10b981' },
+   674→   674→                        { title: 'Study Streak vs Score', data: behaviorData.scatterData.streakVsScore, xLabel: 'Streak (days)', color: '#f59e0b' },
+   675→   675→                        { title: 'Time Spent vs Score', data: behaviorData.scatterData.timeVsScore, xLabel: 'Time (min)', color: '#06b6d4' },
+   676→   676→                      ].map(chart => (
+   677→   677→                        <div key={chart.title} className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   678→   678→                          <h3 className="text-sm font-bold mb-4">{chart.title}</h3>
+   679→   679→                          <ResponsiveContainer width="100%" height={220}>
+   680→   680→                            <ScatterChart>
+   681→   681→                              <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" />
+   682→   682→                              <XAxis dataKey="x" name={chart.xLabel} tick={{ fill: '#64748b', fontSize: 10 }} />
+   683→   683→                              <YAxis dataKey="y" name="Score" tick={{ fill: '#64748b', fontSize: 10 }} />
+   684→   684→                              <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   685→   685→                              <Scatter data={chart.data} fill={chart.color} />
+   686→   686→                            </ScatterChart>
+   687→   687→                          </ResponsiveContainer>
+   688→   688→                        </div>
+   689→   689→                      ))}
+   690→   690→                    </div>
+   691→   691→
+   692→   692→                    {/* Daily Activity Trend */}
+   693→   693→                    {behaviorData.dailyActivity.length > 0 && (
+   694→   694→                      <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   695→   695→                        <h3 className="text-sm font-bold mb-4">Activity Trend (Last 30 Days)</h3>
+   696→   696→                        <ResponsiveContainer width="100%" height={250}>
+   697→   697→                          <LineChart data={behaviorData.dailyActivity}>
+   698→   698→                            <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" />
+   699→   699→                            <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 9 }} tickFormatter={(v: string) => v.slice(5)} />
+   700→   700→                            <YAxis tick={{ fill: '#64748b', fontSize: 11 }} />
+   701→   701→                            <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   702→   702→                            <Line type="monotone" dataKey="attempts" stroke="#8b5cf6" strokeWidth={2} dot={false} name="Attempts" />
+   703→   703→                            <Line type="monotone" dataKey="uniqueUsers" stroke="#06b6d4" strokeWidth={2} dot={false} name="Active Users" />
+   704→   704→                            <Legend />
+   705→   705→                          </LineChart>
+   706→   706→                        </ResponsiveContainer>
+   707→   707→                      </div>
+   708→   708→                    )}
+   709→   709→
+   710→   710→                    {behaviorData.sampleSize === 0 && (
+   711→   711→                      <div className="text-center py-20"><div className="text-5xl mb-4">🧠</div><h3 className="text-xl font-black mb-2">No Behavior Data</h3><p className="text-[#64748b] text-sm">Data will appear as students engage with quizzes.</p></div>
+   712→   712→                    )}
+   713→   713→                  </div>
+   714→   714→                )}
+   715→   715→
+   716→   716→                {/* ─── AT-RISK ─── */}
+   717→   717→                {activeTab === 'at-risk' && atRiskData && (
+   718→   718→                  <div>
+   719→   719→                    <div className="mb-6">
+   720→   720→                      <h1 className="text-2xl font-black">At-Risk Student Detection</h1>
+   721→   721→                      <p className="text-[#64748b] text-sm mt-1">Automatically identified students who may need additional support ({atRiskData.total} students flagged)</p>
+   722→   722→                    </div>
+   723→   723→
+   724→   724→                    {/* Risk Summary */}
+   725→   725→                    <div className="grid grid-cols-3 gap-3 mb-6">
+   726→   726→                      {[
+   727→   727→                        { level: 'High', color: '#ef4444', count: atRiskData.atRiskStudents.filter(s => s.riskLevel === 'High').length },
+   728→   728→                        { level: 'Medium', color: '#f59e0b', count: atRiskData.atRiskStudents.filter(s => s.riskLevel === 'Medium').length },
+   729→   729→                        { level: 'Low', color: '#10b981', count: atRiskData.atRiskStudents.filter(s => s.riskLevel === 'Low').length },
+   730→   730→                      ].map(r => (
+   731→   731→                        <div key={r.level} className="bg-[#111827] border rounded-2xl p-4 text-center" style={{ borderColor: `${r.color}30` }}>
+   732→   732→                          <div className="text-3xl font-black" style={{ color: r.color }}>{r.count}</div>
+   733→   733→                          <div className="text-xs font-bold mt-1" style={{ color: r.color }}>{r.level} Risk</div>
+   734→   734→                        </div>
+   735→   735→                      ))}
+   736→   736→                    </div>
+   737→   737→
+   738→   738→                    {/* Risk Distribution Pie */}
+   739→   739→                    {atRiskData.total > 0 && (
+   740→   740→                      <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5 mb-6">
+   741→   741→                        <h3 className="text-sm font-bold mb-4">Risk Level Distribution</h3>
+   742→   742→                        <ResponsiveContainer width="100%" height={250}>
+   743→   743→                          <PieChart>
+   744→   744→                            <Pie
+   745→   745→                              data={[
+   746→   746→                                { name: 'High Risk', value: atRiskData.atRiskStudents.filter(s => s.riskLevel === 'High').length, fill: '#ef4444' },
+   747→   747→                                { name: 'Medium Risk', value: atRiskData.atRiskStudents.filter(s => s.riskLevel === 'Medium').length, fill: '#f59e0b' },
+   748→   748→                                { name: 'Low Risk', value: atRiskData.atRiskStudents.filter(s => s.riskLevel === 'Low').length, fill: '#10b981' },
+   749→   749→                              ].filter(d => d.value > 0)}
+   750→   750→                              dataKey="value" cx="50%" cy="50%" outerRadius={90} innerRadius={50}
+   751→   751→                            >
+   752→   752→                              {[
+   753→   753→                                { name: 'High Risk', value: atRiskData.atRiskStudents.filter(s => s.riskLevel === 'High').length, fill: '#ef4444' },
+   754→   754→                                { name: 'Medium Risk', value: atRiskData.atRiskStudents.filter(s => s.riskLevel === 'Medium').length, fill: '#f59e0b' },
+   755→   755→                                { name: 'Low Risk', value: atRiskData.atRiskStudents.filter(s => s.riskLevel === 'Low').length, fill: '#10b981' },
+   756→   756→                              ].filter(d => d.value > 0).map((entry, i) => (
+   757→   757→                                <Cell key={i} fill={entry.fill} />
+   758→   758→                              ))}
+   759→   759→                            </Pie>
+   760→   760→                            <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   761→   761→                            <Legend />
+   762→   762→                          </PieChart>
+   763→   763→                        </ResponsiveContainer>
+   764→   764→                      </div>
+   765→   765→                    )}
+   766→   766→
+   767→   767→                    {/* At-Risk Student Cards */}
+   768→   768→                    <div className="space-y-3">
+   769→   769→                      {atRiskData.atRiskStudents.map(s => (
+   770→   770→                        <div key={s.userId} className="bg-[#111827] border rounded-2xl p-5" style={{ borderColor: `${RISK_COLORS[s.riskLevel]}30` }}>
+   771→   771→                          <div className="flex items-start gap-4">
+   772→   772→                            <div className="flex-1 min-w-0">
+   773→   773→                              <div className="flex items-center gap-3 mb-2 flex-wrap">
+   774→   774→                                <span className="font-bold text-sm">{s.userName}</span>
+   775→   775→                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider" style={{ background: `${RISK_COLORS[s.riskLevel]}20`, color: RISK_COLORS[s.riskLevel], border: `1px solid ${RISK_COLORS[s.riskLevel]}40` }}>{s.riskLevel} Risk</span>
+   776→   776→                                <span className="text-xs font-black" style={{ color: RISK_COLORS[s.riskLevel] }}>Score: {s.riskScore}/100</span>
+   777→   777→                              </div>
+   778→   778→                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs mb-3">
+   779→   779→                                <div><span className="text-[#64748b]">Accuracy:</span> <span className="font-bold" style={{ color: s.avgAccuracy < 60 ? '#ef4444' : '#94a3b8' }}>{s.avgAccuracy}%</span></div>
+   780→   780→                                <div><span className="text-[#64748b]">Attempts:</span> <span className="font-bold">{s.totalAttempts}</span></div>
+   781→   781→                                <div><span className="text-[#64748b]">Streak:</span> <span className="font-bold">{s.studyStreak}d</span></div>
+   782→   782→                                <div><span className="text-[#64748b]">Avg Score:</span> <span className="font-bold">{s.avgScore}%</span></div>
+   783→   783→                              </div>
+   784→   784→                              {/* Risk factors */}
+   785→   785→                              <div className="flex flex-wrap gap-1.5 mb-3">
+   786→   786→                                {s.riskFactors.lowAccuracy && <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#ef4444]/10 text-[#ef4444] border border-[#ef4444]/30">Low Accuracy</span>}
+   787→   787→                                {s.riskFactors.lowActivity && <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/30">Low Activity</span>}
+   788→   788→                                {s.riskFactors.lowStreak && <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/30">Low Streak</span>}
+   789→   789→                                {s.riskFactors.lowCompletion && <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#ef4444]/10 text-[#ef4444] border border-[#ef4444]/30">Low Completion</span>}
+   790→   790→                                {s.riskFactors.decliningTrend && <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#ef4444]/10 text-[#ef4444] border border-[#ef4444]/30">Declining Trend</span>}
+   791→   791→                              </div>
+   792→   792→                              <div className="bg-[rgba(59,130,246,0.06)] border border-[rgba(59,130,246,0.15)] rounded-lg p-2.5">
+   793→   793→                                <p className="text-xs text-[#93c5fd]">{s.recommendedAction}</p>
+   794→   794→                              </div>
+   795→   795→                            </div>
+   796→   796→                            {/* Risk score gauge */}
+   797→   797→                            <div className="shrink-0 w-16 h-16 relative">
+   798→   798→                              <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
+   799→   799→                                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#1e2d45" strokeWidth="3" />
+   800→   800→                                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke={RISK_COLORS[s.riskLevel]} strokeWidth="3" strokeDasharray={`${s.riskScore}, 100`} strokeLinecap="round" />
+   801→   801→                              </svg>
+   802→   802→                              <span className="absolute inset-0 flex items-center justify-center text-xs font-black" style={{ color: RISK_COLORS[s.riskLevel] }}>{s.riskScore}</span>
+   803→   803→                            </div>
+   804→   804→                          </div>
+   805→   805→                        </div>
+   806→   806→                      ))}
+   807→   807→                    </div>
+   808→   808→
+   809→   809→                    {atRiskData.total === 0 && (
+   810→   810→                      <div className="text-center py-20"><div className="text-5xl mb-4">✅</div><h3 className="text-xl font-black mb-2">No At-Risk Students</h3><p className="text-[#64748b] text-sm">All students are performing well. Keep monitoring!</p></div>
+   811→   811→                    )}
+   812→   812→                  </div>
+   813→   813→                )}
+   814→   814→
+   815→   815→                {/* ─── READINESS ─── */}
+   816→   816→                {activeTab === 'readiness' && readinessData && (
+   817→   817→                  <div>
+   818→   818→                    <div className="mb-6">
+   819→   819→                      <h1 className="text-2xl font-black">Exam Readiness System</h1>
+   820→   820→                      <p className="text-[#64748b] text-sm mt-1">Predicted exam performance based on learning behavior and performance metrics</p>
+   821→   821→                    </div>
+   822→   822→
+   823→   823→                    <div className="space-y-3">
+   824→   824→                      {readinessData.readinessData.map((s, i) => (
+   825→   825→                        <div key={s.userId} className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5 hover:border-[#2d3f5e] transition-colors">
+   826→   826→                          <div className="flex items-center gap-4 mb-4">
+   827→   827→                            {/* Readiness Ring */}
+   828→   828→                            <div className="shrink-0 w-20 h-20 relative">
+   829→   829→                              <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
+   830→   830→                                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#1e2d45" strokeWidth="2.5" />
+   831→   831→                                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke={s.readinessScore >= 80 ? '#10b981' : s.readinessScore >= 60 ? '#8b5cf6' : s.readinessScore >= 40 ? '#f59e0b' : '#ef4444'} strokeWidth="2.5" strokeDasharray={`${s.readinessScore}, 100`} strokeLinecap="round" />
+   832→   832→                              </svg>
+   833→   833→                              <div className="absolute inset-0 flex flex-col items-center justify-center">
+   834→   834→                                <span className="text-lg font-black">{s.readinessScore}%</span>
+   835→   835→                              </div>
+   836→   836→                            </div>
+   837→   837→
+   838→   838→                            <div className="flex-1 min-w-0">
+   839→   839→                              <div className="flex items-center gap-2 mb-1">
+   840→   840→                                <span className="font-bold">{s.userName}</span>
+   841→   841→                                <span className="text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider font-bold" style={{
+   842→   842→                                  background: s.trend === 'improving' ? 'rgba(16,185,129,0.1)' : s.trend === 'declining' ? 'rgba(239,68,68,0.1)' : 'rgba(99,102,241,0.1)',
+   843→   843→                                  color: TREND_COLORS[s.trend],
+   844→   844→                                  border: `1px solid ${TREND_COLORS[s.trend]}40`,
+   845→   845→                                }}>{s.trend}</span>
+   846→   846→                              </div>
+   847→   847→                              <p className="text-xs text-[#94a3b8]">
+   848→   848→                                Based on current performance, expected exam score is between <strong className="text-[#8b5cf6]">{s.predictedRange.low}%</strong> and <strong className="text-[#8b5cf6]">{s.predictedRange.high}%</strong>.
+   849→   849→                              </p>
+   850→   850→                            </div>
+   851→   851→                          </div>
+   852→   852→
+   853→   853→                          {/* Breakdown */}
+   854→   854→                          <div className="grid grid-cols-5 gap-2">
+   855→   855→                            {[
+   856→   856→                              { label: 'Accuracy', value: s.breakdown.accuracy, max: 35 },
+   857→   857→                              { label: 'Consistency', value: s.breakdown.consistency, max: 25 },
+   858→   858→                              { label: 'Activity', value: s.breakdown.activity, max: 20 },
+   859→   859→                              { label: 'Subjects', value: s.breakdown.subjectCoverage, max: 10 },
+   860→   860→                              { label: 'History', value: s.breakdown.historical, max: 10 },
+   861→   861→                            ].map(b => (
+   862→   862→                              <div key={b.label} className="text-center">
+   863→   863→                                <div className="w-full h-1.5 bg-[#1e2d45] rounded-full overflow-hidden mb-1">
+   864→   864→                                  <div className="h-full bg-[#8b5cf6] rounded-full transition-all" style={{ width: `${(b.value / b.max) * 100}%` }} />
+   865→   865→                                </div>
+   866→   866→                                <div className="text-[10px] text-[#64748b]">{b.label}</div>
+   867→   867→                                <div className="text-[10px] font-bold">{b.value.toFixed(1)}</div>
+   868→   868→                              </div>
+   869→   869→                            ))}
+   870→   870→                          </div>
+   871→   871→                        </div>
+   872→   872→                      ))}
+   873→   873→                    </div>
+   874→   874→
+   875→   875→                    {readinessData.readinessData.length === 0 && (
+   876→   876→                      <div className="text-center py-20"><div className="text-5xl mb-4">🎯</div><h3 className="text-xl font-black mb-2">No Readiness Data</h3><p className="text-[#64748b] text-sm">Data will appear as students take quizzes.</p></div>
+   877→   877→                    )}
+   878→   878→                  </div>
+   879→   879→                )}
+   880→   880→
+   881→   881→                {/* ─── PREDICTIONS ─── */}
+   882→   882→                {activeTab === 'predictions' && predictionsData && (
+   883→   883→                  <div>
+   884→   884→                    <div className="mb-6">
+   885→   885→                      <h1 className="text-2xl font-black">Machine Learning Predictions</h1>
+   886→   886→                      <p className="text-[#64748b] text-sm mt-1">Comparing Linear Regression, Decision Tree, and Random Forest models</p>
+   887→   887→                    </div>
+   888→   888→
+   889→   889→                    {predictionsData.message ? (
+   890→   890→                      <div className="text-center py-20"><div className="text-5xl mb-4">🤖</div><h3 className="text-xl font-black mb-2">Insufficient Data</h3><p className="text-[#64748b] text-sm">{predictionsData.message}</p></div>
+   891→   891→                    ) : (
+   892→   892→                      <>
+   893→   893→                        {/* Model Comparison */}
+   894→   894→                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+   895→   895→                          <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   896→   896→                            <h3 className="text-sm font-bold mb-4">Error Metrics (Lower is Better)</h3>
+   897→   897→                            <ResponsiveContainer width="100%" height={280}>
+   898→   898→                              <BarChart data={[
+   899→   899→                                { model: 'Linear Reg', MAE: predictionsData.comparison.mae.linearRegression, RMSE: predictionsData.comparison.rmse.linearRegression },
+   900→   900→                                { model: 'Decision Tree', MAE: predictionsData.comparison.mae.decisionTree, RMSE: predictionsData.comparison.rmse.decisionTree },
+   901→   901→                                { model: 'Random Forest', MAE: predictionsData.comparison.mae.randomForest, RMSE: predictionsData.comparison.rmse.randomForest },
+   902→   902→                              ]}>
+   903→   903→                                <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" />
+   904→   904→                                <XAxis dataKey="model" tick={{ fill: '#64748b', fontSize: 11 }} />
+   905→   905→                                <YAxis tick={{ fill: '#64748b', fontSize: 11 }} />
+   906→   906→                                <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   907→   907→                                <Bar dataKey="MAE" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+   908→   908→                                <Bar dataKey="RMSE" fill="#6366f1" radius={[4, 4, 0, 0]} />
+   909→   909→                                <Legend />
+   910→   910→                              </BarChart>
+   911→   911→                            </ResponsiveContainer>
+   912→   912→                          </div>
+   913→   913→
+   914→   914→                          <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   915→   915→                            <h3 className="text-sm font-bold mb-4">Classification Metrics</h3>
+   916→   916→                            <ResponsiveContainer width="100%" height={280}>
+   917→   917→                              <BarChart data={[
+   918→   918→                                { model: 'Linear Reg', Accuracy: predictionsData.comparison.accuracy.linearRegression, Precision: predictionsData.comparison.precision.linearRegression, Recall: predictionsData.comparison.recall.linearRegression, F1: predictionsData.comparison.f1.linearRegression },
+   919→   919→                                { model: 'Decision Tree', Accuracy: predictionsData.comparison.accuracy.decisionTree, Precision: predictionsData.comparison.precision.decisionTree, Recall: predictionsData.comparison.recall.decisionTree, F1: predictionsData.comparison.f1.decisionTree },
+   920→   920→                                { model: 'Random Forest', Accuracy: predictionsData.comparison.accuracy.randomForest, Precision: predictionsData.comparison.precision.randomForest, Recall: predictionsData.comparison.recall.randomForest, F1: predictionsData.comparison.f1.randomForest },
+   921→   921→                              ]}>
+   922→   922→                                <CartesianGrid strokeDasharray="3 3" stroke="#1e2d45" />
+   923→   923→                                <XAxis dataKey="model" tick={{ fill: '#64748b', fontSize: 11 }} />
+   924→   924→                                <YAxis tick={{ fill: '#64748b', fontSize: 11 }} domain={[0, 1]} />
+   925→   925→                                <RechartsTooltip contentStyle={{ background: '#111827', border: '1px solid #1e2d45', borderRadius: '12px', fontSize: 12 }} />
+   926→   926→                                <Bar dataKey="Accuracy" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+   927→   927→                                <Bar dataKey="Precision" fill="#10b981" radius={[4, 4, 0, 0]} />
+   928→   928→                                <Bar dataKey="Recall" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+   929→   929→                                <Bar dataKey="F1" fill="#06b6d4" radius={[4, 4, 0, 0]} />
+   930→   930→                                <Legend />
+   931→   931→                              </BarChart>
+   932→   932→                            </ResponsiveContainer>
+   933→   933→                          </div>
+   934→   934→                        </div>
+   935→   935→
+   936→   936→                        {/* R-Squared Comparison */}
+   937→   937→                        <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5 mb-6">
+   938→   938→                          <h3 className="text-sm font-bold mb-4">R-squared (Variance Explained)</h3>
+   939→   939→                          <div className="grid grid-cols-3 gap-4">
+   940→   940→                            {[
+   941→   941→                              { model: 'Linear Regression', r2: predictionsData.comparison.r2.linearRegression },
+   942→   942→                              { model: 'Decision Tree', r2: predictionsData.comparison.r2.decisionTree },
+   943→   943→                              { model: 'Random Forest', r2: predictionsData.comparison.r2.randomForest },
+   944→   944→                            ].map(m => (
+   945→   945→                              <div key={m.model} className="text-center">
+   946→   946→                                <div className="text-2xl font-black" style={{ color: m.r2 >= 0.7 ? '#10b981' : m.r2 >= 0.4 ? '#f59e0b' : '#64748b' }}>{(m.r2 * 100).toFixed(1)}%</div>
+   947→   947→                                <div className="text-xs text-[#64748b]">{m.model}</div>
+   948→   948→                                <div className="w-full h-2 bg-[#1e2d45] rounded-full mt-2 overflow-hidden">
+   949→   949→                                  <div className="h-full rounded-full" style={{ width: `${Math.max(m.r2 * 100, 2)}%`, background: m.r2 >= 0.7 ? '#10b981' : m.r2 >= 0.4 ? '#f59e0b' : '#64748b' }} />
+   950→   950→                                </div>
+   951→   951→                              </div>
+   952→   952→                            ))}
+   953→   953→                          </div>
+   954→   954→                        </div>
+   955→   955→
+   956→   956→                        {/* Per-Student Predictions */}
+   957→   957→                        <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5">
+   958→   958→                          <h3 className="text-sm font-bold mb-4">Per-Student Predictions</h3>
+   959→   959→                          <div className="overflow-x-auto">
+   960→   960→                            <table className="w-full text-sm">
+   961→   961→                              <thead>
+   962→   962→                                <tr className="text-[#64748b] text-xs uppercase tracking-wider">
+   963→   963→                                  <th className="text-left py-2 px-3">Student</th>
+   964→   964→                                  <th className="text-center py-2 px-3">Actual</th>
+   965→   965→                                  <th className="text-center py-2 px-3">Lin Reg</th>
+   966→   966→                                  <th className="text-center py-2 px-3">Decision Tree</th>
+   967→   967→                                  <th className="text-center py-2 px-3">Random Forest</th>
+   968→   968→                                  <th className="text-center py-2 px-3">Pass Prob</th>
+   969→   969→                                </tr>
+   970→   970→                              </thead>
+   971→   971→                              <tbody>
+   972→   972→                                {predictionsData.predictions.map((p, i) => (
+   973→   973→                                  <tr key={i} className="border-t border-[#1e2d45] hover:bg-[rgba(139,92,246,0.03)]">
+   974→   974→                                    <td className="py-2.5 px-3 font-medium">{p.userName}</td>
+   975→   975→                                    <td className="text-center py-2.5 px-3 font-bold">{p.actual}%</td>
+   976→   976→                                    <td className="text-center py-2.5 px-3" style={{ color: Math.abs(p.linearRegression - p.actual) <= 5 ? '#10b981' : '#94a3b8' }}>{p.linearRegression}%</td>
+   977→   977→                                    <td className="text-center py-2.5 px-3" style={{ color: Math.abs(p.decisionTree - p.actual) <= 5 ? '#10b981' : '#94a3b8' }}>{p.decisionTree}%</td>
+   978→   978→                                    <td className="text-center py-2.5 px-3" style={{ color: Math.abs(p.randomForest - p.actual) <= 5 ? '#10b981' : '#94a3b8' }}>{p.randomForest}%</td>
+   979→   979→                                    <td className="text-center py-2.5 px-3">
+   980→   980→                                      <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ background: p.passProbability >= 70 ? 'rgba(16,185,129,0.15)' : p.passProbability >= 50 ? 'rgba(245,158,11,0.15)' : 'rgba(239,68,68,0.15)', color: p.passProbability >= 70 ? '#10b981' : p.passProbability >= 50 ? '#f59e0b' : '#ef4444' }}>{p.passProbability}%</span>
+   981→   981→                                    </td>
+   982→   982→                                  </tr>
+   983→   983→                                ))}
+   984→   984→                              </tbody>
+   985→   985→                            </table>
+   986→   986→                          </div>
+   987→   987→                        </div>
+   988→   988→                      </>
+   989→   989→                    )}
+   990→   990→                  </div>
+   991→   991→                )}
+   992→   992→
+   993→   993→                {/* ─── FINDINGS ─── */}
+   994→   994→                {activeTab === 'findings' && findingsData && (
+   995→   995→                  <div>
+   996→   996→                    <div className="mb-6">
+   997→   997→                      <h1 className="text-2xl font-black">Research Findings</h1>
+   998→   998→                      <p className="text-[#64748b] text-sm mt-1">AI-generated insights from learning analytics data, suitable for academic research</p>
+   999→   999→                    </div>
+  1000→  1000→
+  1001→  1001→                    {findingsData.message ? (
+  1002→  1002→                      <div className="text-center py-20"><div className="text-5xl mb-4">💡</div><h3 className="text-xl font-black mb-2">No Data Available</h3><p className="text-[#64748b] text-sm">{findingsData.message}</p></div>
+  1003→  1003→                    ) : (
+  1004→  1004→                      <div className="space-y-4">
+  1005→  1005→                        {findingsData.findings.map((f, i) => (
+  1006→  1006→                          <motion.div
+  1007→  1007→                            key={i}
+  1008→  1008→                            initial={{ opacity: 0, y: 10 }}
+  1009→  1009→                            animate={{ opacity: 1, y: 0 }}
+  1010→  1010→                            transition={{ duration: 0.3, delay: i * 0.08 }}
+  1011→  1011→                            className="bg-[#111827] border rounded-2xl p-5"
+  1012→  1012→                            style={{ borderColor: f.impact === 'high' ? 'rgba(139,92,246,0.3)' : f.impact === 'medium' ? 'rgba(245,158,11,0.2)' : 'rgba(255,255,255,0.05)' }}
+  1013→  1013→                          >
+  1014→  1014→                            <div className="flex items-start gap-4">
+  1015→  1015→                              <div className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ background: f.impact === 'high' ? 'rgba(139,92,246,0.15)' : f.impact === 'medium' ? 'rgba(245,158,11,0.1)' : 'rgba(100,116,139,0.1)' }}>
+  1016→  1016→                                {f.category === 'Study Behavior' ? '🔥' : f.category === 'Prediction' ? '🎯' : f.category === 'Subject Difficulty' ? '📚' : f.category === 'Question Types' ? '❓' : f.category === 'Practice Frequency' ? '📝' : f.category === 'Exam Results' ? '📊' : '💡'}
+  1017→  1017→                              </div>
+  1018→  1018→                              <div className="flex-1 min-w-0">
+  1019→  1019→                                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+  1020→  1020→                                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider" style={{
+  1021→  1021→                                    background: f.impact === 'high' ? 'rgba(139,92,246,0.15)' : f.impact === 'medium' ? 'rgba(245,158,11,0.1)' : 'rgba(100,116,139,0.1)',
+  1022→  1022→                                    color: f.impact === 'high' ? '#8b5cf6' : f.impact === 'medium' ? '#f59e0b' : '#64748b',
+  1023→  1023→                                  }}>{f.impact} impact</span>
+  1024→  1024→                                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-[rgba(255,255,255,0.05)] text-[#94a3b8]">{f.category}</span>
+  1025→  1025→                                  <span className="text-[10px] font-bold text-[#8b5cf6] ml-auto">{f.metric}</span>
+  1026→  1026→                                </div>
+  1027→  1027→                                <p className="text-sm text-[#cbd5e1] leading-relaxed">{f.finding}</p>
+  1028→  1028→                              </div>
+  1029→  1029→                            </div>
+  1030→  1030→                          </motion.div>
+  1031→  1031→                        ))}
+  1032→  1032→
+  1033→  1033→                        {/* Research Applications */}
+  1034→  1034→                        <div className="bg-[rgba(139,92,246,0.06)] border border-[rgba(139,92,246,0.15)] rounded-2xl p-6 mt-6">
+  1035→  1035→                          <h3 className="text-sm font-bold mb-3 flex items-center gap-2"><span>🎓</span> Research Applications</h3>
+  1036→  1036→                          <p className="text-xs text-[#94a3b8] leading-relaxed mb-3">These findings can be used in academic papers related to:</p>
+  1037→  1037→                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+  1038→  1038→                            {['Educational Technology (EdTech)', 'Learning Analytics', 'Student Performance Prediction', 'Adaptive Learning Systems', 'AI in Education', 'Educational Data Mining'].map(area => (
+  1039→  1039→                              <div key={area} className="text-[10px] px-3 py-2 rounded-lg bg-[rgba(139,92,246,0.1)] border border-[rgba(139,92,246,0.15)] text-[#c4b5fd] text-center">{area}</div>
+  1040→  1040→                            ))}
+  1041→  1041→                          </div>
+  1042→  1042→                        </div>
+  1043→  1043→                      </div>
+  1044→  1044→                    )}
+  1045→  1045→                  </div>
+  1046→  1046→                )}
+  1047→  1047→
+  1048→  1048→                {/* ─── FEEDBACK ─── */}
+  1049→  1049→                {activeTab === 'feedback' && (
+  1050→  1050→                  <div>
+  1051→  1051→                    <div className="flex items-center justify-between mb-6">
+  1052→  1052→                      <div>
+  1053→  1053→                        <h1 className="text-2xl font-black">Feedback Dashboard</h1>
+  1054→  1054→                        <p className="text-[#64748b] text-sm mt-1">View all submitted feedback</p>
+  1055→  1055→                      </div>
+  1056→  1056→                      <button onClick={() => {
+  1057→  1057→                        fetch('/api/feedback', { headers: { 'x-admin-secret': password } })
+  1058→  1058→                          .then(res => res.ok ? res.json() : null)
+  1059→  1059→                          .then(data => { if (data) setFeedbacks(data.feedbacks) })
+  1060→  1060→                          .catch(() => {})
+  1061→  1061→                      }} className="bg-[#111827] border border-[#1e2d45] text-[#e2e8f0] rounded-xl px-4 py-2 text-sm font-bold cursor-pointer hover:border-[#7c3aed] transition-colors inline-flex items-center gap-2">
+  1062→  1062→                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+  1063→  1063→                        Refresh
+  1064→  1064→                      </button>
+  1065→  1065→                    </div>
+  1066→  1066→
+  1067→  1067→                    {/* Feedback Stats */}
+  1068→  1068→                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+  1069→  1069→                      {[
+  1070→  1070→                        { label: 'Total', value: feedbacks.length, color: '#7c3aed' },
+  1071→  1071→                        { label: 'Avg Rating', value: feedbacks.length > 0 ? (feedbacks.reduce((s, f) => s + f.rating, 0) / feedbacks.length).toFixed(1) : '0', color: '#f59e0b' },
+  1072→  1072→                        { label: 'Positive', value: feedbacks.filter(f => f.rating >= 4).length, color: '#10b981' },
+  1073→  1073→                        { label: 'Negative', value: feedbacks.filter(f => f.rating <= 2).length, color: '#ef4444' },
+  1074→  1074→                      ].map(card => (
+  1075→  1075→                        <div key={card.label} className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-4 text-center">
+  1076→  1076→                          <div className="text-2xl font-black" style={{ color: card.color }}>{card.value}</div>
+  1077→  1077→                          <div className="text-[11px] text-[#64748b]">{card.label}</div>
+  1078→  1078→                        </div>
+  1079→  1079→                      ))}
+  1080→  1080→                    </div>
+  1081→  1081→
+  1082→  1082→                    {/* Rating Distribution */}
+  1083→  1083→                    <div className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5 mb-6">
+  1084→  1084→                      <h3 className="font-bold text-sm mb-3">Rating Distribution</h3>
+  1085→  1085→                      <div className="space-y-2">
+  1086→  1086→                        {[5, 4, 3, 2, 1].map(r => {
+  1087→  1087→                          const count = feedbacks.filter(f => f.rating === r).length
+  1088→  1088→                          return (
+  1089→  1089→                            <div key={r} className="flex items-center gap-3">
+  1090→  1090→                              <span className="text-xs text-[#f59e0b] w-8">{r} ★</span>
+  1091→  1091→                              <div className="flex-1 h-3 bg-[#1e2d45] rounded-full overflow-hidden">
+  1092→  1092→                                <div className="h-full bg-gradient-to-r from-[#f59e0b] to-[#d97706] rounded-full transition-all duration-500" style={{ width: feedbacks.length > 0 ? `${(count / feedbacks.length) * 100}%` : '0%' }} />
+  1093→  1093→                              </div>
+  1094→  1094→                              <span className="text-xs text-[#64748b] w-8 text-right">{count}</span>
+  1095→  1095→                            </div>
+  1096→  1096→                          )
+  1097→  1097→                        })}
+  1098→  1098→                      </div>
+  1099→  1099→                    </div>
+  1100→  1100→
+  1101→  1101→                    {/* Feedback List */}
+  1102→  1102→                    {feedbacks.length === 0 ? (
+  1103→  1103→                      <div className="text-center py-20"><div className="text-5xl mb-4">💬</div><h3 className="text-xl font-black mb-2">No Feedback Yet</h3><p className="text-[#64748b] text-sm">Feedback will appear when users submit it.</p></div>
+  1104→  1104→                    ) : (
+  1105→  1105→                      <div className="space-y-3">
+  1106→  1106→                        {feedbacks.map(fb => (
+  1107→  1107→                          <div key={fb.id} className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-5 hover:border-[#2d3f5e] transition-colors">
+  1108→  1108→                            <div className="flex items-center gap-3 mb-2 flex-wrap">
+  1109→  1109→                              <span className="font-bold text-sm">{fb.name}</span>
+  1110→  1110→                              <span className="text-[#475569] text-xs">{fb.email}</span>
+  1111→  1111→                              {fb.subject && <span className="bg-[#7c3aed]/10 border border-[#7c3aed]/30 text-[#7c3aed] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">{fb.subject}</span>}
+  1112→  1112→                              <span className="text-[#f59e0b] text-sm">{Array.from({ length: 5 }).map((_, i) => <span key={i} style={{ color: i < fb.rating ? '#f59e0b' : '#1e2d45' }}>★</span>)}</span>
+  1113→  1113→                            </div>
+  1114→  1114→                            <p className="text-[#94a3b8] text-sm leading-relaxed whitespace-pre-wrap">{fb.message}</p>
+  1115→  1115→                            <p className="text-[#475569] text-xs mt-2">{new Date(fb.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+  1116→  1116→                          </div>
+  1117→  1117→                        ))}
+  1118→  1118→                      </div>
+  1119→  1119→                    )}
+  1120→  1120→                  </div>
+  1121→  1121→                )}
+  1122→  1122→              </motion.div>
+  1123→  1123→            )}
+  1124→  1124→          </AnimatePresence>
+  1125→  1125→        </main>
+  1126→  1126→      </div>
+  1127→  1127→    </div>
+  1128→  1128→  )
+  1129→  1129→}
+  1130→  1130→

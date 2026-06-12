@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { userId, userName, subject, quizId, score, correctAnswers, wrongAnswers, totalQuestions, timeTaken } = body
+    const { userId, userName, subject, quizId, score, correctAnswers, wrongAnswers, totalQuestions, timeTaken, questionType } = body
 
     // Validation
     if (!userId || typeof userId !== 'string' || userId.trim().length === 0) {
@@ -36,6 +36,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Time taken must be a non-negative number' }, { status: 400 })
     }
 
+    const validQuestionTypes = ['multiple-choice', 'true-false', 'problem-solving', 'coding', 'practical']
+    const finalQuestionType = validQuestionTypes.includes(questionType) ? questionType : 'multiple-choice'
+
     const attempt = await prisma.quizAttempt.create({
       data: {
         userId: userId.trim(),
@@ -47,6 +50,7 @@ export async function POST(request: NextRequest) {
         wrongAnswers,
         totalQuestions,
         timeTaken,
+        questionType: finalQuestionType,
       },
     })
 
