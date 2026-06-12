@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { getUserStats } from '@/lib/analytics-utils'
+import { formatDisplayDate } from '@/lib/date-utils'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
@@ -13,7 +14,14 @@ export async function GET() {
       const avgScore = u.scores.reduce((a, b) => a + b, 0) / u.scores.length
       const avgAcc = u.q > 0 ? (u.c / u.q) * 100 : 0
       const examScore = u.exams.length > 0 ? u.exams.reduce((s, e) => s + e.score, 0) / u.exams.length : null
-      return { userId: u.id, userName: u.name, totalAttempts: u.att, avgScore: Math.round(avgScore * 10) / 10, avgAccuracy: Math.round(avgAcc * 10) / 10, bestScore: Math.round(u.best * 10) / 10, studyStreak: u.streak, subjectsCount: u.subjs.size, timeSpent: u.time, lastActive: u.last, examScore: examScore !== null ? Math.round(examScore * 10) / 10 : null }
+      return {
+        userId: u.id, userName: u.name, totalAttempts: u.att,
+        avgScore: Math.round(avgScore * 10) / 10, avgAccuracy: Math.round(avgAcc * 10) / 10,
+        bestScore: Math.round(u.best * 10) / 10, studyStreak: u.streak,
+        subjectsCount: u.subjs.size, timeSpent: u.time,
+        lastActive: u.last ? formatDisplayDate(u.last) : null,
+        examScore: examScore !== null ? Math.round(examScore * 10) / 10 : null,
+      }
     })
 
     const mkBuckets = (arr: number[]) => {

@@ -80,7 +80,7 @@ export default function FeedbackTab({ feedbacks, password, onRefresh }: Props) {
                 <span className="text-[#f59e0b] text-sm">{Array.from({ length: 5 }).map((_, i) => <span key={i} style={{ color: i < fb.rating ? '#f59e0b' : '#1e2d45' }}>★</span>)}</span>
               </div>
               <p className="text-[#94a3b8] text-sm leading-relaxed whitespace-pre-wrap">{fb.message}</p>
-              <p className="text-[#475569] text-xs mt-2">{new Date(fb.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+              <p className="text-[#475569] text-xs mt-2">{new Date(fb.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Cairo' })}</p>
             </div>
           ))}
         </div>

@@ -1,17 +1,18 @@
 import { prisma } from '@/lib/prisma'
+import { todayCairo, yesterdayCairo, toCairoDayString, MS_PER_DAY } from '@/lib/date-utils'
 
 // ─── Helpers ──────────────────────────────────────────
 
 export function calcStreak(dates: Date[]): number {
   if (dates.length === 0) return 0
-  const uniqueDays = [...new Set(dates.map(d => new Date(d).toISOString().split('T')[0]))].sort().reverse()
+  const uniqueDays = [...new Set(dates.map(d => toCairoDayString(d)))].sort().reverse()
   if (uniqueDays.length === 0) return 0
-  const today = new Date().toISOString().split('T')[0]
-  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
+  const today = todayCairo()
+  const yesterday = yesterdayCairo()
   if (uniqueDays[0] !== today && uniqueDays[0] !== yesterday) return 0
   let streak = 1
   for (let i = 1; i < uniqueDays.length; i++) {
-    const diff = (new Date(uniqueDays[i - 1]).getTime() - new Date(uniqueDays[i]).getTime()) / 86400000
+    const diff = (new Date(uniqueDays[i - 1]).getTime() - new Date(uniqueDays[i]).getTime()) / MS_PER_DAY
     if (Math.abs(diff - 1) < 0.5) streak++
     else break
   }

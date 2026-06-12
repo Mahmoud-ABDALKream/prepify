@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { getUserStats, pearson, linReg } from '@/lib/analytics-utils'
+import { toCairoDayString, daysAgo, MS_PER_DAY } from '@/lib/date-utils'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
@@ -16,8 +17,8 @@ export async function GET() {
 
     const daily: { date: string; attempts: number; uniqueUsers: number }[] = []
     for (let i = 29; i >= 0; i--) {
-      const d = new Date(Date.now() - i * 86400000).toISOString().split('T')[0]
-      const da = attempts.filter(a => new Date(a.attemptDate).toISOString().split('T')[0] === d)
+      const d = toCairoDayString(daysAgo(i))
+      const da = attempts.filter(a => toCairoDayString(a.attemptDate) === d)
       daily.push({ date: d, attempts: da.length, uniqueUsers: new Set(da.map(a => a.userId)).size })
     }
 
