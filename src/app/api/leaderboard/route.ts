@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
@@ -30,7 +30,13 @@ export async function GET(request: NextRequest) {
 
 async function getGlobalLeaderboard(limit: number) {
   // Get all attempts
-  const allAttempts = await prisma.quizAttempt.findMany()
+  const supabase = getSupabaseAdmin()
+  const { data: allAttempts, error } = await supabase.from('QuizAttempt').select('*')
+
+  if (error) {
+    console.error('Failed to fetch attempts for global leaderboard:', error)
+    return NextResponse.json({ error: 'Failed to fetch leaderboard' }, { status: 500 })
+  }
 
   // Aggregate by user
   const userMap = new Map<string, {
@@ -44,7 +50,7 @@ async function getGlobalLeaderboard(limit: number) {
     bestScores: number[]
   }>()
 
-  for (const a of allAttempts) {
+  for (const a of allAttempts ?? []) {
     const existing = userMap.get(a.userId)
     if (existing) {
       existing.totalAttempts += 1
@@ -113,10 +119,17 @@ async function getGlobalLeaderboard(limit: number) {
 }
 
 async function getSubjectLeaderboard(subject: string, limit: number) {
-  const attempts = await prisma.quizAttempt.findMany({
-    where: { subject },
-    orderBy: { score: 'desc' },
-  })
+  const supabase = getSupabaseAdmin()
+  const { data: attempts, error } = await supabase
+    .from('QuizAttempt')
+    .select('*')
+    .eq('subject', subject)
+    .order('score', { ascending: false })
+
+  if (error) {
+    console.error('Failed to fetch attempts for subject leaderboard:', error)
+    return NextResponse.json({ error: 'Failed to fetch leaderboard' }, { status: 500 })
+  }
 
   // Best attempt per user
   const userBest = new Map<string, {
@@ -130,7 +143,7 @@ async function getSubjectLeaderboard(subject: string, limit: number) {
     scores: number[]
   }>()
 
-  for (const a of attempts) {
+  for (const a of attempts ?? []) {
     const existing = userBest.get(a.userId)
     if (existing) {
       existing.totalAttempts += 1
@@ -190,10 +203,17 @@ async function getSubjectLeaderboard(subject: string, limit: number) {
 }
 
 async function getQuizLeaderboard(quizId: string, limit: number) {
-  const attempts = await prisma.quizAttempt.findMany({
-    where: { quizId },
-    orderBy: { score: 'desc' },
-  })
+  const supabase = getSupabaseAdmin()
+  const { data: attempts, error } = await supabase
+    .from('QuizAttempt')
+    .select('*')
+    .eq('quizId', quizId)
+    .order('score', { ascending: false })
+
+  if (error) {
+    console.error('Failed to fetch attempts for quiz leaderboard:', error)
+    return NextResponse.json({ error: 'Failed to fetch leaderboard' }, { status: 500 })
+  }
 
   // Best attempt per user
   const userBest = new Map<string, {
@@ -205,7 +225,7 @@ async function getQuizLeaderboard(quizId: string, limit: number) {
     scores: number[]
   }>()
 
-  for (const a of attempts) {
+  for (const a of attempts ?? []) {
     const existing = userBest.get(a.userId)
     if (existing) {
       existing.totalAttempts += 1

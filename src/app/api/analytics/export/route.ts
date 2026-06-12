@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import { NextRequest, NextResponse } from 'next/server'
 import { toCairoISOString, todayCairo } from '@/lib/date-utils'
 
@@ -9,8 +9,23 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const type = searchParams.get('type') || 'csv'
 
-    const allAttempts = await prisma.quizAttempt.findMany({ orderBy: { attemptDate: 'desc' } })
-    const allExamResults = await prisma.examResult.findMany({ orderBy: { examDate: 'desc' } })
+    const supabase = getSupabaseAdmin()
+    const [attemptsResult, examResultsResult] = await Promise.all([
+      supabase.from('QuizAttempt').select('*').order('attemptDate', { ascending: false }),
+      supabase.from('ExamResult').select('*').order('examDate', { ascending: false }),
+    ])
+
+    if (attemptsResult.error) {
+      console.error('Export error — quiz attempts:', attemptsResult.error)
+      return NextResponse.json({ error: 'Export failed' }, { status: 500 })
+    }
+    if (examResultsResult.error) {
+      console.error('Export error — exam results:', examResultsResult.error)
+      return NextResponse.json({ error: 'Export failed' }, { status: 500 })
+    }
+
+    const allAttempts = attemptsResult.data
+    const allExamResults = examResultsResult.data
 
     if (type === 'csv') {
       return exportCSV(allAttempts, allExamResults)

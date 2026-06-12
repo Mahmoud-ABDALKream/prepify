@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import { getUserStats, pearson } from '@/lib/analytics-utils'
 import { NextResponse } from 'next/server'
 
@@ -6,8 +6,18 @@ export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
-    const attempts = await prisma.quizAttempt.findMany()
-    const users = await getUserStats()
+    const supabase = getSupabaseAdmin()
+    const [attemptsResult, users] = await Promise.all([
+      supabase.from('QuizAttempt').select('*'),
+      getUserStats(),
+    ])
+
+    if (attemptsResult.error) {
+      console.error('Failed to fetch quiz attempts:', attemptsResult.error)
+      return NextResponse.json({ error: 'Failed to compute question type analytics' }, { status: 500 })
+    }
+
+    const attempts = attemptsResult.data
 
     const qtMap = new Map<string, { total: number; correct: number; scores: number[]; users: Set<string> }>()
     for (const a of attempts) {

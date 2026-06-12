@@ -1,14 +1,24 @@
-import { prisma } from '@/lib/prisma'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import { getUserStats, pearson, linReg } from '@/lib/analytics-utils'
-import { toCairoDayString, daysAgo, MS_PER_DAY } from '@/lib/date-utils'
+import { toCairoDayString, daysAgo } from '@/lib/date-utils'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
-    const users = await getUserStats()
-    const attempts = await prisma.quizAttempt.findMany()
+    const supabase = getSupabaseAdmin()
+    const [users, attemptsResult] = await Promise.all([
+      getUserStats(),
+      supabase.from('QuizAttempt').select('*'),
+    ])
+
+    if (attemptsResult.error) {
+      console.error('Failed to fetch quiz attempts:', attemptsResult.error)
+      return NextResponse.json({ error: 'Failed to compute behavior analytics' }, { status: 500 })
+    }
+
+    const attempts = attemptsResult.data
     const uArr = Array.from(users.values())
 
     const qs = uArr.map(u => u.q), acc = uArr.map(u => u.q > 0 ? (u.c / u.q) * 100 : 0)

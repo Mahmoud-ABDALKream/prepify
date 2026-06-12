@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
@@ -41,8 +41,10 @@ export async function POST(request: NextRequest) {
     const validQuestionTypes = ['multiple-choice', 'true-false', 'problem-solving', 'coding', 'practical']
     const finalQuestionType = validQuestionTypes.includes(questionType) ? questionType : 'multiple-choice'
 
-    const attempt = await prisma.quizAttempt.create({
-      data: {
+    const supabase = getSupabaseAdmin()
+    const { data: attempt, error } = await supabase
+      .from('QuizAttempt')
+      .insert({
         userId: userId.trim(),
         userName: userName.trim(),
         subject,
@@ -53,8 +55,14 @@ export async function POST(request: NextRequest) {
         totalQuestions,
         timeTaken,
         questionType: finalQuestionType,
-      },
-    })
+      })
+      .select()
+      .single()
+
+    if (error) {
+      console.error('Failed to submit quiz attempt:', error)
+      return NextResponse.json({ error: 'Failed to submit quiz attempt' }, { status: 500 })
+    }
 
     return NextResponse.json({ attempt }, { status: 201 })
   } catch (error) {
@@ -73,21 +81,27 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50')
     const offset = parseInt(searchParams.get('offset') || '0')
 
-    const where: Record<string, string> = {}
-    if (userId) where.userId = userId
-    if (subject) where.subject = subject
-    if (quizId) where.quizId = quizId
+    const supabase = getSupabaseAdmin()
 
-    const attempts = await prisma.quizAttempt.findMany({
-      where,
-      orderBy: { attemptDate: 'desc' },
-      take: Math.min(limit, 100),
-      skip: offset,
-    })
+    // Build query with filters
+    let query = supabase
+      .from('QuizAttempt')
+      .select('*', { count: 'exact' })
+      .order('attemptDate', { ascending: false })
+      .range(offset, offset + Math.min(limit, 100) - 1)
 
-    const total = await prisma.quizAttempt.count({ where })
+    if (userId) query = query.eq('userId', userId)
+    if (subject) query = query.eq('subject', subject)
+    if (quizId) query = query.eq('quizId', quizId)
 
-    return NextResponse.json({ attempts, total })
+    const { data: attempts, count: total, error } = await query
+
+    if (error) {
+      console.error('Failed to fetch quiz attempts:', error)
+      return NextResponse.json({ error: 'Failed to fetch quiz attempts' }, { status: 500 })
+    }
+
+    return NextResponse.json({ attempts, total: total ?? 0 })
   } catch (error) {
     console.error('Failed to fetch quiz attempts:', error)
     return NextResponse.json({ error: 'Failed to fetch quiz attempts' }, { status: 500 })

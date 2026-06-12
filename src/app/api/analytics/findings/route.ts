@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import { getUserStats, pearson } from '@/lib/analytics-utils'
 import { NextResponse } from 'next/server'
 
@@ -6,9 +6,24 @@ export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
-    const users = await getUserStats()
-    const attempts = await prisma.quizAttempt.findMany()
-    const exams = await prisma.examResult.findMany()
+    const supabase = getSupabaseAdmin()
+    const [users, attemptsResult, examsResult] = await Promise.all([
+      getUserStats(),
+      supabase.from('QuizAttempt').select('*'),
+      supabase.from('ExamResult').select('*'),
+    ])
+
+    if (attemptsResult.error) {
+      console.error('Failed to fetch quiz attempts:', attemptsResult.error)
+      return NextResponse.json({ error: 'Failed to compute research findings' }, { status: 500 })
+    }
+    if (examsResult.error) {
+      console.error('Failed to fetch exam results:', examsResult.error)
+      return NextResponse.json({ error: 'Failed to compute research findings' }, { status: 500 })
+    }
+
+    const attempts = attemptsResult.data
+    const exams = examsResult.data
     const findings: { category: string; finding: string; metric: string; impact: 'high' | 'medium' | 'low' }[] = []
 
     if (users.size === 0) return NextResponse.json({ findings: [], message: 'No data available yet.' })
