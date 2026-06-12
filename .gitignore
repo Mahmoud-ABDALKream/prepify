@@ -67,6 +67,7 @@ Thumbs.db
 /examples/
 /upload/
 /download/
+/tool-results/
 
 # Server scripts & config (deployment-specific)
 3000
