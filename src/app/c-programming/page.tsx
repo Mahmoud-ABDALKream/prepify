@@ -989,9 +989,9 @@ const STORAGE_KEY = 'prepify-cp-progress'
 // ─── Main Component ──────────────────────────────────
 export default function Home() {
   const {
-    quizStarted, userName, timerMinutes, showStartPopup,
+    quizStarted, userName, timerMinutes, showStartPopup, elapsedSeconds,
     attemptSubmitting, attemptSubmitted,
-    handleStartQuiz, submitQuizAttempt, setShowStartPopup,
+    handleStartQuiz, handleSkipPopup, submitQuizAttempt, setShowStartPopup,
   } = useQuizTracking('c-programming', 'cp-full')
 
   const [questionStates, setQuestionStates] = useState<Record<number, QuestionState>>({})
@@ -1210,7 +1210,7 @@ export default function Home() {
       {/* Quiz Start Popup */}
       <QuizStartPopup
         open={showStartPopup}
-        onClose={() => setShowStartPopup(false)}
+        onClose={handleSkipPopup}
         onStart={handleStartQuiz}
         subjectName="C Programming"
       />
@@ -1460,6 +1460,7 @@ export default function Home() {
             answeredCount={answeredCount}
             onReset={resetAll}
             onRevealAll={revealAllSolutions}
+            timeTaken={elapsedSeconds}
           />
         )}
 
@@ -1501,16 +1502,27 @@ function ScorePanel({
   answeredCount,
   onReset,
   onRevealAll,
+  timeTaken,
 }: {
   correctCount: number
   totalQuestions: number
   answeredCount: number
   onReset: () => void
   onRevealAll: () => void
+  timeTaken?: number
 }) {
   const pct = Math.round((correctCount / totalQuestions) * 100)
   const grade = pct >= 90 ? 'A+' : pct >= 80 ? 'A' : pct >= 70 ? 'B' : pct >= 60 ? 'C' : pct >= 50 ? 'D' : 'F'
   const gradeColor = pct >= 80 ? '#10b981' : pct >= 60 ? '#f59e0b' : '#ef4444'
+
+  const formatTime = (secs: number) => {
+    const h = Math.floor(secs / 3600)
+    const m = Math.floor((secs % 3600) / 60)
+    const s = secs % 60
+    if (h > 0) return `${h}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`
+    if (m > 0) return `${m}m ${String(s).padStart(2, '0')}s`
+    return `${s}s`
+  }
 
   return (
     <motion.div
@@ -1566,7 +1578,7 @@ function ScorePanel({
       </motion.div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
         <div className="bg-[#1a2235] border border-[#1e2d45] rounded-xl p-4">
           <div className="text-xl font-black text-[#10b981]">{correctCount}</div>
           <div className="text-[11px] text-[#64748b]">Correct</div>
@@ -1583,6 +1595,12 @@ function ScorePanel({
           <div className="text-xl font-black text-[#7c3aed]">{totalQuestions}</div>
           <div className="text-[11px] text-[#64748b]">Total</div>
         </div>
+        {timeTaken != null && timeTaken > 0 && (
+          <div className="bg-[#1a2235] border border-[#1e2d45] rounded-xl p-4">
+            <div className="text-xl font-black text-[#8b5cf6]">{formatTime(timeTaken)}</div>
+            <div className="text-[11px] text-[#64748b]">Time Taken</div>
+          </div>
+        )}
       </div>
 
       <div className="flex gap-3 justify-center flex-wrap">
