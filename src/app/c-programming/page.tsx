@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import QuizStartPopup from '@/components/QuizStartPopup'
 import QuizTimer from '@/components/QuizTimer'
 import { useQuizTracking } from '@/hooks/useQuizTracking'
+import { formatDuration } from '@/lib/date-utils'
 
 // ─── Types ───────────────────────────────────────────
 interface Section {
@@ -1515,15 +1516,6 @@ function ScorePanel({
   const grade = pct >= 90 ? 'A+' : pct >= 80 ? 'A' : pct >= 70 ? 'B' : pct >= 60 ? 'C' : pct >= 50 ? 'D' : 'F'
   const gradeColor = pct >= 80 ? '#10b981' : pct >= 60 ? '#f59e0b' : '#ef4444'
 
-  const formatTime = (secs: number) => {
-    const h = Math.floor(secs / 3600)
-    const m = Math.floor((secs % 3600) / 60)
-    const s = secs % 60
-    if (h > 0) return `${h}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`
-    if (m > 0) return `${m}m ${String(s).padStart(2, '0')}s`
-    return `${s}s`
-  }
-
   return (
     <motion.div
       className="bg-[#111827] border border-[#1e2d45] rounded-3xl p-8 mt-8 text-center shadow-[0_0_40px_rgba(0,0,0,0.3)]"
@@ -1597,7 +1589,7 @@ function ScorePanel({
         </div>
         {timeTaken != null && timeTaken > 0 && (
           <div className="bg-[#1a2235] border border-[#1e2d45] rounded-xl p-4">
-            <div className="text-xl font-black text-[#8b5cf6]">{formatTime(timeTaken)}</div>
+            <div className="text-xl font-black text-[#8b5cf6]">{formatDuration(timeTaken)}</div>
             <div className="text-[11px] text-[#64748b]">Time Taken</div>
           </div>
         )}

@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { getUserStats } from '@/lib/analytics-utils'
+import { daysAgo, MS_PER_DAY } from '@/lib/date-utils'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
@@ -18,7 +19,7 @@ export async function GET() {
       prisma.feedback.count(),
     ])
 
-    const weekAgo = new Date(Date.now() - 7 * 86400000)
+    const weekAgo = daysAgo(7)
     const activeIds = new Set(attempts.filter(a => new Date(a.attemptDate) >= weekAgo).map(a => a.userId))
 
     const totalStudents = users.size
