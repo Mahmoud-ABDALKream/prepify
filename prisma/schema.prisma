@@ -16,3 +16,22 @@ model Feedback {
   subject   String?
   createdAt DateTime @default(now())
 }
+
+model QuizAttempt {
+  id              String   @id @default(cuid())
+  userId          String
+  userName        String
+  subject         String
+  quizId          String
+  score           Float
+  correctAnswers  Int
+  wrongAnswers    Int
+  totalQuestions  Int
+  timeTaken       Int      // in seconds, 0 = no timer
+  attemptDate     DateTime @default(now())
+
+  @@index([userId])
+  @@index([subject])
+  @@index([quizId])
+  @@index([score])
+}

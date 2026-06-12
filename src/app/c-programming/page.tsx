@@ -2,6 +2,9 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import QuizStartPopup from '@/components/QuizStartPopup'
+import QuizTimer from '@/components/QuizTimer'
+import { useQuizTracking } from '@/hooks/useQuizTracking'
 
 // ─── Types ───────────────────────────────────────────
 interface Section {
@@ -985,6 +988,12 @@ const STORAGE_KEY = 'prepify-cp-progress'
 
 // ─── Main Component ──────────────────────────────────
 export default function Home() {
+  const {
+    quizStarted, userName, timerMinutes, showStartPopup,
+    attemptSubmitting, attemptSubmitted,
+    handleStartQuiz, submitQuizAttempt, setShowStartPopup,
+  } = useQuizTracking('c-programming', 'cp-full')
+
   const [questionStates, setQuestionStates] = useState<Record<number, QuestionState>>({})
   const [activeSection, setActiveSection] = useState<number | null>(null)
   const [scoreSubmitted, setScoreSubmitted] = useState(false)
@@ -1166,8 +1175,11 @@ export default function Home() {
       setShowConfetti(true)
       setTimeout(() => setShowConfetti(false), 4000)
     }
+    // Save attempt to database
+    const wrongCount = answeredCount - correctCount
+    submitQuizAttempt(correctCount, wrongCount, totalQuestions)
     topRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [correctCount, totalQuestions])
+  }, [correctCount, totalQuestions, answeredCount, submitQuizAttempt])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -1195,6 +1207,26 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#080c18] text-[#e2e8f0] font-sans">
+      {/* Quiz Start Popup */}
+      <QuizStartPopup
+        open={showStartPopup}
+        onClose={() => setShowStartPopup(false)}
+        onStart={handleStartQuiz}
+        subjectName="C Programming"
+      />
+
+      {/* Timer */}
+      {quizStarted && timerMinutes > 0 && (
+        <QuizTimer
+          minutes={timerMinutes}
+          onTimeUp={() => {
+            if (!scoreSubmitted) {
+              submitAll()
+            }
+          }}
+        />
+      )}
+
       {/* Animated background */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute inset-0" style={{
