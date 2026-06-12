@@ -1,19 +1,19 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
-import BetterSqlite3 from 'better-sqlite3'
-import path from 'path'
+import { PrismaPg } from '@prisma/adapter-pg'
+import pg from 'pg'
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
 function createPrismaClient() {
-  // Resolve the SQLite database path relative to the project root
-  const dbPath = path.join(process.cwd(), 'db', 'custom.db')
+  // Parse DATABASE_URL or use sensible defaults for Supabase
+  const connectionString = process.env.DATABASE_URL
+    || 'postgresql://postgres:postgres@127.0.0.1:54322/postgres'
 
-  // Create the better-sqlite3 instance and Prisma adapter
-  const sqlite = new BetterSqlite3(dbPath)
-  const adapter = new PrismaBetterSqlite3(sqlite)
+  // Create a PostgreSQL connection pool
+  const pool = new pg.Pool({ connectionString })
+  const adapter = new PrismaPg(pool)
 
   return new PrismaClient({
     adapter,
