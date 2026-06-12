@@ -7,12 +7,23 @@ const globalForPrisma = globalThis as unknown as {
 }
 
 function createPrismaClient() {
-  // Parse DATABASE_URL or use sensible defaults for Supabase
   const connectionString = process.env.DATABASE_URL
     || 'postgresql://postgres:postgres@127.0.0.1:54322/postgres'
 
-  // Create a PostgreSQL connection pool
-  const pool = new pg.Pool({ connectionString })
+  // Create a PostgreSQL connection pool with error handling
+  const pool = new pg.Pool({
+    connectionString,
+    // Handle connection errors gracefully
+    max: 10,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 10000,
+  })
+
+  // Prevent unhandled pool errors from crashing the server
+  pool.on('error', (err) => {
+    console.error('[Prisma] Unexpected pool error:', err.message)
+  })
+
   const adapter = new PrismaPg(pool)
 
   return new PrismaClient({
@@ -27,5 +38,9 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 
 // Graceful shutdown — close Prisma connection on process exit
 process.on('beforeExit', async () => {
-  await prisma.$disconnect()
+  try {
+    await prisma.$disconnect()
+  } catch {
+    // Ignore disconnect errors
+  }
 })
