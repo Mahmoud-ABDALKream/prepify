@@ -211,7 +211,7 @@ export const iotSections: Section[] = [
     icon: '🏗️',
     questions: [
       {
-        id: 51,
+        id: 16,
         text: 'The IoT layer responsible for collecting data from the physical world is the:',
         marks: '1 pt',
         type: 'mcq',
@@ -224,7 +224,7 @@ export const iotSections: Section[] = [
         answer: 'The Perception (Sensor) Layer is responsible for collecting data from the physical world using sensors and actuators.',
       },
       {
-        id: 52,
+        id: 17,
         text: 'The IoT layer responsible for transmitting data between devices and servers is the:',
         marks: '1 pt',
         type: 'mcq',
@@ -237,7 +237,7 @@ export const iotSections: Section[] = [
         answer: 'The Network (Transport) Layer is responsible for transmitting data between devices and servers using various communication protocols.',
       },
       {
-        id: 53,
+        id: 18,
         text: 'The IoT layer responsible for storing and analyzing data is the:',
         marks: '1 pt',
         type: 'mcq',
@@ -250,7 +250,7 @@ export const iotSections: Section[] = [
         answer: 'The Data Processing Layer is responsible for storing and analyzing data collected from sensors.',
       },
       {
-        id: 54,
+        id: 19,
         text: 'The IoT layer that provides dashboards and mobile apps is the:',
         marks: '1 pt',
         type: 'mcq',
@@ -263,7 +263,7 @@ export const iotSections: Section[] = [
         answer: 'The Application Layer provides dashboards, mobile apps, and user interfaces for interacting with the IoT system.',
       },
       {
-        id: 55,
+        id: 20,
         text: 'A device that measures temperature is a:',
         marks: '1 pt',
         type: 'mcq',
@@ -276,7 +276,7 @@ export const iotSections: Section[] = [
         answer: 'A device that measures temperature is a sensor — it collects data from the physical environment.',
       },
       {
-        id: 56,
+        id: 21,
         text: 'A device that turns a motor ON/OFF is a:',
         marks: '1 pt',
         type: 'mcq',
@@ -289,7 +289,7 @@ export const iotSections: Section[] = [
         answer: 'A device that turns a motor ON/OFF is an actuator — it performs an action based on a command.',
       },
       {
-        id: 57,
+        id: 22,
         text: 'Which of the following is an actuator?',
         marks: '1 pt',
         type: 'mcq',
@@ -302,7 +302,7 @@ export const iotSections: Section[] = [
         answer: 'A valve is an actuator — it performs a physical action (opening/closing) based on a command. The other options are sensors.',
       },
       {
-        id: 58,
+        id: 23,
         text: 'Which of the following is best for short-range communication with low power?',
         marks: '1 pt',
         type: 'mcq',
@@ -315,7 +315,7 @@ export const iotSections: Section[] = [
         answer: 'Bluetooth is best for short-range communication with low power consumption, commonly used for wearable and personal IoT devices.',
       },
       {
-        id: 59,
+        id: 24,
         text: 'Which network is most suitable for long-range, low-power, small data transmission?',
         marks: '1 pt',
         type: 'mcq',
@@ -328,7 +328,7 @@ export const iotSections: Section[] = [
         answer: 'LoRa and NB-IoT are LPWAN technologies designed for long-range, low-power, small data transmission in IoT applications.',
       },
       {
-        id: 60,
+        id: 25,
         text: 'Which statement best describes real-time (hot) processing?',
         marks: '1 pt',
         type: 'mcq',
@@ -341,7 +341,7 @@ export const iotSections: Section[] = [
         answer: 'Real-time (hot) processing means decisions must happen quickly after data arrives, enabling immediate responses like alarms.',
       },
       {
-        id: 61,
+        id: 26,
         text: 'Which statement best describes batch (cold) processing?',
         marks: '1 pt',
         type: 'mcq',
@@ -354,7 +354,7 @@ export const iotSections: Section[] = [
         answer: 'Batch (cold) processing means analysis happens later using stored data, such as generating weekly or monthly reports.',
       },
       {
-        id: 62,
+        id: 27,
         text: 'Arduino is best described as a:',
         marks: '1 pt',
         type: 'mcq',
@@ -367,7 +367,7 @@ export const iotSections: Section[] = [
         answer: 'Arduino is a microcontroller-based board designed for embedded control tasks and IoT prototyping.',
       },
       {
-        id: 63,
+        id: 28,
         text: 'Raspberry Pi is best described as a:',
         marks: '1 pt',
         type: 'mcq',
@@ -380,7 +380,7 @@ export const iotSections: Section[] = [
         answer: 'Raspberry Pi is a microprocessor-based board that can run a full operating system like Linux.',
       },
       {
-        id: 64,
+        id: 29,
         text: 'Compared to microprocessors, microcontrollers are usually:',
         marks: '1 pt',
         type: 'mcq',
@@ -393,7 +393,7 @@ export const iotSections: Section[] = [
         answer: 'Microcontrollers are usually cheaper and designed for specific control tasks, making them ideal for IoT devices.',
       },
       {
-        id: 65,
+        id: 30,
         text: 'A main IoT challenge for battery-powered devices is:',
         marks: '1 pt',
         type: 'mcq',
@@ -406,7 +406,7 @@ export const iotSections: Section[] = [
         answer: 'Power consumption is a main IoT challenge for battery-powered devices, as they need to operate for long periods on limited power.',
       },
       {
-        id: 66,
+        id: 31,
         text: 'A main IoT challenge because many devices generate continuous data is:',
         marks: '1 pt',
         type: 'mcq',
@@ -419,7 +419,7 @@ export const iotSections: Section[] = [
         answer: 'Big Data is a main IoT challenge because many devices continuously generate massive amounts of data that need to be stored, processed, and analyzed.',
       },
       {
-        id: 67,
+        id: 32,
         text: 'Security in IoT is important mainly because:',
         marks: '1 pt',
         type: 'mcq',
@@ -432,7 +432,7 @@ export const iotSections: Section[] = [
         answer: 'Security in IoT is important because unprotected IoT devices can be accessed or controlled by attackers, potentially causing harm.',
       },
       {
-        id: 68,
+        id: 33,
         text: 'An IoT platform is mainly used to:',
         marks: '1 pt',
         type: 'mcq',
@@ -445,7 +445,7 @@ export const iotSections: Section[] = [
         answer: 'An IoT platform provides services like device management, storage, dashboards, and integration for building IoT solutions.',
       },
       {
-        id: 69,
+        id: 34,
         text: 'The correct IoT loop is:',
         marks: '1 pt',
         type: 'mcq',
@@ -458,7 +458,7 @@ export const iotSections: Section[] = [
         answer: 'The correct IoT loop is: Sense → Decide → Act — sensors collect data, the system processes and decides, then actuators perform actions.',
       },
       {
-        id: 70,
+        id: 35,
         text: 'In IoT, the "Application Layer" mainly focuses on:',
         marks: '1 pt',
         type: 'mcq',
@@ -479,7 +479,7 @@ export const iotSections: Section[] = [
     icon: '📡',
     questions: [
       {
-        id: 101,
+        id: 36,
         text: 'Which statement BEST describes a sensor?',
         marks: '1 pt',
         type: 'mcq',
@@ -492,7 +492,7 @@ export const iotSections: Section[] = [
         answer: 'A sensor measures the environment and outputs data — it detects physical phenomena and converts them into readable signals.',
       },
       {
-        id: 102,
+        id: 37,
         text: 'Which component converts a continuous real-world signal into numbers a microcontroller can process?',
         marks: '1 pt',
         type: 'mcq',
@@ -505,7 +505,7 @@ export const iotSections: Section[] = [
         answer: 'ADC (Analog-to-Digital Converter) converts a continuous real-world analog signal into digital numbers a microcontroller can process.',
       },
       {
-        id: 103,
+        id: 38,
         text: 'Which of the following is an actuator?',
         marks: '1 pt',
         type: 'mcq',
@@ -518,7 +518,7 @@ export const iotSections: Section[] = [
         answer: 'A motor is an actuator — it performs a physical action (rotation) based on a command. The other options are all sensors.',
       },
       {
-        id: 104,
+        id: 39,
         text: 'A smart sensor is "smart" mainly because it can:',
         marks: '1 pt',
         type: 'mcq',
@@ -531,7 +531,7 @@ export const iotSections: Section[] = [
         answer: 'A smart sensor is "smart" because it can measure and perform extra functions like onboard processing and communication.',
       },
       {
-        id: 105,
+        id: 40,
         text: 'Which layer of IoT is most related to sensors and actuators?',
         marks: '1 pt',
         type: 'mcq',
@@ -544,7 +544,7 @@ export const iotSections: Section[] = [
         answer: 'The Perception (sensor) layer is most related to sensors and actuators — it interfaces directly with the physical world.',
       },
       {
-        id: 106,
+        id: 41,
         text: 'The HC-SR04 ultrasonic sensor measures distance by:',
         marks: '1 pt',
         type: 'mcq',
@@ -557,7 +557,7 @@ export const iotSections: Section[] = [
         answer: 'The HC-SR04 ultrasonic sensor measures distance by sending an ultrasonic pulse and measuring the time for the reflected sound wave to return.',
       },
       {
-        id: 107,
+        id: 42,
         text: 'HC-SR04 pins: TRIG is usually connected to:',
         marks: '1 pt',
         type: 'mcq',
@@ -570,7 +570,7 @@ export const iotSections: Section[] = [
         answer: 'The TRIG pin of HC-SR04 is connected to an Arduino digital output pin — the MCU sends a trigger pulse to start measurement.',
       },
       {
-        id: 108,
+        id: 43,
         text: 'HC-SR04 pins: ECHO is usually connected to:',
         marks: '1 pt',
         type: 'mcq',
@@ -583,7 +583,7 @@ export const iotSections: Section[] = [
         answer: 'The ECHO pin of HC-SR04 is connected to an Arduino digital input pin — the MCU reads the echo pulse duration to calculate distance.',
       },
       {
-        id: 109,
+        id: 44,
         text: 'PIR motion sensor (HC-SR501) output is typically:',
         marks: '1 pt',
         type: 'mcq',
@@ -596,7 +596,7 @@ export const iotSections: Section[] = [
         answer: 'The PIR sensor (HC-SR501) outputs a digital signal: HIGH when motion is detected, LOW otherwise.',
       },
       {
-        id: 110,
+        id: 45,
         text: 'PIR sensors are most commonly used to detect:',
         marks: '1 pt',
         type: 'mcq',
@@ -609,7 +609,7 @@ export const iotSections: Section[] = [
         answer: 'PIR (Passive Infrared) sensors are most commonly used to detect human or animal motion in an area by sensing body heat.',
       },
       {
-        id: 111,
+        id: 46,
         text: 'Soil moisture sensor AOUT should connect to:',
         marks: '1 pt',
         type: 'mcq',
@@ -622,7 +622,7 @@ export const iotSections: Section[] = [
         answer: 'The soil moisture sensor AOUT (Analog Output) should connect to an Arduino analog pin to read the continuous moisture level.',
       },
       {
-        id: 112,
+        id: 47,
         text: 'Which sensor output gives a continuous level (not only ON/OFF)?',
         marks: '1 pt',
         type: 'mcq',
@@ -635,7 +635,7 @@ export const iotSections: Section[] = [
         answer: 'Analog output (AOUT/AO) gives a continuous level, allowing measurement of varying quantities rather than just ON/OFF.',
       },
       {
-        id: 113,
+        id: 48,
         text: 'A temperature sensor with 1-Wire communication uses:',
         marks: '1 pt',
         type: 'mcq',
@@ -648,7 +648,7 @@ export const iotSections: Section[] = [
         answer: 'A 1-Wire temperature sensor uses only one data line for communication, reducing wiring complexity.',
       },
       {
-        id: 114,
+        id: 49,
         text: 'A DHT sensor (temperature + humidity) usually outputs:',
         marks: '1 pt',
         type: 'mcq',
@@ -661,7 +661,7 @@ export const iotSections: Section[] = [
         answer: 'A DHT sensor outputs temperature and humidity data through one digital data signal pin using a custom protocol.',
       },
       {
-        id: 115,
+        id: 50,
         text: 'Which output is best if you want an "alarm only" when gas exceeds a limit?',
         marks: '1 pt',
         type: 'mcq',
@@ -674,7 +674,7 @@ export const iotSections: Section[] = [
         answer: 'DO (Digital Output) is best for a simple alarm — it outputs HIGH/LOW based on a threshold, making it easy to trigger an alarm.',
       },
       {
-        id: 116,
+        id: 51,
         text: 'Which output is best if you want to estimate gas concentration level (low/medium/high)?',
         marks: '1 pt',
         type: 'mcq',
@@ -687,7 +687,7 @@ export const iotSections: Section[] = [
         answer: 'AO (Analog Output) provides a continuous voltage level that allows estimating the gas concentration level (low/medium/high).',
       },
       {
-        id: 117,
+        id: 52,
         text: 'Which is the BEST match: "Distance measurement" → sensor type?',
         marks: '1 pt',
         type: 'mcq',
@@ -700,7 +700,7 @@ export const iotSections: Section[] = [
         answer: 'Ultrasonic sensors (like HC-SR04) are best for distance measurement using sound wave reflection.',
       },
       {
-        id: 118,
+        id: 53,
         text: 'If a module has pins VCC, GND, DATA, it is most likely:',
         marks: '1 pt',
         type: 'mcq',
@@ -713,7 +713,7 @@ export const iotSections: Section[] = [
         answer: 'A module with VCC, GND, and DATA pins is most likely a digital communication sensor module like DHT or a 1-Wire sensor.',
       },
       {
-        id: 119,
+        id: 54,
         text: 'A good design choice for a battery-powered farm sensor far away is:',
         marks: '1 pt',
         type: 'mcq',
@@ -726,7 +726,7 @@ export const iotSections: Section[] = [
         answer: 'A low power sensor with LPWAN (LoRa/NB-IoT) is ideal for battery-powered remote farm sensors — providing long range with minimal power consumption.',
       },
       {
-        id: 120,
+        id: 55,
         text: 'Which is an example of real-time (hot) processing in IoT?',
         marks: '1 pt',
         type: 'mcq',
@@ -747,7 +747,7 @@ export const iotSections: Section[] = [
     icon: '🔌',
     questions: [
       {
-        id: 201,
+        id: 56,
         text: 'A microcontroller is "a small computer on a single chip used to control a device." Which option matches this definition?',
         marks: '1 pt',
         type: 'mcq',
@@ -760,7 +760,7 @@ export const iotSections: Section[] = [
         answer: 'MCU (Microcontroller Unit) matches the definition of "a small computer on a single chip used to control a device."',
       },
       {
-        id: 202,
+        id: 57,
         text: 'A smart door reads keypad input, checks the password, then unlocks a motor. This is mainly an example of:',
         marks: '1 pt',
         type: 'mcq',
@@ -773,7 +773,7 @@ export const iotSections: Section[] = [
         answer: 'The smart door follows a Read → Process → Output control loop: reads input, processes the password check, then controls the motor output.',
       },
       {
-        id: 203,
+        id: 58,
         text: 'Which statement best defines an embedded system?',
         marks: '1 pt',
         type: 'mcq',
@@ -786,7 +786,7 @@ export const iotSections: Section[] = [
         answer: 'An embedded system is hardware + MCU + software designed for one dedicated function, like a washing machine controller.',
       },
       {
-        id: 204,
+        id: 59,
         text: 'A washing machine controller is best classified as:',
         marks: '1 pt',
         type: 'mcq',
@@ -799,7 +799,7 @@ export const iotSections: Section[] = [
         answer: 'A washing machine controller is an embedded system — it has hardware + MCU + software for one dedicated function.',
       },
       {
-        id: 205,
+        id: 60,
         text: 'The MCU control loop repeats many times per second mainly to:',
         marks: '1 pt',
         type: 'mcq',
@@ -812,7 +812,7 @@ export const iotSections: Section[] = [
         answer: 'The MCU control loop repeats many times per second to respond quickly to inputs and control outputs in real-time.',
       },
       {
-        id: 206,
+        id: 61,
         text: 'Which of the following is NOT a typical internal block of a microcontroller?',
         marks: '1 pt',
         type: 'mcq',
@@ -825,7 +825,7 @@ export const iotSections: Section[] = [
         answer: 'A mechanical keyboard is NOT an internal block of a microcontroller. Timers, ADC, and CPU are all typical internal MCU blocks.',
       },
       {
-        id: 207,
+        id: 62,
         text: 'The CPU in a microcontroller is responsible for:',
         marks: '1 pt',
         type: 'mcq',
@@ -838,7 +838,7 @@ export const iotSections: Section[] = [
         answer: 'The CPU executes instructions and controls device behavior — it is the brain of the microcontroller.',
       },
       {
-        id: 208,
+        id: 63,
         text: 'Inside the CPU, the unit that performs arithmetic and logic operations is called:',
         marks: '1 pt',
         type: 'mcq',
@@ -851,7 +851,7 @@ export const iotSections: Section[] = [
         answer: 'The ALU (Arithmetic Logic Unit) performs arithmetic and logic operations inside the CPU.',
       },
       {
-        id: 209,
+        id: 64,
         text: 'The CPU component that points to the next instruction to be executed is the:',
         marks: '1 pt',
         type: 'mcq',
@@ -864,7 +864,7 @@ export const iotSections: Section[] = [
         answer: 'The Program Counter (PC) points to the next instruction to be executed by the CPU.',
       },
       {
-        id: 210,
+        id: 65,
         text: '"Program memory stores the code and keeps it even after power is OFF." This refers to:',
         marks: '1 pt',
         type: 'mcq',
@@ -877,7 +877,7 @@ export const iotSections: Section[] = [
         answer: 'Flash (Program Memory) stores the code and retains it even after power is OFF — it is non-volatile memory.',
       },
       {
-        id: 211,
+        id: 66,
         text: 'When power is removed, temporary variables are lost. This memory is most likely:',
         marks: '1 pt',
         type: 'mcq',
@@ -890,7 +890,7 @@ export const iotSections: Section[] = [
         answer: 'SRAM (RAM) is volatile memory — temporary variables are lost when power is removed.',
       },
       {
-        id: 212,
+        id: 67,
         text: 'A device must save calibration settings even after power OFF and update them occasionally. Best memory type:',
         marks: '1 pt',
         type: 'mcq',
@@ -903,7 +903,7 @@ export const iotSections: Section[] = [
         answer: 'EEPROM is best for saving calibration settings that must persist after power OFF and be updated occasionally — it is non-volatile and byte-erasable.',
       },
       {
-        id: 213,
+        id: 68,
         text: 'A button is connected to a pin, and the MCU reads it as 0 or 1. That pin is used as:',
         marks: '1 pt',
         type: 'mcq',
@@ -916,7 +916,7 @@ export const iotSections: Section[] = [
         answer: 'When an MCU reads a button as 0 or 1, the pin is used as a digital input (GPIO input).',
       },
       {
-        id: 214,
+        id: 69,
         text: 'An MCU pin turns ON a relay module, but the relay needs more current than the pin can provide. Correct solution:',
         marks: '1 pt',
         type: 'mcq',
@@ -929,7 +929,7 @@ export const iotSections: Section[] = [
         answer: 'Use a driver (transistor/relay module) controlled by the MCU — this allows the MCU to control the relay without exceeding its current limit.',
       },
       {
-        id: 215,
+        id: 70,
         text: 'Many sensors produce continuously varying voltage. To convert this to a number the CPU can process, the MCU uses:',
         marks: '1 pt',
         type: 'mcq',
@@ -942,7 +942,7 @@ export const iotSections: Section[] = [
         answer: 'The ADC (Analog-to-Digital Converter) converts continuously varying analog voltage into digital numbers the CPU can process.',
       },
       {
-        id: 216,
+        id: 71,
         text: '"Analog → Digital conversion" means:',
         marks: '1 pt',
         type: 'mcq',
@@ -955,7 +955,7 @@ export const iotSections: Section[] = [
         answer: 'Analog → Digital conversion means converting a voltage level into a digital number that the CPU can process.',
       },
       {
-        id: 217,
+        id: 72,
         text: 'A DAC is mainly needed when the MCU must:',
         marks: '1 pt',
         type: 'mcq',
@@ -968,7 +968,7 @@ export const iotSections: Section[] = [
         answer: 'A DAC (Digital-to-Analog Converter) is needed when the MCU must output a real analog voltage signal.',
       },
       {
-        id: 218,
+        id: 73,
         text: 'The most common programming language used in many microcontroller projects is:',
         marks: '1 pt',
         type: 'mcq',
@@ -981,7 +981,7 @@ export const iotSections: Section[] = [
         answer: 'C / Embedded C is the most common programming language used in microcontroller projects.',
       },
       {
-        id: 219,
+        id: 74,
         text: 'Which list contains common microcontroller families?',
         marks: '1 pt',
         type: 'mcq',
@@ -994,7 +994,7 @@ export const iotSections: Section[] = [
         answer: 'AVR, PIC, 8051, and ARM Cortex-M are common microcontroller families used in embedded systems.',
       },
       {
-        id: 220,
+        id: 75,
         text: 'A key feature of a microcontroller compared to a microprocessor is that it typically:',
         marks: '1 pt',
         type: 'mcq',
@@ -1007,7 +1007,7 @@ export const iotSections: Section[] = [
         answer: 'A key feature of a microcontroller is that it has CPU + memory + I/O peripherals integrated on the same chip.',
       },
       {
-        id: 221,
+        id: 76,
         text: 'A key feature of a microprocessor-based system is that it often:',
         marks: '1 pt',
         type: 'mcq',
@@ -1020,7 +1020,7 @@ export const iotSections: Section[] = [
         answer: 'A microprocessor-based system often needs external memory (like DDR) and supports running complex operating systems.',
       },
       {
-        id: 222,
+        id: 77,
         text: 'A laptop CPU is best described as a:',
         marks: '1 pt',
         type: 'mcq',
@@ -1033,7 +1033,7 @@ export const iotSections: Section[] = [
         answer: 'A laptop CPU is a microprocessor — it requires external memory and supports running a complex OS.',
       },
       {
-        id: 223,
+        id: 78,
         text: 'Which use-case is most suitable for a microcontroller?',
         marks: '1 pt',
         type: 'mcq',
@@ -1046,7 +1046,7 @@ export const iotSections: Section[] = [
         answer: 'Controlling an LED, reading a sensor, and driving a motor is most suitable for a microcontroller — dedicated control tasks.',
       },
       {
-        id: 224,
+        id: 79,
         text: 'Which use-case is most suitable for a microprocessor?',
         marks: '1 pt',
         type: 'mcq',
@@ -1059,7 +1059,7 @@ export const iotSections: Section[] = [
         answer: 'Running Linux with camera streaming and networking is most suitable for a microprocessor — it requires high performance and complex OS support.',
       },
       {
-        id: 225,
+        id: 80,
         text: 'Caches (L1/L2/L3) in microprocessor systems are mainly used to:',
         marks: '1 pt',
         type: 'mcq',
@@ -1072,7 +1072,7 @@ export const iotSections: Section[] = [
         answer: 'Caches (L1/L2/L3) speed up access to frequently used data and instructions in microprocessor systems.',
       },
       {
-        id: 226,
+        id: 81,
         text: 'A feature that helps microprocessors run operating systems with memory protection and multitasking is:',
         marks: '1 pt',
         type: 'mcq',
@@ -1085,7 +1085,7 @@ export const iotSections: Section[] = [
         answer: 'The MMU (Memory Management Unit) helps microprocessors run OS with memory protection and multitasking support.',
       },
       {
-        id: 227,
+        id: 82,
         text: 'AVR is a microcontroller family originally associated with:',
         marks: '1 pt',
         type: 'mcq',
@@ -1098,7 +1098,7 @@ export const iotSections: Section[] = [
         answer: 'AVR is a microcontroller family originally developed by Atmel, which is now part of Microchip Technology.',
       },
       {
-        id: 228,
+        id: 83,
         text: 'Which set of features matches ATmega16 best?',
         marks: '1 pt',
         type: 'mcq',
@@ -1111,7 +1111,7 @@ export const iotSections: Section[] = [
         answer: 'ATmega16 features: 8-bit AVR architecture, timers/PWM, ADC, EEPROM, and communication peripherals (UART/I2C/SPI).',
       },
       {
-        id: 229,
+        id: 84,
         text: 'ATmega16 is described as Harvard architecture. The main idea is:',
         marks: '1 pt',
         type: 'mcq',
@@ -1124,7 +1124,7 @@ export const iotSections: Section[] = [
         answer: 'Harvard architecture has separate instruction/program and data paths, allowing simultaneous access to both memories.',
       },
       {
-        id: 230,
+        id: 85,
         text: '"MCUs are used in low-cost, low-power devices that do one control job, while microprocessors are for high-performance general computing." This statement is:',
         marks: '1 pt',
         type: 'mcq',
@@ -1145,7 +1145,7 @@ export const iotSections: Section[] = [
     icon: '⚙️',
     questions: [
       {
-        id: 301,
+        id: 86,
         text: 'A "PORT" in ATmega16 is best described as:',
         marks: '1 pt',
         type: 'mcq',
@@ -1158,7 +1158,7 @@ export const iotSections: Section[] = [
         answer: 'A PORT in ATmega16 is a group of 8 pins that can be controlled together through registers.',
       },
       {
-        id: 302,
+        id: 87,
         text: 'In an 8-bit register, bit0 usually controls:',
         marks: '1 pt',
         type: 'mcq',
@@ -1171,7 +1171,7 @@ export const iotSections: Section[] = [
         answer: 'In an 8-bit register, bit0 usually controls pin0 — each bit corresponds to its respective pin number.',
       },
       {
-        id: 303,
+        id: 88,
         text: 'Which value makes all bits = 1 for an 8-bit register?',
         marks: '1 pt',
         type: 'mcq',
@@ -1184,7 +1184,7 @@ export const iotSections: Section[] = [
         answer: '0xFF (binary 11111111) makes all 8 bits = 1 in an 8-bit register.',
       },
       {
-        id: 304,
+        id: 89,
         text: '0xAA in binary equals:',
         marks: '1 pt',
         type: 'mcq',
@@ -1197,7 +1197,7 @@ export const iotSections: Section[] = [
         answer: '0xAA in binary is 10101010 — each hex digit A = 1010 in binary.',
       },
       {
-        id: 305,
+        id: 90,
         text: '0x0F in 8-bit binary is:',
         marks: '1 pt',
         type: 'mcq',
@@ -1210,7 +1210,7 @@ export const iotSections: Section[] = [
         answer: '0x0F in 8-bit binary is 00001111 — the upper nibble is 0, the lower nibble is F (1111).',
       },
       {
-        id: 306,
+        id: 91,
         text: 'A floating input is dangerous because it:',
         marks: '1 pt',
         type: 'mcq',
@@ -1223,7 +1223,7 @@ export const iotSections: Section[] = [
         answer: 'A floating input is dangerous because it may randomly read 0 or 1, causing unpredictable behavior in the program.',
       },
       {
-        id: 307,
+        id: 92,
         text: 'The main role of a pull-up resistor is to:',
         marks: '1 pt',
         type: 'mcq',
@@ -1236,7 +1236,7 @@ export const iotSections: Section[] = [
         answer: 'A pull-up resistor makes the input stable HIGH when not actively driven, preventing floating states.',
       },
       {
-        id: 308,
+        id: 93,
         text: 'In ATmega16, the register that controls direction of pins is:',
         marks: '1 pt',
         type: 'mcq',
@@ -1249,7 +1249,7 @@ export const iotSections: Section[] = [
         answer: 'DDRx (Data Direction Register) controls the direction of pins — 0 for input, 1 for output.',
       },
       {
-        id: 309,
+        id: 94,
         text: 'DDRx bit = 0 means the pin is:',
         marks: '1 pt',
         type: 'mcq',
@@ -1262,7 +1262,7 @@ export const iotSections: Section[] = [
         answer: 'DDRx bit = 0 configures the pin as an input.',
       },
       {
-        id: 310,
+        id: 95,
         text: 'DDRx bit = 1 means the pin is:',
         marks: '1 pt',
         type: 'mcq',
@@ -1275,7 +1275,7 @@ export const iotSections: Section[] = [
         answer: 'DDRx bit = 1 configures the pin as an output.',
       },
       {
-        id: 311,
+        id: 96,
         text: 'If DDRA = 0x00, then Port A pins are:',
         marks: '1 pt',
         type: 'mcq',
@@ -1288,7 +1288,7 @@ export const iotSections: Section[] = [
         answer: 'DDRA = 0x00 means all bits are 0, so all Port A pins are configured as inputs.',
       },
       {
-        id: 312,
+        id: 97,
         text: 'If DDRB = 0xFF, then Port B pins are:',
         marks: '1 pt',
         type: 'mcq',
@@ -1301,7 +1301,7 @@ export const iotSections: Section[] = [
         answer: 'DDRB = 0xFF means all bits are 1, so all Port B pins are configured as outputs.',
       },
       {
-        id: 313,
+        id: 98,
         text: 'DDRB = 0b00001111 means:',
         marks: '1 pt',
         type: 'mcq',
@@ -1314,7 +1314,7 @@ export const iotSections: Section[] = [
         answer: 'DDRB = 0b00001111 means bits 0-3 are 1 (outputs) and bits 4-7 are 0 (inputs): PB0..PB3 are outputs, PB4..PB7 are inputs.',
       },
       {
-        id: 314,
+        id: 99,
         text: 'PORTx has two meanings depending on DDRx. This statement is:',
         marks: '1 pt',
         type: 'mcq',
@@ -1327,7 +1327,7 @@ export const iotSections: Section[] = [
         answer: 'This is true — when a pin is output (DDRx=1), PORTx sets the output value; when a pin is input (DDRx=0), PORTx controls the pull-up resistor.',
       },
       {
-        id: 315,
+        id: 100,
         text: 'If a pin is OUTPUT (DDRx=1), writing PORTx bit = 1 makes the pin:',
         marks: '1 pt',
         type: 'mcq',
@@ -1340,7 +1340,7 @@ export const iotSections: Section[] = [
         answer: 'When a pin is configured as output (DDRx=1), writing PORTx bit = 1 drives the pin HIGH.',
       },
       {
-        id: 316,
+        id: 101,
         text: 'If a pin is OUTPUT (DDRx=1), writing PORTx bit = 0 makes the pin:',
         marks: '1 pt',
         type: 'mcq',
@@ -1353,7 +1353,7 @@ export const iotSections: Section[] = [
         answer: 'When a pin is configured as output (DDRx=1), writing PORTx bit = 0 drives the pin LOW.',
       },
       {
-        id: 317,
+        id: 102,
         text: 'If a pin is INPUT (DDRx=0), writing PORTx bit = 1 means:',
         marks: '1 pt',
         type: 'mcq',
@@ -1366,7 +1366,7 @@ export const iotSections: Section[] = [
         answer: 'When a pin is configured as input (DDRx=0), writing PORTx bit = 1 enables the internal pull-up resistor.',
       },
       {
-        id: 318,
+        id: 103,
         text: 'If a pin is INPUT (DDRx=0), writing PORTx bit = 0 means:',
         marks: '1 pt',
         type: 'mcq',
@@ -1379,7 +1379,7 @@ export const iotSections: Section[] = [
         answer: 'When a pin is configured as input (DDRx=0), writing PORTx bit = 0 disables the pull-up resistor, leaving the pin floating.',
       },
       {
-        id: 319,
+        id: 104,
         text: 'The register used to read the actual pin state is:',
         marks: '1 pt',
         type: 'mcq',
@@ -1392,7 +1392,7 @@ export const iotSections: Section[] = [
         answer: 'PINx is the register used to read the actual logic level on the physical pin.',
       },
       {
-        id: 320,
+        id: 105,
         text: 'Correct typical sequence to read a button with pull-up:',
         marks: '1 pt',
         type: 'mcq',
@@ -1405,7 +1405,7 @@ export const iotSections: Section[] = [
         answer: 'The correct sequence is: DDR=0 (input) → PORT=1 (enable pull-up) → read PIN (read actual pin state).',
       },
       {
-        id: 321,
+        id: 106,
         text: 'If DDRB=0x00 and PORTB=0x00, Port B pins are:',
         marks: '1 pt',
         type: 'mcq',
@@ -1418,7 +1418,7 @@ export const iotSections: Section[] = [
         answer: 'DDRB=0x00 means all inputs, and PORTB=0x00 means pull-ups disabled, so all Port B pins are floating inputs.',
       },
       {
-        id: 322,
+        id: 107,
         text: 'If DDRB=0x00 and PORTB=0xFF, Port B pins are:',
         marks: '1 pt',
         type: 'mcq',
@@ -1431,7 +1431,7 @@ export const iotSections: Section[] = [
         answer: 'DDRB=0x00 means all inputs, and PORTB=0xFF enables pull-ups on all pins, so Port B pins are inputs with pull-ups enabled.',
       },
       {
-        id: 323,
+        id: 108,
         text: 'If DDRC=0xFF and PORTC=0x11, which pins are HIGH?',
         marks: '1 pt',
         type: 'mcq',
@@ -1444,7 +1444,7 @@ export const iotSections: Section[] = [
         answer: '0x11 in binary is 00010001 — bit0 (PC0) and bit4 (PC4) are 1, so PC0 and PC4 are HIGH.',
       },
       {
-        id: 324,
+        id: 109,
         text: 'Which code sets PA0 as input?',
         marks: '1 pt',
         type: 'mcq',
@@ -1457,7 +1457,7 @@ export const iotSections: Section[] = [
         answer: 'DDRA &= ~(1<<0) clears bit0 of DDRA, setting PA0 as input (DDRx bit = 0 means input).',
       },
       {
-        id: 325,
+        id: 110,
         text: 'Which code enables pull-up on PA0 (PA0 is input)?',
         marks: '1 pt',
         type: 'mcq',
@@ -1470,7 +1470,7 @@ export const iotSections: Section[] = [
         answer: 'PORTA |= (1<<0) sets bit0 of PORTA, which enables the pull-up resistor when PA0 is configured as input.',
       },
       {
-        id: 326,
+        id: 111,
         text: 'Which expression correctly reads only bit0 from PINA as 0/1?',
         marks: '1 pt',
         type: 'mcq',
@@ -1483,7 +1483,7 @@ export const iotSections: Section[] = [
         answer: '(PINA>>0) & 1 reads bit0 from PINA — it shifts right by 0 and masks with 1 to get only the least significant bit.',
       },
       {
-        id: 327,
+        id: 112,
         text: 'Setting only PC4 as output is best done by:',
         marks: '1 pt',
         type: 'mcq',
@@ -1496,7 +1496,7 @@ export const iotSections: Section[] = [
         answer: 'DDRC |= (1<<4) sets only bit4 of DDRC to 1, making PC4 an output without affecting other pins.',
       },
       {
-        id: 328,
+        id: 113,
         text: 'Making PC4 HIGH (after it is output) is done by:',
         marks: '1 pt',
         type: 'mcq',
@@ -1509,7 +1509,7 @@ export const iotSections: Section[] = [
         answer: 'PORTC |= (1<<4) sets bit4 of PORTC to 1, driving PC4 HIGH when it is configured as output.',
       },
       {
-        id: 329,
+        id: 114,
         text: 'When you want to change one pin only without affecting others, you should use:',
         marks: '1 pt',
         type: 'mcq',
@@ -1522,7 +1522,7 @@ export const iotSections: Section[] = [
         answer: 'Bit operations (set with |= and clear with &= ~) using masks allow changing one pin without affecting others.',
       },
       {
-        id: 330,
+        id: 115,
         text: 'Which statement is correct?',
         marks: '1 pt',
         type: 'mcq',
@@ -1543,7 +1543,7 @@ export const iotSections: Section[] = [
     icon: '⚡',
     questions: [
       {
-        id: 401,
+        id: 116,
         text: 'An actuator in an IoT system is best described as:',
         marks: '1 pt',
         type: 'mcq',
@@ -1556,7 +1556,7 @@ export const iotSections: Section[] = [
         answer: 'An actuator is a device that causes physical change in the environment — such as motion, sound, or light — based on control signals. Unlike sensors that measure the environment, actuators act upon it.',
       },
       {
-        id: 402,
+        id: 117,
         text: 'A DC motor usually needs an external driver because:',
         marks: '1 pt',
         type: 'mcq',
@@ -1569,7 +1569,7 @@ export const iotSections: Section[] = [
         answer: 'Microcontroller I/O pins can typically source/sink only about 20–40 mA, while DC motors often require hundreds of milliamps or more. A motor driver (like L298N) acts as a power amplifier, allowing the microcontroller to safely control the motor.',
       },
       {
-        id: 403,
+        id: 118,
         text: 'In L298N, the pins that mainly control speed (using PWM) are:',
         marks: '1 pt',
         type: 'mcq',
@@ -1582,7 +1582,7 @@ export const iotSections: Section[] = [
         answer: 'ENA and ENB are the enable pins on the L298N. Applying a PWM signal to these pins controls the average voltage delivered to the motor, thus controlling its speed. OUT1/OUT2 connect to the motor, IN1/IN2 control direction, and VCC/GND are power.',
       },
       {
-        id: 404,
+        id: 119,
         text: 'In L298N, for Motor A direction control, the important pins are:',
         marks: '1 pt',
         type: 'mcq',
@@ -1595,7 +1595,7 @@ export const iotSections: Section[] = [
         answer: 'IN1 and IN2 control the direction of Motor A. Setting IN1=HIGH, IN2=LOW makes it rotate one way; IN1=LOW, IN2=HIGH makes it reverse. IN3 & IN4 do the same for Motor B.',
       },
       {
-        id: 405,
+        id: 120,
         text: 'On L298N, the pins connected directly to Motor A wires are:',
         marks: '1 pt',
         type: 'mcq',
@@ -1608,7 +1608,7 @@ export const iotSections: Section[] = [
         answer: 'OUT1 and OUT2 are the output terminals that connect directly to Motor A wires. The L298N internal H-bridge routes power from the supply through these terminals to drive the motor in either direction.',
       },
       {
-        id: 406,
+        id: 121,
         text: 'L298N requires two power sections mainly because:',
         marks: '1 pt',
         type: 'mcq',
@@ -1621,7 +1621,7 @@ export const iotSections: Section[] = [
         answer: 'The L298N has a motor power supply (VCC, typically 6–12V or more) that drives the motors, and a logic power supply (5V) that runs the internal circuitry of the driver chip. Separating them prevents motor noise from affecting logic and allows different voltage levels.',
       },
       {
-        id: 407,
+        id: 122,
         text: 'A servo motor is mainly used when you need:',
         marks: '1 pt',
         type: 'mcq',
@@ -1634,7 +1634,7 @@ export const iotSections: Section[] = [
         answer: 'A servo motor provides precise angular positioning, typically in the range of 0° to 180°. It uses internal feedback (a potentiometer) to maintain the commanded position, making it ideal for applications requiring accurate position control.',
       },
       {
-        id: 408,
+        id: 123,
         text: 'Typical servo pins (3 wires) are:',
         marks: '1 pt',
         type: 'mcq',
@@ -1647,7 +1647,7 @@ export const iotSections: Section[] = [
         answer: 'A standard servo has 3 wires: VCC (usually red, 5V power), GND (usually brown/black, ground), and Signal (usually orange/yellow, receives the PWM control pulse from the microcontroller).',
       },
       {
-        id: 409,
+        id: 124,
         text: 'The servo Signal wire typically carries:',
         marks: '1 pt',
         type: 'mcq',
@@ -1660,7 +1660,7 @@ export const iotSections: Section[] = [
         answer: 'The servo signal wire receives a PWM control signal from the microcontroller. The pulse width (typically 1ms–2ms) determines the angle the servo moves to. This is a low-current control signal, not the motor power supply.',
       },
       {
-        id: 410,
+        id: 125,
         text: 'The joystick module provides:',
         marks: '1 pt',
         type: 'mcq',
@@ -1673,7 +1673,7 @@ export const iotSections: Section[] = [
         answer: 'A typical joystick module has two potentiometers for the X and Y axes (VRX and VRY, both analog outputs), plus a pushbutton (SW, digital output) activated by pressing the joystick knob down.',
       },
       {
-        id: 411,
+        id: 126,
         text: 'Joystick pin VRX represents:',
         marks: '1 pt',
         type: 'mcq',
@@ -1686,7 +1686,7 @@ export const iotSections: Section[] = [
         answer: 'VRX provides the analog voltage corresponding to the horizontal (X-axis) position of the joystick. VRY provides the vertical (Y-axis) value. Both range from 0 to the supply voltage (e.g., 0–5V or 0–3.3V).',
       },
       {
-        id: 412,
+        id: 127,
         text: 'Joystick pin SW is described as:',
         marks: '1 pt',
         type: 'mcq',
@@ -1699,7 +1699,7 @@ export const iotSections: Section[] = [
         answer: 'SW is a normally-open pushbutton output. When the joystick knob is pressed down, the switch closes and the SW pin connects to ground. With a pull-up resistor, this reads as HIGH when not pressed and LOW when pressed.',
       },
       {
-        id: 413,
+        id: 128,
         text: 'If SW uses a pull-up resistor, the SW pin reads:',
         marks: '1 pt',
         type: 'mcq',
@@ -1712,7 +1712,7 @@ export const iotSections: Section[] = [
         answer: 'With a pull-up resistor, the SW pin is pulled HIGH by default (not pressed). When the button is pressed, it connects the pin to ground, making it read LOW. This is the standard behavior of a normally-open switch with a pull-up.',
       },
       {
-        id: 414,
+        id: 129,
         text: 'OLED module shown uses the interface:',
         marks: '1 pt',
         type: 'mcq',
@@ -1725,7 +1725,7 @@ export const iotSections: Section[] = [
         answer: 'The common small OLED display modules (like SSD1306 0.96") typically use the I2C interface, requiring only two data lines (SDA for data and SCL for clock), plus power. Some OLED modules also support SPI for faster data transfer.',
       },
       {
-        id: 415,
+        id: 130,
         text: 'On I2C OLED, the SCL pin is:',
         marks: '1 pt',
         type: 'mcq',
@@ -1738,7 +1738,7 @@ export const iotSections: Section[] = [
         answer: 'SCL stands for Serial Clock Line. It is the clock signal generated by the I2C master that synchronizes data transfer on the bus. The slave devices use this clock to know when to read or write data on the SDA line.',
       },
       {
-        id: 416,
+        id: 131,
         text: 'On I2C OLED, the SDA pin is:',
         marks: '1 pt',
         type: 'mcq',
@@ -1751,7 +1751,7 @@ export const iotSections: Section[] = [
         answer: 'SDA stands for Serial Data Line. It carries the actual data being transmitted between the master and slave devices on the I2C bus. Data is sent in sync with the SCL clock signal.',
       },
       {
-        id: 417,
+        id: 132,
         text: 'The LCD 16×2 pin Vo is mainly used for:',
         marks: '1 pt',
         type: 'mcq',
@@ -1764,7 +1764,7 @@ export const iotSections: Section[] = [
         answer: 'Pin Vo (or V0) on a 16×2 LCD is the contrast adjustment pin. It is typically connected to the wiper of a potentiometer between VCC and GND, allowing you to adjust the display contrast for optimal readability.',
       },
       {
-        id: 418,
+        id: 133,
         text: 'LCD pin RS typically means:',
         marks: '1 pt',
         type: 'mcq',
@@ -1777,7 +1777,7 @@ export const iotSections: Section[] = [
         answer: 'RS stands for Register Select. When RS=LOW, the LCD interprets input as a command (like clearing the display or setting cursor position). When RS=HIGH, it treats input as data (character to display).',
       },
       {
-        id: 419,
+        id: 134,
         text: 'In common LCD 4-bit wiring, data pins often used are:',
         marks: '1 pt',
         type: 'mcq',
@@ -1790,7 +1790,7 @@ export const iotSections: Section[] = [
         answer: 'In 4-bit mode, only the upper 4 data pins (D4–D7) are connected to the microcontroller. Each byte of data is sent as two sequential 4-bit nibbles, which saves 4 I/O pins compared to 8-bit mode.',
       },
       {
-        id: 420,
+        id: 135,
         text: 'LCD pins A and K are commonly related to:',
         marks: '1 pt',
         type: 'mcq',
@@ -1803,7 +1803,7 @@ export const iotSections: Section[] = [
         answer: 'A (Anode) and K (Kathode/Cathode) are the backlight power pins on the LCD. Connecting A to 5V and K to GND turns on the LED backlight, making the display readable in dark environments.',
       },
       {
-        id: 421,
+        id: 136,
         text: 'RFID RC522 module must be powered by:',
         marks: '1 pt',
         type: 'mcq',
@@ -1816,7 +1816,7 @@ export const iotSections: Section[] = [
         answer: 'The RC522 RFID module operates at 3.3V. Connecting it to 5V can damage the module. When using it with a 5V Arduino, level shifters or voltage dividers are recommended on the signal lines to protect the RC522.',
       },
       {
-        id: 422,
+        id: 137,
         text: 'RC522 pin RST is mainly used for:',
         marks: '1 pt',
         type: 'mcq',
@@ -1829,7 +1829,7 @@ export const iotSections: Section[] = [
         answer: 'The RST (Reset) pin on the RC522 is used to reset the module or put it into power-down mode. Pulling RST LOW resets the chip, and it can also be used to conserve power by putting the module to sleep when not actively reading tags.',
       },
       {
-        id: 423,
+        id: 138,
         text: 'RC522 pin IRQ is used to:',
         marks: '1 pt',
         type: 'mcq',
@@ -1842,7 +1842,7 @@ export const iotSections: Section[] = [
         answer: 'The IRQ (Interrupt Request) pin signals the microcontroller when an event occurs, such as when an RFID tag enters the reader field. This allows the microcontroller to use interrupt-driven detection rather than constant polling.',
       },
       {
-        id: 424,
+        id: 139,
         text: 'RC522 pin labeled MISO/SCL/TX means it can act as:',
         marks: '1 pt',
         type: 'mcq',
@@ -1855,7 +1855,7 @@ export const iotSections: Section[] = [
         answer: 'The RC522 supports multiple communication interfaces (SPI, I2C, and UART). The same physical pin can serve as MISO in SPI mode, SCL in I2C mode, or TX in UART mode, depending on which interface is configured.',
       },
       {
-        id: 425,
+        id: 140,
         text: 'Bluetooth HC-05/HC-06 TX should connect to Arduino:',
         marks: '1 pt',
         type: 'mcq',
@@ -1868,7 +1868,7 @@ export const iotSections: Section[] = [
         answer: 'Bluetooth TX (transmit) must connect to Arduino RX (receive) because one device\'s output is the other\'s input. This crossover connection allows serial data to flow between the two devices.',
       },
       {
-        id: 426,
+        id: 141,
         text: 'Bluetooth HC-05/HC-06 RX should connect to Arduino:',
         marks: '1 pt',
         type: 'mcq',
@@ -1881,7 +1881,7 @@ export const iotSections: Section[] = [
         answer: 'Bluetooth RX (receive) must connect to Arduino TX (transmit). This cross-connection ensures that data transmitted by the Arduino is received by the Bluetooth module and vice versa.',
       },
       {
-        id: 427,
+        id: 142,
         text: 'The Bluetooth State pin is mainly used as:',
         marks: '1 pt',
         type: 'mcq',
@@ -1895,7 +1895,7 @@ export const iotSections: Section[] = [
       },
       // ─── Additional related MCQ questions ───
       {
-        id: 428,
+        id: 143,
         text: 'Which of the following is an example of an actuator in a smart home?',
         marks: '1 pt',
         type: 'mcq',
@@ -1908,7 +1908,7 @@ export const iotSections: Section[] = [
         answer: 'A smart door lock is an actuator because it physically changes the state of the door (locked/unlocked) based on control signals. Sensors (temperature, humidity, light) only measure the environment and do not cause physical change.',
       },
       {
-        id: 429,
+        id: 144,
         text: 'What is the main function of an H-bridge in motor control?',
         marks: '1 pt',
         type: 'mcq',
@@ -1921,7 +1921,7 @@ export const iotSections: Section[] = [
         answer: 'An H-bridge is an electronic circuit that enables voltage to be applied across a motor in either direction, allowing bidirectional rotation. The L298N contains two H-bridges, enabling it to control two DC motors independently.',
       },
       {
-        id: 430,
+        id: 145,
         text: 'If IN1=HIGH and IN2=LOW on L298N Motor A, what happens?',
         marks: '1 pt',
         type: 'mcq',
@@ -1934,7 +1934,7 @@ export const iotSections: Section[] = [
         answer: 'When IN1=HIGH and IN2=LOW, current flows through Motor A in one direction, causing it to rotate forward. Reversing (IN1=LOW, IN2=HIGH) makes it rotate the opposite way. Both HIGH or both LOW causes stop/brake.',
       },
       {
-        id: 431,
+        id: 146,
         text: 'If both IN1 and IN2 are LOW on L298N Motor A, the motor:',
         marks: '1 pt',
         type: 'mcq',
@@ -1947,7 +1947,7 @@ export const iotSections: Section[] = [
         answer: 'When both IN1 and IN2 are LOW, no current flows through the motor, and it coasts to a stop (free-run). This is different from active braking where both pins are HIGH, which creates a short-circuit brake that stops the motor more quickly.',
       },
       {
-        id: 432,
+        id: 147,
         text: 'What duty cycle value on ENA would make Motor A run at approximately half speed?',
         marks: '1 pt',
         type: 'mcq',
@@ -1960,7 +1960,7 @@ export const iotSections: Section[] = [
         answer: 'A 50% duty cycle on the PWM signal applied to ENA means the motor receives power for half the time, resulting in approximately half the average voltage and thus roughly half speed. 0% = stopped, 100% = full speed.',
       },
       {
-        id: 433,
+        id: 148,
         text: 'What is the difference between a standard servo and a continuous rotation servo?',
         marks: '1 pt',
         type: 'mcq',
@@ -1973,7 +1973,7 @@ export const iotSections: Section[] = [
         answer: 'A standard servo moves to a specific angle (0°–180°) based on the PWM pulse width. A continuous rotation servo removes the position stop and instead interprets pulse width as speed and direction — center pulse stops it, shorter pulses spin one way, longer pulses the other.',
       },
       {
-        id: 434,
+        id: 149,
         text: 'What is the typical PWM pulse width range for a standard servo (0° to 180°)?',
         marks: '1 pt',
         type: 'mcq',
@@ -1986,7 +1986,7 @@ export const iotSections: Section[] = [
         answer: 'A standard servo typically uses pulse widths from 1.0ms (0° position) to 2.0ms (180° position), with 1.5ms being the center (90°). The PWM signal usually has a 20ms period (50Hz refresh rate).',
       },
       {
-        id: 435,
+        id: 150,
         text: 'When using a joystick module, the analog readings at the center (neutral) position are typically around:',
         marks: '1 pt',
         type: 'mcq',
@@ -1999,7 +1999,7 @@ export const iotSections: Section[] = [
         answer: 'At the center position, both potentiometers are at their midpoint, producing approximately half the supply voltage. On a 10-bit ADC (0–1023), this reads around 512. Pushing the joystick fully in any direction moves the value toward 0 or 1023.',
       },
       {
-        id: 436,
+        id: 151,
         text: 'Which Arduino function is used to read the analog values from a joystick module?',
         marks: '1 pt',
         type: 'mcq',
@@ -2012,7 +2012,7 @@ export const iotSections: Section[] = [
         answer: 'analogRead() reads the voltage on an analog pin and converts it to a digital value (0–1023 on 10-bit ADC). This is used for VRX and VRY joystick outputs. digitalRead() is used for the SW button (digital pin).',
       },
       {
-        id: 437,
+        id: 152,
         text: 'In I2C communication, what is the role of pull-up resistors on SDA and SCL lines?',
         marks: '1 pt',
         type: 'mcq',
@@ -2025,7 +2025,7 @@ export const iotSections: Section[] = [
         answer: 'I2C uses open-drain/open-collector outputs, meaning devices can only pull lines LOW. Pull-up resistors ensure the lines return to HIGH when no device is actively pulling them LOW. Without pull-up resistors, the I2C bus cannot function.',
       },
       {
-        id: 438,
+        id: 153,
         text: 'What is the default I2C address of the common SSD1306 OLED display module?',
         marks: '1 pt',
         type: 'mcq',
@@ -2038,7 +2038,7 @@ export const iotSections: Section[] = [
         answer: 'The SSD1306 OLED display commonly uses I2C address 0x3C (or sometimes 0x3D). 0x27 is typically used by I2C LCD backpacks. The address must be specified correctly in the code for the display to work.',
       },
       {
-        id: 439,
+        id: 154,
         text: 'How many custom characters can a 16×2 LCD typically store?',
         marks: '1 pt',
         type: 'mcq',
@@ -2051,7 +2051,7 @@ export const iotSections: Section[] = [
         answer: 'The HD44780 controller (used in most 16×2 LCDs) has CGRAM (Character Generator RAM) that can store up to 8 custom characters, each defined as a 5×8 pixel pattern. These can be displayed alongside the built-in character set.',
       },
       {
-        id: 440,
+        id: 155,
         text: 'What does the LCD pin E (Enable) do?',
         marks: '1 pt',
         type: 'mcq',
@@ -2064,7 +2064,7 @@ export const iotSections: Section[] = [
         answer: 'The Enable (E) pin is used to trigger the LCD to read the data currently on its input pins. When the microcontroller toggles E from HIGH to LOW, the LCD reads and processes the data/command present on D0–D7 (or D4–D7 in 4-bit mode).',
       },
       {
-        id: 441,
+        id: 156,
         text: 'What is the operating frequency of the RC522 RFID reader?',
         marks: '1 pt',
         type: 'mcq',
@@ -2077,7 +2077,7 @@ export const iotSections: Section[] = [
         answer: 'The RC522 operates at 13.56 MHz (High Frequency / HF band), which is the standard for NFC and many smart card applications. 125 kHz is used by older, lower-frequency RFID systems that have shorter read ranges.',
       },
       {
-        id: 442,
+        id: 157,
         text: 'Which RFID tag type is commonly used with the RC522 module?',
         marks: '1 pt',
         type: 'mcq',
@@ -2090,7 +2090,7 @@ export const iotSections: Section[] = [
         answer: 'The RC522 is designed to work with MIFARE Classic tags and other 13.56 MHz ISO 14443A cards. EM4100 tags operate at 125 kHz and are incompatible with the RC522. UHF and Bluetooth tags use entirely different technologies.',
       },
       {
-        id: 443,
+        id: 158,
         text: 'What is the typical communication range of the RC522 RFID module?',
         marks: '1 pt',
         type: 'mcq',
@@ -2103,7 +2103,7 @@ export const iotSections: Section[] = [
         answer: 'The RC522 has a very short read range of approximately 5 cm, typical of 13.56 MHz NFC/RFID systems. The tag must be held very close to the antenna. This short range is by design for security and precise identification.',
       },
       {
-        id: 444,
+        id: 159,
         text: 'What is the default baud rate of the HC-05 Bluetooth module in AT command mode?',
         marks: '1 pt',
         type: 'mcq',
@@ -2116,7 +2116,7 @@ export const iotSections: Section[] = [
         answer: 'The HC-05 defaults to 9600 baud in AT command mode (when the EN/KEY pin is HIGH at power-up). In communication mode, it may use a different baud rate (often 38400 or 9600), which can be configured via AT commands.',
       },
       {
-        id: 445,
+        id: 160,
         text: 'What voltage level should be used when connecting HC-05 RX to Arduino TX on a 5V Arduino?',
         marks: '1 pt',
         type: 'mcq',
@@ -2129,7 +2129,7 @@ export const iotSections: Section[] = [
         answer: 'The HC-05 RX pin operates at 3.3V logic level. When interfacing with a 5V Arduino TX, a voltage divider (using two resistors) should be used to reduce the 5V signal to 3.3V. The HC-05 TX can be connected directly to Arduino RX since 3.3V is sufficient for a HIGH logic level on most 5V Arduinos.',
       },
       {
-        id: 446,
+        id: 161,
         text: 'What is the difference between HC-05 and HC-06 Bluetooth modules?',
         marks: '1 pt',
         type: 'mcq',
@@ -2142,7 +2142,7 @@ export const iotSections: Section[] = [
         answer: 'The HC-05 can operate in both master and slave modes, allowing it to initiate connections to other Bluetooth devices. The HC-06 is slave-only — it can only accept incoming connections. Both use Bluetooth Classic (not BLE).',
       },
       {
-        id: 447,
+        id: 162,
         text: 'Which Arduino library is commonly used to control standard servo motors?',
         marks: '1 pt',
         type: 'mcq',
@@ -2155,7 +2155,7 @@ export const iotSections: Section[] = [
         answer: 'The Servo.h library provides functions like attach(), write(), and read() to easily control servo motors. Wire.h is for I2C, SPI.h is for SPI communication, and SoftwareSerial.h is for software serial communication.',
       },
       {
-        id: 448,
+        id: 163,
         text: 'Which Arduino library is commonly used to communicate with RC522 RFID module?',
         marks: '1 pt',
         type: 'mcq',
@@ -2168,7 +2168,7 @@ export const iotSections: Section[] = [
         answer: 'The MFRC522 library provides functions to interface with the RC522 RFID reader module over SPI. LiquidCrystal.h is for LCD displays, Servo.h is for servo motors, and ESP8266WiFi.h is for WiFi on ESP8266.',
       },
       {
-        id: 449,
+        id: 164,
         text: 'On ESP32, which pins are the default I2C SDA and SCL pins?',
         marks: '1 pt',
         type: 'mcq',
@@ -2181,7 +2181,7 @@ export const iotSections: Section[] = [
         answer: 'On ESP32, the default I2C pins are GPIO 21 (SDA) and GPIO 22 (SCL). Unlike Arduino Uno (A4/A5), the ESP32 uses these dedicated pins, though I2C can be remapped to almost any GPIO pin using the Wire library.',
       },
       {
-        id: 450,
+        id: 165,
         text: 'What happens if you connect a 5V servo signal directly to a 3.3V ESP32 pin?',
         marks: '1 pt',
         type: 'mcq',
@@ -2203,7 +2203,7 @@ export const iotSections: Section[] = [
     questions: [
       // ─── MCQ Questions: Arduino IDE Concepts ───
       {
-        id: 501,
+        id: 166,
         text: 'Arduino IDE stands for:',
         marks: '1 pt',
         type: 'mcq',
@@ -2216,7 +2216,7 @@ export const iotSections: Section[] = [
         answer: 'Arduino IDE stands for Arduino Integrated Development Environment — the official software used to write, compile, and upload code to Arduino boards.',
       },
       {
-        id: 502,
+        id: 167,
         text: 'Which of the following is NOT a main section of the Arduino IDE?',
         marks: '1 pt',
         type: 'mcq',
@@ -2229,7 +2229,7 @@ export const iotSections: Section[] = [
         answer: 'The six main sections of Arduino IDE are: Toolbar, Menus, Code Editor, Status Bar, Program Notifications, and Board & Serial Port Selections. There is no Database Manager section.',
       },
       {
-        id: 503,
+        id: 168,
         text: 'What is the correct workflow when using Arduino IDE?',
         marks: '1 pt',
         type: 'mcq',
@@ -2242,7 +2242,7 @@ export const iotSections: Section[] = [
         answer: 'The correct workflow is: connect the board via USB, select the correct board type and COM port, write the code, verify/compile it, then upload it to the board.',
       },
       {
-        id: 504,
+        id: 169,
         text: 'What happens if you select the wrong COM port in Arduino IDE?',
         marks: '1 pt',
         type: 'mcq',
@@ -2255,7 +2255,7 @@ export const iotSections: Section[] = [
         answer: 'If the wrong board or wrong port is selected, the code will not upload. The IDE cannot communicate with the Arduino board through an incorrect serial port.',
       },
       {
-        id: 505,
+        id: 170,
         text: 'In Arduino IDE, the Verify button is used to:',
         marks: '1 pt',
         type: 'mcq',
@@ -2268,7 +2268,7 @@ export const iotSections: Section[] = [
         answer: 'The Verify/Compile button checks the code for syntax errors and converts it into machine-readable form without uploading. The Upload button both compiles and sends the code to the board.',
       },
       {
-        id: 506,
+        id: 171,
         text: 'The setup() function in an Arduino program:',
         marks: '1 pt',
         type: 'mcq',
@@ -2281,7 +2281,7 @@ export const iotSections: Section[] = [
         answer: 'setup() runs only once when the Arduino powers on or resets. It is used for initial settings like defining pin modes, initializing libraries, and setting up serial communication.',
       },
       {
-        id: 507,
+        id: 172,
         text: 'The loop() function in an Arduino program:',
         marks: '1 pt',
         type: 'mcq',
@@ -2294,7 +2294,7 @@ export const iotSections: Section[] = [
         answer: 'loop() runs continuously after setup() completes. It contains the main behavior of the program — the code inside loop() repeats over and over as long as the Arduino is powered.',
       },
       {
-        id: 508,
+        id: 173,
         text: 'What does pinMode(13, OUTPUT) do?',
         marks: '1 pt',
         type: 'mcq',
@@ -2307,7 +2307,7 @@ export const iotSections: Section[] = [
         answer: 'pinMode(pin, mode) configures a pin as either INPUT or OUTPUT. pinMode(13, OUTPUT) tells Arduino that pin 13 will be used to send signals to an output device like an LED.',
       },
       {
-        id: 509,
+        id: 174,
         text: 'What does digitalWrite(13, HIGH) do?',
         marks: '1 pt',
         type: 'mcq',
@@ -2320,7 +2320,7 @@ export const iotSections: Section[] = [
         answer: 'digitalWrite(pin, value) sends a digital signal. HIGH = 5V (ON), LOW = 0V (OFF). digitalWrite(13, HIGH) sends 5V to pin 13, turning on whatever is connected (like an LED).',
       },
       {
-        id: 510,
+        id: 175,
         text: 'What does delay(1000) do in Arduino code?',
         marks: '1 pt',
         type: 'mcq',
@@ -2333,7 +2333,7 @@ export const iotSections: Section[] = [
         answer: 'delay(ms) pauses the program for the specified number of milliseconds. delay(1000) pauses for 1000 milliseconds = 1 second. During this time, the Arduino does nothing.',
       },
       {
-        id: 511,
+        id: 176,
         text: 'Which variable type would you use to store a decimal number like 3.14 in Arduino?',
         marks: '1 pt',
         type: 'mcq',
@@ -2346,7 +2346,7 @@ export const iotSections: Section[] = [
         answer: 'float is used for decimal/floating-point numbers. int stores whole numbers, char stores single characters, and word stores unsigned 16-bit integers.',
       },
       {
-        id: 512,
+        id: 177,
         text: 'Which function is used to read a digital input from a pin in Arduino?',
         marks: '1 pt',
         type: 'mcq',
@@ -2359,7 +2359,7 @@ export const iotSections: Section[] = [
         answer: 'digitalRead(pin) reads the current state of a digital pin (HIGH or LOW). digitalWrite() writes a value, analogRead() reads analog values, and pinMode() sets the pin mode.',
       },
       {
-        id: 513,
+        id: 178,
         text: 'Which function is used to read an analog value from a pin in Arduino?',
         marks: '1 pt',
         type: 'mcq',
@@ -2372,7 +2372,7 @@ export const iotSections: Section[] = [
         answer: 'analogRead(pin) reads the analog voltage on a pin and returns a value from 0 to 1023 (10-bit ADC). It is used with analog pins (A0, A1, etc.) for reading sensor values.',
       },
       {
-        id: 514,
+        id: 179,
         text: 'In Arduino, what is the range of values returned by analogRead()?',
         marks: '1 pt',
         type: 'mcq',
@@ -2385,7 +2385,7 @@ export const iotSections: Section[] = [
         answer: 'analogRead() returns a value from 0 to 1023 because the Arduino has a 10-bit ADC (2^10 = 1024 possible values). 0 corresponds to 0V and 1023 corresponds to 5V (or the reference voltage).',
       },
       {
-        id: 515,
+        id: 180,
         text: 'Which Arduino IDE menu is used to select the board type and COM port?',
         marks: '1 pt',
         type: 'mcq',
@@ -2399,7 +2399,7 @@ export const iotSections: Section[] = [
       },
       // ─── Code Questions: From Tutorial 7 ───
       {
-        id: 516,
+        id: 181,
         text: 'Write Arduino code to turn on an LED connected to pin 13.',
         marks: '3 pts',
         type: 'code',
@@ -2414,7 +2414,7 @@ void loop() {
         hint: 'Use pinMode() in setup() and digitalWrite() in loop().',
       },
       {
-        id: 517,
+        id: 182,
         text: 'Write Arduino code to make an LED connected to pin 13 blink every 1 second.',
         marks: '3 pts',
         type: 'code',
@@ -2432,7 +2432,7 @@ void loop() {
         hint: 'Use delay(1000) between HIGH and LOW to create a 1-second blink.',
       },
       {
-        id: 518,
+        id: 183,
         text: 'A button is connected to pin 2 and an LED is connected to pin 13. Write Arduino code so the LED turns on when the button is pressed, and off when released.',
         marks: '4 pts',
         type: 'code',
@@ -2457,7 +2457,7 @@ void loop() {
         hint: 'Use digitalRead() to read the button and an if-else to control the LED.',
       },
       {
-        id: 519,
+        id: 184,
         text: 'Write a traffic light program using: Red LED on pin 2, Yellow LED on pin 8, Green LED on pin 13. Red = 5s, Yellow = 2s, Green = 5s, then Yellow again for 2s before repeating.',
         marks: '5 pts',
         type: 'code',
@@ -2500,7 +2500,7 @@ void loop() {
         hint: 'Set all 3 pins as OUTPUT. In loop(), control one LED at a time while turning others off.',
       },
       {
-        id: 520,
+        id: 185,
         text: 'A sensor is connected to analog pin A0 and an LED is connected to pin 13. Write Arduino code so that if the sensor value is greater than 500, the LED turns on. Otherwise, it turns off.',
         marks: '4 pts',
         type: 'code',
@@ -2535,7 +2535,7 @@ void loop() {
     questions: [
       // ─── MCQ from Tutorial 8 (Q1-Q25) ───
       {
-        id: 601,
+        id: 186,
         text: 'In IoT systems, which communication path is most common for sending sensor data to a cloud dashboard?',
         marks: '1 pt',
         type: 'mcq',
@@ -2548,7 +2548,7 @@ void loop() {
         answer: 'The most common IoT communication path is Sensor → Gateway/Router → Internet/Cloud. Sensors typically send data to a local gateway, which then forwards it to cloud services over the internet.',
       },
       {
-        id: 602,
+        id: 187,
         text: 'Which of the following is a wired communication technology?',
         marks: '1 pt',
         type: 'mcq',
@@ -2561,7 +2561,7 @@ void loop() {
         answer: 'Ethernet is a wired communication technology that uses physical cables. Wi-Fi, Bluetooth, and LTE are all wireless technologies that use radio waves.',
       },
       {
-        id: 603,
+        id: 188,
         text: 'Which wireless option is generally best for short range and very low power devices?',
         marks: '1 pt',
         type: 'mcq',
@@ -2574,7 +2574,7 @@ void loop() {
         answer: 'BLE (Bluetooth Low Energy) is designed for short-range communication with very low power consumption, making it ideal for wearables, sensors, and other battery-powered IoT devices.',
       },
       {
-        id: 604,
+        id: 189,
         text: 'Which tradeoff describes how far a connection can reach?',
         marks: '1 pt',
         type: 'mcq',
@@ -2587,7 +2587,7 @@ void loop() {
         answer: 'Range describes how far a communication signal can reach — from a few meters (BLE) to kilometers (LPWAN). The other options describe different aspects: bandwidth = data rate, topology = connection arrangement, cost = expense.',
       },
       {
-        id: 605,
+        id: 190,
         text: 'A battery sensor sends 20 bytes every 10 minutes for 2 years. Which tradeoff is most critical?',
         marks: '1 pt',
         type: 'mcq',
@@ -2600,7 +2600,7 @@ void loop() {
         answer: 'For a battery-powered sensor that must run for 2 years, low power consumption is the most critical tradeoff. The data rate is very small (20 bytes every 10 minutes), so bandwidth is not a concern.',
       },
       {
-        id: 606,
+        id: 191,
         text: 'In a star topology, devices primarily connect to:',
         marks: '1 pt',
         type: 'mcq',
@@ -2613,7 +2613,7 @@ void loop() {
         answer: 'In a star topology, all devices connect to a single central node (router/gateway). This makes management easy but creates a single point of failure — if the central node goes down, all devices lose connectivity.',
       },
       {
-        id: 607,
+        id: 192,
         text: 'A mesh topology is best described as one where:',
         marks: '1 pt',
         type: 'mcq',
@@ -2626,7 +2626,7 @@ void loop() {
         answer: 'In a mesh topology, devices can relay messages for each other, extending the network range and providing redundancy. If one node fails, messages can be routed through alternative paths.',
       },
       {
-        id: 608,
+        id: 193,
         text: 'Which address is mainly used for delivering data inside a local network?',
         marks: '1 pt',
         type: 'mcq',
@@ -2639,7 +2639,7 @@ void loop() {
         answer: 'MAC addresses are used for local delivery within the same network segment. Switches and access points use MAC addresses to forward frames to the correct device. IP addresses route data between different networks.',
       },
       {
-        id: 609,
+        id: 194,
         text: 'Which address is mainly used to route data across different networks (internet)?',
         marks: '1 pt',
         type: 'mcq',
@@ -2652,7 +2652,7 @@ void loop() {
         answer: 'IP addresses are used by routers to deliver packets across different networks (the internet). MAC addresses are for local delivery, port numbers identify services, and SSID is a Wi-Fi network name.',
       },
       {
-        id: 610,
+        id: 195,
         text: 'What is the primary function of DHCP?',
         marks: '1 pt',
         type: 'mcq',
@@ -2665,7 +2665,7 @@ void loop() {
         answer: 'DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses, subnet masks, default gateways, and DNS server addresses to devices on a network. This eliminates the need for manual IP configuration.',
       },
       {
-        id: 611,
+        id: 196,
         text: 'What is the primary function of DNS?',
         marks: '1 pt',
         type: 'mcq',
@@ -2678,7 +2678,7 @@ void loop() {
         answer: 'DNS (Domain Name System) translates human-readable domain names (like iot.example.com) into IP addresses that computers use for routing. It acts like the internet phonebook.',
       },
       {
-        id: 612,
+        id: 197,
         text: 'Why are port numbers needed in networking?',
         marks: '1 pt',
         type: 'mcq',
@@ -2691,7 +2691,7 @@ void loop() {
         answer: 'Port numbers identify which service or application should receive the data on a device. For example, port 80 for HTTP, port 443 for HTTPS, port 1883 for MQTT. Think: IP = building address, Port = apartment number.',
       },
       {
-        id: 613,
+        id: 198,
         text: 'Which statement about TCP is correct?',
         marks: '1 pt',
         type: 'mcq',
@@ -2704,7 +2704,7 @@ void loop() {
         answer: 'TCP (Transmission Control Protocol) provides reliable, ordered delivery of data. It establishes a connection, confirms delivery, retransmits lost packets, and maintains correct ordering — but this adds overhead.',
       },
       {
-        id: 614,
+        id: 199,
         text: 'Which statement about UDP is correct?',
         marks: '1 pt',
         type: 'mcq',
@@ -2717,7 +2717,7 @@ void loop() {
         answer: 'UDP (User Datagram Protocol) is a simple, connectionless protocol with lower overhead than TCP. It does not guarantee delivery, ordering, or retransmission — making it faster but less reliable.',
       },
       {
-        id: 615,
+        id: 200,
         text: 'Which is the best choice for OTA firmware updates in most IoT systems?',
         marks: '1 pt',
         type: 'mcq',
@@ -2730,7 +2730,7 @@ void loop() {
         answer: 'OTA (Over-The-Air) firmware updates require every byte to arrive correctly — a corrupted update could brick the device. TCP\'s reliable, ordered delivery makes it the right choice for this critical operation.',
       },
       {
-        id: 616,
+        id: 201,
         text: 'Which is often better for real-time sensor updates where the latest value matters more than perfect delivery?',
         marks: '1 pt',
         type: 'mcq',
@@ -2743,7 +2743,7 @@ void loop() {
         answer: 'UDP is better for real-time sensor updates because: (1) you care about the latest value, not old retransmitted ones, (2) occasional lost packets are acceptable, (3) lower latency is more important than guaranteed delivery.',
       },
       {
-        id: 617,
+        id: 202,
         text: 'The main purpose of an IoT gateway is to:',
         marks: '1 pt',
         type: 'mcq',
@@ -2756,7 +2756,7 @@ void loop() {
         answer: 'An IoT gateway bridges local device networks (BLE, ZigBee, LPWAN) to the internet/cloud. It collects data from many devices, translates protocols (non-IP to IP), and can handle security policies.',
       },
       {
-        id: 618,
+        id: 203,
         text: 'An edge node is mainly used to:',
         marks: '1 pt',
         type: 'mcq',
@@ -2769,7 +2769,7 @@ void loop() {
         answer: 'An edge node processes data near the devices (at the edge of the network) rather than sending everything to the cloud. It filters/aggregates data, responds quickly without cloud latency, and can keep working during internet outages.',
       },
       {
-        id: 619,
+        id: 204,
         text: 'Which combination is correct?',
         marks: '1 pt',
         type: 'mcq',
@@ -2782,7 +2782,7 @@ void loop() {
         answer: 'MAC address is the device\'s hardware identity used for local delivery, while IP address is the network location used for routing between networks. The correct pairing: MAC = local, IP = internet routing.',
       },
       {
-        id: 620,
+        id: 205,
         text: 'If DNS is not working, an IoT device may fail to:',
         marks: '1 pt',
         type: 'mcq',
@@ -2795,7 +2795,7 @@ void loop() {
         answer: 'DNS converts domain names to IP addresses. If DNS fails, the device cannot resolve hostnames like iot.example.com to IP addresses, preventing cloud communication by name. Local operations (sensors, LEDs) still work.',
       },
       {
-        id: 621,
+        id: 206,
         text: 'Which connection is usually associated with high bandwidth but higher power consumption in IoT?',
         marks: '1 pt',
         type: 'mcq',
@@ -2808,7 +2808,7 @@ void loop() {
         answer: 'Wi-Fi provides high bandwidth (good for video, large data) but consumes significantly more power than BLE, LPWAN, or ZigBee. This makes Wi-Fi less suitable for battery-powered IoT devices that need to run for months.',
       },
       {
-        id: 622,
+        id: 207,
         text: 'Which option best matches: very long range + very low power + small messages?',
         marks: '1 pt',
         type: 'mcq',
@@ -2821,7 +2821,7 @@ void loop() {
         answer: 'LPWAN (Low-Power Wide-Area Network) technologies like LoRa and Sigfox are designed for very long range (kilometers), very low power consumption (years on battery), and small message sizes — perfect for remote sensors.',
       },
       {
-        id: 623,
+        id: 208,
         text: 'Which of the following is a strong reason to use a gateway in IoT?',
         marks: '1 pt',
         type: 'mcq',
@@ -2834,7 +2834,7 @@ void loop() {
         answer: 'A key function of IoT gateways is protocol translation — converting between local device protocols (BLE, ZigBee, etc.) and internet protocols (TCP/IP). This allows non-IP devices to communicate with cloud services.',
       },
       {
-        id: 624,
+        id: 209,
         text: 'Which situation most strongly suggests using wired communication?',
         marks: '1 pt',
         type: 'mcq',
@@ -2847,7 +2847,7 @@ void loop() {
         answer: 'Wired communication is preferred in high interference environments because physical cables are not affected by radio interference, walls, or other wireless signals. Wearable, portable, and remote devices typically need wireless.',
       },
       {
-        id: 625,
+        id: 210,
         text: 'When a device has an IP address and wants to send data to the internet, it typically sends traffic first to:',
         marks: '1 pt',
         type: 'mcq',
@@ -2861,7 +2861,7 @@ void loop() {
       },
       // ─── Additional MCQ from Lecture 7 content ───
       {
-        id: 626,
+        id: 211,
         text: 'Which IoT wired communication standard is commonly used in industrial environments?',
         marks: '1 pt',
         type: 'mcq',
@@ -2874,7 +2874,7 @@ void loop() {
         answer: 'RS-485 is a wired communication standard commonly used in industrial IoT environments for its noise immunity, long cable runs (up to 1200m), and multi-device support on a single bus.',
       },
       {
-        id: 627,
+        id: 212,
         text: 'Which IoT wired communication standard is commonly used in automotive applications?',
         marks: '1 pt',
         type: 'mcq',
@@ -2887,7 +2887,7 @@ void loop() {
         answer: 'CAN (Controller Area Network) bus is the standard wired communication protocol used in automotive applications, allowing microcontrollers and devices in a vehicle to communicate without a host computer.',
       },
       {
-        id: 628,
+        id: 213,
         text: 'Which topology is best for connecting many IoT sensors to one gateway?',
         marks: '1 pt',
         type: 'mcq',
@@ -2900,7 +2900,7 @@ void loop() {
         answer: 'Star topology is ideal for connecting many IoT sensors to a single gateway because: it is simple to manage, easy to add/remove devices, and the central gateway can control all communication.',
       },
       {
-        id: 629,
+        id: 214,
         text: 'Which topology provides the highest redundancy (many backup paths)?',
         marks: '1 pt',
         type: 'mcq',
@@ -2913,7 +2913,7 @@ void loop() {
         answer: 'Full mesh topology provides the highest redundancy because every node connects to every other node. If any node or link fails, data can be rerouted through alternative paths. However, it is complex and expensive to implement.',
       },
       {
-        id: 630,
+        id: 215,
         text: 'In the 3-level networking model for IoT, which level decides between TCP and UDP?',
         marks: '1 pt',
         type: 'mcq',
@@ -2926,7 +2926,7 @@ void loop() {
         answer: 'The Transport level decides how data is delivered — using TCP for reliable delivery or UDP for fast, low-overhead delivery. The Link level handles local delivery (MAC), and the Network level handles routing (IP).',
       },
       {
-        id: 631,
+        id: 216,
         text: 'What does DHCP typically provide to a device? (Select the most complete answer)',
         marks: '1 pt',
         type: 'mcq',
@@ -2939,7 +2939,7 @@ void loop() {
         answer: 'DHCP provides: IP address (device\'s network identity), subnet mask (which devices are local), default gateway (where to send internet traffic), and DNS server address (for name resolution). This complete configuration allows a device to communicate on the network.',
       },
       {
-        id: 632,
+        id: 217,
         text: 'Why is DNS important for IoT devices connecting to cloud services?',
         marks: '1 pt',
         type: 'mcq',
@@ -2952,7 +2952,7 @@ void loop() {
         answer: 'Cloud servers may change their IP addresses (due to scaling, maintenance, or load balancing), but the domain name remains constant. DNS allows IoT devices to always reach the correct server by resolving the hostname, even when the underlying IP changes.',
       },
       {
-        id: 633,
+        id: 218,
         text: 'An edge node can continue making local decisions even when:',
         marks: '1 pt',
         type: 'mcq',
@@ -2966,7 +2966,7 @@ void loop() {
       },
       // ─── Fill Questions: Network Topologies ───
       {
-        id: 634,
+        id: 219,
         text: 'Fill in the correct network topology names and concepts:',
         marks: '5 pts',
         type: 'fill',
@@ -2980,7 +2980,7 @@ void loop() {
         answer: 'The main network topologies are: Point-to-Point (1-to-1), Star (central hub), Mesh (multi-path relay), Ring (circular chain), Bus (shared single cable), Tree (hierarchical), and Hybrid (combination).',
       },
       {
-        id: 635,
+        id: 220,
         text: 'Fill in the correct networking terms:',
         marks: '5 pts',
         type: 'fill',
@@ -2995,7 +2995,7 @@ void loop() {
       },
       // ─── Additional conceptual MCQ ───
       {
-        id: 636,
+        id: 221,
         text: 'What is the main advantage of wireless communication over wired in IoT?',
         marks: '1 pt',
         type: 'mcq',
@@ -3008,7 +3008,7 @@ void loop() {
         answer: 'Wireless communication\'s main advantages are easier installation (no cables to run), support for mobile and remote devices, and flexibility in device placement. However, it trades off against interference, security, and power consumption concerns.',
       },
       {
-        id: 637,
+        id: 222,
         text: 'Which IoT communication technology would you choose for a smart watch that needs to sync data with a phone?',
         marks: '1 pt',
         type: 'mcq',
@@ -3021,7 +3021,7 @@ void loop() {
         answer: 'BLE is ideal for a smart watch: short range (watch is near the phone), very low power (small battery), and sufficient bandwidth for health/activity data. Ethernet needs cables, LPWAN is for long-range low-data, and 4G is overkill for local sync.',
       },
       {
-        id: 638,
+        id: 223,
         text: 'Which IoT communication technology would you choose for a soil moisture sensor in a remote farm, sending data once per hour?',
         marks: '1 pt',
         type: 'mcq',
@@ -3034,7 +3034,7 @@ void loop() {
         answer: 'LPWAN (like LoRa) is ideal for remote farm sensors: very long range (kilometers), very low power (battery lasts years), and tiny data messages (once per hour is minimal). Wi-Fi and BLE are too short-range, and Ethernet needs cables.',
       },
       {
-        id: 639,
+        id: 224,
         text: 'What happens at the Link/Local level of IoT networking?',
         marks: '1 pt',
         type: 'mcq',
@@ -3047,7 +3047,7 @@ void loop() {
         answer: 'At the Link/Local level, data is delivered within the same local network using MAC addresses and switches. This is the lowest level — IP routing happens at the Network level, TCP/UDP at the Transport level, and DNS at the Application level.',
       },
       {
-        id: 640,
+        id: 225,
         text: 'Which of the following is a disadvantage of a star topology?',
         marks: '1 pt',
         type: 'mcq',
