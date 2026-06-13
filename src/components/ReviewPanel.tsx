@@ -99,7 +99,7 @@ export default function ReviewPanel({
           </p>
         </div>
         <button
-          onClick={onClearAll}
+          onClick={() => { if (confirm('Are you sure you want to clear all review data? This will remove all starred and wrong questions from your review list.')) onClearAll() }}
           className="bg-transparent text-[#ef4444] border border-[#ef4444]/30 rounded-lg px-4 py-2 text-xs font-bold cursor-pointer hover:bg-[#ef4444]/10 transition-colors"
         >
           Clear All

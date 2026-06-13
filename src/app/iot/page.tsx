@@ -48,7 +48,7 @@ export default function Home() {
   const {
     starredIds, wrongIds, toggleStar, isStarred,
     saveWrongQuestions, removeWrong, removeStarred, clearAllReview,
-  } = useReviewStorage('iot')
+  } = useReviewStorage('iot', new Set(sections.flatMap(s => s.questions.map(q => q.id))))
 
   const topRef = useRef<HTMLDivElement>(null)
   const sectionNavRef = useRef<HTMLDivElement>(null)

@@ -52,7 +52,7 @@ export default function Home() {
   const {
     starredIds, wrongIds, toggleStar, isStarred,
     saveWrongQuestions, removeWrong, removeStarred, clearAllReview,
-  } = useReviewStorage('cp')
+  } = useReviewStorage('cp', new Set(sections.flatMap(s => s.questions.map(q => q.id))))
   const topRef = useRef<HTMLDivElement>(null)
   const sectionNavRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)

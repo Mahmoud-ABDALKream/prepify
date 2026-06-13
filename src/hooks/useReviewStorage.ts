@@ -14,7 +14,7 @@ interface QuestionStateLike {
 }
 
 // ─── Hook ────────────────────────────────────────────
-export function useReviewStorage(subjectKey: string) {
+export function useReviewStorage(subjectKey: string, validQuestionIds?: Set<number>) {
   const REVIEW_KEY = `prepify-${subjectKey}-review`
 
   const [starredIds, setStarredIds] = useState<Set<number>>(new Set())
@@ -27,12 +27,26 @@ export function useReviewStorage(subjectKey: string) {
       const saved = localStorage.getItem(REVIEW_KEY)
       if (saved) {
         const data: ReviewData = JSON.parse(saved)
-        if (data.starred) setStarredIds(new Set(data.starred))
-        if (data.wrong) setWrongIds(new Set(data.wrong))
+        // Clean up invalid question IDs that no longer exist after renumbering
+        if (validQuestionIds) {
+          const starred = (data.starred || []).filter(id => validQuestionIds.has(id))
+          const wrong = (data.wrong || []).filter(id => validQuestionIds.has(id))
+          setStarredIds(new Set(starred))
+          setWrongIds(new Set(wrong))
+          // Auto-save cleaned data if anything was removed
+          if (starred.length !== (data.starred || []).length || wrong.length !== (data.wrong || []).length) {
+            try {
+              localStorage.setItem(REVIEW_KEY, JSON.stringify({ starred, wrong }))
+            } catch { /* ignore */ }
+          }
+        } else {
+          if (data.starred) setStarredIds(new Set(data.starred))
+          if (data.wrong) setWrongIds(new Set(data.wrong))
+        }
       }
     } catch { /* ignore */ }
     setHydrated(true)
-  }, [REVIEW_KEY])
+  }, [REVIEW_KEY, validQuestionIds])
 
   // ─── Save to localStorage on change ───
   useEffect(() => {

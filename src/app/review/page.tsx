@@ -52,10 +52,30 @@ interface ReviewQuestion extends Question {
 }
 
 // ─── Helpers ────────────────────────────────────────────
-function loadReviewData(subjectKey: string): ReviewData {
+function getValidQuestionIds(sections: Section[]): Set<number> {
+  const ids = new Set<number>()
+  for (const s of sections) for (const q of s.questions) ids.add(q.id)
+  return ids
+}
+
+function loadReviewData(subjectKey: string, validIds?: Set<number>): ReviewData {
   try {
     const saved = localStorage.getItem(`prepify-${subjectKey}-review`)
-    if (saved) return JSON.parse(saved)
+    if (saved) {
+      const data: ReviewData = JSON.parse(saved)
+      // Clean up old invalid IDs that no longer exist after renumbering
+      if (validIds) {
+        const oldStarred = data.starred.length
+        const oldWrong = data.wrong.length
+        data.starred = data.starred.filter(id => validIds.has(id))
+        data.wrong = data.wrong.filter(id => validIds.has(id))
+        // Auto-save cleaned data
+        if (data.starred.length !== oldStarred || data.wrong.length !== oldWrong) {
+          try { localStorage.setItem(`prepify-${subjectKey}-review`, JSON.stringify(data)) } catch { /* ignore */ }
+        }
+      }
+      return data
+    }
   } catch { /* ignore */ }
   return { starred: [], wrong: [] }
 }
@@ -91,11 +111,12 @@ export default function ReviewPage() {
   const [reviewDataMap, setReviewDataMap] = useState<Record<string, ReviewData>>({})
   const [hydrated, setHydrated] = useState(false)
 
-  // Load all review data on mount
+  // Load all review data on mount (with auto-cleanup of old IDs)
   useEffect(() => {
     const map: Record<string, ReviewData> = {}
     for (const subj of subjectConfig) {
-      map[subj.key] = loadReviewData(subj.key)
+      const validIds = getValidQuestionIds(subj.sections)
+      map[subj.key] = loadReviewData(subj.key, validIds)
     }
     setReviewDataMap(map)
     setHydrated(true)
@@ -145,6 +166,7 @@ export default function ReviewPage() {
   }
 
   const clearSubject = (subjectKey: string) => {
+    if (!confirm('Are you sure you want to clear all review data for this subject? This will remove all starred and wrong questions from your review list.')) return
     setReviewDataMap(prev => {
       const updated = { starred: [], wrong: [] }
       try {
