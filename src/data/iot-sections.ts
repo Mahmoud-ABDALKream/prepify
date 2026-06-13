@@ -2195,4 +2195,1159 @@ export const iotSections: Section[] = [
       },
     ],
   },
+  {
+    id: 7,
+    title: 'Arduino IDE & Programming',
+    marks: '45 pts',
+    icon: '🔌',
+    questions: [
+      // ─── MCQ Questions: Arduino IDE Concepts ───
+      {
+        id: 501,
+        text: 'Arduino IDE stands for:',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Arduino Internet Development Environment', isCorrect: false },
+          { letter: 'B', text: 'Arduino Integrated Development Environment', isCorrect: true },
+          { letter: 'C', text: 'Arduino Internal Design Engine', isCorrect: false },
+          { letter: 'D', text: 'Arduino Interactive Data Editor', isCorrect: false },
+        ],
+        answer: 'Arduino IDE stands for Arduino Integrated Development Environment — the official software used to write, compile, and upload code to Arduino boards.',
+      },
+      {
+        id: 502,
+        text: 'Which of the following is NOT a main section of the Arduino IDE?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Toolbar', isCorrect: false },
+          { letter: 'B', text: 'Code Editor', isCorrect: false },
+          { letter: 'C', text: 'Database Manager', isCorrect: true },
+          { letter: 'D', text: 'Status Bar', isCorrect: false },
+        ],
+        answer: 'The six main sections of Arduino IDE are: Toolbar, Menus, Code Editor, Status Bar, Program Notifications, and Board & Serial Port Selections. There is no Database Manager section.',
+      },
+      {
+        id: 503,
+        text: 'What is the correct workflow when using Arduino IDE?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Write code → Upload → Connect board → Select port', isCorrect: false },
+          { letter: 'B', text: 'Connect board → Select board/port → Write code → Verify → Upload', isCorrect: true },
+          { letter: 'C', text: 'Upload → Write code → Verify → Connect board', isCorrect: false },
+          { letter: 'D', text: 'Select port → Upload → Write code → Verify', isCorrect: false },
+        ],
+        answer: 'The correct workflow is: connect the board via USB, select the correct board type and COM port, write the code, verify/compile it, then upload it to the board.',
+      },
+      {
+        id: 504,
+        text: 'What happens if you select the wrong COM port in Arduino IDE?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'The code will upload to a different board', isCorrect: false },
+          { letter: 'B', text: 'The code will not upload', isCorrect: true },
+          { letter: 'C', text: 'The IDE will auto-correct the port', isCorrect: false },
+          { letter: 'D', text: 'The board will be damaged', isCorrect: false },
+        ],
+        answer: 'If the wrong board or wrong port is selected, the code will not upload. The IDE cannot communicate with the Arduino board through an incorrect serial port.',
+      },
+      {
+        id: 505,
+        text: 'In Arduino IDE, the Verify button is used to:',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Upload the code to the board', isCorrect: false },
+          { letter: 'B', text: 'Check for syntax errors and compile the code', isCorrect: true },
+          { letter: 'C', text: 'Open the Serial Monitor', isCorrect: false },
+          { letter: 'D', text: 'Delete the current sketch', isCorrect: false },
+        ],
+        answer: 'The Verify/Compile button checks the code for syntax errors and converts it into machine-readable form without uploading. The Upload button both compiles and sends the code to the board.',
+      },
+      {
+        id: 506,
+        text: 'The setup() function in an Arduino program:',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Runs continuously in a loop', isCorrect: false },
+          { letter: 'B', text: 'Runs only once when the Arduino starts', isCorrect: true },
+          { letter: 'C', text: 'Runs every time a button is pressed', isCorrect: false },
+          { letter: 'D', text: 'Is optional and can be omitted', isCorrect: false },
+        ],
+        answer: 'setup() runs only once when the Arduino powers on or resets. It is used for initial settings like defining pin modes, initializing libraries, and setting up serial communication.',
+      },
+      {
+        id: 507,
+        text: 'The loop() function in an Arduino program:',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Runs only once after setup()', isCorrect: false },
+          { letter: 'B', text: 'Runs again and again continuously', isCorrect: true },
+          { letter: 'C', text: 'Only runs when an interrupt occurs', isCorrect: false },
+          { letter: 'D', text: 'Replaces the need for setup()', isCorrect: false },
+        ],
+        answer: 'loop() runs continuously after setup() completes. It contains the main behavior of the program — the code inside loop() repeats over and over as long as the Arduino is powered.',
+      },
+      {
+        id: 508,
+        text: 'What does pinMode(13, OUTPUT) do?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Reads a value from pin 13', isCorrect: false },
+          { letter: 'B', text: 'Sets pin 13 as an output pin', isCorrect: true },
+          { letter: 'C', text: 'Turns on the LED on pin 13', isCorrect: false },
+          { letter: 'D', text: 'Sets pin 13 as an input pin', isCorrect: false },
+        ],
+        answer: 'pinMode(pin, mode) configures a pin as either INPUT or OUTPUT. pinMode(13, OUTPUT) tells Arduino that pin 13 will be used to send signals to an output device like an LED.',
+      },
+      {
+        id: 509,
+        text: 'What does digitalWrite(13, HIGH) do?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Reads the digital value on pin 13', isCorrect: false },
+          { letter: 'B', text: 'Sends 5V (ON) signal to pin 13', isCorrect: true },
+          { letter: 'C', text: 'Sets pin 13 as an input', isCorrect: false },
+          { letter: 'D', text: 'Sends 0V (OFF) signal to pin 13', isCorrect: false },
+        ],
+        answer: 'digitalWrite(pin, value) sends a digital signal. HIGH = 5V (ON), LOW = 0V (OFF). digitalWrite(13, HIGH) sends 5V to pin 13, turning on whatever is connected (like an LED).',
+      },
+      {
+        id: 510,
+        text: 'What does delay(1000) do in Arduino code?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Pauses the program for 1 millisecond', isCorrect: false },
+          { letter: 'B', text: 'Pauses the program for 1 second (1000 milliseconds)', isCorrect: true },
+          { letter: 'C', text: 'Pauses the program for 1000 seconds', isCorrect: false },
+          { letter: 'D', text: 'Creates a loop that runs 1000 times', isCorrect: false },
+        ],
+        answer: 'delay(ms) pauses the program for the specified number of milliseconds. delay(1000) pauses for 1000 milliseconds = 1 second. During this time, the Arduino does nothing.',
+      },
+      {
+        id: 511,
+        text: 'Which variable type would you use to store a decimal number like 3.14 in Arduino?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'int', isCorrect: false },
+          { letter: 'B', text: 'char', isCorrect: false },
+          { letter: 'C', text: 'float', isCorrect: true },
+          { letter: 'D', text: 'word', isCorrect: false },
+        ],
+        answer: 'float is used for decimal/floating-point numbers. int stores whole numbers, char stores single characters, and word stores unsigned 16-bit integers.',
+      },
+      {
+        id: 512,
+        text: 'Which function is used to read a digital input from a pin in Arduino?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'digitalWrite()', isCorrect: false },
+          { letter: 'B', text: 'analogRead()', isCorrect: false },
+          { letter: 'C', text: 'digitalRead()', isCorrect: true },
+          { letter: 'D', text: 'pinMode()', isCorrect: false },
+        ],
+        answer: 'digitalRead(pin) reads the current state of a digital pin (HIGH or LOW). digitalWrite() writes a value, analogRead() reads analog values, and pinMode() sets the pin mode.',
+      },
+      {
+        id: 513,
+        text: 'Which function is used to read an analog value from a pin in Arduino?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'digitalRead()', isCorrect: false },
+          { letter: 'B', text: 'analogRead()', isCorrect: true },
+          { letter: 'C', text: 'analogWrite()', isCorrect: false },
+          { letter: 'D', text: 'digitalWrite()', isCorrect: false },
+        ],
+        answer: 'analogRead(pin) reads the analog voltage on a pin and returns a value from 0 to 1023 (10-bit ADC). It is used with analog pins (A0, A1, etc.) for reading sensor values.',
+      },
+      {
+        id: 514,
+        text: 'In Arduino, what is the range of values returned by analogRead()?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: '0 to 255', isCorrect: false },
+          { letter: 'B', text: '0 to 1023', isCorrect: true },
+          { letter: 'C', text: '0 to 5', isCorrect: false },
+          { letter: 'D', text: '0 to 65535', isCorrect: false },
+        ],
+        answer: 'analogRead() returns a value from 0 to 1023 because the Arduino has a 10-bit ADC (2^10 = 1024 possible values). 0 corresponds to 0V and 1023 corresponds to 5V (or the reference voltage).',
+      },
+      {
+        id: 515,
+        text: 'Which Arduino IDE menu is used to select the board type and COM port?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'File menu', isCorrect: false },
+          { letter: 'B', text: 'Edit menu', isCorrect: false },
+          { letter: 'C', text: 'Tools menu', isCorrect: true },
+          { letter: 'D', text: 'Sketch menu', isCorrect: false },
+        ],
+        answer: 'The Tools menu provides options for board selection, port selection, auto format, and other utility functions needed for configuring the Arduino IDE.',
+      },
+      // ─── Code Questions: From Tutorial 7 ───
+      {
+        id: 516,
+        text: 'Write Arduino code to turn on an LED connected to pin 13.',
+        marks: '3 pts',
+        type: 'code',
+        answer: 'Set pin 13 as OUTPUT in setup(), then write HIGH to pin 13 in loop() to keep the LED on.',
+        answerCode: `void setup() {
+  pinMode(13, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(13, HIGH);
+}`,
+        hint: 'Use pinMode() in setup() and digitalWrite() in loop().',
+      },
+      {
+        id: 517,
+        text: 'Write Arduino code to make an LED connected to pin 13 blink every 1 second.',
+        marks: '3 pts',
+        type: 'code',
+        answer: 'Turn the LED on with HIGH, wait 1 second, turn it off with LOW, wait 1 second — all inside loop() so it repeats.',
+        answerCode: `void setup() {
+  pinMode(13, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(13, HIGH);
+  delay(1000);
+  digitalWrite(13, LOW);
+  delay(1000);
+}`,
+        hint: 'Use delay(1000) between HIGH and LOW to create a 1-second blink.',
+      },
+      {
+        id: 518,
+        text: 'A button is connected to pin 2 and an LED is connected to pin 13. Write Arduino code so the LED turns on when the button is pressed, and off when released.',
+        marks: '4 pts',
+        type: 'code',
+        answer: 'Read the button state with digitalRead(). If HIGH (pressed), turn LED on. Otherwise, turn LED off.',
+        answerCode: `int buttonPin = 2;
+int ledPin = 13;
+int buttonState = 0;
+
+void setup() {
+  pinMode(buttonPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  buttonState = digitalRead(buttonPin);
+  if (buttonState == HIGH) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+}`,
+        hint: 'Use digitalRead() to read the button and an if-else to control the LED.',
+      },
+      {
+        id: 519,
+        text: 'Write a traffic light program using: Red LED on pin 2, Yellow LED on pin 8, Green LED on pin 13. Red = 5s, Yellow = 2s, Green = 5s, then Yellow again for 2s before repeating.',
+        marks: '5 pts',
+        type: 'code',
+        answer: 'In loop(), turn on one LED at a time with appropriate delays: red 5s, yellow 2s, green 5s, yellow 2s. Turn off the previous LED before turning on the next.',
+        answerCode: `int red = 2;
+int yellow = 8;
+int green = 13;
+
+void setup() {
+  pinMode(red, OUTPUT);
+  pinMode(yellow, OUTPUT);
+  pinMode(green, OUTPUT);
+}
+
+void loop() {
+  // Red - stop
+  digitalWrite(red, HIGH);
+  digitalWrite(yellow, LOW);
+  digitalWrite(green, LOW);
+  delay(5000);
+
+  // Yellow - ready
+  digitalWrite(red, LOW);
+  digitalWrite(yellow, HIGH);
+  digitalWrite(green, LOW);
+  delay(2000);
+
+  // Green - go
+  digitalWrite(red, LOW);
+  digitalWrite(yellow, LOW);
+  digitalWrite(green, HIGH);
+  delay(5000);
+
+  // Yellow - slow down
+  digitalWrite(red, LOW);
+  digitalWrite(yellow, HIGH);
+  digitalWrite(green, LOW);
+  delay(2000);
+}`,
+        hint: 'Set all 3 pins as OUTPUT. In loop(), control one LED at a time while turning others off.',
+      },
+      {
+        id: 520,
+        text: 'A sensor is connected to analog pin A0 and an LED is connected to pin 13. Write Arduino code so that if the sensor value is greater than 500, the LED turns on. Otherwise, it turns off.',
+        marks: '4 pts',
+        type: 'code',
+        answer: 'Use analogRead() to read the sensor on A0. Compare with 500 using an if-else. Add a small delay to avoid rapid toggling.',
+        answerCode: `int sensorPin = A0;
+int ledPin = 13;
+int sensorValue = 0;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  sensorValue = analogRead(sensorPin);
+  if (sensorValue > 500) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+  delay(200);
+}`,
+        hint: 'Use analogRead(A0) to read the sensor and compare with 500.',
+      },
+      // ─── Additional Code Questions ───
+      {
+        id: 521,
+        text: 'Write Arduino code to blink two LEDs alternately: LED1 on pin 12 and LED2 on pin 13. When LED1 is on, LED2 is off, and vice versa. Switch every 500ms.',
+        marks: '4 pts',
+        type: 'code',
+        answer: 'In loop(), set LED1 HIGH and LED2 LOW, delay, then swap them. This creates an alternating blink pattern.',
+        answerCode: `int led1 = 12;
+int led2 = 13;
+
+void setup() {
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(led1, HIGH);
+  digitalWrite(led2, LOW);
+  delay(500);
+  digitalWrite(led1, LOW);
+  digitalWrite(led2, HIGH);
+  delay(500);
+}`,
+        hint: 'When one LED is HIGH, the other should be LOW.',
+      },
+      {
+        id: 522,
+        text: 'Write Arduino code that reads a potentiometer on A0 and uses analogWrite() on pin 9 to control the brightness of an LED. The LED brightness should change as the potentiometer is rotated.',
+        marks: '5 pts',
+        type: 'code',
+        answer: 'Read analog value (0-1023) from A0, map it to PWM range (0-255) using map(), then write to pin 9 with analogWrite().',
+        answerCode: `int potPin = A0;
+int ledPin = 9;
+int potValue = 0;
+int brightness = 0;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  potValue = analogRead(potPin);
+  brightness = map(potValue, 0, 1023, 0, 255);
+  analogWrite(ledPin, brightness);
+  delay(10);
+}`,
+        hint: 'Use map() to convert the analog range (0-1023) to PWM range (0-255). analogWrite() uses PWM pins.',
+      },
+      {
+        id: 523,
+        text: 'Write Arduino code to control a servo motor on pin 9. The servo should sweep from 0 to 180 degrees and back, in steps of 10 degrees, with a 50ms delay between steps.',
+        marks: '5 pts',
+        type: 'code',
+        answer: 'Use the Servo library. In loop(), use a for loop to go from 0 to 180 in steps of 10, then another for loop to go from 180 back to 0.',
+        answerCode: `#include <Servo.h>
+
+Servo myServo;
+
+void setup() {
+  myServo.attach(9);
+}
+
+void loop() {
+  for (int pos = 0; pos <= 180; pos += 10) {
+    myServo.write(pos);
+    delay(50);
+  }
+  for (int pos = 180; pos >= 0; pos -= 10) {
+    myServo.write(pos);
+    delay(50);
+  }
+}`,
+        hint: 'Include the Servo library, attach the servo in setup(), use for loops with write() in loop().',
+      },
+      {
+        id: 524,
+        text: 'Write Arduino code that reads a temperature sensor on A0. If the temperature value (analog reading) is above 600, turn on a fan (motor on pin 8) and a red LED (pin 13). If below 400, turn them off. Between 400-600, turn on only the LED.',
+        marks: '5 pts',
+        type: 'code',
+        answer: 'Read the sensor value, then use nested if-else-if to handle three ranges: above 600 (fan + LED on), 400-600 (LED only), below 400 (both off).',
+        answerCode: `int tempPin = A0;
+int fanPin = 8;
+int ledPin = 13;
+int tempValue = 0;
+
+void setup() {
+  pinMode(fanPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  tempValue = analogRead(tempPin);
+
+  if (tempValue > 600) {
+    digitalWrite(fanPin, HIGH);
+    digitalWrite(ledPin, HIGH);
+  } else if (tempValue >= 400) {
+    digitalWrite(fanPin, LOW);
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(fanPin, LOW);
+    digitalWrite(ledPin, LOW);
+  }
+  delay(200);
+}`,
+        hint: 'Use if-else-if for three conditions: >600, 400-600, <400.',
+      },
+      // ─── Trace Questions ───
+      {
+        id: 525,
+        text: 'What is the output/behavior of the following Arduino code?',
+        marks: '3 pts',
+        type: 'trace',
+        codeBlock: `int led = 12;
+
+void setup() {
+  pinMode(led, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(led, HIGH);
+  delay(500);
+  digitalWrite(led, LOW);
+  delay(500);
+  Serial.println("Blink");
+}`,
+        answer: 'The LED on pin 12 blinks every 1 second (500ms on, 500ms off), and "Blink" is printed to the Serial Monitor each time the loop completes one full on-off cycle.',
+      },
+      {
+        id: 526,
+        text: 'What is the output/behavior of the following Arduino code?',
+        marks: '3 pts',
+        type: 'trace',
+        codeBlock: `int count = 0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  count++;
+  Serial.println(count);
+  delay(1000);
+}`,
+        answer: 'The program prints incrementing numbers to the Serial Monitor: 1, 2, 3, 4, ... each on a new line, with a 1-second delay between each number. The count variable increases by 1 each loop iteration.',
+      },
+      {
+        id: 527,
+        text: 'What is the output/behavior of the following Arduino code?',
+        marks: '3 pts',
+        type: 'trace',
+        codeBlock: `int x = 5;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (x > 3) {
+    Serial.println("High");
+  } else {
+    Serial.println("Low");
+  }
+  delay(1000);
+}`,
+        answer: 'Since x is 5 and 5 > 3 is always true, the program will print "High" repeatedly to the Serial Monitor every 1 second. The "Low" branch will never execute because x never changes.',
+      },
+    ],
+  },
+  {
+    id: 8,
+    title: 'IoT Communication & Networking',
+    marks: '50 pts',
+    icon: '📡',
+    questions: [
+      // ─── MCQ from Tutorial 8 (Q1-Q25) ───
+      {
+        id: 601,
+        text: 'In IoT systems, which communication path is most common for sending sensor data to a cloud dashboard?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Sensor → Cloud directly (always)', isCorrect: false },
+          { letter: 'B', text: 'Sensor → Gateway/Router → Internet/Cloud', isCorrect: true },
+          { letter: 'C', text: 'Cloud → Sensor → Gateway', isCorrect: false },
+          { letter: 'D', text: 'Sensor → Actuator → Cloud', isCorrect: false },
+        ],
+        answer: 'The most common IoT communication path is Sensor → Gateway/Router → Internet/Cloud. Sensors typically send data to a local gateway, which then forwards it to cloud services over the internet.',
+      },
+      {
+        id: 602,
+        text: 'Which of the following is a wired communication technology?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Wi-Fi', isCorrect: false },
+          { letter: 'B', text: 'Bluetooth', isCorrect: false },
+          { letter: 'C', text: 'Ethernet', isCorrect: true },
+          { letter: 'D', text: 'LTE', isCorrect: false },
+        ],
+        answer: 'Ethernet is a wired communication technology that uses physical cables. Wi-Fi, Bluetooth, and LTE are all wireless technologies that use radio waves.',
+      },
+      {
+        id: 603,
+        text: 'Which wireless option is generally best for short range and very low power devices?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Wi-Fi', isCorrect: false },
+          { letter: 'B', text: 'BLE (Bluetooth Low Energy)', isCorrect: true },
+          { letter: 'C', text: '4G', isCorrect: false },
+          { letter: 'D', text: 'Ethernet', isCorrect: false },
+        ],
+        answer: 'BLE (Bluetooth Low Energy) is designed for short-range communication with very low power consumption, making it ideal for wearables, sensors, and other battery-powered IoT devices.',
+      },
+      {
+        id: 604,
+        text: 'Which tradeoff describes how far a connection can reach?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Bandwidth', isCorrect: false },
+          { letter: 'B', text: 'Range', isCorrect: true },
+          { letter: 'C', text: 'Topology', isCorrect: false },
+          { letter: 'D', text: 'Cost', isCorrect: false },
+        ],
+        answer: 'Range describes how far a communication signal can reach — from a few meters (BLE) to kilometers (LPWAN). The other options describe different aspects: bandwidth = data rate, topology = connection arrangement, cost = expense.',
+      },
+      {
+        id: 605,
+        text: 'A battery sensor sends 20 bytes every 10 minutes for 2 years. Which tradeoff is most critical?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Maximum bandwidth', isCorrect: false },
+          { letter: 'B', text: 'Low power consumption', isCorrect: true },
+          { letter: 'C', text: 'Highest cost option', isCorrect: false },
+          { letter: 'D', text: 'Highest latency', isCorrect: false },
+        ],
+        answer: 'For a battery-powered sensor that must run for 2 years, low power consumption is the most critical tradeoff. The data rate is very small (20 bytes every 10 minutes), so bandwidth is not a concern.',
+      },
+      {
+        id: 606,
+        text: 'In a star topology, devices primarily connect to:',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Each other directly', isCorrect: false },
+          { letter: 'B', text: 'A central node (router/gateway)', isCorrect: true },
+          { letter: 'C', text: 'Random nodes only', isCorrect: false },
+          { letter: 'D', text: 'Satellites', isCorrect: false },
+        ],
+        answer: 'In a star topology, all devices connect to a single central node (router/gateway). This makes management easy but creates a single point of failure — if the central node goes down, all devices lose connectivity.',
+      },
+      {
+        id: 607,
+        text: 'A mesh topology is best described as one where:',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Only one device can transmit', isCorrect: false },
+          { letter: 'B', text: 'Devices can relay messages for other devices', isCorrect: true },
+          { letter: 'C', text: 'All devices must connect by cable', isCorrect: false },
+          { letter: 'D', text: 'Only the gateway can send messages', isCorrect: false },
+        ],
+        answer: 'In a mesh topology, devices can relay messages for each other, extending the network range and providing redundancy. If one node fails, messages can be routed through alternative paths.',
+      },
+      {
+        id: 608,
+        text: 'Which address is mainly used for delivering data inside a local network?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'IP address', isCorrect: false },
+          { letter: 'B', text: 'DNS name', isCorrect: false },
+          { letter: 'C', text: 'MAC address', isCorrect: true },
+          { letter: 'D', text: 'Port number', isCorrect: false },
+        ],
+        answer: 'MAC addresses are used for local delivery within the same network segment. Switches and access points use MAC addresses to forward frames to the correct device. IP addresses route data between different networks.',
+      },
+      {
+        id: 609,
+        text: 'Which address is mainly used to route data across different networks (internet)?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'MAC address', isCorrect: false },
+          { letter: 'B', text: 'IP address', isCorrect: true },
+          { letter: 'C', text: 'Port number', isCorrect: false },
+          { letter: 'D', text: 'SSID', isCorrect: false },
+        ],
+        answer: 'IP addresses are used by routers to deliver packets across different networks (the internet). MAC addresses are for local delivery, port numbers identify services, and SSID is a Wi-Fi network name.',
+      },
+      {
+        id: 610,
+        text: 'What is the primary function of DHCP?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Encrypt network traffic', isCorrect: false },
+          { letter: 'B', text: 'Assign IP configuration automatically', isCorrect: true },
+          { letter: 'C', text: 'Convert names into IP addresses', isCorrect: false },
+          { letter: 'D', text: 'Decide whether to use TCP or UDP', isCorrect: false },
+        ],
+        answer: 'DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses, subnet masks, default gateways, and DNS server addresses to devices on a network. This eliminates the need for manual IP configuration.',
+      },
+      {
+        id: 611,
+        text: 'What is the primary function of DNS?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Give a device its MAC address', isCorrect: false },
+          { letter: 'B', text: 'Convert a domain name to an IP address', isCorrect: true },
+          { letter: 'C', text: 'Reduce Wi-Fi power consumption', isCorrect: false },
+          { letter: 'D', text: 'Replace the need for routing', isCorrect: false },
+        ],
+        answer: 'DNS (Domain Name System) translates human-readable domain names (like iot.example.com) into IP addresses that computers use for routing. It acts like the internet phonebook.',
+      },
+      {
+        id: 612,
+        text: 'Why are port numbers needed in networking?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'To identify the device manufacturer', isCorrect: false },
+          { letter: 'B', text: 'To identify the specific service/application on a device', isCorrect: true },
+          { letter: 'C', text: 'To increase wireless range', isCorrect: false },
+          { letter: 'D', text: 'To replace IP addresses', isCorrect: false },
+        ],
+        answer: 'Port numbers identify which service or application should receive the data on a device. For example, port 80 for HTTP, port 443 for HTTPS, port 1883 for MQTT. Think: IP = building address, Port = apartment number.',
+      },
+      {
+        id: 613,
+        text: 'Which statement about TCP is correct?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'TCP provides best speed with no overhead', isCorrect: false },
+          { letter: 'B', text: 'TCP provides reliable, ordered delivery', isCorrect: true },
+          { letter: 'C', text: 'TCP never retransmits lost data', isCorrect: false },
+          { letter: 'D', text: 'TCP does not require a connection', isCorrect: false },
+        ],
+        answer: 'TCP (Transmission Control Protocol) provides reliable, ordered delivery of data. It establishes a connection, confirms delivery, retransmits lost packets, and maintains correct ordering — but this adds overhead.',
+      },
+      {
+        id: 614,
+        text: 'Which statement about UDP is correct?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'UDP guarantees delivery and ordering', isCorrect: false },
+          { letter: 'B', text: 'UDP always retransmits lost packets', isCorrect: false },
+          { letter: 'C', text: 'UDP is simpler and often has lower overhead', isCorrect: true },
+          { letter: 'D', text: 'UDP requires a connection setup (handshake)', isCorrect: false },
+        ],
+        answer: 'UDP (User Datagram Protocol) is a simple, connectionless protocol with lower overhead than TCP. It does not guarantee delivery, ordering, or retransmission — making it faster but less reliable.',
+      },
+      {
+        id: 615,
+        text: 'Which is the best choice for OTA firmware updates in most IoT systems?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'UDP, because it is fast', isCorrect: false },
+          { letter: 'B', text: 'TCP, because reliability is important', isCorrect: true },
+          { letter: 'C', text: 'Bluetooth only, because it is wireless', isCorrect: false },
+          { letter: 'D', text: 'DNS, because it uses names', isCorrect: false },
+        ],
+        answer: 'OTA (Over-The-Air) firmware updates require every byte to arrive correctly — a corrupted update could brick the device. TCP\'s reliable, ordered delivery makes it the right choice for this critical operation.',
+      },
+      {
+        id: 616,
+        text: 'Which is often better for real-time sensor updates where the latest value matters more than perfect delivery?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'TCP', isCorrect: false },
+          { letter: 'B', text: 'UDP', isCorrect: true },
+          { letter: 'C', text: 'DHCP', isCorrect: false },
+          { letter: 'D', text: 'DNS', isCorrect: false },
+        ],
+        answer: 'UDP is better for real-time sensor updates because: (1) you care about the latest value, not old retransmitted ones, (2) occasional lost packets are acceptable, (3) lower latency is more important than guaranteed delivery.',
+      },
+      {
+        id: 617,
+        text: 'The main purpose of an IoT gateway is to:',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Replace the sensors', isCorrect: false },
+          { letter: 'B', text: 'Connect local device networks to IP/internet networks', isCorrect: true },
+          { letter: 'C', text: 'Remove the need for IP addresses', isCorrect: false },
+          { letter: 'D', text: 'Stop devices from communicating', isCorrect: false },
+        ],
+        answer: 'An IoT gateway bridges local device networks (BLE, ZigBee, LPWAN) to the internet/cloud. It collects data from many devices, translates protocols (non-IP to IP), and can handle security policies.',
+      },
+      {
+        id: 618,
+        text: 'An edge node is mainly used to:',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Only store data in the cloud', isCorrect: false },
+          { letter: 'B', text: 'Process/filter data near the devices', isCorrect: true },
+          { letter: 'C', text: 'Increase MAC address length', isCorrect: false },
+          { letter: 'D', text: 'Convert TCP into UDP', isCorrect: false },
+        ],
+        answer: 'An edge node processes data near the devices (at the edge of the network) rather than sending everything to the cloud. It filters/aggregates data, responds quickly without cloud latency, and can keep working during internet outages.',
+      },
+      {
+        id: 619,
+        text: 'Which combination is correct?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'IP = local hardware identity, MAC = internet routing', isCorrect: false },
+          { letter: 'B', text: 'MAC = local hardware identity, IP = internet routing', isCorrect: true },
+          { letter: 'C', text: 'Port = device identity, IP = application identity', isCorrect: false },
+          { letter: 'D', text: 'DNS = hardware identity, DHCP = encryption', isCorrect: false },
+        ],
+        answer: 'MAC address is the device\'s hardware identity used for local delivery, while IP address is the network location used for routing between networks. The correct pairing: MAC = local, IP = internet routing.',
+      },
+      {
+        id: 620,
+        text: 'If DNS is not working, an IoT device may fail to:',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Read a sensor locally', isCorrect: false },
+          { letter: 'B', text: 'Reach a cloud server using a hostname (domain name)', isCorrect: true },
+          { letter: 'C', text: 'Turn on an LED', isCorrect: false },
+          { letter: 'D', text: 'Store data in memory', isCorrect: false },
+        ],
+        answer: 'DNS converts domain names to IP addresses. If DNS fails, the device cannot resolve hostnames like iot.example.com to IP addresses, preventing cloud communication by name. Local operations (sensors, LEDs) still work.',
+      },
+      {
+        id: 621,
+        text: 'Which connection is usually associated with high bandwidth but higher power consumption in IoT?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Wi-Fi', isCorrect: true },
+          { letter: 'B', text: 'LPWAN', isCorrect: false },
+          { letter: 'C', text: 'BLE', isCorrect: false },
+          { letter: 'D', text: 'ZigBee', isCorrect: false },
+        ],
+        answer: 'Wi-Fi provides high bandwidth (good for video, large data) but consumes significantly more power than BLE, LPWAN, or ZigBee. This makes Wi-Fi less suitable for battery-powered IoT devices that need to run for months.',
+      },
+      {
+        id: 622,
+        text: 'Which option best matches: very long range + very low power + small messages?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Wi-Fi', isCorrect: false },
+          { letter: 'B', text: 'Ethernet', isCorrect: false },
+          { letter: 'C', text: 'LPWAN', isCorrect: true },
+          { letter: 'D', text: 'HDMI', isCorrect: false },
+        ],
+        answer: 'LPWAN (Low-Power Wide-Area Network) technologies like LoRa and Sigfox are designed for very long range (kilometers), very low power consumption (years on battery), and small message sizes — perfect for remote sensors.',
+      },
+      {
+        id: 623,
+        text: 'Which of the following is a strong reason to use a gateway in IoT?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'To make every device a server', isCorrect: false },
+          { letter: 'B', text: 'To translate between different protocols/technologies', isCorrect: true },
+          { letter: 'C', text: 'To remove all network delays', isCorrect: false },
+          { letter: 'D', text: 'To avoid using sensors', isCorrect: false },
+        ],
+        answer: 'A key function of IoT gateways is protocol translation — converting between local device protocols (BLE, ZigBee, etc.) and internet protocols (TCP/IP). This allows non-IP devices to communicate with cloud services.',
+      },
+      {
+        id: 624,
+        text: 'Which situation most strongly suggests using wired communication?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Moving wearable device', isCorrect: false },
+          { letter: 'B', text: 'High interference environment where signals are unstable', isCorrect: true },
+          { letter: 'C', text: 'Device must be portable and battery-powered', isCorrect: false },
+          { letter: 'D', text: 'Sensor located far from any building', isCorrect: false },
+        ],
+        answer: 'Wired communication is preferred in high interference environments because physical cables are not affected by radio interference, walls, or other wireless signals. Wearable, portable, and remote devices typically need wireless.',
+      },
+      {
+        id: 625,
+        text: 'When a device has an IP address and wants to send data to the internet, it typically sends traffic first to:',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'MAC address table', isCorrect: false },
+          { letter: 'B', text: 'Default gateway', isCorrect: true },
+          { letter: 'C', text: 'DNS root server', isCorrect: false },
+          { letter: 'D', text: 'Bluetooth pairing list', isCorrect: false },
+        ],
+        answer: 'The default gateway is the router that connects the local network to the internet. When a device needs to send data outside its local network, it forwards the traffic to the default gateway for routing to the destination.',
+      },
+      // ─── Additional MCQ from Lecture 7 content ───
+      {
+        id: 626,
+        text: 'Which IoT wired communication standard is commonly used in industrial environments?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Bluetooth', isCorrect: false },
+          { letter: 'B', text: 'RS-485', isCorrect: true },
+          { letter: 'C', text: 'Wi-Fi', isCorrect: false },
+          { letter: 'D', text: 'LPWAN', isCorrect: false },
+        ],
+        answer: 'RS-485 is a wired communication standard commonly used in industrial IoT environments for its noise immunity, long cable runs (up to 1200m), and multi-device support on a single bus.',
+      },
+      {
+        id: 627,
+        text: 'Which IoT wired communication standard is commonly used in automotive applications?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'CAN bus', isCorrect: true },
+          { letter: 'B', text: 'Ethernet', isCorrect: false },
+          { letter: 'C', text: 'BLE', isCorrect: false },
+          { letter: 'D', text: 'ZigBee', isCorrect: false },
+        ],
+        answer: 'CAN (Controller Area Network) bus is the standard wired communication protocol used in automotive applications, allowing microcontrollers and devices in a vehicle to communicate without a host computer.',
+      },
+      {
+        id: 628,
+        text: 'Which topology is best for connecting many IoT sensors to one gateway?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Ring topology', isCorrect: false },
+          { letter: 'B', text: 'Star topology', isCorrect: true },
+          { letter: 'C', text: 'Bus topology', isCorrect: false },
+          { letter: 'D', text: 'Point-to-Point', isCorrect: false },
+        ],
+        answer: 'Star topology is ideal for connecting many IoT sensors to a single gateway because: it is simple to manage, easy to add/remove devices, and the central gateway can control all communication.',
+      },
+      {
+        id: 629,
+        text: 'Which topology provides the highest redundancy (many backup paths)?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Star topology', isCorrect: false },
+          { letter: 'B', text: 'Bus topology', isCorrect: false },
+          { letter: 'C', text: 'Mesh topology', isCorrect: true },
+          { letter: 'D', text: 'Ring topology', isCorrect: false },
+        ],
+        answer: 'Full mesh topology provides the highest redundancy because every node connects to every other node. If any node or link fails, data can be rerouted through alternative paths. However, it is complex and expensive to implement.',
+      },
+      {
+        id: 630,
+        text: 'In the 3-level networking model for IoT, which level decides between TCP and UDP?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Link/Local level', isCorrect: false },
+          { letter: 'B', text: 'Network/Internet level', isCorrect: false },
+          { letter: 'C', text: 'Transport level', isCorrect: true },
+          { letter: 'D', text: 'Application level', isCorrect: false },
+        ],
+        answer: 'The Transport level decides how data is delivered — using TCP for reliable delivery or UDP for fast, low-overhead delivery. The Link level handles local delivery (MAC), and the Network level handles routing (IP).',
+      },
+      {
+        id: 631,
+        text: 'What does DHCP typically provide to a device? (Select the most complete answer)',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Only an IP address', isCorrect: false },
+          { letter: 'B', text: 'IP address, subnet mask, default gateway, and DNS server address', isCorrect: true },
+          { letter: 'C', text: 'MAC address and port number', isCorrect: false },
+          { letter: 'D', text: 'Encryption keys and firewall rules', isCorrect: false },
+        ],
+        answer: 'DHCP provides: IP address (device\'s network identity), subnet mask (which devices are local), default gateway (where to send internet traffic), and DNS server address (for name resolution). This complete configuration allows a device to communicate on the network.',
+      },
+      {
+        id: 632,
+        text: 'Why is DNS important for IoT devices connecting to cloud services?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'It provides power to the devices', isCorrect: false },
+          { letter: 'B', text: 'Cloud servers can change IPs, but the domain name stays the same', isCorrect: true },
+          { letter: 'C', text: 'It replaces the need for internet connectivity', isCorrect: false },
+          { letter: 'D', text: 'It encrypts all network traffic', isCorrect: false },
+        ],
+        answer: 'Cloud servers may change their IP addresses (due to scaling, maintenance, or load balancing), but the domain name remains constant. DNS allows IoT devices to always reach the correct server by resolving the hostname, even when the underlying IP changes.',
+      },
+      {
+        id: 633,
+        text: 'An edge node can continue making local decisions even when:',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'The sensors are disconnected', isCorrect: false },
+          { letter: 'B', text: 'The internet connection is down', isCorrect: true },
+          { letter: 'C', text: 'The power supply fails', isCorrect: false },
+          { letter: 'D', text: 'All devices are removed', isCorrect: false },
+        ],
+        answer: 'A key advantage of edge computing is that it can continue to process data and make local decisions even when the internet connection is unavailable. This is critical for IoT systems that need real-time responses.',
+      },
+      // ─── Fill Questions: Network Topologies ───
+      {
+        id: 634,
+        text: 'Fill in the correct network topology names and concepts:',
+        marks: '5 pts',
+        type: 'fill',
+        fillItems: [
+          { label: 'Topology where one device talks directly to one other device', answer: 'Point-to-Point' },
+          { label: 'Topology where many devices connect to a central router/gateway', answer: 'Star' },
+          { label: 'Topology where devices can relay messages for each other', answer: 'Mesh' },
+          { label: 'Topology where devices connect in a circular chain', answer: 'Ring' },
+          { label: 'Topology that combines more than one topology type', answer: 'Hybrid' },
+        ],
+        answer: 'The main network topologies are: Point-to-Point (1-to-1), Star (central hub), Mesh (multi-path relay), Ring (circular chain), Bus (shared single cable), Tree (hierarchical), and Hybrid (combination).',
+      },
+      {
+        id: 635,
+        text: 'Fill in the correct networking terms:',
+        marks: '5 pts',
+        type: 'fill',
+        fillItems: [
+          { label: 'Protocol that assigns IP addresses automatically', answer: 'DHCP' },
+          { label: 'Protocol that converts domain names to IP addresses', answer: 'DNS' },
+          { label: 'Protocol that provides reliable, ordered delivery', answer: 'TCP' },
+          { label: 'Protocol that is fast with low overhead but no delivery guarantee', answer: 'UDP' },
+          { label: 'Number that identifies a specific service on a device', answer: 'Port number' },
+        ],
+        answer: 'DHCP auto-assigns IP configuration, DNS resolves domain names, TCP provides reliable transport, UDP provides fast lightweight transport, and port numbers identify specific services on a device.',
+      },
+      // ─── Additional conceptual MCQ ───
+      {
+        id: 636,
+        text: 'What is the main advantage of wireless communication over wired in IoT?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Always more reliable than wired', isCorrect: false },
+          { letter: 'B', text: 'Easier installation and supports mobile/remote devices', isCorrect: true },
+          { letter: 'C', text: 'Always faster data transfer', isCorrect: false },
+          { letter: 'D', text: 'No power consumption at all', isCorrect: false },
+        ],
+        answer: 'Wireless communication\'s main advantages are easier installation (no cables to run), support for mobile and remote devices, and flexibility in device placement. However, it trades off against interference, security, and power consumption concerns.',
+      },
+      {
+        id: 637,
+        text: 'Which IoT communication technology would you choose for a smart watch that needs to sync data with a phone?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Ethernet', isCorrect: false },
+          { letter: 'B', text: 'LPWAN', isCorrect: false },
+          { letter: 'C', text: 'BLE (Bluetooth Low Energy)', isCorrect: true },
+          { letter: 'D', text: '4G Cellular', isCorrect: false },
+        ],
+        answer: 'BLE is ideal for a smart watch: short range (watch is near the phone), very low power (small battery), and sufficient bandwidth for health/activity data. Ethernet needs cables, LPWAN is for long-range low-data, and 4G is overkill for local sync.',
+      },
+      {
+        id: 638,
+        text: 'Which IoT communication technology would you choose for a soil moisture sensor in a remote farm, sending data once per hour?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Wi-Fi', isCorrect: false },
+          { letter: 'B', text: 'BLE', isCorrect: false },
+          { letter: 'C', text: 'LPWAN (e.g., LoRa)', isCorrect: true },
+          { letter: 'D', text: 'Ethernet', isCorrect: false },
+        ],
+        answer: 'LPWAN (like LoRa) is ideal for remote farm sensors: very long range (kilometers), very low power (battery lasts years), and tiny data messages (once per hour is minimal). Wi-Fi and BLE are too short-range, and Ethernet needs cables.',
+      },
+      {
+        id: 639,
+        text: 'What happens at the Link/Local level of IoT networking?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Data is routed across the internet using IP', isCorrect: false },
+          { letter: 'B', text: 'Transport protocol (TCP/UDP) is chosen', isCorrect: false },
+          { letter: 'C', text: 'Data is delivered within the same local network using MAC addresses', isCorrect: true },
+          { letter: 'D', text: 'Domain names are resolved to IP addresses', isCorrect: false },
+        ],
+        answer: 'At the Link/Local level, data is delivered within the same local network using MAC addresses and switches. This is the lowest level — IP routing happens at the Network level, TCP/UDP at the Transport level, and DNS at the Application level.',
+      },
+      {
+        id: 640,
+        text: 'Which of the following is a disadvantage of a star topology?',
+        marks: '1 pt',
+        type: 'mcq',
+        mcqOptions: [
+          { letter: 'A', text: 'Too many cables required between all devices', isCorrect: false },
+          { letter: 'B', text: 'If the central node fails, all devices lose connectivity', isCorrect: true },
+          { letter: 'C', text: 'Devices cannot join or leave the network easily', isCorrect: false },
+          { letter: 'D', text: 'It requires the most complex routing algorithms', isCorrect: false },
+        ],
+        answer: 'The main disadvantage of star topology is the single point of failure: if the central hub/gateway goes down, all connected devices lose connectivity. Mesh topology solves this with redundant paths but adds complexity.',
+      },
+      // ─── Code Question: IoT Networking Concept ───
+      {
+        id: 641,
+        text: 'Write Arduino code that connects to WiFi, reads a sensor value from A0, and sends it as an HTTP GET request to a server every 5 seconds. Use the WiFi and WiFiClient libraries. (Assume ESP32 board)',
+        marks: '5 pts',
+        type: 'code',
+        answer: 'In setup(), connect to WiFi using WiFi.begin(). In loop(), read analog value, create an HTTP GET request string, connect to the server, send the request, and wait 5 seconds.',
+        answerCode: `#include <WiFi.h>
+#include <WiFiClient.h>
+
+const char* ssid = "YourWiFiSSID";
+const char* password = "YourPassword";
+const char* server = "example.com";
+const int port = 80;
+
+WiFiClient client;
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("WiFi connected!");
+}
+
+void loop() {
+  int sensorValue = analogRead(A0);
+
+  if (client.connect(server, port)) {
+    client.print("GET /update?value=");
+    client.print(sensorValue);
+    client.println(" HTTP/1.1");
+    client.print("Host: ");
+    client.println(server);
+    client.println("Connection: close");
+    client.println();
+    client.stop();
+    Serial.print("Sent: ");
+    Serial.println(sensorValue);
+  } else {
+    Serial.println("Connection failed");
+  }
+  delay(5000);
+}`,
+        hint: 'Use WiFi.begin() for connection, WiFiClient to connect and send HTTP GET with sensor value in the URL.',
+      },
+      {
+        id: 642,
+        text: 'Write Arduino code that reads a joystick (VRX on A0, VRY on A1, SW on pin 4) and prints the X, Y values and button state to the Serial Monitor every 200ms.',
+        marks: '4 pts',
+        type: 'code',
+        answer: 'In setup(), initialize Serial and set SW pin as INPUT_PULLUP. In loop(), read both analog values and the digital button, then print them.',
+        answerCode: `int vrxPin = A0;
+int vryPin = A1;
+int swPin = 4;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(swPin, INPUT_PULLUP);
+}
+
+void loop() {
+  int x = analogRead(vrxPin);
+  int y = analogRead(vryPin);
+  int button = digitalRead(swPin);
+
+  Serial.print("X: ");
+  Serial.print(x);
+  Serial.print(" | Y: ");
+  Serial.print(y);
+  Serial.print(" | Button: ");
+  Serial.println(button == LOW ? "PRESSED" : "Released");
+
+  delay(200);
+}`,
+        hint: 'Use analogRead() for VRX/VRY and digitalRead() with INPUT_PULLUP for SW.',
+      },
+      {
+        id: 643,
+        text: 'Write Arduino code to control a DC motor using L298N: ENA on pin 9 (PWM), IN1 on pin 8, IN2 on pin 7. The motor should gradually speed up from 0 to full speed over 3 seconds, then reverse direction and do the same.',
+        marks: '5 pts',
+        type: 'code',
+        answer: 'Set pin modes. Use two phases: forward (IN1=HIGH, IN2=LOW) and reverse (IN1=LOW, IN2=HIGH). In each phase, ramp up analogWrite on ENA from 0 to 255.',
+        answerCode: `int ena = 9;
+int in1 = 8;
+int in2 = 7;
+
+void setup() {
+  pinMode(ena, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+}
+
+void loop() {
+  // Forward direction
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+
+  // Speed up forward
+  for (int speed = 0; speed <= 255; speed++) {
+    analogWrite(ena, speed);
+    delay(12); // ~3 seconds total (255 * 12ms ≈ 3060ms)
+  }
+
+  delay(500);
+
+  // Reverse direction
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+
+  // Speed up reverse
+  for (int speed = 0; speed <= 255; speed++) {
+    analogWrite(ena, speed);
+    delay(12);
+  }
+
+  delay(500);
+}`,
+        hint: 'Use analogWrite() on ENA for PWM speed control, and digitalWrite() on IN1/IN2 for direction.',
+      },
+    ],
+  },
 ]

@@ -26,9 +26,9 @@ const subjects = [
     color: '#10b981',
     gradient: 'from-[#10b981] to-[#059669]',
     shadow: 'rgba(16,185,129,0.3)',
-    questions: 165,
-    sections: 6,
-    marks: 165,
+    questions: 235,
+    sections: 8,
+    marks: 235,
     available: true,
   },
   {
