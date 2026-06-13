@@ -88,6 +88,20 @@ const PredictionsTab = dynamic(() => import('@/components/admin/PredictionsTab')
 const FindingsTab = dynamic(() => import('@/components/admin/FindingsTab'), { ssr: false })
 const FeedbackTab = dynamic(() => import('@/components/admin/FeedbackTab'), { ssr: false })
 
+// ─── Sidebar Icons ──────────────────────────────────────
+const tabIcons: Record<DashboardTab, JSX.Element> = {
+  'overview': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>,
+  'students': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 7l-9-5 9-5 9 5-9 5zm0-7v7" /></svg>,
+  'subjects': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
+  'question-types': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+  'behavior': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
+  'at-risk': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>,
+  'readiness': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
+  'predictions': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>,
+  'findings': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
+  'feedback': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>,
+}
+
 // ─── Component ──────────────────────────────────────────
 export default function AdminPage() {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([])
@@ -96,6 +110,7 @@ export default function AdminPage() {
   const [password, setPassword] = useState('')
   const [authError, setAuthError] = useState('')
   const [activeTab, setActiveTab] = useState<DashboardTab>('overview')
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   // Analytics data states
   const [overview, setOverview] = useState<OverviewData | null>(null)
@@ -161,120 +176,166 @@ export default function AdminPage() {
   // ─── Auth Gate ──────────────────────────────────
   if (!authenticated) {
     return (
-      <div className="min-h-screen bg-[#080c18] text-[#e2e8f0] font-sans flex items-center justify-center px-4">
+      <div className="min-h-screen bg-[#080c18] text-[#e2e8f0] font-sans flex items-center justify-center px-4 relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full opacity-[0.07]" style={{ background: 'radial-gradient(circle, #7c3aed, transparent 70%)' }} />
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.05]" style={{ background: 'radial-gradient(circle, #00d4ff, transparent 70%)' }} />
+          <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px)', backgroundSize: '50px 50px' }} />
+        </div>
+
         <motion.div
-          className="bg-[#111827] border border-[#1e2d45] rounded-3xl p-8 sm:p-12 w-full max-w-md shadow-[0_0_40px_rgba(0,0,0,0.5)]"
-          initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, type: 'spring' }}
+          className="relative bg-[#0f1629]/80 backdrop-blur-2xl border border-[#1e2d45]/80 rounded-3xl p-10 sm:p-14 w-full max-w-md shadow-[0_0_80px_rgba(124,58,237,0.08)]"
+          initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.6, type: 'spring' }}
         >
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(124,58,237,0.3)]">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#7c3aed] via-[#6366f1] to-[#00d4ff] flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_rgba(124,58,237,0.4)] relative">
+            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-[#7c3aed] to-[#00d4ff] opacity-20 blur-md -z-10" />
           </div>
-          <h1 className="text-2xl font-black text-center mb-2">Admin Panel</h1>
-          <p className="text-[#64748b] text-sm text-center mb-6">Enter password to access dashboard</p>
-          {authError && <div className="mb-4 bg-[#ef4444]/10 border border-[#ef4444]/30 text-[#ef4444] text-sm rounded-xl px-4 py-3">{authError}</div>}
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleLogin()} placeholder="Password" className="w-full bg-[#080c18] border border-[#1e2d45] rounded-xl px-4 py-3 text-sm text-[#e2e8f0] placeholder-[#475569] focus:border-[#7c3aed] focus:outline-none focus:shadow-[0_0_15px_rgba(124,58,237,0.15)] transition-all mb-4" />
-          <button onClick={handleLogin} className="w-full bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] text-white border-none rounded-xl px-6 py-3 font-bold text-sm cursor-pointer hover:opacity-90 transition-all">Login</button>
-          <a href="/" className="block text-center text-[#64748b] text-sm mt-4 hover:text-[#00d4ff] transition-colors">Back to Home</a>
+          <h1 className="text-3xl font-black text-center mb-2 bg-gradient-to-r from-[#e2e8f0] to-[#94a3b8] bg-clip-text text-transparent">Admin Access</h1>
+          <p className="text-[#64748b] text-sm text-center mb-8">Authenticate to access the analytics dashboard</p>
+          {authError && (
+            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-5 bg-[#ef4444]/10 border border-[#ef4444]/25 text-[#f87171] text-sm rounded-xl px-4 py-3 flex items-center gap-2">
+              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              {authError}
+            </motion.div>
+          )}
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleLogin()} placeholder="Enter admin password" className="w-full bg-[#080c18]/80 border border-[#1e2d45] rounded-xl px-5 py-3.5 text-sm text-[#e2e8f0] placeholder-[#475569] focus:border-[#7c3aed] focus:outline-none focus:shadow-[0_0_20px_rgba(124,58,237,0.12)] transition-all mb-5" />
+          <button onClick={handleLogin} className="w-full bg-gradient-to-r from-[#7c3aed] via-[#6366f1] to-[#00d4ff] text-white border-none rounded-xl px-6 py-3.5 font-bold text-sm cursor-pointer hover:opacity-90 hover:shadow-[0_0_25px_rgba(124,58,237,0.3)] transition-all active:scale-[0.98]">Authenticate</button>
+          <a href="/" className="flex items-center justify-center gap-1.5 text-[#64748b] text-sm mt-6 hover:text-[#00d4ff] transition-colors">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            Back to Home
+          </a>
         </motion.div>
       </div>
     )
   }
 
   // ─── Sidebar Tabs ──────────────────────────────
-  const tabs: { id: DashboardTab; label: string; icon: string }[] = [
-    { id: 'overview', label: 'Overview', icon: '📊' },
-    { id: 'students', label: 'Students', icon: '🎓' },
-    { id: 'subjects', label: 'Subjects', icon: '📚' },
-    { id: 'question-types', label: 'Q Types', icon: '❓' },
-    { id: 'behavior', label: 'Behavior', icon: '🧠' },
-    { id: 'at-risk', label: 'At-Risk', icon: '⚠️' },
-    { id: 'readiness', label: 'Readiness', icon: '🎯' },
-    { id: 'predictions', label: 'ML Models', icon: '🤖' },
-    { id: 'findings', label: 'Findings', icon: '💡' },
-    { id: 'feedback', label: 'Feedback', icon: '💬' },
+  const tabs: { id: DashboardTab; label: string }[] = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'students', label: 'Students' },
+    { id: 'subjects', label: 'Subjects' },
+    { id: 'question-types', label: 'Q Types' },
+    { id: 'behavior', label: 'Behavior' },
+    { id: 'at-risk', label: 'At-Risk' },
+    { id: 'readiness', label: 'Readiness' },
+    { id: 'predictions', label: 'ML Models' },
+    { id: 'findings', label: 'Findings' },
+    { id: 'feedback', label: 'Feedback' },
   ]
 
   // ─── Dashboard Render ──────────────────────────
   return (
-    <div className="min-h-screen bg-[#080c18] text-[#e2e8f0] font-sans">
+    <div className="min-h-screen bg-[#060a14] text-[#e2e8f0]" style={{ fontFamily: "'Cairo', sans-serif" }}>
       {/* Background */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, #7c3aed, transparent 70%)' }} />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, #6366f1, transparent 70%)' }} />
+        <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(124,58,237,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.02) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] rounded-full opacity-[0.03]" style={{ background: 'radial-gradient(circle, #7c3aed, transparent 70%)' }} />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] rounded-full opacity-[0.03]" style={{ background: 'radial-gradient(circle, #6366f1, transparent 70%)' }} />
       </div>
 
       <div className="relative z-1 flex">
-        {/* Sidebar */}
-        <aside className="hidden lg:flex flex-col w-[220px] min-h-screen bg-[#0a0f1e]/80 border-r border-[#1e2d45] sticky top-0 p-4 gap-1">
-          <div className="flex items-center gap-2 mb-6 px-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] flex items-center justify-center text-white text-sm font-black shadow-[0_0_15px_rgba(124,58,237,0.3)]">P</div>
-            <div>
-              <div className="text-sm font-black bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] bg-clip-text text-transparent">Prepify</div>
-              <div className="text-[9px] text-[#64748b] tracking-wider uppercase">Research Dashboard</div>
-            </div>
+        {/* Desktop Sidebar */}
+        <aside className={`hidden lg:flex flex-col ${sidebarCollapsed ? 'w-[72px]' : 'w-[250px]'} min-h-screen bg-[#0a0f1e]/90 backdrop-blur-xl border-r border-[#1e2d45]/50 sticky top-0 transition-all duration-300`}>
+          {/* Sidebar Header */}
+          <div className={`flex items-center ${sidebarCollapsed ? 'justify-center' : 'gap-3'} p-5 pb-6`}>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7c3aed] to-[#00d4ff] flex items-center justify-center text-white text-sm font-black shadow-[0_0_20px_rgba(124,58,237,0.3)] shrink-0">P</div>
+            {!sidebarCollapsed && (
+              <div>
+                <div className="text-sm font-black bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] bg-clip-text text-transparent">Prepify</div>
+                <div className="text-[9px] text-[#475569] tracking-widest uppercase">Analytics</div>
+              </div>
+            )}
           </div>
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer text-left"
-              style={{
-                background: activeTab === tab.id ? 'rgba(139,92,246,0.15)' : 'transparent',
-                border: activeTab === tab.id ? '1px solid rgba(139,92,246,0.3)' : '1px solid transparent',
-                color: activeTab === tab.id ? '#c4b5fd' : '#94a3b8',
-              }}
-            >
-              <span className="text-base">{tab.icon}</span>
-              {tab.label}
+
+          {/* Nav Items */}
+          <div className="flex-1 px-3 space-y-1">
+            {tabs.map(tab => (
+              <motion.button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`w-full flex items-center ${sidebarCollapsed ? 'justify-center' : 'gap-3'} px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all cursor-pointer relative group`}
+                style={{
+                  background: activeTab === tab.id ? 'linear-gradient(135deg, rgba(139,92,246,0.15), rgba(99,102,241,0.08))' : 'transparent',
+                  border: activeTab === tab.id ? '1px solid rgba(139,92,246,0.25)' : '1px solid transparent',
+                  color: activeTab === tab.id ? '#c4b5fd' : '#64748b',
+                }}
+                whileHover={{ x: sidebarCollapsed ? 0 : 3 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className={`shrink-0 transition-colors ${activeTab === tab.id ? 'text-[#a78bfa]' : 'text-[#475569] group-hover:text-[#94a3b8]'}`}>
+                  {tabIcons[tab.id]}
+                </span>
+                {!sidebarCollapsed && tab.label}
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="activeIndicator"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-gradient-to-b from-[#7c3aed] to-[#00d4ff]"
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Sidebar Footer */}
+          <div className={`p-3 border-t border-[#1e2d45]/50 flex flex-col gap-2`}>
+            <button onClick={() => setSidebarCollapsed(!sidebarCollapsed)} className="flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs font-bold bg-[#111827]/60 border border-[#1e2d45] text-[#64748b] hover:text-[#94a3b8] hover:border-[#2d3f5e] transition-all cursor-pointer">
+              <svg className={`w-3.5 h-3.5 transition-transform ${sidebarCollapsed ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
+              {!sidebarCollapsed && 'Collapse'}
             </button>
-          ))}
-          <div className="mt-auto pt-4 border-t border-[#1e2d45] flex flex-col gap-2">
-            <button onClick={handleExport} className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold bg-[#111827] border border-[#1e2d45] text-[#94a3b8] hover:border-[#7c3aed] hover:text-[#c4b5fd] transition-all cursor-pointer">
+            <button onClick={handleExport} className={`flex items-center ${sidebarCollapsed ? 'justify-center' : 'gap-2'} px-3 py-2 rounded-xl text-xs font-bold bg-[#111827]/60 border border-[#1e2d45] text-[#64748b] hover:border-[#7c3aed]/50 hover:text-[#c4b5fd] transition-all cursor-pointer`}>
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-              Export CSV
+              {!sidebarCollapsed && 'Export CSV'}
             </button>
-            <a href="/" className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-[#64748b] hover:text-[#94a3b8] transition-colors">
+            <a href="/" className={`flex items-center ${sidebarCollapsed ? 'justify-center' : 'gap-2'} px-3 py-2 rounded-xl text-xs font-bold text-[#475569] hover:text-[#94a3b8] transition-colors`}>
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-              Back to Home
+              {!sidebarCollapsed && 'Back to Home'}
             </a>
           </div>
         </aside>
 
         {/* Mobile Header */}
-        <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-[#080c18]/95 backdrop-blur-xl border-b border-[#1e2d45] px-4 py-2">
-          <div className="flex items-center justify-between mb-2">
-            <div className="text-sm font-black bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] bg-clip-text text-transparent">Prepify Analytics</div>
-            <a href="/" className="text-[#64748b] text-xs hover:text-[#00d4ff]">Home</a>
+        <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-[#060a14]/95 backdrop-blur-2xl border-b border-[#1e2d45]/50">
+          <div className="flex items-center justify-between px-4 py-3">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#7c3aed] to-[#00d4ff] flex items-center justify-center text-white text-xs font-black">P</div>
+              <span className="text-sm font-black bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] bg-clip-text text-transparent">Analytics</span>
+            </div>
+            <a href="/" className="text-[#475569] text-xs hover:text-[#00d4ff] transition-colors">Home</a>
           </div>
-          <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex gap-1 px-4 pb-3 overflow-x-auto scrollbar-hide">
             {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer shrink-0"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold whitespace-nowrap transition-all cursor-pointer shrink-0"
                 style={{
-                  background: activeTab === tab.id ? 'rgba(139,92,246,0.2)' : 'rgba(255,255,255,0.05)',
-                  border: activeTab === tab.id ? '1px solid rgba(139,92,246,0.4)' : '1px solid rgba(255,255,255,0.08)',
-                  color: activeTab === tab.id ? '#c4b5fd' : '#94a3b8',
+                  background: activeTab === tab.id ? 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(99,102,241,0.1))' : 'rgba(255,255,255,0.03)',
+                  border: activeTab === tab.id ? '1px solid rgba(139,92,246,0.35)' : '1px solid rgba(255,255,255,0.05)',
+                  color: activeTab === tab.id ? '#c4b5fd' : '#64748b',
                 }}
               >
-                <span>{tab.icon}</span> {tab.label}
+                {tab.label}
               </button>
             ))}
           </div>
         </div>
 
         {/* Main Content */}
-        <main className="flex-1 lg:pl-0 px-4 lg:px-8 pt-20 lg:pt-6 pb-10 max-w-[1200px]">
+        <main className="flex-1 px-4 sm:px-6 lg:px-8 pt-24 lg:pt-8 pb-10 max-w-[1300px] min-w-0">
           <AnimatePresence mode="wait">
             {analyticsLoading && activeTab !== 'feedback' ? (
               <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center justify-center py-32">
-                <div className="w-12 h-12 border-3 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" />
-                <p className="text-[#64748b] text-sm mt-4">Analyzing data...</p>
+                <div className="relative">
+                  <div className="w-14 h-14 border-[3px] border-[#8b5cf6]/30 border-t-[#8b5cf6] rounded-full animate-spin" />
+                  <div className="absolute inset-0 w-14 h-14 border-[3px] border-transparent border-b-[#00d4ff] rounded-full animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }} />
+                </div>
+                <p className="text-[#64748b] text-sm mt-5 font-medium">Analyzing data...</p>
               </motion.div>
             ) : (
-              <motion.div key={activeTab} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3 }}>
+              <motion.div key={activeTab} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35 }}>
                 {activeTab === 'overview' && <OverviewTab data={overview} studentData={studentData} behaviorData={behaviorData} />}
                 {activeTab === 'students' && <StudentsTab data={studentData} />}
                 {activeTab === 'subjects' && <SubjectsTab data={subjectData} />}
