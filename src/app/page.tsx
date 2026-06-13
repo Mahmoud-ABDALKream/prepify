@@ -198,6 +198,7 @@ export default function LandingPage() {
           {/* Desktop Nav Links */}
           <div className="hidden sm:flex items-center gap-1">
             <a href="#subjects" className="text-[#94a3b8] hover:text-[#00d4ff] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(0,212,255,0.06)] transition-all">Subjects</a>
+            <a href="/review" className="text-[#94a3b8] hover:text-[#f59e0b] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(245,158,11,0.06)] transition-all flex items-center gap-1.5">📝 Review</a>
             <a href="#features" className="text-[#94a3b8] hover:text-[#00d4ff] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(0,212,255,0.06)] transition-all">Features</a>
             <a href="/leaderboard" className="text-[#94a3b8] hover:text-[#8b5cf6] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(139,92,246,0.06)] transition-all flex items-center gap-1.5">🏆 Leaderboard</a>
             <a href="#feedback" className="text-[#94a3b8] hover:text-[#f59e0b] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(245,158,11,0.06)] transition-all">Feedback</a>
@@ -236,6 +237,7 @@ export default function LandingPage() {
             >
               <div className="px-5 py-3 flex flex-col gap-0.5">
                 <a href="#subjects" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#00d4ff] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(0,212,255,0.06)] transition-all">Subjects</a>
+                <a href="/review" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#f59e0b] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(245,158,11,0.06)] transition-all">📝 Review</a>
                 <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#00d4ff] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(0,212,255,0.06)] transition-all">Features</a>
                 <a href="/leaderboard" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#8b5cf6] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(139,92,246,0.06)] transition-all">🏆 Leaderboard</a>
                 <a href="#feedback" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#f59e0b] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(245,158,11,0.06)] transition-all">Feedback</a>
