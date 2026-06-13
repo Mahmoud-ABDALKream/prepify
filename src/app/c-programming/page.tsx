@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import QuizStartPopup from '@/components/QuizStartPopup'
 import QuizTimer from '@/components/QuizTimer'
 import ReviewPanel from '@/components/ReviewPanel'
+import ScrollToTop from '@/components/ScrollToTop'
 import { useQuizTracking } from '@/hooks/useQuizTracking'
 import { useReviewStorage } from '@/hooks/useReviewStorage'
 import { formatDuration } from '@/lib/date-utils'
@@ -461,7 +462,7 @@ export default function Home() {
           >
             {/* Section header */}
             <div className="flex items-center gap-4 mt-10 mb-6 pb-4 border-b-2 border-[#1e2d45] relative">
-              <div className="w-[48px] h-[48px] bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] rounded-[14px] flex items-center justify-center text-2xl shrink-0 shadow-[0_0_20px_rgba(0,212,255,0.2)]">
+              <div className="w-[48px] h-[48px] bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] rounded-[14px] flex items-center justify-center text-sm font-black shrink-0 shadow-[0_0_20px_rgba(0,212,255,0.2)]">
                 {section.icon}
               </div>
               <div className="flex-1">
@@ -570,6 +571,8 @@ export default function Home() {
           </div>
         </footer>
       </div>
+
+      <ScrollToTop />
     </div>
   )
 }

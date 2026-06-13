@@ -5,7 +5,7 @@ export const csSections: Section[] = [
     id: 1,
     title: 'Multiple Choice Questions (MCQs)',
     marks: '15 pts',
-    icon: '📋',
+    icon: 'INT',
     questions: [
       {
         id: 1,
@@ -208,7 +208,7 @@ export const csSections: Section[] = [
     id: 2,
     title: 'True or False',
     marks: '8 pts',
-    icon: '✅',
+    icon: 'CIA',
     questions: [
       {
         id: 16,
@@ -304,7 +304,7 @@ export const csSections: Section[] = [
     id: 3,
     title: 'Essay Questions & Diagrams',
     marks: '20 pts',
-    icon: '📝',
+    icon: 'THR',
     questions: [
       {
         id: 24,
@@ -352,7 +352,7 @@ export const csSections: Section[] = [
     id: 4,
     title: 'Tutorial 4 — Wireless LAN Security (MCQ)',
     marks: '20 pts',
-    icon: '📡',
+    icon: 'NET',
     questions: [
       {
         id: 29,
@@ -620,7 +620,7 @@ export const csSections: Section[] = [
     id: 5,
     title: 'Tutorial 4 — Wireless LAN Security (True/False)',
     marks: '15 pts',
-    icon: '✅',
+    icon: 'CIA',
     questions: [
       {
         id: 49,
@@ -793,7 +793,7 @@ export const csSections: Section[] = [
     id: 6,
     title: 'Revision Sheet — Cryptography (MCQ)',
     marks: '18 pts',
-    icon: '🔐',
+    icon: 'CRYPT',
     questions: [
       {
         id: 64,
@@ -1035,7 +1035,7 @@ export const csSections: Section[] = [
     id: 7,
     title: 'Revision Sheet — Network Security (MCQ)',
     marks: '15 pts',
-    icon: '🛡️',
+    icon: 'DEF',
     questions: [
       {
         id: 82,
@@ -1238,7 +1238,7 @@ export const csSections: Section[] = [
     id: 8,
     title: 'Revision Sheet — True/False',
     marks: '12 pts',
-    icon: '✅',
+    icon: 'CIA',
     questions: [
       {
         id: 97,
@@ -1378,7 +1378,7 @@ export const csSections: Section[] = [
     id: 9,
     title: 'Practice Exam — Diagram & Essay',
     marks: '10 pts',
-    icon: '📐',
+    icon: 'MGM',
     questions: [
       {
         id: 109,
