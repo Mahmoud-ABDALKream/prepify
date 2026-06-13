@@ -593,6 +593,7 @@ export default function LandingPage() {
                       value={fbName}
                       onChange={(e) => setFbName(e.target.value)}
                       placeholder="Your name"
+                      dir="auto"
                       className="w-full bg-[#080c18] border border-[#1e2d45] rounded-xl px-4 py-3 text-sm text-[#e2e8f0] placeholder-[#475569] focus:border-[#f59e0b] focus:outline-none focus:shadow-[0_0_15px_rgba(245,158,11,0.15)] transition-all"
                     />
                   </div>
@@ -604,6 +605,7 @@ export default function LandingPage() {
                       value={fbMessage}
                       onChange={(e) => setFbMessage(e.target.value)}
                       placeholder="Tell us what you think..."
+                      dir="auto"
                       rows={4}
                       className="w-full bg-[#080c18] border border-[#1e2d45] rounded-xl px-4 py-3 text-sm text-[#e2e8f0] placeholder-[#475569] focus:border-[#f59e0b] focus:outline-none focus:shadow-[0_0_15px_rgba(245,158,11,0.15)] transition-all resize-none"
                     />

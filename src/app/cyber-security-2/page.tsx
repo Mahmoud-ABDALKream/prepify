@@ -2069,6 +2069,7 @@ export default function CyberSecurityPage() {
                     value={quizFeedback}
                     onChange={(e) => setQuizFeedback(e.target.value)}
                     placeholder="Share your thoughts about this quiz... (optional)"
+                    dir="auto"
                     rows={3}
                     className="w-full bg-[#080c18] border border-[#1e2d45] rounded-xl px-4 py-3 text-sm text-[#e2e8f0] placeholder-[#475569] focus:border-[#f59e0b] focus:outline-none focus:shadow-[0_0_15px_rgba(245,158,11,0.15)] transition-all resize-none"
                   />
