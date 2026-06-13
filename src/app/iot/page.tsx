@@ -4,7 +4,9 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import QuizStartPopup from '@/components/QuizStartPopup'
 import QuizTimer from '@/components/QuizTimer'
+import ReviewPanel from '@/components/ReviewPanel'
 import { useQuizTracking } from '@/hooks/useQuizTracking'
+import { useReviewStorage } from '@/hooks/useReviewStorage'
 import { formatDuration } from '@/lib/date-utils'
 
 // ─── Types ───────────────────────────────────────────
@@ -1595,6 +1597,13 @@ export default function Home() {
   const [scoreSubmitted, setScoreSubmitted] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
   const [hydrated, setHydrated] = useState(false)
+
+  // ─── Review storage (starred + wrong questions) ───
+  const {
+    starredIds, wrongIds, toggleStar, isStarred,
+    saveWrongQuestions, removeWrong, removeStarred, clearAllReview,
+  } = useReviewStorage('iot')
+
   const topRef = useRef<HTMLDivElement>(null)
   const sectionNavRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -1771,11 +1780,13 @@ export default function Home() {
       setShowConfetti(true)
       setTimeout(() => setShowConfetti(false), 4000)
     }
+    // Save wrong questions to review storage
+    saveWrongQuestions(questionStates)
     // Save attempt to database
     const wrongCount = answeredCount - correctCount
     submitQuizAttempt(correctCount, wrongCount, totalQuestions)
     topRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [correctCount, totalQuestions, answeredCount, submitQuizAttempt])
+  }, [correctCount, totalQuestions, answeredCount, submitQuizAttempt, questionStates, saveWrongQuestions])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -2019,6 +2030,8 @@ export default function Home() {
               <QuestionCard
                 key={q.id}
                 question={q}
+                sectionTitle={section.title}
+                sectionIcon={section.icon}
                 state={getQState(q.id)}
                 onUpdate={updateQState}
                 onCheckMcq={() => checkMcq(q.id, q)}
@@ -2027,6 +2040,8 @@ export default function Home() {
                 onRevealSolution={() => revealSolution(q.id)}
                 onHideSolution={() => hideSolution(q.id)}
                 onReset={() => resetQuestion(q.id)}
+                isStarred={isStarred(q.id)}
+                onToggleStar={() => toggleStar(q.id)}
                 index={qIdx}
               />
             ))}
@@ -2050,6 +2065,7 @@ export default function Home() {
             <p className="text-[#64748b] text-sm mt-3">Make sure to review your answers before showing the score</p>
           </motion.div>
         ) : (
+          <>
           <ScorePanel
             correctCount={correctCount}
             totalQuestions={totalQuestions}
@@ -2058,6 +2074,25 @@ export default function Home() {
             onRevealAll={revealAllSolutions}
             timeTaken={elapsedSeconds}
           />
+          {/* Review Panel: wrong + starred questions */}
+          <ReviewPanel
+            subjectName="Internet of Things (IoT)"
+            subjectColor="#10b981"
+            starredQuestions={sections.flatMap(s => s.questions.filter(q => starredIds.has(q.id)).map(q => ({
+              id: q.id, text: q.text, type: q.type, marks: q.marks,
+              answer: q.answer, sectionTitle: s.title, sectionIcon: s.icon,
+              codeBlock: q.codeBlock, answerCode: q.answerCode, mcqOptions: q.mcqOptions,
+            })))}
+            wrongQuestions={sections.flatMap(s => s.questions.filter(q => wrongIds.has(q.id)).map(q => ({
+              id: q.id, text: q.text, type: q.type, marks: q.marks,
+              answer: q.answer, sectionTitle: s.title, sectionIcon: s.icon,
+              codeBlock: q.codeBlock, answerCode: q.answerCode, mcqOptions: q.mcqOptions,
+            })))}
+            onRemoveStarred={removeStarred}
+            onRemoveWrong={removeWrong}
+            onClearAll={clearAllReview}
+          />
+          </>
         )}
 
         {/* Footer */}
@@ -2211,6 +2246,8 @@ function ScorePanel({
 // ─── Question Card ────────────────────────────────────
 function QuestionCard({
   question,
+  sectionTitle,
+  sectionIcon,
   state,
   onUpdate,
   onCheckMcq,
@@ -2219,9 +2256,13 @@ function QuestionCard({
   onRevealSolution,
   onHideSolution,
   onReset,
+  isStarred,
+  onToggleStar,
   index,
 }: {
   question: Question
+  sectionTitle: string
+  sectionIcon: string
   state: QuestionState
   onUpdate: (qId: number, update: Partial<QuestionState>) => void
   onCheckMcq: () => void
@@ -2230,6 +2271,8 @@ function QuestionCard({
   onRevealSolution: () => void
   onHideSolution: () => void
   onReset: () => void
+  isStarred: boolean
+  onToggleStar: () => void
   index: number
 }) {
   const isMcqOrTf = question.type === 'mcq' || question.type === 'tf'
@@ -2282,6 +2325,19 @@ function QuestionCard({
           {question.text}
         </div>
         <div className="flex flex-col items-end gap-1.5 shrink-0">
+          {/* Star button */}
+          <button
+            onClick={(e) => { e.stopPropagation(); onToggleStar() }}
+            className="w-[28px] h-[28px] rounded-lg flex items-center justify-center transition-all cursor-pointer hover:scale-110 active:scale-95"
+            style={{
+              color: isStarred ? '#f59e0b' : '#334155',
+              background: isStarred ? 'rgba(245,158,11,0.15)' : 'transparent',
+              border: isStarred ? '1px solid rgba(245,158,11,0.3)' : '1px solid transparent',
+            }}
+            title={isStarred ? 'Remove from review' : 'Star for review'}
+          >
+            {isStarred ? '★' : '☆'}
+          </button>
           <div className="text-[11px] text-[#64748b] bg-[#1a2235] px-2.5 py-1 rounded-lg whitespace-nowrap border border-[#1e2d45]">
             {question.marks}
           </div>
