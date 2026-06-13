@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import ScrollToTop from '@/components/ScrollToTop'
 import { cpSections } from '@/data/cp-sections'
 import { csSections } from '@/data/cs-sections'
 import { iotSections } from '@/data/iot-sections'
@@ -536,6 +537,8 @@ export default function ReviewPage() {
       <footer className="border-t border-[#1e2d45] py-6 text-center text-[#64748b] text-xs">
         Prepify — Mahmoud ABD ELKream
       </footer>
+
+      <ScrollToTop />
     </div>
   )
 }

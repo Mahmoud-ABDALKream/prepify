@@ -5,7 +5,7 @@ export const cpSections: Section[] = [
     id: 1,
     title: 'Input/Output & Variables',
     marks: '28 pts',
-    icon: '⚡',
+    icon: 'VAR',
     questions: [
       // ── MCQ Questions (6) ──
       {
@@ -247,7 +247,7 @@ export const cpSections: Section[] = [
     id: 2,
     title: 'Operators & Expressions',
     marks: '20 pts',
-    icon: '🔢',
+    icon: 'I/O',
     questions: [
       // ── Trace/Predict Output (11) ──
       {
@@ -385,7 +385,7 @@ export const cpSections: Section[] = [
     id: 3,
     title: 'Conditions (if/else, switch, ternary)',
     marks: '15 pts',
-    icon: '🔀',
+    icon: 'COND',
     questions: [
       // ── Trace/Predict Output (4) ──
       {
@@ -483,7 +483,7 @@ export const cpSections: Section[] = [
     id: 4,
     title: 'Loops (for, while, do-while, break, continue)',
     marks: '20 pts',
-    icon: '🔁',
+    icon: 'LOOP',
     questions: [
       // ── Trace/Predict Output (8) ──
       {
@@ -624,7 +624,7 @@ export const cpSections: Section[] = [
     id: 5,
     title: 'Arrays (1D & 2D)',
     marks: '20 pts',
-    icon: '📦',
+    icon: 'ARR',
     questions: [
       // ── Trace/Predict Output (5) ──
       {
@@ -773,7 +773,7 @@ export const cpSections: Section[] = [
     id: 6,
     title: 'Strings & General Concepts',
     marks: '14 pts',
-    icon: '🧠',
+    icon: 'FN',
     questions: [
       // ── MCQ (10) ──
       {

@@ -5,7 +5,7 @@ export const iotSections: Section[] = [
     id: 1,
     title: 'Introduction to IoT',
     marks: '15 pts',
-    icon: '🌐',
+    icon: 'IoT',
     questions: [
       {
         id: 1,
@@ -208,7 +208,7 @@ export const iotSections: Section[] = [
     id: 2,
     title: 'IoT Architecture & Core Components',
     marks: '20 pts',
-    icon: '🏗️',
+    icon: 'ARC',
     questions: [
       {
         id: 16,
@@ -476,7 +476,7 @@ export const iotSections: Section[] = [
     id: 3,
     title: 'Sensors & Smart Sensors',
     marks: '20 pts',
-    icon: '📡',
+    icon: 'NET',
     questions: [
       {
         id: 36,
@@ -744,7 +744,7 @@ export const iotSections: Section[] = [
     id: 4,
     title: 'Microcontrollers & ATmega16',
     marks: '30 pts',
-    icon: '🔌',
+    icon: 'AVR',
     questions: [
       {
         id: 56,
@@ -1142,7 +1142,7 @@ export const iotSections: Section[] = [
     id: 5,
     title: 'ATmega16 I/O Ports & Registers',
     marks: '30 pts',
-    icon: '⚙️',
+    icon: 'MCU',
     questions: [
       {
         id: 86,
@@ -1540,7 +1540,7 @@ export const iotSections: Section[] = [
     id: 6,
     title: 'Actuators, Output Devices & Common Modules',
     marks: '50 pts',
-    icon: '⚡',
+    icon: 'I/O',
     questions: [
       {
         id: 116,
@@ -2199,7 +2199,7 @@ export const iotSections: Section[] = [
     id: 7,
     title: 'Arduino IDE & Programming',
     marks: '34 pts',
-    icon: '🔌',
+    icon: 'PROG',
     questions: [
       // ─── MCQ Questions: Arduino IDE Concepts ───
       {
@@ -2531,7 +2531,7 @@ void loop() {
     id: 8,
     title: 'IoT Communication & Networking',
     marks: '43 pts',
-    icon: '📡',
+    icon: 'COMM',
     questions: [
       // ─── MCQ from Tutorial 8 (Q1-Q25) ───
       {
