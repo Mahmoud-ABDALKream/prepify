@@ -463,7 +463,7 @@ export default function Home() {
               </div>
               <div className="flex-1">
                 <div className="text-lg font-black">{section.title}</div>
-                <div className="text-xs text-[#64748b]">Section {section.id} of 5</div>
+                <div className="text-xs text-[#64748b]">Section {section.id} of {sections.length}</div>
               </div>
               <div className="bg-[#1a2235] border border-[#1e2d45] px-4 py-2 rounded-full text-sm font-bold text-[#00d4ff] shadow-[0_0_10px_rgba(0,212,255,0.1)]">
                 {section.marks}
