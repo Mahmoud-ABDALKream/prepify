@@ -799,33 +799,26 @@ function QuestionCard({
           {/* Star button */}
           <motion.button
             onClick={(e) => { e.stopPropagation(); onToggleStar() }}
-            className="relative w-[34px] h-[34px] rounded-xl flex items-center justify-center transition-all cursor-pointer group"
+            className="relative w-[34px] h-[34px] rounded-xl flex items-center justify-center cursor-pointer group"
             style={{
               color: isStarred ? '#f59e0b' : '#475569',
               background: isStarred ? 'linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.05))' : 'rgba(30,45,69,0.5)',
               border: isStarred ? '1.5px solid rgba(245,158,11,0.4)' : '1.5px solid rgba(71,85,105,0.3)',
               boxShadow: isStarred ? '0 0 12px rgba(245,158,11,0.2), inset 0 1px 0 rgba(245,158,11,0.1)' : 'none',
+              transition: 'color 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s',
             }}
             whileTap={{ scale: 0.85 }}
-            animate={isStarred ? { scale: [1, 1.2, 1] } : {}}
-            transition={{ duration: 0.3 }}
             title={isStarred ? 'Remove from review' : 'Star for review'}
           >
             <motion.span
+              key={isStarred ? 'starred' : 'unstarred'}
               className="text-base"
-              animate={{ rotate: isStarred ? [0, -15, 15, 0] : 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
+              initial={{ scale: 0.5, rotate: 0 }}
+              animate={{ scale: 1, rotate: isStarred ? [0, -20, 20, -10, 10, 0] : 0 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
             >
               {isStarred ? '★' : '☆'}
             </motion.span>
-            {isStarred && (
-              <motion.span
-                className="absolute inset-0 rounded-xl"
-                animate={{ opacity: [0.5, 0, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.15), transparent)' }}
-              />
-            )}
           </motion.button>
           <div className="text-[11px] text-[#64748b] bg-[#1a2235] px-2.5 py-1 rounded-lg whitespace-nowrap border border-[#1e2d45]">
             {question.marks}
