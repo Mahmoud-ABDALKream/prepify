@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import PrepifyLoader from "@/components/PrepifyLoader";
@@ -43,6 +44,7 @@ export default function RootLayout({
         </a>
         <PrepifyLoader>{children}</PrepifyLoader>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
