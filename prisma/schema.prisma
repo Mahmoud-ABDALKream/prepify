@@ -60,3 +60,35 @@ model ExamResult {
   @@index([examDate])
   @@index([userId, subject])
 }
+
+model QuestionResponse {
+  id              String   @id @default(cuid())
+  attemptId       String   // links to QuizAttempt.id
+  userId          String
+  userName        String
+  subject         String
+  questionId      Int      // the question number (e.g. 1-225 for IoT)
+  questionType    String   // mcq, tf, fill, code, trace
+  sectionTitle    String   // e.g. "Introduction to IoT"
+  isCorrect       Boolean
+  userAnswer      String?  // what the user answered
+  correctAnswer   String?  // the correct answer
+  timeTaken       Int      @default(0) // seconds spent on this question (0 if not tracked)
+  difficulty      String   @default("medium") // easy, medium, hard
+  bloomTaxonomy   String   @default("remember") // remember, understand, apply, analyze, evaluate, create
+  responseDate    DateTime @default(now())
+
+  @@index([attemptId])
+  @@index([userId])
+  @@index([subject])
+  @@index([questionId])
+  @@index([isCorrect])
+  @@index([difficulty])
+  @@index([bloomTaxonomy])
+  @@index([questionType])
+  @@index([subject, questionId])
+  @@index([subject, isCorrect])
+  @@index([subject, bloomTaxonomy])
+  @@index([difficulty, isCorrect])
+  @@index([bloomTaxonomy, isCorrect])
+}

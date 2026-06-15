@@ -74,7 +74,19 @@ interface Feedback {
   createdAt: string
 }
 
-type DashboardTab = 'overview' | 'students' | 'subjects' | 'question-types' | 'behavior' | 'at-risk' | 'readiness' | 'predictions' | 'findings' | 'feedback'
+interface QuestionAnalyticsData {
+  totalResponses: number
+  questions: { questionId: number; subject: string; questionType: string; sectionTitle: string; difficulty: string; bloomTaxonomy: string; totalAttempts: number; correctCount: number; wrongCount: number; successRate: number; uniqueUsers: number }[]
+  difficultyBreakdown: { level: string; totalAttempts: number; correctCount: number; successRate: number; uniqueQuestions: number }[]
+  bloomBreakdown: { level: string; totalAttempts: number; correctCount: number; successRate: number; uniqueQuestions: number }[]
+  hardestQuestions: { questionId: number; subject: string; questionType: string; sectionTitle: string; difficulty: string; bloomTaxonomy: string; totalAttempts: number; correctCount: number; wrongCount: number; successRate: number; uniqueUsers: number }[]
+  easiestQuestions: { questionId: number; subject: string; questionType: string; sectionTitle: string; difficulty: string; bloomTaxonomy: string; totalAttempts: number; correctCount: number; wrongCount: number; successRate: number; uniqueUsers: number }[]
+  sectionBreakdown: { sectionTitle: string; totalAttempts: number; correctCount: number; successRate: number; uniqueQuestions: number }[]
+  bloomDistribution: { subject: string; levels: { level: string; totalAttempts: number; correctCount: number; successRate: number }[] }[]
+  message?: string
+}
+
+type DashboardTab = 'overview' | 'students' | 'subjects' | 'question-types' | 'question-analytics' | 'behavior' | 'at-risk' | 'readiness' | 'predictions' | 'findings' | 'feedback'
 
 // ─── Lazy-loaded Tab Components ──────────────────────────
 const OverviewTab = dynamic(() => import('@/components/admin/OverviewTab'), { ssr: false })
@@ -86,6 +98,7 @@ const AtRiskTab = dynamic(() => import('@/components/admin/AtRiskTab'), { ssr: f
 const ReadinessTab = dynamic(() => import('@/components/admin/ReadinessTab'), { ssr: false })
 const PredictionsTab = dynamic(() => import('@/components/admin/PredictionsTab'), { ssr: false })
 const FindingsTab = dynamic(() => import('@/components/admin/FindingsTab'), { ssr: false })
+const QuestionAnalyticsTab = dynamic(() => import('@/components/admin/QuestionAnalyticsTab'), { ssr: false })
 const FeedbackTab = dynamic(() => import('@/components/admin/FeedbackTab'), { ssr: false })
 
 // ─── Sidebar Icons ──────────────────────────────────────
@@ -99,6 +112,7 @@ const tabIcons: Record<DashboardTab, JSX.Element> = {
   'readiness': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
   'predictions': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>,
   'findings': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
+  'question-analytics': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>,
   'feedback': <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>,
 }
 
@@ -122,6 +136,7 @@ export default function AdminPage() {
   const [readinessData, setReadinessData] = useState<ReadinessData | null>(null)
   const [predictionsData, setPredictionsData] = useState<PredictionsData | null>(null)
   const [findingsData, setFindingsData] = useState<FindingsData | null>(null)
+  const [questionAnalyticsData, setQuestionAnalyticsData] = useState<QuestionAnalyticsData | null>(null)
   const [analyticsLoading, setAnalyticsLoading] = useState(false)
 
   useEffect(() => {
@@ -156,6 +171,7 @@ export default function AdminPage() {
             case 'readiness': setReadinessData(data); break
             case 'predictions': setPredictionsData(data); break
             case 'findings': setFindingsData(data); break
+            case 'question-analytics': setQuestionAnalyticsData(data); break
           }
         })
         .catch(err => { console.error('Analytics fetch error:', err); setAnalyticsLoading(false) })
@@ -217,6 +233,7 @@ export default function AdminPage() {
     { id: 'students', label: 'Students' },
     { id: 'subjects', label: 'Subjects' },
     { id: 'question-types', label: 'Q Types' },
+    { id: 'question-analytics', label: 'Q Analytics' },
     { id: 'behavior', label: 'Behavior' },
     { id: 'at-risk', label: 'At-Risk' },
     { id: 'readiness', label: 'Readiness' },
@@ -340,6 +357,7 @@ export default function AdminPage() {
                 {activeTab === 'students' && <StudentsTab data={studentData} />}
                 {activeTab === 'subjects' && <SubjectsTab data={subjectData} />}
                 {activeTab === 'question-types' && <QuestionTypesTab data={qtData} />}
+                {activeTab === 'question-analytics' && <QuestionAnalyticsTab data={questionAnalyticsData} />}
                 {activeTab === 'behavior' && <BehaviorTab data={behaviorData} />}
                 {activeTab === 'at-risk' && <AtRiskTab data={atRiskData} />}
                 {activeTab === 'readiness' && <ReadinessTab data={readinessData} />}

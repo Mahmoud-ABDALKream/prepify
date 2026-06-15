@@ -235,9 +235,25 @@ export default function CyberSecurityPage() {
     }
     // Save wrong questions to review storage
     saveWrongQuestions(questionStates)
+    // Build per-question response data for analytics
+    const questionResponses = sections.flatMap(s =>
+      s.questions.map(q => {
+        const state = questionStates[q.id]
+        return {
+          questionId: q.id,
+          questionType: q.type,
+          sectionTitle: s.title,
+          isCorrect: state?.isChecked ? state.isCorrect === true : false,
+          userAnswer: state?.selectedMcq || state?.userCode || Object.values(state?.fillAnswers || {}).join(', ') || '',
+          correctAnswer: q.answer?.substring(0, 500) || '',
+          difficulty: q.difficulty || 'medium',
+          bloomTaxonomy: q.bloomTaxonomy || 'remember',
+        }
+      })
+    )
     // Save attempt to database
     const wrongCount = answeredCount - correctCount
-    submitQuizAttempt(correctCount, wrongCount, totalQuestions)
+    submitQuizAttempt(correctCount, wrongCount, totalQuestions, questionResponses)
     topRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [correctCount, totalQuestions, answeredCount, submitQuizAttempt, questionStates, saveWrongQuestions])
 

@@ -2,6 +2,17 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react'
 
+export interface QuestionResponseData {
+  questionId: number
+  questionType: string
+  sectionTitle: string
+  isCorrect: boolean
+  userAnswer: string
+  correctAnswer: string
+  difficulty: string
+  bloomTaxonomy: string
+}
+
 export function useQuizTracking(subject: string, quizId: string, questionType: string = 'multiple-choice') {
   const [quizStarted, setQuizStarted] = useState(false)
   const [userName, setUserName] = useState('')
@@ -17,7 +28,12 @@ export function useQuizTracking(subject: string, quizId: string, questionType: s
   const elapsedRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   // Store last submission data for retry
-  const lastSubmissionRef = useRef<{ correctCount: number; wrongCount: number; totalQuestions: number } | null>(null)
+  const lastSubmissionRef = useRef<{
+    correctCount: number
+    wrongCount: number
+    totalQuestions: number
+    questionResponses?: QuestionResponseData[]
+  } | null>(null)
 
   // Show popup on mount after hydration
   useEffect(() => {
@@ -84,7 +100,8 @@ export function useQuizTracking(subject: string, quizId: string, questionType: s
   const submitQuizAttempt = useCallback(async (
     correctCount: number,
     wrongCount: number,
-    totalQuestions: number
+    totalQuestions: number,
+    questionResponses?: QuestionResponseData[]
   ) => {
     if (attemptSubmitting || attemptSubmitted) return
 
@@ -92,7 +109,7 @@ export function useQuizTracking(subject: string, quizId: string, questionType: s
     if (elapsedRef.current) clearInterval(elapsedRef.current)
 
     // Store for retry
-    lastSubmissionRef.current = { correctCount, wrongCount, totalQuestions }
+    lastSubmissionRef.current = { correctCount, wrongCount, totalQuestions, questionResponses }
 
     setAttemptSubmitting(true)
     setAttemptError(null)
@@ -119,6 +136,7 @@ export function useQuizTracking(subject: string, quizId: string, questionType: s
           totalQuestions,
           timeTaken,
           questionType,
+          questionResponses: questionResponses || [],
         }),
       })
 
@@ -139,10 +157,10 @@ export function useQuizTracking(subject: string, quizId: string, questionType: s
   // Retry submitting the last attempt
   const retrySubmit = useCallback(async () => {
     if (!lastSubmissionRef.current || attemptSubmitted) return
-    const { correctCount, wrongCount, totalQuestions } = lastSubmissionRef.current
+    const { correctCount, wrongCount, totalQuestions, questionResponses } = lastSubmissionRef.current
     // Reset submitted flag to allow retry
     setAttemptSubmitted(false)
-    await submitQuizAttempt(correctCount, wrongCount, totalQuestions)
+    await submitQuizAttempt(correctCount, wrongCount, totalQuestions, questionResponses)
   }, [attemptSubmitted, submitQuizAttempt])
 
   return {

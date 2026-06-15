@@ -30,7 +30,7 @@ export async function GET() {
     const supabase = getSupabaseAdmin()
 
     // Check each table
-    const tables = ['QuizAttempt', 'ExamResult', 'Feedback']
+    const tables = ['QuizAttempt', 'ExamResult', 'Feedback', 'QuestionResponse']
 
     const results = await Promise.all(
       tables.map(async (table) => {

@@ -12,6 +12,8 @@ export const csSections: Section[] = [
         text: 'In Public Key Encryption, which key is generated locally and never shared?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Private Key', isCorrect: true },
           { letter: 'B', text: 'Public Key', isCorrect: false },
@@ -25,6 +27,8 @@ export const csSections: Section[] = [
         text: 'What are the units used to measure Hash Function sizes (input/output)?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Bytes', isCorrect: false },
           { letter: 'B', text: 'Bits', isCorrect: true },
@@ -38,6 +42,8 @@ export const csSections: Section[] = [
         text: 'If User B wants to send a confidential message to User A, which key does B use to encrypt?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'Private Key of A', isCorrect: false },
           { letter: 'B', text: 'Public Key of A', isCorrect: true },
@@ -51,6 +57,8 @@ export const csSections: Section[] = [
         text: 'An Encryption Algorithm transforms Plaintext into:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Scrambled message', isCorrect: false },
           { letter: 'B', text: 'Ciphertext', isCorrect: true },
@@ -64,6 +72,8 @@ export const csSections: Section[] = [
         text: 'In which technique is the Hash function encrypted using the Sender\'s Private Key?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Message Authentication', isCorrect: false },
           { letter: 'B', text: 'Digital Signature', isCorrect: true },
@@ -77,6 +87,8 @@ export const csSections: Section[] = [
         text: 'What does Message Authentication ensure?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Sender\'s ID is valid', isCorrect: true },
           { letter: 'B', text: 'Message is encrypted', isCorrect: false },
@@ -90,6 +102,8 @@ export const csSections: Section[] = [
         text: 'A Certificate links the User\'s Identity to their:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Private Key', isCorrect: false },
           { letter: 'B', text: 'Public Key', isCorrect: true },
@@ -103,6 +117,8 @@ export const csSections: Section[] = [
         text: 'Who signs the contents of a Certificate to make it trusted?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Certificate Authority (CA)', isCorrect: true },
           { letter: 'B', text: 'The User', isCorrect: false },
@@ -116,6 +132,8 @@ export const csSections: Section[] = [
         text: 'In the equation: A -> B: E(K, [M || H(M||S)]), what is S?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Public Key', isCorrect: false },
           { letter: 'B', text: 'Private Key', isCorrect: false },
@@ -129,6 +147,8 @@ export const csSections: Section[] = [
         text: 'Which protocol was developed for Wireless LANs specifications?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'IEEE 802.11', isCorrect: true },
           { letter: 'B', text: 'IEEE 802.3', isCorrect: false },
@@ -142,6 +162,8 @@ export const csSections: Section[] = [
         text: 'A set of stations controlled by a single function (AP) is called:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Basic Service Set (BSS)', isCorrect: true },
           { letter: 'B', text: 'Extended Service Set (ESS)', isCorrect: false },
@@ -155,6 +177,8 @@ export const csSections: Section[] = [
         text: 'SHA-256 has an input block size of ___ and output size of ___?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Input: 512 bits, Output: 256 bits', isCorrect: true },
           { letter: 'B', text: 'Input: 1024 bits, Output: 256 bits', isCorrect: false },
@@ -168,6 +192,8 @@ export const csSections: Section[] = [
         text: 'User B can decrypt a confidential message intended for him using:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'Public Key of B', isCorrect: false },
           { letter: 'B', text: 'Private Key of B', isCorrect: true },
@@ -181,6 +207,8 @@ export const csSections: Section[] = [
         text: 'What does EAP stand for?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Easy Access Protocol', isCorrect: false },
           { letter: 'B', text: 'Extensible Authentication Protocol', isCorrect: true },
@@ -194,6 +222,8 @@ export const csSections: Section[] = [
         text: 'In Asymmetric encryption, it is computationally difficult to determine:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'The Public Key', isCorrect: false },
           { letter: 'B', text: 'The Private Key from Public Key & Ciphertext', isCorrect: true },
@@ -215,6 +245,8 @@ export const csSections: Section[] = [
         text: 'Decryption Algorithm accepts Plaintext and Key to produce Ciphertext.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -226,6 +258,8 @@ export const csSections: Section[] = [
         text: 'In Public-Key encryption, sender and receiver use different keys.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -237,6 +271,8 @@ export const csSections: Section[] = [
         text: 'Anyone can read a certificate to see the Owner\'s Private Key.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -248,6 +284,8 @@ export const csSections: Section[] = [
         text: 'Digital Signature requires Verification to ensure the message was sent by a specific person.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -259,6 +297,8 @@ export const csSections: Section[] = [
         text: 'All Hash Function sizes are measured in Bytes.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -270,6 +310,8 @@ export const csSections: Section[] = [
         text: 'If User A receives a confidential message from B, A decrypts it with B\'s Private Key.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'medium',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -281,6 +323,8 @@ export const csSections: Section[] = [
         text: 'In Symmetric Encryption, both parties share the same key.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -292,6 +336,8 @@ export const csSections: Section[] = [
         text: 'SHA-512 has an output of 512 bits and input block size of 1024 bits.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -311,6 +357,8 @@ export const csSections: Section[] = [
         text: 'Mention three reasons for Certificate Revocation.',
         marks: '4 pts',
         type: 'code',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         answer: 'Three reasons for certificate revocation:',
         answerCode: '1. User\'s Private Key is compromised (stolen/hacked).\n2. User is no longer certified (e.g., employee left, name changed).\n3. CA\'s Certificate is compromised.',
       },
@@ -319,6 +367,8 @@ export const csSections: Section[] = [
         text: 'What are the requirements of a Public Key Certificate?',
         marks: '4 pts',
         type: 'code',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         answer: 'Four requirements of a Public Key Certificate:',
         answerCode: '1. Readability: Any participant can read it to determine name and public key.\n2. Verifiability: Any participant can verify it originated from the CA.\n3. Strict Control: Only the CA can create/update certificates.\n4. Currency: Must be within the validity period.',
       },
@@ -327,6 +377,8 @@ export const csSections: Section[] = [
         text: 'Explain the difference between Symmetric and Public-Key Encryption regarding keys.',
         marks: '4 pts',
         type: 'code',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         answer: 'Key differences between Symmetric and Public-Key Encryption:',
         answerCode: 'Symmetric Encryption:\n- Uses ONE shared key for both encryption and decryption.\n- Problem: Key distribution risk — how to share the key securely?\n\nPublic-Key Encryption:\n- Uses TWO keys (Public for encryption, Private for decryption).\n- Advantage: No need to share secret keys over the network.\n- The Public Key can be freely distributed; only the Private Key must be kept secret.',
       },
@@ -335,6 +387,8 @@ export const csSections: Section[] = [
         text: 'Draw the Verification Diagram for: A -> B: E(K, [M || E(PRa, H(M))]). Explain the steps at the receiver (B).',
         marks: '4 pts',
         type: 'code',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         answer: 'This equation combines Confidentiality using K and Digital Signature using PRa. Verification steps at receiver B:',
         answerCode: 'Step 1: Decrypt Outer Layer\n  Use Shared Key K to decrypt the whole package.\n  Result: Message (M) + Signature (Sig).\n\nStep 2: Calculate Local Hash\n  Apply Hash function to the extracted message M.\n  Hash_New = H(M)\n\nStep 3: Decrypt Signature\n  Use Sender\'s Public Key (PUa) to decrypt the signature.\n  Hash_Received = D(PUa, Sig)\n\nStep 4: Compare\n  If Hash_New == Hash_Received → Valid (Integrity & Authentication confirmed).\n  Else → Invalid.',
       },
@@ -343,6 +397,8 @@ export const csSections: Section[] = [
         text: 'Explain CA Hierarchy Notation and Certification Path. Define Forward and Reverse Certificates for Node K using the example: U<<T>>, T<<I>>, I<<K>>, K<<M>>, M<<L>>, L<<C>>.',
         marks: '4 pts',
         type: 'code',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         answer: 'CA Hierarchy Notation and Certification Path explained:',
         answerCode: 'Notation Rule:\n  Y<<X>> means Certificate of User X issued by Authority Y.\n\nCertification Path:\n  Always goes UP to the common root, then DOWN to the target.\n\nExample Chain: U<<T>>, T<<I>>, I<<K>>, K<<M>>, M<<L>>, L<<C>>\n\nForward Certificates for Node K:\n  Certificates issued TO K by others.\n  Example: I<<K>> (issued by I to K)\n\nReverse Certificates for Node K:\n  Certificates issued BY K to others.\n  Example: K<<I>> (issued by K to I)',
       },
@@ -359,6 +415,8 @@ export const csSections: Section[] = [
         text: 'IEEE 802.11 was formed to develop specifications for which type of network?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Wired LANs', isCorrect: false },
           { letter: 'B', text: 'Wireless LANs', isCorrect: true },
@@ -372,6 +430,8 @@ export const csSections: Section[] = [
         text: 'What does an Access Point (AP) provide in a WLAN?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Encryption keys only', isCorrect: false },
           { letter: 'B', text: 'Access to the distribution system via wireless medium', isCorrect: true },
@@ -385,6 +445,8 @@ export const csSections: Section[] = [
         text: 'A Distribution System interconnects BSSs and integrated LANs to create:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'A Basic Service Set (BSS)', isCorrect: false },
           { letter: 'B', text: 'An Extended Service Set (ESS)', isCorrect: true },
@@ -398,6 +460,8 @@ export const csSections: Section[] = [
         text: 'In Wired LANs, which of the following is NOT required?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Physical connection', isCorrect: false },
           { letter: 'B', text: 'Authentication', isCorrect: false },
@@ -411,6 +475,8 @@ export const csSections: Section[] = [
         text: 'Which of the following best describes the Authentication Phase in WLAN security?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'One-way authentication from server to station', isCorrect: false },
           { letter: 'B', text: 'Mutual authentication between station and authorized servers', isCorrect: true },
@@ -424,6 +490,8 @@ export const csSections: Section[] = [
         text: 'A station selects which component to communicate with in a WLAN?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Another station directly (always)', isCorrect: false },
           { letter: 'B', text: 'The distribution system', isCorrect: false },
@@ -437,6 +505,8 @@ export const csSections: Section[] = [
         text: 'Which IEEE standard is specifically designed for Wireless LANs?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'IEEE 802.3', isCorrect: false },
           { letter: 'B', text: 'IEEE 802.11', isCorrect: true },
@@ -450,6 +520,8 @@ export const csSections: Section[] = [
         text: 'What is a Station (STA) in the context of WLANs?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'A wired router', isCorrect: false },
           { letter: 'B', text: 'Any device that implements IEEE 802.11', isCorrect: true },
@@ -463,6 +535,8 @@ export const csSections: Section[] = [
         text: 'What is the primary role of a Distribution System in WLAN architecture?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'To encrypt wireless traffic', isCorrect: false },
           { letter: 'B', text: 'To interconnect BSSs and integrated LANs to form an ESS', isCorrect: true },
@@ -476,6 +550,8 @@ export const csSections: Section[] = [
         text: 'Which of the following is a key difference between Wired and Wireless LANs?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Wired LANs require authentication but Wireless LANs do not', isCorrect: false },
           { letter: 'B', text: 'Wireless LANs require radio range proximity but Wired LANs do not', isCorrect: true },
@@ -489,6 +565,8 @@ export const csSections: Section[] = [
         text: 'Which wireless security protocol replaced WEP with improved encryption?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'WPA', isCorrect: true },
           { letter: 'B', text: 'IPSec', isCorrect: false },
@@ -502,6 +580,8 @@ export const csSections: Section[] = [
         text: 'A Basic Service Set (BSS) without an Access Point is called:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Extended Service Set (ESS)', isCorrect: false },
           { letter: 'B', text: 'Independent BSS (IBSS) / Ad hoc network', isCorrect: true },
@@ -515,6 +595,8 @@ export const csSections: Section[] = [
         text: 'What does the Key Management Phase generate and distribute?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'IP addresses', isCorrect: false },
           { letter: 'B', text: 'A variety of cryptographic keys', isCorrect: true },
@@ -528,6 +610,8 @@ export const csSections: Section[] = [
         text: 'In WLAN architecture, an Access Point (AP) acts as:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'A firewall only', isCorrect: false },
           { letter: 'B', text: 'A bridge between wireless stations and the distribution system', isCorrect: true },
@@ -541,6 +625,8 @@ export const csSections: Section[] = [
         text: 'Which of the following is TRUE about Wireless LAN security compared to Wired LAN security?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Wireless LANs have inherent physical security like Wired LANs', isCorrect: false },
           { letter: 'B', text: 'Wireless LANs need additional security measures because signals propagate through the air', isCorrect: true },
@@ -554,6 +640,8 @@ export const csSections: Section[] = [
         text: 'The term "mutual authentication" in WLAN security means:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Only the station authenticates to the server', isCorrect: false },
           { letter: 'B', text: 'Only the server authenticates to the station', isCorrect: false },
@@ -567,6 +655,8 @@ export const csSections: Section[] = [
         text: 'What is the correct order of WLAN security phases?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Key Management → Authentication → Data Delivery', isCorrect: false },
           { letter: 'B', text: 'Authentication → Key Management → Data Delivery', isCorrect: true },
@@ -580,6 +670,8 @@ export const csSections: Section[] = [
         text: 'Which statement about WEP is correct?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'WEP uses AES encryption', isCorrect: false },
           { letter: 'B', text: 'WEP is the most secure wireless protocol', isCorrect: false },
@@ -593,6 +685,8 @@ export const csSections: Section[] = [
         text: 'An Extended Service Set (ESS) consists of:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'A single station and a single AP', isCorrect: false },
           { letter: 'B', text: 'Multiple BSSs interconnected via a Distribution System', isCorrect: true },
@@ -606,6 +700,8 @@ export const csSections: Section[] = [
         text: 'Why is authentication particularly important in Wireless LANs?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Because anyone within radio range can potentially access the network', isCorrect: true },
           { letter: 'B', text: 'Because Wired LANs do not need authentication', isCorrect: false },
@@ -627,6 +723,8 @@ export const csSections: Section[] = [
         text: 'A Station in WLANs is any device that implements the IEEE 802.11 standard.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -638,6 +736,8 @@ export const csSections: Section[] = [
         text: 'A Basic Service Set (BSS) is a set of stations controlled by a single coordination function.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -649,6 +749,8 @@ export const csSections: Section[] = [
         text: 'In Wireless LANs, any station within radio range can transmit and receive.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -660,6 +762,8 @@ export const csSections: Section[] = [
         text: 'WPA (Wi-Fi Protected Access) provides better security than WEP (Wired Equivalent Privacy).',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -671,6 +775,8 @@ export const csSections: Section[] = [
         text: 'The Key Management Phase involves the generation and distribution of cryptographic keys.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -682,6 +788,8 @@ export const csSections: Section[] = [
         text: 'WEP is the most secure wireless encryption protocol available today.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -693,6 +801,8 @@ export const csSections: Section[] = [
         text: 'IEEE 802.11 was developed for both Wired and Wireless LAN specifications.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -704,6 +814,8 @@ export const csSections: Section[] = [
         text: 'An Access Point (AP) provides access to the distribution system via a wired medium.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -715,6 +827,8 @@ export const csSections: Section[] = [
         text: 'A Distribution System creates a Basic Service Set (BSS) from individual stations.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -726,6 +840,8 @@ export const csSections: Section[] = [
         text: 'In Wired LANs, stations must be physically connected and authentication is required.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -737,6 +853,8 @@ export const csSections: Section[] = [
         text: 'In WLAN security, the Authentication Phase is only one-way (server authenticates the station).',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -748,6 +866,8 @@ export const csSections: Section[] = [
         text: 'A station in a WLAN always communicates directly with other stations without using an AP.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -759,6 +879,8 @@ export const csSections: Section[] = [
         text: 'WPA2 uses AES encryption which is stronger than the TKIP encryption used by original WPA.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -770,6 +892,8 @@ export const csSections: Section[] = [
         text: 'An ESS (Extended Service Set) allows users to roam between different APs seamlessly.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -781,6 +905,8 @@ export const csSections: Section[] = [
         text: 'The Key Management Phase occurs before the Authentication Phase in WLAN security.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -800,6 +926,8 @@ export const csSections: Section[] = [
         text: 'Hash function SHA-384 has an input block size of:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: '1024 bits', isCorrect: true },
           { letter: 'B', text: '512 bits', isCorrect: false },
@@ -813,6 +941,8 @@ export const csSections: Section[] = [
         text: 'The decryption algorithm transforms ciphertext into:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Plaintext', isCorrect: true },
           { letter: 'B', text: 'Public Key', isCorrect: false },
@@ -826,6 +956,8 @@ export const csSections: Section[] = [
         text: 'SHA-384 output size is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: '256 bits', isCorrect: false },
           { letter: 'B', text: '384 bits', isCorrect: true },
@@ -839,6 +971,8 @@ export const csSections: Section[] = [
         text: 'The input of a hash function is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Fixed-size data', isCorrect: false },
           { letter: 'B', text: 'Variable-size data', isCorrect: true },
@@ -852,6 +986,8 @@ export const csSections: Section[] = [
         text: 'The output of a hash function is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Variable length', isCorrect: false },
           { letter: 'B', text: 'Fixed-length hash value', isCorrect: true },
@@ -865,6 +1001,8 @@ export const csSections: Section[] = [
         text: 'Hash functions accept:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Variable-length data and produce fixed output', isCorrect: true },
           { letter: 'B', text: 'Fixed input and fixed output', isCorrect: false },
@@ -878,6 +1016,8 @@ export const csSections: Section[] = [
         text: 'What are the applications of hash functions?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Message Authentication only', isCorrect: false },
           { letter: 'B', text: 'Digital Signature only', isCorrect: false },
@@ -891,6 +1031,8 @@ export const csSections: Section[] = [
         text: 'To verify integrity, use:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Firewall', isCorrect: false },
           { letter: 'B', text: 'Access Point', isCorrect: false },
@@ -904,6 +1046,8 @@ export const csSections: Section[] = [
         text: 'The destination verifies the hash using:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: "Sender's public key", isCorrect: true },
           { letter: 'B', text: "Sender's private key", isCorrect: false },
@@ -917,6 +1061,8 @@ export const csSections: Section[] = [
         text: 'Digital signature communication is expressed as:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'E(K, [M||H(M||S)])', isCorrect: false },
           { letter: 'B', text: 'M||E(PRa, H(M))', isCorrect: true },
@@ -930,6 +1076,8 @@ export const csSections: Section[] = [
         text: 'PRa refers to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: "Sender's private key", isCorrect: true },
           { letter: 'B', text: "Receiver's private key", isCorrect: false },
@@ -943,6 +1091,8 @@ export const csSections: Section[] = [
         text: 'Which expression provides both confidentiality and digital signature?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'M||E(PRa, H(M))', isCorrect: false },
           { letter: 'B', text: 'E(K, [M||E(PRa, H(M))])', isCorrect: true },
@@ -956,6 +1106,8 @@ export const csSections: Section[] = [
         text: 'Message authentication expression is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'M||E(PRa, H(M))', isCorrect: false },
           { letter: 'B', text: 'E(K, [M||H(M||S)])', isCorrect: true },
@@ -969,6 +1121,8 @@ export const csSections: Section[] = [
         text: 'A hash with 1024-bit input block size and 512-bit output is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'SHA-256', isCorrect: false },
           { letter: 'B', text: 'SHA-384', isCorrect: false },
@@ -982,6 +1136,8 @@ export const csSections: Section[] = [
         text: 'SHA-384 has input block size / output size of:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: '512 / 384', isCorrect: false },
           { letter: 'B', text: '1024 / 384', isCorrect: true },
@@ -995,6 +1151,8 @@ export const csSections: Section[] = [
         text: 'Variable-length input is processed to produce:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Public key', isCorrect: false },
           { letter: 'B', text: 'Ciphertext', isCorrect: false },
@@ -1008,6 +1166,8 @@ export const csSections: Section[] = [
         text: 'The main purpose of a hash function is to produce:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'A fixed-size digest', isCorrect: true },
           { letter: 'B', text: 'A public key', isCorrect: false },
@@ -1021,6 +1181,8 @@ export const csSections: Section[] = [
         text: 'In digital signature, the source encrypts the hash with:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: "Receiver's public key", isCorrect: false },
           { letter: 'B', text: "Sender's private key", isCorrect: true },
@@ -1042,6 +1204,8 @@ export const csSections: Section[] = [
         text: 'A DMZ System provides:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Basic protection for the remainder of the network', isCorrect: true },
           { letter: 'B', text: 'Encryption only', isCorrect: false },
@@ -1055,6 +1219,8 @@ export const csSections: Section[] = [
         text: 'In which phase does a Station (STA) select an Access Point (AP) to communicate?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Connection Termination', isCorrect: false },
           { letter: 'B', text: 'Key Management Phase', isCorrect: false },
@@ -1068,6 +1234,8 @@ export const csSections: Section[] = [
         text: 'Y<<X>> is a certificate of:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'User Y issued by authority X', isCorrect: false },
           { letter: 'B', text: 'User X issued by authority Y', isCorrect: true },
@@ -1081,6 +1249,8 @@ export const csSections: Section[] = [
         text: 'Any user can read a certificate to determine the name and:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Public key', isCorrect: true },
           { letter: 'B', text: 'Private key', isCorrect: false },
@@ -1094,6 +1264,8 @@ export const csSections: Section[] = [
         text: 'In which system is only authorized traffic allowed to pass?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Hash Function', isCorrect: false },
           { letter: 'B', text: 'Firewall', isCorrect: true },
@@ -1107,6 +1279,8 @@ export const csSections: Section[] = [
         text: 'Authentication phase is a mutual authentication between Station and:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Authorized Servers', isCorrect: false },
           { letter: 'B', text: 'Firewall', isCorrect: false },
@@ -1120,6 +1294,8 @@ export const csSections: Section[] = [
         text: 'Which component is inserted between the local network and the Internet?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Authorized Servers', isCorrect: false },
           { letter: 'B', text: 'Access Point', isCorrect: false },
@@ -1133,6 +1309,8 @@ export const csSections: Section[] = [
         text: 'Which firewall is placed at the edge of the network?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Internal firewall', isCorrect: false },
           { letter: 'B', text: 'External firewall', isCorrect: true },
@@ -1146,6 +1324,8 @@ export const csSections: Section[] = [
         text: 'Which component provides two-way protection with respect to the DMZ?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Internal firewall', isCorrect: true },
           { letter: 'B', text: 'External firewall', isCorrect: false },
@@ -1159,6 +1339,8 @@ export const csSections: Section[] = [
         text: 'The encryption algorithm performs transformations on plaintext to produce:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Message Authentication', isCorrect: false },
           { letter: 'B', text: 'Digital signature', isCorrect: false },
@@ -1172,6 +1354,8 @@ export const csSections: Section[] = [
         text: 'Each user applies to the Certificate Authority, gives a public key and requests:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Private Key', isCorrect: false },
           { letter: 'B', text: 'Certificate', isCorrect: true },
@@ -1185,6 +1369,8 @@ export const csSections: Section[] = [
         text: 'In DMZ Networks, the external firewall provides:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Internal firewall', isCorrect: false },
           { letter: 'B', text: 'Basic protection for the remainder of the network', isCorrect: true },
@@ -1198,6 +1384,8 @@ export const csSections: Section[] = [
         text: 'In public-key encryption, which keys are generated locally and can be changed at any time?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Encryption algorithm', isCorrect: false },
           { letter: 'B', text: 'Private keys', isCorrect: true },
@@ -1211,6 +1399,8 @@ export const csSections: Section[] = [
         text: 'The decryption algorithm performs transformations on a scrambled message to produce:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Message Authentication', isCorrect: false },
           { letter: 'B', text: 'Digital signature', isCorrect: false },
@@ -1224,6 +1414,8 @@ export const csSections: Section[] = [
         text: 'In message authentication, S is a common ___ shared between A and B:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Digital signature', isCorrect: false },
           { letter: 'B', text: 'Private key', isCorrect: false },
@@ -1245,6 +1437,8 @@ export const csSections: Section[] = [
         text: 'A certificate links identity to a public key and includes validity information.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -1256,6 +1450,8 @@ export const csSections: Section[] = [
         text: 'Any user can determine the owner\'s private key from a certificate.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -1267,6 +1463,8 @@ export const csSections: Section[] = [
         text: 'Y<<X>> is a certificate of user X issued by authority Y.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -1278,6 +1476,8 @@ export const csSections: Section[] = [
         text: 'In a wired LAN, any station within radio range can transmit and receive.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -1289,6 +1489,8 @@ export const csSections: Section[] = [
         text: 'Distribution System interconnects BSSs to form an ESS.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -1300,6 +1502,8 @@ export const csSections: Section[] = [
         text: 'Access Point provides access to the Distribution System.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -1311,6 +1515,8 @@ export const csSections: Section[] = [
         text: 'Only unauthorized traffic is allowed to pass through a firewall.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -1322,6 +1528,8 @@ export const csSections: Section[] = [
         text: 'Key Management Phase generates and distributes cryptographic keys.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -1333,6 +1541,8 @@ export const csSections: Section[] = [
         text: 'Stations in WLAN select an Access Point to communicate.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -1344,6 +1554,8 @@ export const csSections: Section[] = [
         text: 'Wired LANs require physical connectivity and provide privacy.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -1355,6 +1567,8 @@ export const csSections: Section[] = [
         text: 'Certificate contents are signed by a trusted Certificate Authority.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: true },
           { letter: 'F', text: 'False', isCorrect: false },
@@ -1366,6 +1580,8 @@ export const csSections: Section[] = [
         text: 'WEP provides stronger security than WPA.',
         marks: '1 pt',
         type: 'tf',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'T', text: 'True', isCorrect: false },
           { letter: 'F', text: 'False', isCorrect: true },
@@ -1385,6 +1601,8 @@ export const csSections: Section[] = [
         text: 'In digital signature, consider the communication: A → B: E(K, [M || E(PRa, H(M))]). Draw a diagram for the verification (reverse) operation at the receiver B.',
         marks: '5 pts',
         type: 'code',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         answer: 'The verification process at receiver B involves two main operations: decryption of the outer layer and verification of the digital signature.',
         answerCode: 'Verification Diagram at Receiver B:\n\nReceived: E(K, [M || E(PRa, H(M))])\n\nStep 1: Decrypt with Shared Key K\n  D(K, E(K, [M || E(PRa, H(M))]))  →  M || E(PRa, H(M))\n  Result: Message M + Encrypted Signature\n\nStep 2: Separate the components\n  Extract: M (original message)\n  Extract: E(PRa, H(M)) (digital signature)\n\nStep 3: Compute local hash\n  H(M) → Hash_new\n\nStep 4: Decrypt signature with Sender A\'s Public Key (PUa)\n  D(PUa, E(PRa, H(M))) → Hash_original\n\nStep 5: Compare hashes\n  If Hash_new == Hash_original → Valid Signature ✓\n  Else → Invalid Signature ✗\n\nDiagram:\nE(K,[M||E(PRa,H(M))])\n         │\n    ┌────▼────┐\n    │ D(K, .) │  ← Decrypt with shared key K\n    └────┬────┘\n         │\n    M || E(PRa,H(M))\n    │         │\n    │    ┌────▼─────┐\n    │    │D(PUa, .) │ ← Decrypt with A\'s public key\n    │    └────┬─────┘\n    │         │\n    │      H(M) received\n    │         │\n  ┌─▼──┐     │\n  │H(M)│     │\n  │new │     │\n  └─┬──┘     │\n    │        │\n    └──╳─────┘  Compare: Equal? → Valid',
       },
@@ -1393,6 +1611,8 @@ export const csSections: Section[] = [
         text: 'In digital signature with confidentiality, consider: A → B: E(K, [M || E(PRa, H(M))]), where PRa is the private key. Explain each step of the verification at the receiver and what each component provides.',
         marks: '5 pts',
         type: 'code',
+        difficulty: 'hard',
+        bloomTaxonomy: 'evaluate',
         answer: 'This communication combines confidentiality (via shared key K) with digital signature (via sender\'s private key PRa). The verification involves both decrypting and authenticating.',
         answerCode: 'Verification Steps at Receiver B:\n\nThe received message is: E(K, [M || E(PRa, H(M))])\n\nComponents explanation:\n  - E(K, ...) = Outer encryption with shared key K → provides CONFIDENTIALITY\n  - M = The original plaintext message\n  - E(PRa, H(M)) = Hash encrypted with sender\'s private key → provides DIGITAL SIGNATURE\n\nStep-by-step verification:\n\n1. CONFIDENTIALITY REMOVAL:\n   Apply: D(K, E(K, [M || E(PRa, H(M))]))\n   Using the shared secret key K between A and B\n   Result: M || E(PRa, H(M))\n   This ensures only A and B can read the content.\n\n2. SEPARATION:\n   Split into: Message M  and  Signature E(PRa, H(M))\n\n3. SIGNATURE VERIFICATION:\n   a) Compute local hash: H(M) → Hash_local\n   b) Decrypt signature: D(PUa, E(PRa, H(M))) → Hash_received\n      Using sender A\'s public key PUa\n   c) Compare: Hash_local == Hash_received ?\n      - YES → Message is authentic and intact\n      - NO → Message was tampered or not from A\n\nWhat each provides:\n  - K (shared key) → Confidentiality\n  - PRa (A\'s private key) → Authentication & Integrity\n  - H(M) (hash) → Integrity check\n  - PUa (A\'s public key) → Verification of sender',
       },

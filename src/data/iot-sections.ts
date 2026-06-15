@@ -12,6 +12,8 @@ export const iotSections: Section[] = [
         text: 'IoT stands for:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Internet of Tools', isCorrect: false },
           { letter: 'B', text: 'Internet of Things', isCorrect: true },
@@ -25,6 +27,8 @@ export const iotSections: Section[] = [
         text: 'Which statement best describes IoT?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'A network only for computers', isCorrect: false },
           { letter: 'B', text: 'A network of physical devices connected to the internet to collect/exchange data', isCorrect: true },
@@ -38,6 +42,8 @@ export const iotSections: Section[] = [
         text: 'Which of the following can be considered an IoT "Thing"?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'A notebook paper', isCorrect: false },
           { letter: 'B', text: 'A standard chair', isCorrect: false },
@@ -51,6 +57,8 @@ export const iotSections: Section[] = [
         text: 'Which of the following is an actuator?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Soil moisture sensor', isCorrect: false },
           { letter: 'B', text: 'Gas sensor', isCorrect: false },
@@ -64,6 +72,8 @@ export const iotSections: Section[] = [
         text: 'The main job of a sensor is to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Store data in the cloud', isCorrect: false },
           { letter: 'B', text: 'Measure/collect data from the environment', isCorrect: true },
@@ -77,6 +87,8 @@ export const iotSections: Section[] = [
         text: 'The main job of an actuator is to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Measure temperature', isCorrect: false },
           { letter: 'B', text: 'Collect data', isCorrect: false },
@@ -90,6 +102,8 @@ export const iotSections: Section[] = [
         text: 'In a typical IoT system, where is data commonly stored?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Only inside the sensor', isCorrect: false },
           { letter: 'B', text: 'In the cloud or server system', isCorrect: true },
@@ -103,6 +117,8 @@ export const iotSections: Section[] = [
         text: 'Which component mainly allows the user to monitor and control the IoT system?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'User interface (mobile/web app)', isCorrect: true },
           { letter: 'B', text: 'Sensor', isCorrect: false },
@@ -116,6 +132,8 @@ export const iotSections: Section[] = [
         text: 'Which of the following is the correct IoT system order?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'User Interface → Analytics → Cloud → Gateway → Device', isCorrect: false },
           { letter: 'B', text: 'Device → Gateway → Cloud → Analytics → User Interface', isCorrect: true },
@@ -129,6 +147,8 @@ export const iotSections: Section[] = [
         text: 'Smart irrigation systems mainly depend on sensing:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'Soil moisture', isCorrect: true },
           { letter: 'B', text: 'Car speed', isCorrect: false },
@@ -142,6 +162,8 @@ export const iotSections: Section[] = [
         text: 'Smart parking systems are mainly used to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'Increase phone battery life', isCorrect: false },
           { letter: 'B', text: 'Help drivers find free parking spaces', isCorrect: true },
@@ -155,6 +177,8 @@ export const iotSections: Section[] = [
         text: 'Air pollution monitoring IoT systems mainly collect:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Heart rate values', isCorrect: false },
           { letter: 'B', text: 'Soil moisture values', isCorrect: false },
@@ -168,6 +192,8 @@ export const iotSections: Section[] = [
         text: 'An important advantage of IoT in healthcare is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Less need for sensors', isCorrect: false },
           { letter: 'B', text: 'Remote monitoring and faster response', isCorrect: true },
@@ -181,6 +207,8 @@ export const iotSections: Section[] = [
         text: '"Connectivity" in IoT refers to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'The size of the device', isCorrect: false },
           { letter: 'B', text: 'How devices communicate and send data', isCorrect: true },
@@ -194,6 +222,8 @@ export const iotSections: Section[] = [
         text: 'The phrase "Any device, anywhere, anytime" means:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'IoT works only indoors', isCorrect: false },
           { letter: 'B', text: 'IoT can be applied across many devices and locations', isCorrect: true },
@@ -215,6 +245,8 @@ export const iotSections: Section[] = [
         text: 'The IoT layer responsible for collecting data from the physical world is the:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Application Layer', isCorrect: false },
           { letter: 'B', text: 'Processing Layer', isCorrect: false },
@@ -228,6 +260,8 @@ export const iotSections: Section[] = [
         text: 'The IoT layer responsible for transmitting data between devices and servers is the:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Perception Layer', isCorrect: false },
           { letter: 'B', text: 'Application Layer', isCorrect: false },
@@ -241,6 +275,8 @@ export const iotSections: Section[] = [
         text: 'The IoT layer responsible for storing and analyzing data is the:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Network Layer', isCorrect: false },
           { letter: 'B', text: 'Data Processing Layer', isCorrect: true },
@@ -254,6 +290,8 @@ export const iotSections: Section[] = [
         text: 'The IoT layer that provides dashboards and mobile apps is the:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Application Layer', isCorrect: true },
           { letter: 'B', text: 'Processing Layer', isCorrect: false },
@@ -267,6 +305,8 @@ export const iotSections: Section[] = [
         text: 'A device that measures temperature is a:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Actuator', isCorrect: false },
           { letter: 'B', text: 'Sensor', isCorrect: true },
@@ -280,6 +320,8 @@ export const iotSections: Section[] = [
         text: 'A device that turns a motor ON/OFF is a:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Sensor', isCorrect: false },
           { letter: 'B', text: 'Database', isCorrect: false },
@@ -293,6 +335,8 @@ export const iotSections: Section[] = [
         text: 'Which of the following is an actuator?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Humidity sensor', isCorrect: false },
           { letter: 'B', text: 'Proximity sensor', isCorrect: false },
@@ -306,6 +350,8 @@ export const iotSections: Section[] = [
         text: 'Which of the following is best for short-range communication with low power?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: '4G/5G', isCorrect: false },
           { letter: 'B', text: 'Bluetooth', isCorrect: true },
@@ -319,6 +365,8 @@ export const iotSections: Section[] = [
         text: 'Which network is most suitable for long-range, low-power, small data transmission?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Wi-Fi', isCorrect: false },
           { letter: 'B', text: 'Bluetooth', isCorrect: false },
@@ -332,6 +380,8 @@ export const iotSections: Section[] = [
         text: 'Which statement best describes real-time (hot) processing?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Data is stored for months before analysis', isCorrect: false },
           { letter: 'B', text: 'Decisions must happen quickly after data arrives', isCorrect: true },
@@ -345,6 +395,8 @@ export const iotSections: Section[] = [
         text: 'Which statement best describes batch (cold) processing?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Immediate alarms and fast actions', isCorrect: false },
           { letter: 'B', text: 'Only used for emergency systems', isCorrect: false },
@@ -358,6 +410,8 @@ export const iotSections: Section[] = [
         text: 'Arduino is best described as a:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Microprocessor-based computer board', isCorrect: false },
           { letter: 'B', text: 'Microcontroller-based board', isCorrect: true },
@@ -371,6 +425,8 @@ export const iotSections: Section[] = [
         text: 'Raspberry Pi is best described as a:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Microcontroller board with no OS', isCorrect: false },
           { letter: 'B', text: 'Sensor module', isCorrect: false },
@@ -384,6 +440,8 @@ export const iotSections: Section[] = [
         text: 'Compared to microprocessors, microcontrollers are usually:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'More expensive and faster', isCorrect: false },
           { letter: 'B', text: 'Cheaper and designed for specific control tasks', isCorrect: true },
@@ -397,6 +455,8 @@ export const iotSections: Section[] = [
         text: 'A main IoT challenge for battery-powered devices is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Screen brightness', isCorrect: false },
           { letter: 'B', text: 'Power consumption', isCorrect: true },
@@ -410,6 +470,8 @@ export const iotSections: Section[] = [
         text: 'A main IoT challenge because many devices generate continuous data is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Big Data', isCorrect: true },
           { letter: 'B', text: 'Small Data', isCorrect: false },
@@ -423,6 +485,8 @@ export const iotSections: Section[] = [
         text: 'Security in IoT is important mainly because:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'IoT devices never connect to the internet', isCorrect: false },
           { letter: 'B', text: 'IoT devices can be accessed or controlled by attackers if unprotected', isCorrect: true },
@@ -436,6 +500,8 @@ export const iotSections: Section[] = [
         text: 'An IoT platform is mainly used to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Replace sensors completely', isCorrect: false },
           { letter: 'B', text: 'Provide services like device management, storage, dashboards, and integration', isCorrect: true },
@@ -449,6 +515,8 @@ export const iotSections: Section[] = [
         text: 'The correct IoT loop is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Act → Sense → Ignore', isCorrect: false },
           { letter: 'B', text: 'Sense → Decide → Act', isCorrect: true },
@@ -462,6 +530,8 @@ export const iotSections: Section[] = [
         text: 'In IoT, the "Application Layer" mainly focuses on:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Physical measurement only', isCorrect: false },
           { letter: 'B', text: 'Internet cables only', isCorrect: false },
@@ -483,6 +553,8 @@ export const iotSections: Section[] = [
         text: 'Which statement BEST describes a sensor?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'A device that changes the environment', isCorrect: false },
           { letter: 'B', text: 'A device that measures the environment and outputs data', isCorrect: true },
@@ -496,6 +568,8 @@ export const iotSections: Section[] = [
         text: 'Which component converts a continuous real-world signal into numbers a microcontroller can process?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'DAC', isCorrect: false },
           { letter: 'B', text: 'ADC', isCorrect: true },
@@ -509,6 +583,8 @@ export const iotSections: Section[] = [
         text: 'Which of the following is an actuator?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Humidity sensor', isCorrect: false },
           { letter: 'B', text: 'Gas sensor', isCorrect: false },
@@ -522,6 +598,8 @@ export const iotSections: Section[] = [
         text: 'A smart sensor is "smart" mainly because it can:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Only measure, nothing else', isCorrect: false },
           { letter: 'B', text: 'Measure and always needs a PC to work', isCorrect: false },
@@ -535,6 +613,8 @@ export const iotSections: Section[] = [
         text: 'Which layer of IoT is most related to sensors and actuators?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Application layer', isCorrect: false },
           { letter: 'B', text: 'Network layer', isCorrect: false },
@@ -548,6 +628,8 @@ export const iotSections: Section[] = [
         text: 'The HC-SR04 ultrasonic sensor measures distance by:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Detecting infrared light', isCorrect: false },
           { letter: 'B', text: 'Measuring reflected sound wave time', isCorrect: true },
@@ -561,6 +643,8 @@ export const iotSections: Section[] = [
         text: 'HC-SR04 pins: TRIG is usually connected to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Arduino analog input', isCorrect: false },
           { letter: 'B', text: 'Arduino digital output', isCorrect: true },
@@ -574,6 +658,8 @@ export const iotSections: Section[] = [
         text: 'HC-SR04 pins: ECHO is usually connected to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Arduino digital input', isCorrect: true },
           { letter: 'B', text: 'Arduino analog input', isCorrect: false },
@@ -587,6 +673,8 @@ export const iotSections: Section[] = [
         text: 'PIR motion sensor (HC-SR501) output is typically:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Analog value from 0 to 1023', isCorrect: false },
           { letter: 'B', text: 'Always HIGH', isCorrect: false },
@@ -600,6 +688,8 @@ export const iotSections: Section[] = [
         text: 'PIR sensors are most commonly used to detect:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Distance to a wall', isCorrect: false },
           { letter: 'B', text: 'Human/animal motion in an area', isCorrect: true },
@@ -613,6 +703,8 @@ export const iotSections: Section[] = [
         text: 'Soil moisture sensor AOUT should connect to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'Arduino digital pin', isCorrect: false },
           { letter: 'B', text: 'Arduino analog pin', isCorrect: true },
@@ -626,6 +718,8 @@ export const iotSections: Section[] = [
         text: 'Which sensor output gives a continuous level (not only ON/OFF)?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'Digital output only', isCorrect: false },
           { letter: 'B', text: 'Analog output (AOUT/AO)', isCorrect: true },
@@ -639,6 +733,8 @@ export const iotSections: Section[] = [
         text: 'A temperature sensor with 1-Wire communication uses:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Many data wires', isCorrect: false },
           { letter: 'B', text: 'Only one data line for communication', isCorrect: true },
@@ -652,6 +748,8 @@ export const iotSections: Section[] = [
         text: 'A DHT sensor (temperature + humidity) usually outputs:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Two separate analog voltages', isCorrect: false },
           { letter: 'B', text: 'One digital data signal pin', isCorrect: true },
@@ -665,6 +763,8 @@ export const iotSections: Section[] = [
         text: 'Which output is best if you want an "alarm only" when gas exceeds a limit?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'AO (Analog Output)', isCorrect: false },
           { letter: 'B', text: 'DO (Digital Output)', isCorrect: true },
@@ -678,6 +778,8 @@ export const iotSections: Section[] = [
         text: 'Which output is best if you want to estimate gas concentration level (low/medium/high)?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'AO (Analog Output)', isCorrect: true },
           { letter: 'B', text: 'DO (Digital Output)', isCorrect: false },
@@ -691,6 +793,8 @@ export const iotSections: Section[] = [
         text: 'Which is the BEST match: "Distance measurement" → sensor type?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'PIR', isCorrect: false },
           { letter: 'B', text: 'Ultrasonic', isCorrect: true },
@@ -704,6 +808,8 @@ export const iotSections: Section[] = [
         text: 'If a module has pins VCC, GND, DATA, it is most likely:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'A digital communication sensor module (like DHT or 1-Wire sensor)', isCorrect: true },
           { letter: 'B', text: 'A motor driver', isCorrect: false },
@@ -717,6 +823,8 @@ export const iotSections: Section[] = [
         text: 'A good design choice for a battery-powered farm sensor far away is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'High-speed Wi-Fi + camera', isCorrect: false },
           { letter: 'B', text: 'Low power sensor + LPWAN (LoRa/NB-IoT)', isCorrect: true },
@@ -730,6 +838,8 @@ export const iotSections: Section[] = [
         text: 'Which is an example of real-time (hot) processing in IoT?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Weekly humidity trend report', isCorrect: false },
           { letter: 'B', text: 'Monthly energy bill analysis', isCorrect: false },
@@ -751,6 +861,8 @@ export const iotSections: Section[] = [
         text: 'A microcontroller is "a small computer on a single chip used to control a device." Which option matches this definition?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'RAM', isCorrect: false },
           { letter: 'B', text: 'MCU', isCorrect: true },
@@ -764,6 +876,8 @@ export const iotSections: Section[] = [
         text: 'A smart door reads keypad input, checks the password, then unlocks a motor. This is mainly an example of:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'Cloud storage synchronization', isCorrect: false },
           { letter: 'B', text: 'Read → Process → Output control loop', isCorrect: true },
@@ -777,6 +891,8 @@ export const iotSections: Section[] = [
         text: 'Which statement best defines an embedded system?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Any device connected to the internet', isCorrect: false },
           { letter: 'B', text: 'Hardware + MCU + software for one dedicated function', isCorrect: true },
@@ -790,6 +906,8 @@ export const iotSections: Section[] = [
         text: 'A washing machine controller is best classified as:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Supercomputer', isCorrect: false },
           { letter: 'B', text: 'Embedded system', isCorrect: true },
@@ -803,6 +921,8 @@ export const iotSections: Section[] = [
         text: 'The MCU control loop repeats many times per second mainly to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Store photos permanently', isCorrect: false },
           { letter: 'B', text: 'Respond quickly to inputs and control outputs', isCorrect: true },
@@ -816,6 +936,8 @@ export const iotSections: Section[] = [
         text: 'Which of the following is NOT a typical internal block of a microcontroller?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Timers', isCorrect: false },
           { letter: 'B', text: 'Mechanical keyboard', isCorrect: true },
@@ -829,6 +951,8 @@ export const iotSections: Section[] = [
         text: 'The CPU in a microcontroller is responsible for:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Only powering the board', isCorrect: false },
           { letter: 'B', text: 'Executing instructions and controlling device behavior', isCorrect: true },
@@ -842,6 +966,8 @@ export const iotSections: Section[] = [
         text: 'Inside the CPU, the unit that performs arithmetic and logic operations is called:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Oscillator', isCorrect: false },
           { letter: 'B', text: 'GPIO', isCorrect: false },
@@ -855,6 +981,8 @@ export const iotSections: Section[] = [
         text: 'The CPU component that points to the next instruction to be executed is the:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'UART', isCorrect: false },
           { letter: 'B', text: 'DAC', isCorrect: false },
@@ -868,6 +996,8 @@ export const iotSections: Section[] = [
         text: '"Program memory stores the code and keeps it even after power is OFF." This refers to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Cache only', isCorrect: false },
           { letter: 'B', text: 'Flash (Program Memory)', isCorrect: true },
@@ -881,6 +1011,8 @@ export const iotSections: Section[] = [
         text: 'When power is removed, temporary variables are lost. This memory is most likely:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'SD Card', isCorrect: false },
           { letter: 'B', text: 'SRAM (RAM)', isCorrect: true },
@@ -894,6 +1026,8 @@ export const iotSections: Section[] = [
         text: 'A device must save calibration settings even after power OFF and update them occasionally. Best memory type:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'PWM', isCorrect: false },
           { letter: 'B', text: 'SRAM', isCorrect: false },
@@ -907,6 +1041,8 @@ export const iotSections: Section[] = [
         text: 'A button is connected to a pin, and the MCU reads it as 0 or 1. That pin is used as:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Program memory', isCorrect: false },
           { letter: 'B', text: 'Analog-only output', isCorrect: false },
@@ -920,6 +1056,8 @@ export const iotSections: Section[] = [
         text: 'An MCU pin turns ON a relay module, but the relay needs more current than the pin can provide. Correct solution:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Use EEPROM to increase current', isCorrect: false },
           { letter: 'B', text: 'Use a driver (transistor/relay module) controlled by MCU', isCorrect: true },
@@ -933,6 +1071,8 @@ export const iotSections: Section[] = [
         text: 'Many sensors produce continuously varying voltage. To convert this to a number the CPU can process, the MCU uses:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'SPI', isCorrect: false },
           { letter: 'B', text: 'UART', isCorrect: false },
@@ -946,6 +1086,8 @@ export const iotSections: Section[] = [
         text: '"Analog → Digital conversion" means:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Converting RAM into Flash', isCorrect: false },
           { letter: 'B', text: 'Converting a voltage level into a digital number', isCorrect: true },
@@ -959,6 +1101,8 @@ export const iotSections: Section[] = [
         text: 'A DAC is mainly needed when the MCU must:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Increase CPU clock speed automatically', isCorrect: false },
           { letter: 'B', text: 'Output a real analog voltage signal', isCorrect: true },
@@ -972,6 +1116,8 @@ export const iotSections: Section[] = [
         text: 'The most common programming language used in many microcontroller projects is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'SQL', isCorrect: false },
           { letter: 'B', text: 'C / Embedded C', isCorrect: true },
@@ -985,6 +1131,8 @@ export const iotSections: Section[] = [
         text: 'Which list contains common microcontroller families?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'JPEG, PNG, MP3, MP4', isCorrect: false },
           { letter: 'B', text: 'AVR, PIC, 8051, ARM Cortex-M', isCorrect: true },
@@ -998,6 +1146,8 @@ export const iotSections: Section[] = [
         text: 'A key feature of a microcontroller compared to a microprocessor is that it typically:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Must run Windows', isCorrect: false },
           { letter: 'B', text: 'Has CPU + memory + I/O peripherals on the same chip', isCorrect: true },
@@ -1011,6 +1161,8 @@ export const iotSections: Section[] = [
         text: 'A key feature of a microprocessor-based system is that it often:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Only works with 8-bit data', isCorrect: false },
           { letter: 'B', text: 'Needs external memory (like DDR) and supports complex OS', isCorrect: true },
@@ -1024,6 +1176,8 @@ export const iotSections: Section[] = [
         text: 'A laptop CPU is best described as a:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'ADC', isCorrect: false },
           { letter: 'B', text: 'Sensor', isCorrect: false },
@@ -1037,6 +1191,8 @@ export const iotSections: Section[] = [
         text: 'Which use-case is most suitable for a microcontroller?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'High-end 3D gaming', isCorrect: false },
           { letter: 'B', text: 'Controlling an LED, reading a sensor, and driving a motor', isCorrect: true },
@@ -1050,6 +1206,8 @@ export const iotSections: Section[] = [
         text: 'Which use-case is most suitable for a microprocessor?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Reading a single button', isCorrect: false },
           { letter: 'B', text: 'Running Linux with camera streaming and networking', isCorrect: true },
@@ -1063,6 +1221,8 @@ export const iotSections: Section[] = [
         text: 'Caches (L1/L2/L3) in microprocessor systems are mainly used to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Replace the need for a clock', isCorrect: false },
           { letter: 'B', text: 'Generate PWM signals', isCorrect: false },
@@ -1076,6 +1236,8 @@ export const iotSections: Section[] = [
         text: 'A feature that helps microprocessors run operating systems with memory protection and multitasking is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'EEPROM', isCorrect: false },
           { letter: 'B', text: 'MMU (Memory Management Unit)', isCorrect: true },
@@ -1089,6 +1251,8 @@ export const iotSections: Section[] = [
         text: 'AVR is a microcontroller family originally associated with:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Microsoft only', isCorrect: false },
           { letter: 'B', text: 'Atmel (now part of Microchip)', isCorrect: true },
@@ -1102,6 +1266,8 @@ export const iotSections: Section[] = [
         text: 'Which set of features matches ATmega16 best?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Only Wi-Fi and Bluetooth with no CPU', isCorrect: false },
           { letter: 'B', text: '8-bit AVR, timers/PWM, ADC, EEPROM, UART/I2C/SPI', isCorrect: true },
@@ -1115,6 +1281,8 @@ export const iotSections: Section[] = [
         text: 'ATmega16 is described as Harvard architecture. The main idea is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'No memory exists', isCorrect: false },
           { letter: 'B', text: 'Separate instruction/program path and data path (conceptually separated)', isCorrect: true },
@@ -1128,6 +1296,8 @@ export const iotSections: Section[] = [
         text: '"MCUs are used in low-cost, low-power devices that do one control job, while microprocessors are for high-performance general computing." This statement is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Only true for EEPROM', isCorrect: false },
           { letter: 'B', text: 'Incorrect', isCorrect: false },
@@ -1149,6 +1319,8 @@ export const iotSections: Section[] = [
         text: 'A "PORT" in ATmega16 is best described as:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'A timer mode', isCorrect: false },
           { letter: 'B', text: 'A group of 8 pins', isCorrect: true },
@@ -1162,6 +1334,8 @@ export const iotSections: Section[] = [
         text: 'In an 8-bit register, bit0 usually controls:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'pin0', isCorrect: true },
           { letter: 'B', text: 'pin7', isCorrect: false },
@@ -1175,6 +1349,8 @@ export const iotSections: Section[] = [
         text: 'Which value makes all bits = 1 for an 8-bit register?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: '0xF0', isCorrect: false },
           { letter: 'B', text: '0xFF', isCorrect: true },
@@ -1188,6 +1364,8 @@ export const iotSections: Section[] = [
         text: '0xAA in binary equals:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: '11110000', isCorrect: false },
           { letter: 'B', text: '10101010', isCorrect: true },
@@ -1201,6 +1379,8 @@ export const iotSections: Section[] = [
         text: '0x0F in 8-bit binary is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: '00001111', isCorrect: true },
           { letter: 'B', text: '11111111', isCorrect: false },
@@ -1214,6 +1394,8 @@ export const iotSections: Section[] = [
         text: 'A floating input is dangerous because it:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'evaluate',
         mcqOptions: [
           { letter: 'A', text: 'burns the MCU', isCorrect: false },
           { letter: 'B', text: 'always reads 1', isCorrect: false },
@@ -1227,6 +1409,8 @@ export const iotSections: Section[] = [
         text: 'The main role of a pull-up resistor is to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'enable ADC', isCorrect: false },
           { letter: 'B', text: 'increase CPU speed', isCorrect: false },
@@ -1240,6 +1424,8 @@ export const iotSections: Section[] = [
         text: 'In ATmega16, the register that controls direction of pins is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'PORTx', isCorrect: false },
           { letter: 'B', text: 'DDRx', isCorrect: true },
@@ -1253,6 +1439,8 @@ export const iotSections: Section[] = [
         text: 'DDRx bit = 0 means the pin is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'UART mode', isCorrect: false },
           { letter: 'B', text: 'output', isCorrect: false },
@@ -1266,6 +1454,8 @@ export const iotSections: Section[] = [
         text: 'DDRx bit = 1 means the pin is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'pull-up enabled', isCorrect: false },
           { letter: 'B', text: 'floating', isCorrect: false },
@@ -1279,6 +1469,8 @@ export const iotSections: Section[] = [
         text: 'If DDRA = 0x00, then Port A pins are:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'all LOW', isCorrect: false },
           { letter: 'B', text: 'all outputs', isCorrect: false },
@@ -1292,6 +1484,8 @@ export const iotSections: Section[] = [
         text: 'If DDRB = 0xFF, then Port B pins are:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'floating', isCorrect: false },
           { letter: 'B', text: 'all outputs', isCorrect: true },
@@ -1305,6 +1499,8 @@ export const iotSections: Section[] = [
         text: 'DDRB = 0b00001111 means:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'PB0..PB3 outputs, PB4..PB7 inputs', isCorrect: true },
           { letter: 'B', text: 'all inputs', isCorrect: false },
@@ -1318,6 +1514,8 @@ export const iotSections: Section[] = [
         text: 'PORTx has two meanings depending on DDRx. This statement is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Only for ADC pins', isCorrect: false },
           { letter: 'B', text: 'False', isCorrect: false },
@@ -1331,6 +1529,8 @@ export const iotSections: Section[] = [
         text: 'If a pin is OUTPUT (DDRx=1), writing PORTx bit = 1 makes the pin:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'input', isCorrect: false },
           { letter: 'B', text: 'LOW', isCorrect: false },
@@ -1344,6 +1544,8 @@ export const iotSections: Section[] = [
         text: 'If a pin is OUTPUT (DDRx=1), writing PORTx bit = 0 makes the pin:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'pull-up ON', isCorrect: false },
           { letter: 'B', text: 'HIGH', isCorrect: false },
@@ -1357,6 +1559,8 @@ export const iotSections: Section[] = [
         text: 'If a pin is INPUT (DDRx=0), writing PORTx bit = 1 means:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'pull-up enabled', isCorrect: true },
           { letter: 'B', text: 'output HIGH', isCorrect: false },
@@ -1370,6 +1574,8 @@ export const iotSections: Section[] = [
         text: 'If a pin is INPUT (DDRx=0), writing PORTx bit = 0 means:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'output HIGH', isCorrect: false },
           { letter: 'B', text: 'pull-up enabled', isCorrect: false },
@@ -1383,6 +1589,8 @@ export const iotSections: Section[] = [
         text: 'The register used to read the actual pin state is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'PORTx', isCorrect: false },
           { letter: 'B', text: 'DDRx', isCorrect: false },
@@ -1396,6 +1604,8 @@ export const iotSections: Section[] = [
         text: 'Correct typical sequence to read a button with pull-up:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'DDR=0 → PORT=0 → read PORT', isCorrect: false },
           { letter: 'B', text: 'DDR=1 → PORT=1 → read PIN', isCorrect: false },
@@ -1409,6 +1619,8 @@ export const iotSections: Section[] = [
         text: 'If DDRB=0x00 and PORTB=0x00, Port B pins are:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'inputs pull-up enabled', isCorrect: false },
           { letter: 'B', text: 'outputs HIGH', isCorrect: false },
@@ -1422,6 +1634,8 @@ export const iotSections: Section[] = [
         text: 'If DDRB=0x00 and PORTB=0xFF, Port B pins are:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'floating', isCorrect: false },
           { letter: 'B', text: 'outputs HIGH', isCorrect: false },
@@ -1435,6 +1649,8 @@ export const iotSections: Section[] = [
         text: 'If DDRC=0xFF and PORTC=0x11, which pins are HIGH?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'PC7 and PC4', isCorrect: false },
           { letter: 'B', text: 'PC0 and PC4', isCorrect: true },
@@ -1448,6 +1664,8 @@ export const iotSections: Section[] = [
         text: 'Which code sets PA0 as input?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'PORTA |= (1<<0);', isCorrect: false },
           { letter: 'B', text: 'DDRA &= ~(1<<0);', isCorrect: true },
@@ -1461,6 +1679,8 @@ export const iotSections: Section[] = [
         text: 'Which code enables pull-up on PA0 (PA0 is input)?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'PINA |= (1<<0);', isCorrect: false },
           { letter: 'B', text: 'DDRA |= (1<<0);', isCorrect: false },
@@ -1474,6 +1694,8 @@ export const iotSections: Section[] = [
         text: 'Which expression correctly reads only bit0 from PINA as 0/1?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'b = DDRA & 1;', isCorrect: false },
           { letter: 'B', text: 'b = (PINA>>0) & 1;', isCorrect: true },
@@ -1487,6 +1709,8 @@ export const iotSections: Section[] = [
         text: 'Setting only PC4 as output is best done by:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'DDRC = 0x00;', isCorrect: false },
           { letter: 'B', text: 'DDRC |= (1<<4);', isCorrect: true },
@@ -1500,6 +1724,8 @@ export const iotSections: Section[] = [
         text: 'Making PC4 HIGH (after it is output) is done by:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'DDRC &= ~(1<<4);', isCorrect: false },
           { letter: 'B', text: 'PORTC |= (1<<4);', isCorrect: true },
@@ -1513,6 +1739,8 @@ export const iotSections: Section[] = [
         text: 'When you want to change one pin only without affecting others, you should use:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'only binary values', isCorrect: false },
           { letter: 'B', text: 'bit operations (set/clear with masks)', isCorrect: true },
@@ -1526,6 +1754,8 @@ export const iotSections: Section[] = [
         text: 'Which statement is correct?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Read inputs from DDRx', isCorrect: false },
           { letter: 'B', text: 'Read inputs from EEPROM', isCorrect: false },
@@ -1547,6 +1777,8 @@ export const iotSections: Section[] = [
         text: 'An actuator in an IoT system is best described as:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'A device that measures the environment', isCorrect: false },
           { letter: 'B', text: 'A device that stores program code', isCorrect: false },
@@ -1560,6 +1792,8 @@ export const iotSections: Section[] = [
         text: 'A DC motor usually needs an external driver because:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Arduino/ESP32 pins cannot provide enough current for the motor', isCorrect: true },
           { letter: 'B', text: 'DC motors only work with analog sensors', isCorrect: false },
@@ -1573,6 +1807,8 @@ export const iotSections: Section[] = [
         text: 'In L298N, the pins that mainly control speed (using PWM) are:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'OUT1 & OUT2', isCorrect: false },
           { letter: 'B', text: 'IN1 & IN2', isCorrect: false },
@@ -1586,6 +1822,8 @@ export const iotSections: Section[] = [
         text: 'In L298N, for Motor A direction control, the important pins are:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'IN1 & IN2', isCorrect: true },
           { letter: 'B', text: 'ENB & IN4', isCorrect: false },
@@ -1599,6 +1837,8 @@ export const iotSections: Section[] = [
         text: 'On L298N, the pins connected directly to Motor A wires are:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'ENA & ENB', isCorrect: false },
           { letter: 'B', text: 'OUT1 & OUT2', isCorrect: true },
@@ -1612,6 +1852,8 @@ export const iotSections: Section[] = [
         text: 'L298N requires two power sections mainly because:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'One is for ADC and the other is for DAC', isCorrect: false },
           { letter: 'B', text: 'One powers motors (higher voltage) and one powers module logic (5V)', isCorrect: true },
@@ -1625,6 +1867,8 @@ export const iotSections: Section[] = [
         text: 'A servo motor is mainly used when you need:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Continuous rotation only with no position control', isCorrect: false },
           { letter: 'B', text: 'Accurate angle/position control (like 0°–180°)', isCorrect: true },
@@ -1638,6 +1882,8 @@ export const iotSections: Section[] = [
         text: 'Typical servo pins (3 wires) are:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'SDA, SCL, VCC', isCorrect: false },
           { letter: 'B', text: 'MISO, MOSI, SCK', isCorrect: false },
@@ -1651,6 +1897,8 @@ export const iotSections: Section[] = [
         text: 'The servo Signal wire typically carries:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'PWM control signal from a microcontroller pin', isCorrect: true },
           { letter: 'B', text: 'Motor supply voltage (35V)', isCorrect: false },
@@ -1664,6 +1912,8 @@ export const iotSections: Section[] = [
         text: 'The joystick module provides:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: '2 digital outputs only', isCorrect: false },
           { letter: 'B', text: '1 analog output only', isCorrect: false },
@@ -1677,6 +1927,8 @@ export const iotSections: Section[] = [
         text: 'Joystick pin VRX represents:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Vertical axis analog value', isCorrect: false },
           { letter: 'B', text: 'Horizontal axis analog value', isCorrect: true },
@@ -1690,6 +1942,8 @@ export const iotSections: Section[] = [
         text: 'Joystick pin SW is described as:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Always HIGH', isCorrect: false },
           { letter: 'B', text: 'Always LOW', isCorrect: false },
@@ -1703,6 +1957,8 @@ export const iotSections: Section[] = [
         text: 'If SW uses a pull-up resistor, the SW pin reads:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'LOW when not pressed, HIGH when pressed', isCorrect: false },
           { letter: 'B', text: 'HIGH when not pressed, LOW when pressed', isCorrect: true },
@@ -1716,6 +1972,8 @@ export const iotSections: Section[] = [
         text: 'OLED module shown uses the interface:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'SPI (MOSI/MISO/SCK/CS)', isCorrect: false },
           { letter: 'B', text: 'I2C (SDA/SCL)', isCorrect: true },
@@ -1729,6 +1987,8 @@ export const iotSections: Section[] = [
         text: 'On I2C OLED, the SCL pin is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Power pin', isCorrect: false },
           { letter: 'B', text: 'Serial clock pin', isCorrect: true },
@@ -1742,6 +2002,8 @@ export const iotSections: Section[] = [
         text: 'On I2C OLED, the SDA pin is:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Serial data pin', isCorrect: true },
           { letter: 'B', text: 'Serial clock pin', isCorrect: false },
@@ -1755,6 +2017,8 @@ export const iotSections: Section[] = [
         text: 'The LCD 16×2 pin Vo is mainly used for:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Selecting SPI mode', isCorrect: false },
           { letter: 'B', text: 'Contrast control', isCorrect: true },
@@ -1768,6 +2032,8 @@ export const iotSections: Section[] = [
         text: 'LCD pin RS typically means:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Register Select (data vs command)', isCorrect: true },
           { letter: 'B', text: 'Reset Signal', isCorrect: false },
@@ -1781,6 +2047,8 @@ export const iotSections: Section[] = [
         text: 'In common LCD 4-bit wiring, data pins often used are:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'D0–D3 only', isCorrect: false },
           { letter: 'B', text: 'D4–D7 only', isCorrect: true },
@@ -1794,6 +2062,8 @@ export const iotSections: Section[] = [
         text: 'LCD pins A and K are commonly related to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'I2C bus', isCorrect: false },
           { letter: 'B', text: 'Backlight (Anode/Cathode)', isCorrect: true },
@@ -1807,6 +2077,8 @@ export const iotSections: Section[] = [
         text: 'RFID RC522 module must be powered by:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: '12V', isCorrect: false },
           { letter: 'B', text: '9V', isCorrect: false },
@@ -1820,6 +2092,8 @@ export const iotSections: Section[] = [
         text: 'RC522 pin RST is mainly used for:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Reset / power-down control', isCorrect: true },
           { letter: 'B', text: 'Motor direction', isCorrect: false },
@@ -1833,6 +2107,8 @@ export const iotSections: Section[] = [
         text: 'RC522 pin IRQ is used to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Provide analog output for joystick', isCorrect: false },
           { letter: 'B', text: 'Alert microcontroller when a tag is detected (interrupt)', isCorrect: true },
@@ -1846,6 +2122,8 @@ export const iotSections: Section[] = [
         text: 'RC522 pin labeled MISO/SCL/TX means it can act as:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Only SPI clock always', isCorrect: false },
           { letter: 'B', text: 'Different functions depending on selected mode (SPI/I2C/UART)', isCorrect: true },
@@ -1859,6 +2137,8 @@ export const iotSections: Section[] = [
         text: 'Bluetooth HC-05/HC-06 TX should connect to Arduino:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'RX', isCorrect: true },
           { letter: 'B', text: 'TX', isCorrect: false },
@@ -1872,6 +2152,8 @@ export const iotSections: Section[] = [
         text: 'Bluetooth HC-05/HC-06 RX should connect to Arduino:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'SDA', isCorrect: false },
           { letter: 'B', text: 'TX', isCorrect: true },
@@ -1885,6 +2167,8 @@ export const iotSections: Section[] = [
         text: 'The Bluetooth State pin is mainly used as:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'PWM input for motor speed', isCorrect: false },
           { letter: 'B', text: 'Feedback linked to onboard LED (connection/status indication)', isCorrect: true },
@@ -1899,6 +2183,8 @@ export const iotSections: Section[] = [
         text: 'Which of the following is an example of an actuator in a smart home?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Temperature sensor', isCorrect: false },
           { letter: 'B', text: 'Smart door lock', isCorrect: true },
@@ -1912,6 +2198,8 @@ export const iotSections: Section[] = [
         text: 'What is the main function of an H-bridge in motor control?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Convert analog signals to digital', isCorrect: false },
           { letter: 'B', text: 'Allow the motor to rotate in both directions', isCorrect: true },
@@ -1925,6 +2213,8 @@ export const iotSections: Section[] = [
         text: 'If IN1=HIGH and IN2=LOW on L298N Motor A, what happens?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Motor A rotates in one direction', isCorrect: true },
           { letter: 'B', text: 'Motor A rotates in the opposite direction', isCorrect: false },
@@ -1938,6 +2228,8 @@ export const iotSections: Section[] = [
         text: 'If both IN1 and IN2 are LOW on L298N Motor A, the motor:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Rotates at full speed', isCorrect: false },
           { letter: 'B', text: 'Rotates in reverse', isCorrect: false },
@@ -1951,6 +2243,8 @@ export const iotSections: Section[] = [
         text: 'What duty cycle value on ENA would make Motor A run at approximately half speed?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: '0%', isCorrect: false },
           { letter: 'B', text: '25%', isCorrect: false },
@@ -1964,6 +2258,8 @@ export const iotSections: Section[] = [
         text: 'What is the difference between a standard servo and a continuous rotation servo?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'They are identical in every way', isCorrect: false },
           { letter: 'B', text: 'Standard servo controls angle (0°–180°), continuous rotation servo controls speed and direction', isCorrect: true },
@@ -1977,6 +2273,8 @@ export const iotSections: Section[] = [
         text: 'What is the typical PWM pulse width range for a standard servo (0° to 180°)?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: '0.5ms to 1.0ms', isCorrect: false },
           { letter: 'B', text: '1.0ms to 2.0ms', isCorrect: true },
@@ -1990,6 +2288,8 @@ export const iotSections: Section[] = [
         text: 'When using a joystick module, the analog readings at the center (neutral) position are typically around:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: '0 (minimum value)', isCorrect: false },
           { letter: 'B', text: 'Approximately half of the ADC range (e.g., ~512 on 10-bit ADC)', isCorrect: true },
@@ -2003,6 +2303,8 @@ export const iotSections: Section[] = [
         text: 'Which Arduino function is used to read the analog values from a joystick module?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'digitalRead()', isCorrect: false },
           { letter: 'B', text: 'analogRead()', isCorrect: true },
@@ -2016,6 +2318,8 @@ export const iotSections: Section[] = [
         text: 'In I2C communication, what is the role of pull-up resistors on SDA and SCL lines?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'They protect against overvoltage', isCorrect: false },
           { letter: 'B', text: 'They ensure the lines default to HIGH when no device is pulling them LOW', isCorrect: true },
@@ -2029,6 +2333,8 @@ export const iotSections: Section[] = [
         text: 'What is the default I2C address of the common SSD1306 OLED display module?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: '0x27', isCorrect: false },
           { letter: 'B', text: '0x3C', isCorrect: true },
@@ -2042,6 +2348,8 @@ export const iotSections: Section[] = [
         text: 'How many custom characters can a 16×2 LCD typically store?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: '2', isCorrect: false },
           { letter: 'B', text: '4', isCorrect: false },
@@ -2055,6 +2363,8 @@ export const iotSections: Section[] = [
         text: 'What does the LCD pin E (Enable) do?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Erases the display', isCorrect: false },
           { letter: 'B', text: 'Enables the backlight', isCorrect: false },
@@ -2068,6 +2378,8 @@ export const iotSections: Section[] = [
         text: 'What is the operating frequency of the RC522 RFID reader?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: '125 kHz (Low Frequency)', isCorrect: false },
           { letter: 'B', text: '13.56 MHz (High Frequency)', isCorrect: true },
@@ -2081,6 +2393,8 @@ export const iotSections: Section[] = [
         text: 'Which RFID tag type is commonly used with the RC522 module?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'EM4100 (125 kHz)', isCorrect: false },
           { letter: 'B', text: 'MIFARE Classic 1K (13.56 MHz)', isCorrect: true },
@@ -2094,6 +2408,8 @@ export const iotSections: Section[] = [
         text: 'What is the typical communication range of the RC522 RFID module?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: '0–1 meter', isCorrect: false },
           { letter: 'B', text: 'Approximately 0–5 cm', isCorrect: true },
@@ -2107,6 +2423,8 @@ export const iotSections: Section[] = [
         text: 'What is the default baud rate of the HC-05 Bluetooth module in AT command mode?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: '9600', isCorrect: true },
           { letter: 'B', text: '115200', isCorrect: false },
@@ -2120,6 +2438,8 @@ export const iotSections: Section[] = [
         text: 'What voltage level should be used when connecting HC-05 RX to Arduino TX on a 5V Arduino?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'Direct 5V connection is safe', isCorrect: false },
           { letter: 'B', text: 'A voltage divider should be used to step down to 3.3V', isCorrect: true },
@@ -2133,6 +2453,8 @@ export const iotSections: Section[] = [
         text: 'What is the difference between HC-05 and HC-06 Bluetooth modules?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'They are identical', isCorrect: false },
           { letter: 'B', text: 'HC-05 can act as both master and slave; HC-06 can only act as slave', isCorrect: true },
@@ -2146,6 +2468,8 @@ export const iotSections: Section[] = [
         text: 'Which Arduino library is commonly used to control standard servo motors?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Wire.h', isCorrect: false },
           { letter: 'B', text: 'Servo.h', isCorrect: true },
@@ -2159,6 +2483,8 @@ export const iotSections: Section[] = [
         text: 'Which Arduino library is commonly used to communicate with RC522 RFID module?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Servo.h', isCorrect: false },
           { letter: 'B', text: 'MFRC522.h', isCorrect: true },
@@ -2172,6 +2498,8 @@ export const iotSections: Section[] = [
         text: 'On ESP32, which pins are the default I2C SDA and SCL pins?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'GPIO 0 and GPIO 2', isCorrect: false },
           { letter: 'B', text: 'GPIO 21 (SDA) and GPIO 22 (SCL)', isCorrect: true },
@@ -2185,6 +2513,8 @@ export const iotSections: Section[] = [
         text: 'What happens if you connect a 5V servo signal directly to a 3.3V ESP32 pin?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Nothing, it works perfectly', isCorrect: false },
           { letter: 'B', text: 'The ESP32 pin could be damaged by overvoltage', isCorrect: true },
@@ -2207,6 +2537,8 @@ export const iotSections: Section[] = [
         text: 'Arduino IDE stands for:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Arduino Internet Development Environment', isCorrect: false },
           { letter: 'B', text: 'Arduino Integrated Development Environment', isCorrect: true },
@@ -2220,6 +2552,8 @@ export const iotSections: Section[] = [
         text: 'Which of the following is NOT a main section of the Arduino IDE?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'analyze',
         mcqOptions: [
           { letter: 'A', text: 'Toolbar', isCorrect: false },
           { letter: 'B', text: 'Code Editor', isCorrect: false },
@@ -2233,6 +2567,8 @@ export const iotSections: Section[] = [
         text: 'What is the correct workflow when using Arduino IDE?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Write code → Upload → Connect board → Select port', isCorrect: false },
           { letter: 'B', text: 'Connect board → Select board/port → Write code → Verify → Upload', isCorrect: true },
@@ -2246,6 +2582,8 @@ export const iotSections: Section[] = [
         text: 'What happens if you select the wrong COM port in Arduino IDE?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'The code will upload to a different board', isCorrect: false },
           { letter: 'B', text: 'The code will not upload', isCorrect: true },
@@ -2259,6 +2597,8 @@ export const iotSections: Section[] = [
         text: 'In Arduino IDE, the Verify button is used to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Upload the code to the board', isCorrect: false },
           { letter: 'B', text: 'Check for syntax errors and compile the code', isCorrect: true },
@@ -2272,6 +2612,8 @@ export const iotSections: Section[] = [
         text: 'The setup() function in an Arduino program:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Runs continuously in a loop', isCorrect: false },
           { letter: 'B', text: 'Runs only once when the Arduino starts', isCorrect: true },
@@ -2285,6 +2627,8 @@ export const iotSections: Section[] = [
         text: 'The loop() function in an Arduino program:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Runs only once after setup()', isCorrect: false },
           { letter: 'B', text: 'Runs again and again continuously', isCorrect: true },
@@ -2298,6 +2642,8 @@ export const iotSections: Section[] = [
         text: 'What does pinMode(13, OUTPUT) do?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Reads a value from pin 13', isCorrect: false },
           { letter: 'B', text: 'Sets pin 13 as an output pin', isCorrect: true },
@@ -2311,6 +2657,8 @@ export const iotSections: Section[] = [
         text: 'What does digitalWrite(13, HIGH) do?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Reads the digital value on pin 13', isCorrect: false },
           { letter: 'B', text: 'Sends 5V (ON) signal to pin 13', isCorrect: true },
@@ -2324,6 +2672,8 @@ export const iotSections: Section[] = [
         text: 'What does delay(1000) do in Arduino code?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Pauses the program for 1 millisecond', isCorrect: false },
           { letter: 'B', text: 'Pauses the program for 1 second (1000 milliseconds)', isCorrect: true },
@@ -2337,6 +2687,8 @@ export const iotSections: Section[] = [
         text: 'Which variable type would you use to store a decimal number like 3.14 in Arduino?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'int', isCorrect: false },
           { letter: 'B', text: 'char', isCorrect: false },
@@ -2350,6 +2702,8 @@ export const iotSections: Section[] = [
         text: 'Which function is used to read a digital input from a pin in Arduino?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'digitalWrite()', isCorrect: false },
           { letter: 'B', text: 'analogRead()', isCorrect: false },
@@ -2363,6 +2717,8 @@ export const iotSections: Section[] = [
         text: 'Which function is used to read an analog value from a pin in Arduino?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'digitalRead()', isCorrect: false },
           { letter: 'B', text: 'analogRead()', isCorrect: true },
@@ -2376,6 +2732,8 @@ export const iotSections: Section[] = [
         text: 'In Arduino, what is the range of values returned by analogRead()?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: '0 to 255', isCorrect: false },
           { letter: 'B', text: '0 to 1023', isCorrect: true },
@@ -2389,6 +2747,8 @@ export const iotSections: Section[] = [
         text: 'Which Arduino IDE menu is used to select the board type and COM port?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'File menu', isCorrect: false },
           { letter: 'B', text: 'Edit menu', isCorrect: false },
@@ -2403,6 +2763,8 @@ export const iotSections: Section[] = [
         text: 'Write Arduino code to turn on an LED connected to pin 13.',
         marks: '3 pts',
         type: 'code',
+        difficulty: 'hard',
+        bloomTaxonomy: 'create',
         answer: 'Set pin 13 as OUTPUT in setup(), then write HIGH to pin 13 in loop() to keep the LED on.',
         answerCode: `void setup() {
   pinMode(13, OUTPUT);
@@ -2418,6 +2780,8 @@ void loop() {
         text: 'Write Arduino code to make an LED connected to pin 13 blink every 1 second.',
         marks: '3 pts',
         type: 'code',
+        difficulty: 'hard',
+        bloomTaxonomy: 'create',
         answer: 'Turn the LED on with HIGH, wait 1 second, turn it off with LOW, wait 1 second — all inside loop() so it repeats.',
         answerCode: `void setup() {
   pinMode(13, OUTPUT);
@@ -2436,6 +2800,8 @@ void loop() {
         text: 'A button is connected to pin 2 and an LED is connected to pin 13. Write Arduino code so the LED turns on when the button is pressed, and off when released.',
         marks: '4 pts',
         type: 'code',
+        difficulty: 'hard',
+        bloomTaxonomy: 'create',
         answer: 'Read the button state with digitalRead(). If HIGH (pressed), turn LED on. Otherwise, turn LED off.',
         answerCode: `int buttonPin = 2;
 int ledPin = 13;
@@ -2461,6 +2827,8 @@ void loop() {
         text: 'Write a traffic light program using: Red LED on pin 2, Yellow LED on pin 8, Green LED on pin 13. Red = 5s, Yellow = 2s, Green = 5s, then Yellow again for 2s before repeating.',
         marks: '5 pts',
         type: 'code',
+        difficulty: 'hard',
+        bloomTaxonomy: 'create',
         answer: 'In loop(), turn on one LED at a time with appropriate delays: red 5s, yellow 2s, green 5s, yellow 2s. Turn off the previous LED before turning on the next.',
         answerCode: `int red = 2;
 int yellow = 8;
@@ -2504,6 +2872,8 @@ void loop() {
         text: 'A sensor is connected to analog pin A0 and an LED is connected to pin 13. Write Arduino code so that if the sensor value is greater than 500, the LED turns on. Otherwise, it turns off.',
         marks: '4 pts',
         type: 'code',
+        difficulty: 'hard',
+        bloomTaxonomy: 'create',
         answer: 'Use analogRead() to read the sensor on A0. Compare with 500 using an if-else. Add a small delay to avoid rapid toggling.',
         answerCode: `int sensorPin = A0;
 int ledPin = 13;
@@ -2539,6 +2909,8 @@ void loop() {
         text: 'In IoT systems, which communication path is most common for sending sensor data to a cloud dashboard?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'Sensor → Cloud directly (always)', isCorrect: false },
           { letter: 'B', text: 'Sensor → Gateway/Router → Internet/Cloud', isCorrect: true },
@@ -2552,6 +2924,8 @@ void loop() {
         text: 'Which of the following is a wired communication technology?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Wi-Fi', isCorrect: false },
           { letter: 'B', text: 'Bluetooth', isCorrect: false },
@@ -2565,6 +2939,8 @@ void loop() {
         text: 'Which wireless option is generally best for short range and very low power devices?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Wi-Fi', isCorrect: false },
           { letter: 'B', text: 'BLE (Bluetooth Low Energy)', isCorrect: true },
@@ -2578,6 +2954,8 @@ void loop() {
         text: 'Which tradeoff describes how far a connection can reach?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Bandwidth', isCorrect: false },
           { letter: 'B', text: 'Range', isCorrect: true },
@@ -2591,6 +2969,8 @@ void loop() {
         text: 'A battery sensor sends 20 bytes every 10 minutes for 2 years. Which tradeoff is most critical?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'apply',
         mcqOptions: [
           { letter: 'A', text: 'Maximum bandwidth', isCorrect: false },
           { letter: 'B', text: 'Low power consumption', isCorrect: true },
@@ -2604,6 +2984,8 @@ void loop() {
         text: 'In a star topology, devices primarily connect to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Each other directly', isCorrect: false },
           { letter: 'B', text: 'A central node (router/gateway)', isCorrect: true },
@@ -2617,6 +2999,8 @@ void loop() {
         text: 'A mesh topology is best described as one where:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Only one device can transmit', isCorrect: false },
           { letter: 'B', text: 'Devices can relay messages for other devices', isCorrect: true },
@@ -2630,6 +3014,8 @@ void loop() {
         text: 'Which address is mainly used for delivering data inside a local network?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'IP address', isCorrect: false },
           { letter: 'B', text: 'DNS name', isCorrect: false },
@@ -2643,6 +3029,8 @@ void loop() {
         text: 'Which address is mainly used to route data across different networks (internet)?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'MAC address', isCorrect: false },
           { letter: 'B', text: 'IP address', isCorrect: true },
@@ -2656,6 +3044,8 @@ void loop() {
         text: 'What is the primary function of DHCP?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Encrypt network traffic', isCorrect: false },
           { letter: 'B', text: 'Assign IP configuration automatically', isCorrect: true },
@@ -2669,6 +3059,8 @@ void loop() {
         text: 'What is the primary function of DNS?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Give a device its MAC address', isCorrect: false },
           { letter: 'B', text: 'Convert a domain name to an IP address', isCorrect: true },
@@ -2682,6 +3074,8 @@ void loop() {
         text: 'Why are port numbers needed in networking?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'To identify the device manufacturer', isCorrect: false },
           { letter: 'B', text: 'To identify the specific service/application on a device', isCorrect: true },
@@ -2695,6 +3089,8 @@ void loop() {
         text: 'Which statement about TCP is correct?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'TCP provides best speed with no overhead', isCorrect: false },
           { letter: 'B', text: 'TCP provides reliable, ordered delivery', isCorrect: true },
@@ -2708,6 +3104,8 @@ void loop() {
         text: 'Which statement about UDP is correct?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'UDP guarantees delivery and ordering', isCorrect: false },
           { letter: 'B', text: 'UDP always retransmits lost packets', isCorrect: false },
@@ -2721,6 +3119,8 @@ void loop() {
         text: 'Which is the best choice for OTA firmware updates in most IoT systems?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'evaluate',
         mcqOptions: [
           { letter: 'A', text: 'UDP, because it is fast', isCorrect: false },
           { letter: 'B', text: 'TCP, because reliability is important', isCorrect: true },
@@ -2734,6 +3134,8 @@ void loop() {
         text: 'Which is often better for real-time sensor updates where the latest value matters more than perfect delivery?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'TCP', isCorrect: false },
           { letter: 'B', text: 'UDP', isCorrect: true },
@@ -2747,6 +3149,8 @@ void loop() {
         text: 'The main purpose of an IoT gateway is to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Replace the sensors', isCorrect: false },
           { letter: 'B', text: 'Connect local device networks to IP/internet networks', isCorrect: true },
@@ -2760,6 +3164,8 @@ void loop() {
         text: 'An edge node is mainly used to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         mcqOptions: [
           { letter: 'A', text: 'Only store data in the cloud', isCorrect: false },
           { letter: 'B', text: 'Process/filter data near the devices', isCorrect: true },
@@ -2773,6 +3179,8 @@ void loop() {
         text: 'Which combination is correct?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'IP = local hardware identity, MAC = internet routing', isCorrect: false },
           { letter: 'B', text: 'MAC = local hardware identity, IP = internet routing', isCorrect: true },
@@ -2786,6 +3194,8 @@ void loop() {
         text: 'If DNS is not working, an IoT device may fail to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Read a sensor locally', isCorrect: false },
           { letter: 'B', text: 'Reach a cloud server using a hostname (domain name)', isCorrect: true },
@@ -2799,6 +3209,8 @@ void loop() {
         text: 'Which connection is usually associated with high bandwidth but higher power consumption in IoT?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Wi-Fi', isCorrect: true },
           { letter: 'B', text: 'LPWAN', isCorrect: false },
@@ -2812,6 +3224,8 @@ void loop() {
         text: 'Which option best matches: very long range + very low power + small messages?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Wi-Fi', isCorrect: false },
           { letter: 'B', text: 'Ethernet', isCorrect: false },
@@ -2825,6 +3239,8 @@ void loop() {
         text: 'Which of the following is a strong reason to use a gateway in IoT?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'To make every device a server', isCorrect: false },
           { letter: 'B', text: 'To translate between different protocols/technologies', isCorrect: true },
@@ -2838,6 +3254,8 @@ void loop() {
         text: 'Which situation most strongly suggests using wired communication?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Moving wearable device', isCorrect: false },
           { letter: 'B', text: 'High interference environment where signals are unstable', isCorrect: true },
@@ -2851,6 +3269,8 @@ void loop() {
         text: 'When a device has an IP address and wants to send data to the internet, it typically sends traffic first to:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'MAC address table', isCorrect: false },
           { letter: 'B', text: 'Default gateway', isCorrect: true },
@@ -2865,6 +3285,8 @@ void loop() {
         text: 'Which IoT wired communication standard is commonly used in industrial environments?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Bluetooth', isCorrect: false },
           { letter: 'B', text: 'RS-485', isCorrect: true },
@@ -2878,6 +3300,8 @@ void loop() {
         text: 'Which IoT wired communication standard is commonly used in automotive applications?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'CAN bus', isCorrect: true },
           { letter: 'B', text: 'Ethernet', isCorrect: false },
@@ -2891,6 +3315,8 @@ void loop() {
         text: 'Which topology is best for connecting many IoT sensors to one gateway?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Ring topology', isCorrect: false },
           { letter: 'B', text: 'Star topology', isCorrect: true },
@@ -2904,6 +3330,8 @@ void loop() {
         text: 'Which topology provides the highest redundancy (many backup paths)?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Star topology', isCorrect: false },
           { letter: 'B', text: 'Bus topology', isCorrect: false },
@@ -2917,6 +3345,8 @@ void loop() {
         text: 'In the 3-level networking model for IoT, which level decides between TCP and UDP?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Link/Local level', isCorrect: false },
           { letter: 'B', text: 'Network/Internet level', isCorrect: false },
@@ -2930,6 +3360,8 @@ void loop() {
         text: 'What does DHCP typically provide to a device? (Select the most complete answer)',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Only an IP address', isCorrect: false },
           { letter: 'B', text: 'IP address, subnet mask, default gateway, and DNS server address', isCorrect: true },
@@ -2943,6 +3375,8 @@ void loop() {
         text: 'Why is DNS important for IoT devices connecting to cloud services?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'hard',
+        bloomTaxonomy: 'evaluate',
         mcqOptions: [
           { letter: 'A', text: 'It provides power to the devices', isCorrect: false },
           { letter: 'B', text: 'Cloud servers can change IPs, but the domain name stays the same', isCorrect: true },
@@ -2956,6 +3390,8 @@ void loop() {
         text: 'An edge node can continue making local decisions even when:',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'The sensors are disconnected', isCorrect: false },
           { letter: 'B', text: 'The internet connection is down', isCorrect: true },
@@ -2970,6 +3406,8 @@ void loop() {
         text: 'Fill in the correct network topology names and concepts:',
         marks: '5 pts',
         type: 'fill',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         fillItems: [
           { label: 'Topology where one device talks directly to one other device', answer: 'Point-to-Point' },
           { label: 'Topology where many devices connect to a central router/gateway', answer: 'Star' },
@@ -2984,6 +3422,8 @@ void loop() {
         text: 'Fill in the correct networking terms:',
         marks: '5 pts',
         type: 'fill',
+        difficulty: 'medium',
+        bloomTaxonomy: 'remember',
         fillItems: [
           { label: 'Protocol that assigns IP addresses automatically', answer: 'DHCP' },
           { label: 'Protocol that converts domain names to IP addresses', answer: 'DNS' },
@@ -2999,6 +3439,8 @@ void loop() {
         text: 'What is the main advantage of wireless communication over wired in IoT?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Always more reliable than wired', isCorrect: false },
           { letter: 'B', text: 'Easier installation and supports mobile/remote devices', isCorrect: true },
@@ -3012,6 +3454,8 @@ void loop() {
         text: 'Which IoT communication technology would you choose for a smart watch that needs to sync data with a phone?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Ethernet', isCorrect: false },
           { letter: 'B', text: 'LPWAN', isCorrect: false },
@@ -3025,6 +3469,8 @@ void loop() {
         text: 'Which IoT communication technology would you choose for a soil moisture sensor in a remote farm, sending data once per hour?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Wi-Fi', isCorrect: false },
           { letter: 'B', text: 'BLE', isCorrect: false },
@@ -3038,6 +3484,8 @@ void loop() {
         text: 'What happens at the Link/Local level of IoT networking?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'medium',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Data is routed across the internet using IP', isCorrect: false },
           { letter: 'B', text: 'Transport protocol (TCP/UDP) is chosen', isCorrect: false },
@@ -3051,6 +3499,8 @@ void loop() {
         text: 'Which of the following is a disadvantage of a star topology?',
         marks: '1 pt',
         type: 'mcq',
+        difficulty: 'easy',
+        bloomTaxonomy: 'understand',
         mcqOptions: [
           { letter: 'A', text: 'Too many cables required between all devices', isCorrect: false },
           { letter: 'B', text: 'If the central node fails, all devices lose connectivity', isCorrect: true },

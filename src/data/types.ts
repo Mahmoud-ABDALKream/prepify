@@ -17,4 +17,6 @@ export interface Question {
   answer: string
   answerCode?: string
   hint?: string
+  difficulty?: 'easy' | 'medium' | 'hard'
+  bloomTaxonomy?: 'remember' | 'understand' | 'apply' | 'analyze' | 'evaluate' | 'create'
 }

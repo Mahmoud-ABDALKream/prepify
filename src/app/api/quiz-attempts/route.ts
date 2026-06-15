@@ -12,12 +12,27 @@ function getGradeCategory(score: number): string {
   return 'F'
 }
 
+interface QuestionResponseInput {
+  questionId: number
+  questionType: string
+  sectionTitle: string
+  isCorrect: boolean
+  userAnswer: string
+  correctAnswer: string
+  difficulty: string
+  bloomTaxonomy: string
+}
+
 // POST /api/quiz-attempts — submit a quiz attempt
-// Also creates an ExamResult record for analytics
+// Also creates an ExamResult record and QuestionResponse records for analytics
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { userId, userName, subject, quizId, score, correctAnswers, wrongAnswers, totalQuestions, timeTaken, questionType } = body
+    const {
+      userId, userName, subject, quizId, score,
+      correctAnswers, wrongAnswers, totalQuestions, timeTaken, questionType,
+      questionResponses,
+    } = body
 
     // Validation
     if (!userId || typeof userId !== 'string' || userId.trim().length === 0) {
@@ -92,11 +107,55 @@ export async function POST(request: NextRequest) {
       })
 
     if (examError) {
-      // Log but don't fail the request — the quiz attempt was saved successfully
       console.error('Failed to save exam result (non-critical):', examError)
     }
 
-    return NextResponse.json({ attempt, examSaved: !examError }, { status: 201 })
+    // Insert per-question responses if provided
+    let responsesSaved = 0
+    if (Array.isArray(questionResponses) && questionResponses.length > 0 && attempt?.id) {
+      const validDifficulties = ['easy', 'medium', 'hard']
+      const validBlooms = ['remember', 'understand', 'apply', 'analyze', 'evaluate', 'create']
+
+      const responseRows = questionResponses
+        .filter((r: QuestionResponseInput) => r && typeof r.questionId === 'number')
+        .map((r: QuestionResponseInput) => ({
+          attemptId: attempt.id,
+          userId: userId.trim(),
+          userName: userName.trim(),
+          subject,
+          questionId: r.questionId,
+          questionType: r.questionType || 'mcq',
+          sectionTitle: r.sectionTitle || '',
+          isCorrect: !!r.isCorrect,
+          userAnswer: r.userAnswer || '',
+          correctAnswer: r.correctAnswer || '',
+          timeTaken: 0,
+          difficulty: validDifficulties.includes(r.difficulty) ? r.difficulty : 'medium',
+          bloomTaxonomy: validBlooms.includes(r.bloomTaxonomy) ? r.bloomTaxonomy : 'remember',
+        }))
+
+      if (responseRows.length > 0) {
+        // Insert in batches of 100 to avoid payload limits
+        for (let i = 0; i < responseRows.length; i += 100) {
+          const batch = responseRows.slice(i, i + 100)
+          const { error: responseError } = await supabase
+            .from('QuestionResponse')
+            .insert(batch)
+
+          if (responseError) {
+            console.error('Failed to save question responses batch (non-critical):', responseError)
+          } else {
+            responsesSaved += batch.length
+          }
+        }
+      }
+    }
+
+    return NextResponse.json({
+      attempt,
+      examSaved: !examError,
+      responsesSaved,
+    }, { status: 201 })
   } catch (error) {
     console.error('Failed to submit quiz attempt:', error)
     return NextResponse.json({ error: 'Failed to submit quiz attempt' }, { status: 500 })
