@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, startTransition, useRef } from 'react'
 
 // ─── Types ───────────────────────────────────────────
 interface ReviewData {
@@ -20,6 +20,9 @@ export function useReviewStorage(subjectKey: string, validQuestionIds?: Set<numb
   const [starredIds, setStarredIds] = useState<Set<number>>(new Set())
   const [wrongIds, setWrongIds] = useState<Set<number>>(new Set())
   const [hydrated, setHydrated] = useState(false)
+
+  // Ref for debounced localStorage writes — avoids writing on every keystroke/click
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // ─── Load from localStorage on mount ───
   useEffect(() => {
@@ -48,24 +51,38 @@ export function useReviewStorage(subjectKey: string, validQuestionIds?: Set<numb
     setHydrated(true)
   }, [REVIEW_KEY, validQuestionIds])
 
-  // ─── Save to localStorage on change ───
+  // ─── Save to localStorage (debounced) ───
+  // Instead of writing on every state change, we debounce to batch rapid toggles
   useEffect(() => {
     if (!hydrated) return
-    try {
-      localStorage.setItem(REVIEW_KEY, JSON.stringify({
-        starred: Array.from(starredIds),
-        wrong: Array.from(wrongIds),
-      }))
-    } catch { /* ignore quota errors */ }
+
+    // Clear any pending save
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
+
+    // Schedule a debounced save
+    saveTimerRef.current = setTimeout(() => {
+      try {
+        localStorage.setItem(REVIEW_KEY, JSON.stringify({
+          starred: Array.from(starredIds),
+          wrong: Array.from(wrongIds),
+        }))
+      } catch { /* ignore quota errors */ }
+    }, 100) // 100ms debounce — fast enough to feel instant, avoids thrashing
+
+    return () => {
+      if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
+    }
   }, [starredIds, wrongIds, hydrated, REVIEW_KEY])
 
-  // ─── Toggle star on/off ───
+  // ─── Toggle star on/off (non-blocking via startTransition) ───
   const toggleStar = useCallback((qId: number) => {
-    setStarredIds(prev => {
-      const next = new Set(prev)
-      if (next.has(qId)) next.delete(qId)
-      else next.add(qId)
-      return next
+    startTransition(() => {
+      setStarredIds(prev => {
+        const next = new Set(prev)
+        if (next.has(qId)) next.delete(qId)
+        else next.add(qId)
+        return next
+      })
     })
   }, [])
 
