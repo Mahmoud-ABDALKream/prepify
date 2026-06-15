@@ -3,7 +3,17 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
+// Helper: calculate grade category from score (0-100)
+function getGradeCategory(score: number): string {
+  if (score >= 90) return 'A'
+  if (score >= 80) return 'B'
+  if (score >= 70) return 'C'
+  if (score >= 60) return 'D'
+  return 'F'
+}
+
 // POST /api/quiz-attempts — submit a quiz attempt
+// Also creates an ExamResult record for analytics
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -42,7 +52,9 @@ export async function POST(request: NextRequest) {
     const finalQuestionType = validQuestionTypes.includes(questionType) ? questionType : 'multiple-choice'
 
     const supabase = getSupabaseAdmin()
-    const { data: attempt, error } = await supabase
+
+    // Insert into QuizAttempt
+    const { data: attempt, error: attemptError } = await supabase
       .from('QuizAttempt')
       .insert({
         userId: userId.trim(),
@@ -59,12 +71,32 @@ export async function POST(request: NextRequest) {
       .select()
       .single()
 
-    if (error) {
-      console.error('Failed to submit quiz attempt:', error)
+    if (attemptError) {
+      console.error('Failed to submit quiz attempt:', attemptError)
       return NextResponse.json({ error: 'Failed to submit quiz attempt' }, { status: 500 })
     }
 
-    return NextResponse.json({ attempt }, { status: 201 })
+    // Also insert into ExamResult for analytics (pass/fail, grade category)
+    const passFail = score >= 60 ? 'pass' : 'fail'
+    const gradeCategory = getGradeCategory(score)
+
+    const { error: examError } = await supabase
+      .from('ExamResult')
+      .insert({
+        userId: userId.trim(),
+        userName: userName.trim(),
+        subject,
+        examScore: score,
+        passFail,
+        gradeCategory,
+      })
+
+    if (examError) {
+      // Log but don't fail the request — the quiz attempt was saved successfully
+      console.error('Failed to save exam result (non-critical):', examError)
+    }
+
+    return NextResponse.json({ attempt, examSaved: !examError }, { status: 201 })
   } catch (error) {
     console.error('Failed to submit quiz attempt:', error)
     return NextResponse.json({ error: 'Failed to submit quiz attempt' }, { status: 500 })

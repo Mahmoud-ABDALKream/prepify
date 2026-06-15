@@ -34,8 +34,8 @@ const STORAGE_KEY = 'prepify-cs2-progress'
 export default function CyberSecurityPage() {
   const {
     quizStarted, userName, timerMinutes, showStartPopup, elapsedSeconds,
-    attemptSubmitting, attemptSubmitted,
-    handleStartQuiz, handleSkipPopup, submitQuizAttempt, setShowStartPopup,
+    attemptSubmitting, attemptSubmitted, attemptError,
+    handleStartQuiz, handleSkipPopup, submitQuizAttempt, retrySubmit, setShowStartPopup,
   } = useQuizTracking('cyber-security-2', 'cs2-full')
 
   const [questionStates, setQuestionStates] = useState<Record<number, QuestionState>>({})
@@ -577,6 +577,29 @@ export default function CyberSecurityPage() {
             onRevealAll={revealAllSolutions}
             timeTaken={elapsedSeconds}
           />
+          {/* Submission status / error notification */}
+          {attemptSubmitting && (
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              className="bg-[#1e2d45]/50 border border-[#8b5cf6]/25 rounded-xl px-5 py-3 text-center text-sm text-[#94a3b8] mt-4">
+              Saving your result...
+            </motion.div>
+          )}
+          {attemptError && (
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              className="bg-[#ef4444]/10 border border-[#ef4444]/25 rounded-xl px-5 py-3 mt-4 flex items-center justify-between gap-3">
+              <span className="text-[#f87171] text-sm">Failed to save: {attemptError}</span>
+              <button onClick={retrySubmit} disabled={attemptSubmitting}
+                className="text-xs font-bold text-[#ef4444] hover:text-[#f87171] underline cursor-pointer disabled:opacity-50">
+                Retry
+              </button>
+            </motion.div>
+          )}
+          {attemptSubmitted && !attemptError && (
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              className="bg-[#10b981]/10 border border-[#10b981]/25 rounded-xl px-5 py-3 text-center text-sm text-[#10b981] mt-4">
+              Result saved successfully
+            </motion.div>
+          )}
           {/* Review Panel: wrong + starred questions */}
           <ReviewPanel
             subjectName="Cyber Security 2"

@@ -11,9 +11,13 @@ export function useQuizTracking(subject: string, quizId: string, questionType: s
   const [startTime, setStartTime] = useState(0)
   const [attemptSubmitting, setAttemptSubmitting] = useState(false)
   const [attemptSubmitted, setAttemptSubmitted] = useState(false)
+  const [attemptError, setAttemptError] = useState<string | null>(null)
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
   const startTimeRef = useRef<number>(0)
   const elapsedRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  // Store last submission data for retry
+  const lastSubmissionRef = useRef<{ correctCount: number; wrongCount: number; totalQuestions: number } | null>(null)
 
   // Show popup on mount after hydration
   useEffect(() => {
@@ -87,7 +91,11 @@ export function useQuizTracking(subject: string, quizId: string, questionType: s
     // Stop elapsed timer
     if (elapsedRef.current) clearInterval(elapsedRef.current)
 
+    // Store for retry
+    lastSubmissionRef.current = { correctCount, wrongCount, totalQuestions }
+
     setAttemptSubmitting(true)
+    setAttemptError(null)
     try {
       const timeTaken = startTimeRef.current > 0
         ? Math.round((Date.now() - startTimeRef.current) / 1000)
@@ -116,13 +124,26 @@ export function useQuizTracking(subject: string, quizId: string, questionType: s
 
       if (res.ok) {
         setAttemptSubmitted(true)
+      } else {
+        const errorData = await res.json().catch(() => ({}))
+        setAttemptError(errorData.error || `Server error (${res.status})`)
       }
     } catch (error) {
       console.error('Failed to submit quiz attempt:', error)
+      setAttemptError('Network error — please check your connection')
     } finally {
       setAttemptSubmitting(false)
     }
   }, [attemptSubmitting, attemptSubmitted, userId, userName, subject, quizId])
+
+  // Retry submitting the last attempt
+  const retrySubmit = useCallback(async () => {
+    if (!lastSubmissionRef.current || attemptSubmitted) return
+    const { correctCount, wrongCount, totalQuestions } = lastSubmissionRef.current
+    // Reset submitted flag to allow retry
+    setAttemptSubmitted(false)
+    await submitQuizAttempt(correctCount, wrongCount, totalQuestions)
+  }, [attemptSubmitted, submitQuizAttempt])
 
   return {
     quizStarted,
@@ -134,9 +155,11 @@ export function useQuizTracking(subject: string, quizId: string, questionType: s
     elapsedSeconds,
     attemptSubmitting,
     attemptSubmitted,
+    attemptError,
     handleStartQuiz,
     handleSkipPopup,
     submitQuizAttempt,
+    retrySubmit,
     setShowStartPopup,
   }
 }
