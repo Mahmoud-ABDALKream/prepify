@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, startTransition, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 // ─── Types ───────────────────────────────────────────
 interface ReviewData {
@@ -67,22 +67,20 @@ export function useReviewStorage(subjectKey: string, validQuestionIds?: Set<numb
           wrong: Array.from(wrongIds),
         }))
       } catch { /* ignore quota errors */ }
-    }, 100) // 100ms debounce — fast enough to feel instant, avoids thrashing
+    }, 50) // 50ms debounce — fast enough to feel instant, avoids thrashing
 
     return () => {
       if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
     }
   }, [starredIds, wrongIds, hydrated, REVIEW_KEY])
 
-  // ─── Toggle star on/off (non-blocking via startTransition) ───
+  // ─── Toggle star on/off ───
   const toggleStar = useCallback((qId: number) => {
-    startTransition(() => {
-      setStarredIds(prev => {
-        const next = new Set(prev)
-        if (next.has(qId)) next.delete(qId)
-        else next.add(qId)
-        return next
-      })
+    setStarredIds(prev => {
+      const next = new Set(prev)
+      if (next.has(qId)) next.delete(qId)
+      else next.add(qId)
+      return next
     })
   }, [])
 
