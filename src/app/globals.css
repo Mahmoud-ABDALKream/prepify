@@ -320,4 +320,17 @@ html {
   scrollbar-color: #334155 #0f172a;
 }
 
+/* ========== Star Button Animation ========== */
+@keyframes star-pop {
+  0%   { transform: scale(0.3) rotate(0deg); }
+  30%  { transform: scale(1.3) rotate(-18deg); }
+  50%  { transform: scale(0.95) rotate(14deg); }
+  70%  { transform: scale(1.15) rotate(-8deg); }
+  85%  { transform: scale(0.98) rotate(4deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
 
+.star-icon-anim {
+  display: inline-block;
+  animation: star-pop 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}

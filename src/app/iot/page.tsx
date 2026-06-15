@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import QuizStartPopup from '@/components/QuizStartPopup'
 import QuizTimer from '@/components/QuizTimer'
@@ -45,10 +45,11 @@ export default function Home() {
   const [hydrated, setHydrated] = useState(false)
 
   // ─── Review storage (starred + wrong questions) ───
+  const validQuestionIds = useMemo(() => new Set(sections.flatMap(s => s.questions.map(q => q.id))), [sections])
   const {
     starredIds, wrongIds, toggleStar, isStarred,
     saveWrongQuestions, removeWrong, removeStarred, clearAllReview,
-  } = useReviewStorage('iot', new Set(sections.flatMap(s => s.questions.map(q => q.id))))
+  } = useReviewStorage('iot', validQuestionIds)
 
   const topRef = useRef<HTMLDivElement>(null)
   const sectionNavRef = useRef<HTMLDivElement>(null)
@@ -829,7 +830,9 @@ function QuestionCard({
             }}
             title={isStarred ? 'Remove from review' : 'Star for review'}
           >
-            {isStarred ? '★' : '☆'}
+            <span key={isStarred ? 'on' : 'off'} className={isStarred ? 'star-icon-anim' : ''}>
+              {isStarred ? '★' : '☆'}
+            </span>
           </button>
           <div className="text-[11px] text-[#64748b] bg-[#1a2235] px-2.5 py-1 rounded-lg whitespace-nowrap border border-[#1e2d45]">
             {question.marks}

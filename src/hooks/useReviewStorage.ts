@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 
 // ─── Types ───────────────────────────────────────────
 interface ReviewData {
@@ -21,8 +21,15 @@ export function useReviewStorage(subjectKey: string, validQuestionIds?: Set<numb
   const [wrongIds, setWrongIds] = useState<Set<number>>(new Set())
   const [hydrated, setHydrated] = useState(false)
 
-  // Ref for debounced localStorage writes — avoids writing on every keystroke/click
-  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  // Keep a STABLE reference to validQuestionIds so the load effect doesn't re-run
+  const validIdsRef = useRef(validQuestionIds)
+  // Only update the ref if the actual CONTENT of the set changes
+  if (validQuestionIds) {
+    const prev = validIdsRef.current
+    if (!prev || prev.size !== validQuestionIds.size) {
+      validIdsRef.current = validQuestionIds
+    }
+  }
 
   // ─── Load from localStorage on mount ───
   useEffect(() => {
@@ -30,13 +37,12 @@ export function useReviewStorage(subjectKey: string, validQuestionIds?: Set<numb
       const saved = localStorage.getItem(REVIEW_KEY)
       if (saved) {
         const data: ReviewData = JSON.parse(saved)
-        // Clean up invalid question IDs that no longer exist after renumbering
-        if (validQuestionIds) {
-          const starred = (data.starred || []).filter(id => validQuestionIds.has(id))
-          const wrong = (data.wrong || []).filter(id => validQuestionIds.has(id))
+        const validIds = validIdsRef.current
+        if (validIds) {
+          const starred = (data.starred || []).filter(id => validIds.has(id))
+          const wrong = (data.wrong || []).filter(id => validIds.has(id))
           setStarredIds(new Set(starred))
           setWrongIds(new Set(wrong))
-          // Auto-save cleaned data if anything was removed
           if (starred.length !== (data.starred || []).length || wrong.length !== (data.wrong || []).length) {
             try {
               localStorage.setItem(REVIEW_KEY, JSON.stringify({ starred, wrong }))
@@ -49,29 +55,19 @@ export function useReviewStorage(subjectKey: string, validQuestionIds?: Set<numb
       }
     } catch { /* ignore */ }
     setHydrated(true)
-  }, [REVIEW_KEY, validQuestionIds])
+  // Only run on mount — subjectKey is constant per page, validIds is via ref
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [REVIEW_KEY])
 
-  // ─── Save to localStorage (debounced) ───
-  // Instead of writing on every state change, we debounce to batch rapid toggles
+  // ─── Save to localStorage on state change ───
   useEffect(() => {
     if (!hydrated) return
-
-    // Clear any pending save
-    if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
-
-    // Schedule a debounced save
-    saveTimerRef.current = setTimeout(() => {
-      try {
-        localStorage.setItem(REVIEW_KEY, JSON.stringify({
-          starred: Array.from(starredIds),
-          wrong: Array.from(wrongIds),
-        }))
-      } catch { /* ignore quota errors */ }
-    }, 50) // 50ms debounce — fast enough to feel instant, avoids thrashing
-
-    return () => {
-      if (saveTimerRef.current) clearTimeout(saveTimerRef.current)
-    }
+    try {
+      localStorage.setItem(REVIEW_KEY, JSON.stringify({
+        starred: Array.from(starredIds),
+        wrong: Array.from(wrongIds),
+      }))
+    } catch { /* ignore quota errors */ }
   }, [starredIds, wrongIds, hydrated, REVIEW_KEY])
 
   // ─── Toggle star on/off ───

@@ -20,7 +20,7 @@ const subjectConfig = [
     examPath: '/c-programming',
   },
   {
-    key: 'cs',
+    key: 'cs2',
     name: 'Cyber Security',
     icon: 'CS',
     color: '#ef4444',
