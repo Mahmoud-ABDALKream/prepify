@@ -33,13 +33,13 @@ export const te2Sections: Section[] = [
       { id: 23, text: 'A measure of how easy or hard a program is to use.', marks: '2 marks', type: 'definition', answer: 'Usability' },
       { id: 24, text: 'A privately developed and owned technology.', marks: '2 marks', type: 'definition', answer: 'Proprietary' },
       { id: 25, text: 'A person who writes or modifies software.', marks: '2 marks', type: 'definition', answer: 'Programmer' },
-      { id: 98, text: 'A program that searches for and removes viruses from a computer.', marks: '2 marks', type: 'definition', answer: 'Antivirus' },
-      { id: 99, text: 'A copy of data stored on a separate device in case the original is lost or damaged.', marks: '2 marks', type: 'definition', answer: 'Backup' },
-      { id: 100, text: 'A collection of web pages accessed through the Internet.', marks: '2 marks', type: 'definition', answer: 'Website' },
-      { id: 101, text: 'A secret word or phrase used to gain access to a system or account.', marks: '2 marks', type: 'definition', answer: 'Password' },
-      { id: 102, text: 'The process of starting up a computer and loading the operating system.', marks: '2 marks', type: 'definition', answer: 'Booting' },
-      { id: 103, text: 'A program that allows the user to view and navigate web pages.', marks: '2 marks', type: 'definition', answer: 'Browser' },
-      { id: 104, text: 'A malicious program that replicates itself and spreads to other computers.', marks: '2 marks', type: 'definition', answer: 'Virus' },
+      { id: 26, text: 'A program that searches for and removes viruses from a computer.', marks: '2 marks', type: 'definition', answer: 'Antivirus' },
+      { id: 27, text: 'A copy of data stored on a separate device in case the original is lost or damaged.', marks: '2 marks', type: 'definition', answer: 'Backup' },
+      { id: 28, text: 'A collection of web pages accessed through the Internet.', marks: '2 marks', type: 'definition', answer: 'Website' },
+      { id: 29, text: 'A secret word or phrase used to gain access to a system or account.', marks: '2 marks', type: 'definition', answer: 'Password' },
+      { id: 30, text: 'The process of starting up a computer and loading the operating system.', marks: '2 marks', type: 'definition', answer: 'Booting' },
+      { id: 31, text: 'A program that allows the user to view and navigate web pages.', marks: '2 marks', type: 'definition', answer: 'Browser' },
+      { id: 32, text: 'A malicious program that replicates itself and spreads to other computers.', marks: '2 marks', type: 'definition', answer: 'Virus' },
     ] as Question[],
   },
 
@@ -51,7 +51,7 @@ export const te2Sections: Section[] = [
     icon: 'MCQ',
     questions: [
       {
-        id: 26,
+        id: 33,
         text: 'Data moves …………… the CPU and the RAM.',
         marks: '1 mark',
         type: 'mcq',
@@ -64,7 +64,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 27,
+        id: 34,
         text: 'The …………… controls all the operations in the computer.',
         marks: '1 mark',
         type: 'mcq',
@@ -77,7 +77,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 28,
+        id: 35,
         text: 'The …………… display the output from a computer on a screen.',
         marks: '1 mark',
         type: 'mcq',
@@ -90,7 +90,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 29,
+        id: 36,
         text: 'The camera is …………… watch the front door of the house.',
         marks: '1 mark',
         type: 'mcq',
@@ -103,7 +103,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 30,
+        id: 37,
         text: 'The …………… of the computer is to process data in order to perform different tasks.',
         marks: '1 mark',
         type: 'mcq',
@@ -116,7 +116,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 31,
+        id: 38,
         text: 'This part provides fast access for sections of a program. It is called ……………',
         marks: '1 mark',
         type: 'mcq',
@@ -129,7 +129,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 32,
+        id: 39,
         text: 'It is a large, powerful, multiuser, multitasking computer. It is called ……………',
         marks: '1 mark',
         type: 'mcq',
@@ -142,7 +142,7 @@ export const te2Sections: Section[] = [
         answer: 'a',
       },
       {
-        id: 33,
+        id: 40,
         text: 'It holds the program instructions and the data being used. It is ……………',
         marks: '1 mark',
         type: 'mcq',
@@ -155,7 +155,7 @@ export const te2Sections: Section[] = [
         answer: 'a',
       },
       {
-        id: 34,
+        id: 41,
         text: '…………… holds instructions which are needed to start up the computer.',
         marks: '1 mark',
         type: 'mcq',
@@ -168,7 +168,7 @@ export const te2Sections: Section[] = [
         answer: 'a',
       },
       {
-        id: 35,
+        id: 42,
         text: 'The …………… is a small plastic object that is used to make payment.',
         marks: '1 mark',
         type: 'mcq',
@@ -181,7 +181,7 @@ export const te2Sections: Section[] = [
         answer: 'd',
       },
       {
-        id: 36,
+        id: 43,
         text: 'The …………… is software that enables computers to think like professionals.',
         marks: '1 mark',
         type: 'mcq',
@@ -194,7 +194,7 @@ export const te2Sections: Section[] = [
         answer: 'a',
       },
       {
-        id: 37,
+        id: 44,
         text: 'Using computers to stay in touch with the office while working at home is ……………',
         marks: '1 mark',
         type: 'mcq',
@@ -207,7 +207,7 @@ export const te2Sections: Section[] = [
         answer: 'a',
       },
       {
-        id: 38,
+        id: 45,
         text: 'The …………… is a combination of text with sound and animation.',
         marks: '1 mark',
         type: 'mcq',
@@ -220,7 +220,7 @@ export const te2Sections: Section[] = [
         answer: 'a',
       },
       {
-        id: 39,
+        id: 46,
         text: 'The …………… is multimedia materials with a mixture of learning and enjoyment content.',
         marks: '1 mark',
         type: 'mcq',
@@ -233,7 +233,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 40,
+        id: 47,
         text: 'The …………… is internet system designed to provide free, interactive access to vast resources.',
         marks: '1 mark',
         type: 'mcq',
@@ -246,7 +246,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 41,
+        id: 48,
         text: 'The …………… is the most important component that manages data and controls computers.',
         marks: '1 mark',
         type: 'mcq',
@@ -259,7 +259,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 42,
+        id: 49,
         text: 'ROM is …………… hold instructions needed to start up the computer.',
         marks: '1 mark',
         type: 'mcq',
@@ -272,7 +272,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 43,
+        id: 50,
         text: 'Data is transferred …………… the data bus.',
         marks: '1 mark',
         type: 'mcq',
@@ -285,7 +285,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 44,
+        id: 51,
         text: 'The …………… of AI helps students accelerate the learning process.',
         marks: '1 mark',
         type: 'mcq',
@@ -298,7 +298,7 @@ export const te2Sections: Section[] = [
         answer: 'd',
       },
       {
-        id: 45,
+        id: 52,
         text: 'The …………… is large amount of information stored in a computer.',
         marks: '1 mark',
         type: 'mcq',
@@ -321,7 +321,7 @@ export const te2Sections: Section[] = [
     icon: 'MCQ',
     questions: [
       {
-        id: 46,
+        id: 53,
         text: '…………… is a special computer that directs communicating messages when several networks are connected together.',
         marks: '1 mark',
         type: 'mcq',
@@ -334,7 +334,7 @@ export const te2Sections: Section[] = [
         answer: 'a',
       },
       {
-        id: 47,
+        id: 54,
         text: '…………… is software in which the license stipulates that the user cannot see or edit.',
         marks: '1 mark',
         type: 'mcq',
@@ -347,7 +347,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 48,
+        id: 55,
         text: '…………… is a computer failure which aborts an application or freezes an operating system.',
         marks: '1 mark',
         type: 'mcq',
@@ -360,7 +360,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 49,
+        id: 56,
         text: 'A ………… routine that allows it to copy itself to other programs.',
         marks: '1 mark',
         type: 'mcq',
@@ -373,7 +373,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 50,
+        id: 57,
         text: 'A ………… is a system of interactive visual components for computer software.',
         marks: '1 mark',
         type: 'mcq',
@@ -386,7 +386,7 @@ export const te2Sections: Section[] = [
         answer: 'd',
       },
       {
-        id: 51,
+        id: 58,
         text: '………… is a row of buttons that controls software functions.',
         marks: '1 mark',
         type: 'mcq',
@@ -399,7 +399,7 @@ export const te2Sections: Section[] = [
         answer: 'd',
       },
       {
-        id: 52,
+        id: 59,
         text: 'The Shift key ………… you to type in upper case.',
         marks: '1 mark',
         type: 'mcq',
@@ -412,7 +412,7 @@ export const te2Sections: Section[] = [
         answer: 'd',
       },
       {
-        id: 53,
+        id: 60,
         text: 'AI is a sort of technology that is ………… helping people in their life.',
         marks: '1 mark',
         type: 'mcq',
@@ -425,7 +425,7 @@ export const te2Sections: Section[] = [
         answer: 'd',
       },
       {
-        id: 54,
+        id: 61,
         text: '………… apply engineering principles and knowledge of programming language.',
         marks: '1 mark',
         type: 'mcq',
@@ -438,7 +438,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 55,
+        id: 62,
         text: '………… is a type of programming language used for military purposes.',
         marks: '1 mark',
         type: 'mcq',
@@ -451,7 +451,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 56,
+        id: 63,
         text: '………… is a kind of programming language used for writing business programs.',
         marks: '1 mark',
         type: 'mcq',
@@ -464,7 +464,7 @@ export const te2Sections: Section[] = [
         answer: 'a',
       },
       {
-        id: 57,
+        id: 64,
         text: '………… is someone who attempts to gain unauthorized access to a computer.',
         marks: '1 mark',
         type: 'mcq',
@@ -477,7 +477,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 58,
+        id: 65,
         text: '………… is to remove the information which is stored on the computer.',
         marks: '1 mark',
         type: 'mcq',
@@ -490,7 +490,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 59,
+        id: 66,
         text: '………… is to register for the first time, create an account.',
         marks: '1 mark',
         type: 'mcq',
@@ -503,7 +503,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 60,
+        id: 67,
         text: '………… the branch of computer science that deals with the design of apps.',
         marks: '1 mark',
         type: 'mcq',
@@ -516,7 +516,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 61,
+        id: 68,
         text: '………… is to make a copy of the information stored on the computer.',
         marks: '1 mark',
         type: 'mcq',
@@ -529,7 +529,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 62,
+        id: 69,
         text: '………… is to do all the necessary actions to make equipment ready for use.',
         marks: '1 mark',
         type: 'mcq',
@@ -542,7 +542,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 63,
+        id: 70,
         text: 'A ………… routine that enables it to hide the presence of the code.',
         marks: '1 mark',
         type: 'mcq',
@@ -555,7 +555,7 @@ export const te2Sections: Section[] = [
         answer: 'c',
       },
       {
-        id: 64,
+        id: 71,
         text: '………… is a person who designs or modifies information to meet users\' requirements.',
         marks: '1 mark',
         type: 'mcq',
@@ -568,7 +568,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 65,
+        id: 72,
         text: '………… is a type of programming language for solving engineering problems.',
         marks: '1 mark',
         type: 'mcq',
@@ -581,7 +581,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 66,
+        id: 73,
         text: '………… is a kind of programming language used for working in artificial intelligence.',
         marks: '1 mark',
         type: 'mcq',
@@ -594,7 +594,7 @@ export const te2Sections: Section[] = [
         answer: 'b',
       },
       {
-        id: 67,
+        id: 74,
         text: '………… is a rectangular section of the computer\'s display that shows the program.',
         marks: '1 mark',
         type: 'mcq',
@@ -607,7 +607,7 @@ export const te2Sections: Section[] = [
         answer: 'd',
       },
       {
-        id: 68,
+        id: 75,
         text: 'A …………… is a system of interactive visual components for computer software.',
         marks: '1 mark',
         type: 'mcq',
@@ -620,7 +620,7 @@ export const te2Sections: Section[] = [
         answer: 'd',
       },
       {
-        id: 69,
+        id: 76,
         text: 'Windows …………… you to display two different folders at the same time.',
         marks: '1 mark',
         type: 'mcq',
@@ -633,7 +633,7 @@ export const te2Sections: Section[] = [
         answer: 'd',
       },
       {
-        id: 70,
+        id: 77,
         text: 'Smart technology is …………… help university students in their study.',
         marks: '1 mark',
         type: 'mcq',
@@ -656,7 +656,7 @@ export const te2Sections: Section[] = [
     icon: 'ORD',
     questions: [
       {
-        id: 71,
+        id: 78,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -664,7 +664,7 @@ export const te2Sections: Section[] = [
         answer: 'The user can close down the operating system by choosing shutdown.',
       },
       {
-        id: 72,
+        id: 79,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -672,7 +672,7 @@ export const te2Sections: Section[] = [
         answer: 'A GUI displays objects that represent actions the user can take.',
       },
       {
-        id: 73,
+        id: 80,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -680,7 +680,7 @@ export const te2Sections: Section[] = [
         answer: 'MouseKeys enables you to use the numeric keypad to move the pointer.',
       },
       {
-        id: 74,
+        id: 81,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -688,7 +688,7 @@ export const te2Sections: Section[] = [
         answer: 'A GUI allows a user to use the computer without knowing any operating system commands.',
       },
       {
-        id: 75,
+        id: 82,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -696,7 +696,7 @@ export const te2Sections: Section[] = [
         answer: 'New computing developments enable users to perform complex tasks faster.',
       },
       {
-        id: 76,
+        id: 83,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -704,7 +704,7 @@ export const te2Sections: Section[] = [
         answer: 'Objects change color, size, or visibility when the user interacts with them.',
       },
       {
-        id: 77,
+        id: 84,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -712,7 +712,7 @@ export const te2Sections: Section[] = [
         answer: 'A dialog box is a window used to request information from the user.',
       },
       {
-        id: 78,
+        id: 85,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -720,7 +720,7 @@ export const te2Sections: Section[] = [
         answer: 'Small icons on the desktop screen represent programs.',
       },
       {
-        id: 79,
+        id: 86,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -728,7 +728,7 @@ export const te2Sections: Section[] = [
         answer: 'Data processing is the core function of any computer system.',
       },
       {
-        id: 80,
+        id: 87,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -736,7 +736,7 @@ export const te2Sections: Section[] = [
         answer: 'GUI allows users to avoid knowing complex commands.',
       },
       {
-        id: 105,
+        id: 88,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -744,7 +744,7 @@ export const te2Sections: Section[] = [
         answer: 'The operating system manages all the hardware and software resources.',
       },
       {
-        id: 106,
+        id: 89,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -752,7 +752,7 @@ export const te2Sections: Section[] = [
         answer: 'Hackers can access personal data through security vulnerabilities.',
       },
       {
-        id: 107,
+        id: 90,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -760,7 +760,7 @@ export const te2Sections: Section[] = [
         answer: 'Wireless networks allow users to connect to the Internet without cables.',
       },
       {
-        id: 108,
+        id: 91,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -768,7 +768,7 @@ export const te2Sections: Section[] = [
         answer: 'Search engines help users find information on the World Wide Web.',
       },
       {
-        id: 109,
+        id: 92,
         text: 'Arrange the words to form a correct sentence.',
         marks: '3 marks',
         type: 'arrange',
@@ -786,7 +786,7 @@ export const te2Sections: Section[] = [
     icon: 'TR',
     questions: [
       {
-        id: 90,
+        id: 93,
         text: 'Secure transactions across the internet have three goals. First, the two parties engaging in a transaction (say, an email or a business purchase) don\'t want a third party to be able to read their transmission. Some data encryption is necessary to prevent this. Second, the receiver of the message should be able to detect whether someone has tampered it in transit. This calls for a message-integrity scheme. Finally, both parties must know they\'re communicating with each other, not an imposter. This is done with user authentication.',
         marks: '5 marks',
         type: 'translation',
@@ -794,7 +794,7 @@ export const te2Sections: Section[] = [
         answer: 'المعاملات الآمنة عبر الإنترنت لها ثلاثة أهداف. أولاً، الطرفان المشاركان في المعاملة (مثلاً، بريد إلكتروني أو عملية شراء تجارية) لا يريدان أن يتمكن طرف ثالث من قراءة传输هم. بعض تشفير البيانات ضروري لمنع ذلك. ثانياً، يجب أن يكون مستقبل الرسالة قادراً على اكتشاف ما إذا كان شخص ما قد عبث بها أثناء النقل. هذا يتطلب نظام سلامة الرسائل. أخيراً، يجب أن يعرف كلا الطرفين أنهما يتواصلان مع بعضهما البعض، وليس مع محتال. يتم ذلك من خلال مصادقة المستخدم.',
       },
       {
-        id: 91,
+        id: 94,
         text: 'الحواسيب الحديثة أي قضية مزدوجة الحواسيب لها عدة مزايا وفوائد. الذكاء الاصطناعي يمكن تحليل كميات هائلة من البيانات التي يمكن أن تؤدي إلى الابتكار والتطوير. الحكومات والمنظمات اليوم تستخدم طرق التشفير تعتمد على تقنية تسمى التشفير بالمفتاح العام. يستخدم في أنظمة التشفير الحديثة لكل مستخدم في النظام مفتاح عام ومفتاح خاص. الرسائل يتم تشفيرها وفك تشفيرها باستخدام هذه المفاتيح.',
         marks: '5 marks',
         type: 'translation',
@@ -802,7 +802,7 @@ export const te2Sections: Section[] = [
         answer: 'Modern computers have several advantages and benefits. AI can analyze huge amounts of data that can lead to innovation and development. Governments and organizations today use encryption methods based on a technique called public key encryption. In modern encryption systems, each user has a public key and a private key. Messages are encrypted and decrypted using these keys.',
       },
       {
-        id: 92,
+        id: 95,
         text: 'لا أحد يمكن أن يفعل بدون التكنولوجيا الحديثة في جميع مجالات الحياة. التعلم الذاتي من خلال التكنولوجيا هو المفتاح للنجاح في عالم اليوم. من خلال التعلم الذاتي يمكن للفرد الاستفادة من الموارد المتاحة. وسائل التواصل الاجتماعي غيّرت أيضاً الطريقة التي يتواصل بها الناس ويتشاركون المعلومات.',
         marks: '5 marks',
         type: 'translation',
@@ -810,7 +810,7 @@ export const te2Sections: Section[] = [
         answer: 'No one can do without modern technology in all areas of life. Self-learning through technology is the key to success in today\'s world. Through self-learning, an individual can benefit from available resources. Social media has also changed the way people communicate and share information.',
       },
       {
-        id: 93,
+        id: 96,
         text: 'السحابة الحاسوبية هي تقنية حديثة تسمح للمستخدمين بتخزين البيانات والوصول إليها عبر الإنترنت بدلاً من استخدام أجهزة الكمبيوتر المحلية أو الخوادم الخاصة. الشركات تستخدم السحابة الحاسوبية لأنها مرنة، فعالة من حيث التكلفة، وسهلة الإدارة.',
         marks: '5 marks',
         type: 'translation',
@@ -818,7 +818,7 @@ export const te2Sections: Section[] = [
         answer: 'Cloud computing is a modern technology that allows users to store and access data via the Internet instead of using local computers or private servers. Companies use cloud computing because it is flexible, cost-effective, and easy to manage.',
       },
       {
-        id: 94,
+        id: 97,
         text: 'Information Technology (IT) is one of the most important fields in the modern world. It involves the use of computers, software, and networks to store, process, and share information. Many organizations depend on IT systems to manage their data and communicate effectively.',
         marks: '5 marks',
         type: 'translation',
@@ -826,7 +826,7 @@ export const te2Sections: Section[] = [
         answer: 'تكنولوجيا المعلومات (IT) هي واحدة من أهم المجالات في العالم الحديث. تتضمن استخدام الحواسيب والبرمجيات والشبكات لتخزين ومعالجة ومشاركة المعلومات. تعتمد العديد من المنظمات على أنظمة تكنولوجيا المعلومات لإدارة بياناتها والتواصل بفعالية.',
       },
       {
-        id: 95,
+        id: 98,
         text: 'الذكاء الاصطناعي لم يعد مفهوماً خيالياً؛ إنه بالفعل متكامل في روتيناتنا اليومية. المساعدون الافتراضيون مثل Siri وAlexa يستخدمون معالجة اللغة الطبيعية لفهم والرد على أوامر البشر. ومع ذلك، يجب علينا معالجة المخاوف الأخلاقية المتعلقة بخصوصية البيانات.',
         marks: '5 marks',
         type: 'translation',
@@ -834,7 +834,7 @@ export const te2Sections: Section[] = [
         answer: 'Artificial intelligence is no longer a fictional concept; it is already integrated into our daily routines. Virtual assistants like Siri and Alexa use natural language processing to understand and respond to human commands. However, we must address ethical concerns regarding data privacy.',
       },
       {
-        id: 96,
+        id: 99,
         text: 'الأمن السيبراني ضروري لحماية هوياتنا الرقمية من الوصول غير المصرح به. أحد أكثر الطرق فعالية لزيادة الأمان هو استخدام المصادقة متعددة العوامل (MFA). هذه العملية تضيف طبقة حماية إضافية من خلال مطالبة المستخدمين بفعل أكثر من مجرد كلمة مرور.',
         marks: '5 marks',
         type: 'translation',
@@ -842,7 +842,7 @@ export const te2Sections: Section[] = [
         answer: 'Cybersecurity is essential to protect our digital identities from unauthorized access. One of the most effective ways to increase security is using Multi-Factor Authentication (MFA). This process adds an extra layer of protection by requiring users to do more than just a password.',
       },
       {
-        id: 97,
+        id: 100,
         text: 'تطوير البرمجيات هو عملية منظمة تستخدم لإنشاء برامج الكمبيوتر. يتضمن عدة مراحل، بما في ذلك التخطيط، البرمجة، الاختبار، والصيانة. يجب على المطورين اختيار لغة البرمجة المناسبة مثل Python أو Java بناءً على متطلبات المشروع.',
         marks: '5 marks',
         type: 'translation',
