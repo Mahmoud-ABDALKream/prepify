@@ -1069,8 +1069,19 @@ function QuestionCard({
               ) : (
                 state.arrangedWords.map((wordIdx, pos) => {
                   const word = question.arrangeWords![wordIdx]
-                  const isCorrectPosition = state.isChecked
-                    ? question.answer.split(' ')[pos] === word
+                  // When checked, color all words green if the whole sentence is correct,
+                  // red otherwise. We compare the entire user arrangement against the answer
+                  // (normalized — ignoring punctuation/case) because arrangeWords items are
+                  // phrases (multi-word), not single tokens, so per-position comparison
+                  // against `question.answer.split(' ')` would never match.
+                  const userSentence = state.arrangedWords.map(idx => question.arrangeWords?.[idx]).join(' ')
+                  const normalize = (s: string) => s
+                    .toLowerCase()
+                    .replace(/[.,!?;:'"()[\]{}\-]/g, '')
+                    .replace(/\s+/g, ' ')
+                    .trim()
+                  const isCorrect = state.isChecked
+                    ? normalize(userSentence) === normalize(question.answer || '')
                     : null
                   return (
                     <button
@@ -1078,9 +1089,9 @@ function QuestionCard({
                       onClick={() => removeWord(pos)}
                       disabled={state.isChecked}
                       className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all duration-200 cursor-pointer ${
-                        state.isChecked && isCorrectPosition
-                          ? 'bg-[rgba(16,185,129,0.15)] border-[#10b981] text-[#10b981]'
-                          : state.isChecked && !isCorrectPosition
+                        state.isChecked && isCorrect
+                          ? 'bg-[rgba(16,185,129,0.15)] border-[#10b981] text-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.15)]'
+                          : state.isChecked && !isCorrect
                           ? 'bg-[rgba(239,68,68,0.15)] border-[#ef4444] text-[#ef4444]'
                           : 'bg-[rgba(16,185,129,0.1)] border-[#10b981]/40 text-[#34d399] hover:border-[#10b981] hover:bg-[rgba(16,185,129,0.2)]'
                       }`}
