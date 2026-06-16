@@ -336,10 +336,10 @@ export default function Home() {
       {/* Animated background */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
         }} />
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, #10b981, transparent 70%)' }} />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, #3b82f6, transparent 70%)' }} />
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, #f59e0b, transparent 70%)' }} />
       </div>
 
@@ -359,7 +359,7 @@ export default function Home() {
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: '-10px',
-                  background: ['#10b981', '#f59e0b', '#059669', '#d97706', '#ef4444', '#ec4899'][i % 6],
+                  background: ['#3b82f6', '#f59e0b', '#2563eb', '#d97706', '#ef4444', '#ec4899'][i % 6],
                 }}
                 animate={{
                   y: [0, window.innerHeight + 100],
@@ -376,7 +376,7 @@ export default function Home() {
       <div className="relative z-1 max-w-[920px] mx-auto px-4 pb-10" ref={topRef}>
         {/* Back to Home */}
         <div className="pt-4">
-          <a href="/" className="inline-flex items-center gap-2 text-[#64748b] hover:text-[#10b981] text-sm transition-colors">
+          <a href="/" className="inline-flex items-center gap-2 text-[#64748b] hover:text-[#3b82f6] text-sm transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
             Back to Home
           </a>
@@ -390,10 +390,10 @@ export default function Home() {
           transition={{ duration: 0.6 }}
         >
           <div className="flex justify-center mb-4">
-            <img src="/logo.png" alt="Prepify Logo" className="w-24 h-24 md:w-28 md:h-28 rounded-2xl shadow-[0_0_30px_rgba(16,185,129,0.3)]" />
+            <img src="/logo.png" alt="Prepify Logo" className="w-24 h-24 md:w-28 md:h-28 rounded-2xl shadow-[0_0_30px_rgba(59,130,246,0.3)]" />
           </div>
           <h1 className="text-3xl md:text-5xl font-black leading-tight mb-2">
-            <span className="bg-gradient-to-r from-[#10b981] to-[#059669] bg-clip-text text-transparent">Technical English 2</span>
+            <span className="bg-gradient-to-r from-[#3b82f6] to-[#2563eb] bg-clip-text text-transparent">Technical English 2</span>
             <br />
             <span className="text-[#f59e0b]">Interactive Review</span>
           </h1>
@@ -402,7 +402,7 @@ export default function Home() {
           </p>
           <div className="flex justify-center gap-6 flex-wrap mt-4">
             <div className="text-center bg-[#111827] border border-[#1e2d45] rounded-2xl px-6 py-3 min-w-[90px]">
-              <div className="text-2xl font-black text-[#10b981]">{totalQuestions}</div>
+              <div className="text-2xl font-black text-[#3b82f6]">{totalQuestions}</div>
               <div className="text-[11px] text-[#64748b]">Questions</div>
             </div>
             <div className="text-center bg-[#111827] border border-[#1e2d45] rounded-2xl px-6 py-3 min-w-[90px]">
@@ -410,7 +410,7 @@ export default function Home() {
               <div className="text-[11px] text-[#64748b]">Marks</div>
             </div>
             <div className="text-center bg-[#111827] border border-[#1e2d45] rounded-2xl px-6 py-3 min-w-[90px]">
-              <div className="text-2xl font-black text-[#10b981]">{sections.length}</div>
+              <div className="text-2xl font-black text-[#3b82f6]">{sections.length}</div>
               <div className="text-[11px] text-[#64748b]">Sections</div>
             </div>
             <div className="text-center bg-[#111827] border border-[#1e2d45] rounded-2xl px-6 py-3 min-w-[90px]">
@@ -426,11 +426,11 @@ export default function Home() {
             <div className="flex-1 w-full">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-[11px] text-[#64748b]">Progress</span>
-                <span className="text-[11px] text-[#10b981] font-bold">{Math.round((answeredCount / totalQuestions) * 100)}%</span>
+                <span className="text-[11px] text-[#3b82f6] font-bold">{Math.round((answeredCount / totalQuestions) * 100)}%</span>
               </div>
               <div className="h-2 bg-[#1e2d45] rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-[#10b981] to-[#f59e0b] rounded-full"
+                  className="h-full bg-gradient-to-r from-[#3b82f6] to-[#f59e0b] rounded-full"
                   animate={{ width: `${(answeredCount / totalQuestions) * 100}%` }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
                 />
@@ -442,7 +442,7 @@ export default function Home() {
             <div className="flex gap-2 flex-wrap justify-center">
               <button
                 onClick={revealAllSolutions}
-                className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white border-none rounded-lg px-4 py-1.5 font-bold text-xs cursor-pointer hover:opacity-90 transition-opacity shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+                className="bg-gradient-to-r from-[#3b82f6] to-[#2563eb] text-white border-none rounded-lg px-4 py-1.5 font-bold text-xs cursor-pointer hover:opacity-90 transition-opacity shadow-[0_0_15px_rgba(59,130,246,0.2)]"
               >
                 Show All Solutions
               </button>
@@ -489,8 +489,8 @@ export default function Home() {
                   }}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer border ${
                     activeSection === s.id
-                      ? 'bg-gradient-to-r from-[#10b981] to-[#059669] text-white border-transparent shadow-[0_0_10px_rgba(16,185,129,0.3)]'
-                      : 'bg-[#1a2235] text-[#64748b] border-[#1e2d45] hover:border-[#10b981]/50 hover:text-[#10b981]'
+                      ? 'bg-gradient-to-r from-[#3b82f6] to-[#2563eb] text-white border-transparent shadow-[0_0_10px_rgba(59,130,246,0.3)]'
+                      : 'bg-[#1a2235] text-[#64748b] border-[#1e2d45] hover:border-[#3b82f6]/50 hover:text-[#3b82f6]'
                   }`}
                 >
                   <span>{s.icon}</span>
@@ -512,14 +512,14 @@ export default function Home() {
           >
             {/* Section header */}
             <div className="flex items-center gap-4 mt-10 mb-6 pb-4 border-b-2 border-[#1e2d45] relative">
-              <div className="w-[48px] h-[48px] bg-gradient-to-r from-[#10b981] to-[#059669] rounded-[14px] flex items-center justify-center text-sm font-black shrink-0 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+              <div className="w-[48px] h-[48px] bg-gradient-to-r from-[#3b82f6] to-[#2563eb] rounded-[14px] flex items-center justify-center text-sm font-black shrink-0 shadow-[0_0_20px_rgba(59,130,246,0.2)]">
                 {section.icon}
               </div>
               <div className="flex-1">
                 <div className="text-lg font-black">{section.title}</div>
                 <div className="text-xs text-[#64748b]">Section {section.id} of {sections.length}</div>
               </div>
-              <div className="bg-[#1a2235] border border-[#1e2d45] px-4 py-2 rounded-full text-sm font-bold text-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+              <div className="bg-[#1a2235] border border-[#1e2d45] px-4 py-2 rounded-full text-sm font-bold text-[#3b82f6] shadow-[0_0_10px_rgba(59,130,246,0.1)]">
                 {section.marks}
               </div>
             </div>
@@ -559,7 +559,7 @@ export default function Home() {
           >
             <button
               onClick={submitAll}
-              className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white border-none rounded-2xl px-12 py-4 font-black text-xl cursor-pointer transition-all shadow-[0_0_40px_rgba(16,185,129,0.3)] hover:shadow-[0_0_60px_rgba(16,185,129,0.5)] hover:-translate-y-1 active:translate-y-0"
+              className="bg-gradient-to-r from-[#3b82f6] to-[#2563eb] text-white border-none rounded-2xl px-12 py-4 font-black text-xl cursor-pointer transition-all shadow-[0_0_40px_rgba(59,130,246,0.3)] hover:shadow-[0_0_60px_rgba(59,130,246,0.5)] hover:-translate-y-1 active:translate-y-0"
             >
               Show Final Score
             </button>
@@ -578,7 +578,7 @@ export default function Home() {
           {/* Submission status / error notification */}
           {attemptSubmitting && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-[#1e2d45]/50 border border-[#10b981]/25 rounded-xl px-5 py-3 text-center text-sm text-[#94a3b8] mt-4">
+              className="bg-[#1e2d45]/50 border border-[#3b82f6]/25 rounded-xl px-5 py-3 text-center text-sm text-[#94a3b8] mt-4">
               Saving your result...
             </motion.div>
           )}
@@ -594,14 +594,14 @@ export default function Home() {
           )}
           {attemptSubmitted && !attemptError && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-[#10b981]/10 border border-[#10b981]/25 rounded-xl px-5 py-3 text-center text-sm text-[#10b981] mt-4">
+              className="bg-[#3b82f6]/10 border border-[#3b82f6]/25 rounded-xl px-5 py-3 text-center text-sm text-[#3b82f6] mt-4">
               Result saved successfully
             </motion.div>
           )}
           {/* Review Panel: wrong + starred questions */}
           <ReviewPanel
             subjectName="Technical English 2"
-            subjectColor="#10b981"
+            subjectColor="#3b82f6"
             starredQuestions={sections.flatMap(s => s.questions.filter(q => starredIds.has(q.id)).map(q => ({
               id: q.id, text: q.text, type: q.type, marks: q.marks,
               answer: q.answer, sectionTitle: s.title, sectionIcon: s.icon,
@@ -626,12 +626,12 @@ export default function Home() {
           </div>
           <div className="flex justify-center gap-4 mb-4">
             <a href="https://github.com/Mahmoud-ABDALKream" target="_blank" rel="noopener noreferrer"
-               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#111827] border border-[#1e2d45] text-[#e2e8f0] text-sm hover:border-[#10b981] hover:shadow-[0_0_15px_rgba(16,185,129,0.2)] transition-all duration-300">
+               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#111827] border border-[#1e2d45] text-[#e2e8f0] text-sm hover:border-[#3b82f6] hover:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all duration-300">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               GitHub
             </a>
             <a href="https://mahmoud-ahmed-abdelkream.vercel.app/" target="_blank" rel="noopener noreferrer"
-               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#111827] border border-[#1e2d45] text-[#e2e8f0] text-sm hover:border-[#10b981] hover:shadow-[0_0_15px_rgba(16,185,129,0.2)] transition-all duration-300">
+               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#111827] border border-[#1e2d45] text-[#e2e8f0] text-sm hover:border-[#3b82f6] hover:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all duration-300">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0L1.5 20h6l4.5-8.5L16.5 20h6L12 0zm0 7.5L8.25 14.5h7.5L12 7.5z"/></svg>
               Portfolio
             </a>
@@ -642,7 +642,7 @@ export default function Home() {
             </a>
           </div>
           <div className="text-[#64748b] text-sm">
-            Technical English 2 Quiz — <span className="text-[#10b981]">Mahmoud ABD ELKream</span>
+            Technical English 2 Quiz — <span className="text-[#3b82f6]">Mahmoud ABD ELKream</span>
           </div>
         </footer>
       </div>
@@ -670,7 +670,7 @@ function ScorePanel({
 }) {
   const pct = Math.round((correctCount / totalQuestions) * 100)
   const grade = pct >= 90 ? 'A+' : pct >= 80 ? 'A' : pct >= 70 ? 'B' : pct >= 60 ? 'C' : pct >= 50 ? 'D' : 'F'
-  const gradeColor = pct >= 80 ? '#10b981' : pct >= 60 ? '#f59e0b' : '#ef4444'
+  const gradeColor = pct >= 80 ? '#3b82f6' : pct >= 60 ? '#f59e0b' : '#ef4444'
 
   return (
     <motion.div
@@ -696,14 +696,14 @@ function ScorePanel({
           />
           <defs>
             <linearGradient id="scoreGradTe2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#10b981" />
+              <stop offset="0%" stopColor="#3b82f6" />
               <stop offset="100%" stopColor="#f59e0b" />
             </linearGradient>
           </defs>
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <motion.div
-            className="text-4xl font-black bg-gradient-to-r from-[#10b981] to-[#f59e0b] bg-clip-text text-transparent"
+            className="text-4xl font-black bg-gradient-to-r from-[#3b82f6] to-[#f59e0b] bg-clip-text text-transparent"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.5, type: 'spring' }}
@@ -728,7 +728,7 @@ function ScorePanel({
       {/* Stats Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
         <div className="bg-[#1a2235] border border-[#1e2d45] rounded-xl p-4">
-          <div className="text-xl font-black text-[#10b981]">{correctCount}</div>
+          <div className="text-xl font-black text-[#3b82f6]">{correctCount}</div>
           <div className="text-[11px] text-[#64748b]">Correct</div>
         </div>
         <div className="bg-[#1a2235] border border-[#1e2d45] rounded-xl p-4">
@@ -736,7 +736,7 @@ function ScorePanel({
           <div className="text-[11px] text-[#64748b]">Wrong</div>
         </div>
         <div className="bg-[#1a2235] border border-[#1e2d45] rounded-xl p-4">
-          <div className="text-xl font-black text-[#10b981]">{totalQuestions - answeredCount}</div>
+          <div className="text-xl font-black text-[#3b82f6]">{totalQuestions - answeredCount}</div>
           <div className="text-[11px] text-[#64748b]">Unanswered</div>
         </div>
         <div className="bg-[#1a2235] border border-[#1e2d45] rounded-xl p-4">
@@ -754,13 +754,13 @@ function ScorePanel({
       <div className="flex gap-3 justify-center flex-wrap">
         <button
           onClick={onRevealAll}
-          className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white border-none rounded-xl px-6 py-3 font-bold text-sm cursor-pointer hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(16,185,129,0.2)]"
+          className="bg-gradient-to-r from-[#3b82f6] to-[#2563eb] text-white border-none rounded-xl px-6 py-3 font-bold text-sm cursor-pointer hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(59,130,246,0.2)]"
         >
           Show All Solutions
         </button>
         <button
           onClick={onReset}
-          className="bg-transparent text-[#64748b] border-2 border-[#1e2d45] rounded-xl px-6 py-3 font-bold text-sm cursor-pointer hover:border-[#10b981] hover:text-[#10b981] transition-all"
+          className="bg-transparent text-[#64748b] border-2 border-[#1e2d45] rounded-xl px-6 py-3 font-bold text-sm cursor-pointer hover:border-[#3b82f6] hover:text-[#3b82f6] transition-all"
         >
           Try Again
         </button>
@@ -809,17 +809,17 @@ function QuestionCard({
 
   const statusColor = state.isChecked
     ? state.isCorrect === true
-      ? '#10b981'
+      ? '#3b82f6'
       : state.isCorrect === false
       ? '#ef4444'
       : '#f59e0b'
     : state.isSolutionRevealed
-    ? '#10b981'
+    ? '#3b82f6'
     : '#1e2d45'
 
   const statusBg = state.isChecked
     ? state.isCorrect === true
-      ? 'rgba(16,185,129,0.05)'
+      ? 'rgba(59,130,246,0.05)'
       : state.isCorrect === false
       ? 'rgba(239,68,68,0.05)'
       : 'rgba(245,158,11,0.05)'
@@ -882,13 +882,13 @@ function QuestionCard({
 
   const typeBadgeClass = (() => {
     switch (question.type) {
-      case 'mcq': return 'bg-[#10b981]/20 text-[#34d399]'
+      case 'mcq': return 'bg-[#3b82f6]/20 text-[#93c5fd]'
       case 'tf': return 'bg-[#ec4899]/20 text-[#f472b6]'
       case 'definition': return 'bg-[#f59e0b]/20 text-[#fbbf24]'
       case 'arrange': return 'bg-[#8b5cf6]/20 text-[#a78bfa]'
       case 'translation': return 'bg-[#06b6d4]/20 text-[#22d3ee]'
-      case 'fill': return 'bg-[#10b981]/20 text-[#34d399]'
-      default: return 'bg-[#10b981]/20 text-[#34d399]'
+      case 'fill': return 'bg-[#3b82f6]/20 text-[#93c5fd]'
+      default: return 'bg-[#3b82f6]/20 text-[#93c5fd]'
     }
   })()
 
@@ -904,14 +904,14 @@ function QuestionCard({
       <div className="flex items-start gap-3.5 p-5 pb-3" style={{ background: statusBg }}>
         <div className={`w-[38px] h-[38px] rounded-xl flex items-center justify-center font-mono text-sm font-bold shrink-0 transition-colors ${
           state.isChecked && state.isCorrect === true
-            ? 'bg-[#10b981] text-white'
+            ? 'bg-[#3b82f6] text-white'
             : state.isChecked && state.isCorrect === false
             ? 'bg-[#ef4444] text-white'
             : state.isChecked
             ? 'bg-[#f59e0b] text-white'
             : state.isSolutionRevealed
-            ? 'bg-[#10b981] text-white'
-            : 'bg-[#1a2235] border border-[#1e2d45] text-[#10b981]'
+            ? 'bg-[#3b82f6] text-white'
+            : 'bg-[#1a2235] border border-[#1e2d45] text-[#3b82f6]'
         }`}>
           {state.isChecked && state.isCorrect === true ? '✓' :
            state.isChecked && state.isCorrect === false ? '✗' :
@@ -979,23 +979,23 @@ function QuestionCard({
                   disabled={state.isChecked}
                   className={`flex items-center gap-3 rounded-xl px-4 py-3 border text-sm text-left transition-all duration-200 cursor-pointer ${
                     showResult && opt.isCorrect
-                      ? 'border-[#10b981] bg-[rgba(16,185,129,0.15)] text-[#10b981] shadow-[0_0_15px_rgba(16,185,129,0.1)]'
+                      ? 'border-[#3b82f6] bg-[rgba(59,130,246,0.15)] text-[#3b82f6] shadow-[0_0_15px_rgba(59,130,246,0.1)]'
                       : showResult && isSelected && !opt.isCorrect
                       ? 'border-[#ef4444] bg-[rgba(239,68,68,0.1)] text-[#ef4444]'
                       : showResult && !opt.isCorrect
                       ? 'border-[#1e2d45] bg-[#0d1117] text-[#475569] opacity-50'
                       : isSelected
-                      ? 'border-[#10b981] bg-[rgba(16,185,129,0.15)] text-[#6ee7b7] shadow-[0_0_15px_rgba(16,185,129,0.2)]'
-                      : 'border-[#1e2d45] bg-[#0d1117] text-[#e2e8f0] hover:border-[#10b981]/50 hover:bg-[rgba(16,185,129,0.05)]'
+                      ? 'border-[#3b82f6] bg-[rgba(59,130,246,0.15)] text-[#93c5fd] shadow-[0_0_15px_rgba(59,130,246,0.2)]'
+                      : 'border-[#1e2d45] bg-[#0d1117] text-[#e2e8f0] hover:border-[#3b82f6]/50 hover:bg-[rgba(59,130,246,0.05)]'
                   }`}
                 >
                   <span className={`w-[28px] h-[28px] rounded-lg flex items-center justify-center font-bold text-xs shrink-0 font-mono transition-colors ${
                     showResult && opt.isCorrect
-                      ? 'bg-[#10b981] text-white'
+                      ? 'bg-[#3b82f6] text-white'
                       : showResult && isSelected && !opt.isCorrect
                       ? 'bg-[#ef4444] text-white'
                       : isSelected
-                      ? 'bg-[#10b981] text-white'
+                      ? 'bg-[#3b82f6] text-white'
                       : 'bg-[#1e2d45] text-[#e2e8f0]'
                   }`}>
                     {showResult && opt.isCorrect ? '✓' :
@@ -1027,15 +1027,15 @@ function QuestionCard({
                 dir="ltr"
                 className={`w-full px-4 py-3 rounded-xl font-mono text-sm border transition-all duration-200 outline-none ${
                   state.isChecked && state.isCorrect === true
-                    ? 'bg-[rgba(16,185,129,0.1)] border-[#10b981] text-[#10b981]'
+                    ? 'bg-[rgba(59,130,246,0.1)] border-[#3b82f6] text-[#3b82f6]'
                     : state.isChecked && state.isCorrect === false
                     ? 'bg-[rgba(239,68,68,0.1)] border-[#ef4444] text-[#ef4444] line-through'
-                    : 'bg-[#0d1117] border-[#1e2d45] text-[#e2e8f0] focus:border-[#10b981] focus:shadow-[0_0_10px_rgba(16,185,129,0.1)]'
+                    : 'bg-[#0d1117] border-[#1e2d45] text-[#e2e8f0] focus:border-[#3b82f6] focus:shadow-[0_0_10px_rgba(59,130,246,0.1)]'
                 }`}
               />
               {state.isChecked && state.isCorrect === false && (
                 <motion.span
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#10b981] font-mono text-sm font-bold"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3b82f6] font-mono text-sm font-bold"
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   dir="ltr"
@@ -1067,10 +1067,10 @@ function QuestionCard({
                       disabled={state.isChecked}
                       className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-all duration-200 cursor-pointer ${
                         state.isChecked && isCorrectPosition
-                          ? 'bg-[rgba(16,185,129,0.15)] border-[#10b981] text-[#10b981]'
+                          ? 'bg-[rgba(59,130,246,0.15)] border-[#3b82f6] text-[#3b82f6]'
                           : state.isChecked && !isCorrectPosition
                           ? 'bg-[rgba(239,68,68,0.15)] border-[#ef4444] text-[#ef4444]'
-                          : 'bg-[rgba(16,185,129,0.1)] border-[#10b981]/40 text-[#6ee7b7] hover:border-[#10b981] hover:bg-[rgba(16,185,129,0.2)]'
+                          : 'bg-[rgba(59,130,246,0.1)] border-[#3b82f6]/40 text-[#93c5fd] hover:border-[#3b82f6] hover:bg-[rgba(59,130,246,0.2)]'
                       }`}
                     >
                       {word}
@@ -1132,7 +1132,7 @@ function QuestionCard({
               disabled={state.isChecked}
               placeholder={question.translationDir === 'en-to-ar' ? 'Write your Arabic translation here...' : 'Write your English translation here...'}
               dir={question.translationDir === 'en-to-ar' ? 'rtl' : 'ltr'}
-              className="w-full bg-[#0d1117] border border-[#1e2d45] rounded-xl p-4 text-sm min-h-[120px] resize-y outline-none transition-all duration-200 focus:border-[#10b981] focus:shadow-[0_0_15px_rgba(16,185,129,0.1)] placeholder:text-[#334155] text-[#e2e8f0]"
+              className="w-full bg-[#0d1117] border border-[#1e2d45] rounded-xl p-4 text-sm min-h-[120px] resize-y outline-none transition-all duration-200 focus:border-[#3b82f6] focus:shadow-[0_0_15px_rgba(59,130,246,0.1)] placeholder:text-[#334155] text-[#e2e8f0]"
             />
           </div>
         )}
@@ -1161,15 +1161,15 @@ function QuestionCard({
                       dir="ltr"
                       className={`w-full px-3 py-2.5 rounded-lg font-mono text-sm border transition-all duration-200 outline-none ${
                         state.isChecked && isCorrect
-                          ? 'bg-[rgba(16,185,129,0.1)] border-[#10b981] text-[#10b981]'
+                          ? 'bg-[rgba(59,130,246,0.1)] border-[#3b82f6] text-[#3b82f6]'
                           : isWrong
                           ? 'bg-[rgba(239,68,68,0.1)] border-[#ef4444] text-[#ef4444] line-through'
-                          : 'bg-[#0d1117] border-[#1e2d45] text-[#e2e8f0] focus:border-[#10b981] focus:shadow-[0_0_10px_rgba(16,185,129,0.1)]'
+                          : 'bg-[#0d1117] border-[#1e2d45] text-[#e2e8f0] focus:border-[#3b82f6] focus:shadow-[0_0_10px_rgba(59,130,246,0.1)]'
                       }`}
                     />
                     {isWrong && (
                       <motion.span
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#10b981] font-mono text-sm font-bold"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3b82f6] font-mono text-sm font-bold"
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         dir="ltr"
@@ -1191,7 +1191,7 @@ function QuestionCard({
             <button
               onClick={handleCheck}
               disabled={isCheckDisabled}
-              className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white border-none rounded-lg px-5 py-2.5 font-bold text-sm cursor-pointer hover:opacity-90 transition-all hover:-translate-y-0.5 active:translate-y-0 shadow-[0_0_20px_rgba(16,185,129,0.2)] disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none"
+              className="bg-gradient-to-r from-[#3b82f6] to-[#2563eb] text-white border-none rounded-lg px-5 py-2.5 font-bold text-sm cursor-pointer hover:opacity-90 transition-all hover:-translate-y-0.5 active:translate-y-0 shadow-[0_0_20px_rgba(59,130,246,0.2)] disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none"
             >
               Check ✓
             </button>
@@ -1201,7 +1201,7 @@ function QuestionCard({
           {!state.isSolutionRevealed ? (
             <button
               onClick={onRevealSolution}
-              className="bg-[rgba(16,185,129,0.15)] text-[#10b981] border border-[#10b981]/30 rounded-lg px-5 py-2.5 font-bold text-sm cursor-pointer hover:bg-[rgba(16,185,129,0.25)] transition-all"
+              className="bg-[rgba(59,130,246,0.15)] text-[#3b82f6] border border-[#3b82f6]/30 rounded-lg px-5 py-2.5 font-bold text-sm cursor-pointer hover:bg-[rgba(59,130,246,0.25)] transition-all"
             >
               Show Solution
             </button>
@@ -1237,7 +1237,7 @@ function QuestionCard({
             >
               <div className={`mt-3 p-3.5 rounded-xl text-sm flex items-center gap-2.5 ${
                 state.isCorrect === true
-                  ? 'bg-[rgba(16,185,129,0.1)] border border-[rgba(16,185,129,0.25)] text-[#6ee7b7]'
+                  ? 'bg-[rgba(59,130,246,0.1)] border border-[rgba(59,130,246,0.25)] text-[#93c5fd]'
                   : state.isCorrect === false
                   ? 'bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.25)] text-[#fca5a5]'
                   : 'bg-[rgba(245,158,11,0.1)] border border-[rgba(245,158,11,0.25)] text-[#fcd34d]'
@@ -1265,27 +1265,27 @@ function QuestionCard({
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className="overflow-hidden"
             >
-              <div className="mt-4 p-5 rounded-xl bg-[rgba(16,185,129,0.06)] border border-[rgba(16,185,129,0.2)] text-[#6ee7b7]">
+              <div className="mt-4 p-5 rounded-xl bg-[rgba(59,130,246,0.06)] border border-[rgba(59,130,246,0.2)] text-[#93c5fd]">
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="text-[#10b981] text-lg">💡</span>
-                  <span className="font-black text-[#10b981]">Model Answer:</span>
+                  <span className="text-[#3b82f6] text-lg">💡</span>
+                  <span className="font-black text-[#3b82f6]">Model Answer:</span>
                 </div>
                 {/* For translation, show answer in the appropriate direction */}
                 <div className="text-sm leading-relaxed mb-3" dir={question.type === 'translation' && question.translationDir === 'en-to-ar' ? 'rtl' : question.type === 'translation' && question.translationDir === 'ar-to-en' ? 'ltr' : 'auto'}>
                   {question.answer}
                 </div>
                 {isMcqOrTf && question.mcqOptions && (
-                  <div className="mt-2 text-xs text-[#6ee7b7]/70">
+                  <div className="mt-2 text-xs text-[#93c5fd]/70">
                     Correct answer: {question.mcqOptions.find(o => o.isCorrect)?.letter} — {question.mcqOptions.find(o => o.isCorrect)?.text}
                   </div>
                 )}
                 {question.type === 'arrange' && question.arrangeWords && (
-                  <div className="mt-2 text-xs text-[#6ee7b7]/70">
+                  <div className="mt-2 text-xs text-[#93c5fd]/70">
                     Correct order: {question.answer}
                   </div>
                 )}
                 {question.type === 'definition' && (
-                  <div className="mt-2 text-xs text-[#6ee7b7]/70">
+                  <div className="mt-2 text-xs text-[#93c5fd]/70">
                     Term: {question.answer}
                   </div>
                 )}

@@ -36,9 +36,9 @@ const subjects = [
     title: 'Technical English 2',
     description: 'Definitions, MCQ, Arrange Words, Translation, Grammar Corrections & more',
     icon: 'En',
-    color: '#10b981',
-    gradient: 'from-[#10b981] to-[#059669]',
-    shadow: 'rgba(16,185,129,0.3)',
+    color: '#3b82f6',
+    gradient: 'from-[#3b82f6] to-[#2563eb]',
+    shadow: 'rgba(59,130,246,0.3)',
     questions: 97,
     sections: 6,
     marks: 138,
@@ -205,8 +205,8 @@ export default function LandingPage() {
             <a href="#about" className="text-[#94a3b8] hover:text-[#00d4ff] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(0,212,255,0.06)] transition-all">About</a>
             <div className="w-px h-5 bg-[#1e2d45] mx-2" />
             <a
-              href="/iot"
-              className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white rounded-lg px-4 py-2 text-[13px] font-bold hover:opacity-90 transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:shadow-[0_0_25px_rgba(16,185,129,0.3)] hover:-translate-y-0.5 active:translate-y-0"
+              href="/technical-english-2"
+              className="bg-gradient-to-r from-[#3b82f6] to-[#2563eb] text-white rounded-lg px-4 py-2 text-[13px] font-bold hover:opacity-90 transition-all shadow-[0_0_15px_rgba(59,130,246,0.2)] hover:shadow-[0_0_25px_rgba(59,130,246,0.3)] hover:-translate-y-0.5 active:translate-y-0"
             >
               Latest Quiz
             </a>
@@ -243,7 +243,7 @@ export default function LandingPage() {
                 <a href="#feedback" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#f59e0b] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(245,158,11,0.06)] transition-all">Feedback</a>
                 <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-[#94a3b8] hover:text-[#00d4ff] text-sm font-medium py-2.5 px-3 rounded-xl hover:bg-[rgba(0,212,255,0.06)] transition-all">About</a>
                 <div className="h-px bg-[#1e2d45] my-1.5" />
-                <a href="/iot" className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white rounded-xl py-2.5 px-3 text-sm font-bold text-center hover:opacity-90 transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                <a href="/technical-english-2" className="bg-gradient-to-r from-[#3b82f6] to-[#2563eb] text-white rounded-xl py-2.5 px-3 text-sm font-bold text-center hover:opacity-90 transition-all shadow-[0_0_15px_rgba(59,130,246,0.2)]">
                   Latest Quiz →
                 </a>
               </div>
@@ -292,10 +292,10 @@ export default function LandingPage() {
               transition={{ duration: 0.6, delay: 0.6 }}
             >
               <a
-                href="/iot"
-                className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white border-none rounded-2xl px-8 py-4 font-black text-lg cursor-pointer transition-all shadow-[0_0_40px_rgba(16,185,129,0.3)] hover:shadow-[0_0_60px_rgba(16,185,129,0.5)] hover:-translate-y-1 active:translate-y-0 inline-flex items-center justify-center gap-2"
+                href="/technical-english-2"
+                className="bg-gradient-to-r from-[#3b82f6] to-[#2563eb] text-white border-none rounded-2xl px-8 py-4 font-black text-lg cursor-pointer transition-all shadow-[0_0_40px_rgba(59,130,246,0.3)] hover:shadow-[0_0_60px_rgba(59,130,246,0.5)] hover:-translate-y-1 active:translate-y-0 inline-flex items-center justify-center gap-2"
               >
-                Internet of Things (IoT) Quiz
+                Technical English 2 Quiz
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
               </a>
               <a
@@ -515,12 +515,12 @@ export default function LandingPage() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4">
                 Ready to <span className="bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] bg-clip-text text-transparent">Get Started?</span>
               </h2>
-              <p className="text-[#64748b] text-sm sm:text-base mb-8 max-w-md mx-auto">Try the latest Internet of Things (IoT) quiz now — more subjects are on the way!</p>
+              <p className="text-[#64748b] text-sm sm:text-base mb-8 max-w-md mx-auto">Try the latest Technical English 2 quiz now — more subjects are on the way!</p>
               <a
-                href="/iot"
-                className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white border-none rounded-2xl px-10 py-4 font-black text-lg cursor-pointer transition-all shadow-[0_0_40px_rgba(16,185,129,0.3)] hover:shadow-[0_0_60px_rgba(16,185,129,0.5)] hover:-translate-y-1 active:translate-y-0 inline-flex items-center gap-2"
+                href="/technical-english-2"
+                className="bg-gradient-to-r from-[#3b82f6] to-[#2563eb] text-white border-none rounded-2xl px-10 py-4 font-black text-lg cursor-pointer transition-all shadow-[0_0_40px_rgba(59,130,246,0.3)] hover:shadow-[0_0_60px_rgba(59,130,246,0.5)] hover:-translate-y-1 active:translate-y-0 inline-flex items-center gap-2"
               >
-                Launch IoT Quiz
+                Launch Technical English 2 Quiz
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
               </a>
             </motion.div>
