@@ -39,9 +39,9 @@ const subjects = [
     color: '#3b82f6',
     gradient: 'from-[#3b82f6] to-[#2563eb]',
     shadow: 'rgba(59,130,246,0.3)',
-    questions: 100,
+    questions: 122,
     sections: 5,
-    marks: 194,
+    marks: 238,
     available: true,
   },
   {
@@ -316,9 +316,9 @@ export default function LandingPage() {
             >
               {[
                 { value: '5', label: 'Subjects', color: '#00d4ff' },
-                { value: '525+', label: 'Questions', color: '#7c3aed' },
+                { value: '547+', label: 'Questions', color: '#7c3aed' },
                 { value: '28', label: 'Sections', color: '#10b981' },
-                { value: '669', label: 'Total Marks', color: '#f59e0b' },
+                { value: '713', label: 'Total Marks', color: '#f59e0b' },
               ].map((stat, i) => (
                 <div key={i} className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-4 text-center hover:border-[#2d3f5e] transition-colors">
                   <div className="text-2xl sm:text-3xl font-black" style={{ color: stat.color }}>{stat.value}</div>
