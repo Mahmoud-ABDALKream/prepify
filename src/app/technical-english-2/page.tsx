@@ -246,6 +246,22 @@ export default function Home() {
     })
   }, [])
 
+  // Scroll to the next question after the given one (across sections).
+  // Questions are rendered in DOM with data-question-id="<id>" attributes.
+  const goToNextQuestion = useCallback((currentQId: number) => {
+    // Find all question cards in DOM order
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-question-id]'))
+    const currentIdx = cards.findIndex(c => Number(c.getAttribute('data-question-id')) === currentQId)
+    if (currentIdx === -1 || currentIdx === cards.length - 1) return
+    const nextCard = cards[currentIdx + 1]
+    nextCard?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    // Focus first focusable element inside the next card (input/textarea) so the user can keep typing
+    setTimeout(() => {
+      const focusable = nextCard?.querySelector<HTMLElement>('input:not([disabled]), textarea:not([disabled])')
+      focusable?.focus()
+    }, 350)
+  }, [])
+
   // Reveal all solutions
   const revealAllSolutions = useCallback(() => {
     sections.forEach(s => s.questions.forEach(q => {
@@ -553,6 +569,7 @@ export default function Home() {
                 onRevealSolution={() => revealSolution(q.id)}
                 onHideSolution={() => hideSolution(q.id)}
                 onReset={() => resetQuestion(q.id)}
+                onNext={() => goToNextQuestion(q.id)}
                 isStarred={isStarred(q.id)}
                 onToggleStar={() => toggleStar(q.id)}
                 index={qIdx}
@@ -798,6 +815,7 @@ function QuestionCard({
   onReset,
   isStarred,
   onToggleStar,
+  onNext,
   index,
 }: {
   question: Question
@@ -815,6 +833,7 @@ function QuestionCard({
   onReset: () => void
   isStarred: boolean
   onToggleStar: () => void
+  onNext: () => void
   index: number
 }) {
   const isMcqOrTf = question.type === 'mcq' || question.type === 'tf'
@@ -879,6 +898,24 @@ function QuestionCard({
     return false
   })()
 
+  // Enter = check & go to next question; Shift+Enter = new line (in textarea)
+  const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (e.key !== 'Enter') return
+    // Allow Shift+Enter to insert a newline (only meaningful for textarea)
+    if (e.shiftKey) {
+      // For input fields, there's no newline — just let it do nothing
+      if (e.currentTarget.tagName === 'TEXTAREA') return
+      e.preventDefault()
+      return
+    }
+    // Plain Enter: prevent default (avoids form submit / newline), check, then go next
+    e.preventDefault()
+    if (isCheckDisabled) return
+    handleCheck()
+    // Small delay so the check state updates before scrolling
+    setTimeout(() => onNext(), 250)
+  }
+
   // Type badge label
   const typeBadge = (() => {
     switch (question.type) {
@@ -906,6 +943,7 @@ function QuestionCard({
 
   return (
     <motion.div
+      data-question-id={question.id}
       className="bg-[#111827] rounded-2xl mb-5 overflow-hidden transition-all duration-300"
       style={{ border: `1.5px solid ${statusColor}`, boxShadow: state.isChecked ? `0 0 20px ${statusColor}15` : 'none' }}
       initial={{ opacity: 0, y: 20 }}
@@ -1034,8 +1072,9 @@ function QuestionCard({
                     onUpdate(question.id, { definitionAnswer: e.target.value })
                   }
                 }}
+                onKeyDown={handleEnterKey}
                 disabled={state.isChecked}
-                placeholder="Enter the term..."
+                placeholder="Enter the term... (Enter = check & next)"
                 dir="ltr"
                 className={`w-full px-4 py-3 rounded-xl font-mono text-sm border transition-all duration-200 outline-none ${
                   state.isChecked && state.isCorrect === true
@@ -1152,8 +1191,9 @@ function QuestionCard({
                   onUpdate(question.id, { translationAnswer: e.target.value })
                 }
               }}
+              onKeyDown={handleEnterKey}
               disabled={state.isChecked}
-              placeholder={question.translationDir === 'en-to-ar' ? 'Write your Arabic translation here...' : 'Write your English translation here...'}
+              placeholder={question.translationDir === 'en-to-ar' ? 'Write your Arabic translation here... (Enter = check & next, Shift+Enter = new line)' : 'Write your English translation here... (Enter = check & next, Shift+Enter = new line)'}
               dir={question.translationDir === 'en-to-ar' ? 'rtl' : 'ltr'}
               className="w-full bg-[#0d1117] border border-[#1e2d45] rounded-xl p-4 text-sm min-h-[120px] resize-y outline-none transition-all duration-200 focus:border-[#10b981] focus:shadow-[0_0_15px_rgba(16,185,129,0.1)] placeholder:text-[#334155] text-[#e2e8f0]"
             />
@@ -1179,6 +1219,7 @@ function QuestionCard({
                         const newAnswers = { ...state.fillAnswers, [idx]: e.target.value }
                         onUpdate(question.id, { fillAnswers: newAnswers })
                       }}
+                      onKeyDown={handleEnterKey}
                       disabled={state.isChecked}
                       placeholder="???"
                       dir="ltr"
