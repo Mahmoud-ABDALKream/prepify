@@ -20,7 +20,7 @@ const subjectColors: Record<string, string> = {
   'c-programming': '#7c3aed',
   'cyber-security-2': '#ef4444',
   'iot': '#10b981',
-  'technical-english-2': '#3b82f6',
+  'technical-english-2': '#10b981',
 }
 
 export default function SubjectsTab({ data }: Props) {
