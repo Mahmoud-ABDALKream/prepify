@@ -34,14 +34,14 @@ const subjects = [
   {
     id: 'technical-english-2',
     title: 'Technical English 2',
-    description: 'Definitions, MCQ, Arrange Words, Translation, Grammar Corrections & more',
+    description: 'Definitions, MCQ, Arrange Words, Translation & more',
     icon: 'En',
     color: '#3b82f6',
     gradient: 'from-[#3b82f6] to-[#2563eb]',
     shadow: 'rgba(59,130,246,0.3)',
-    questions: 97,
-    sections: 6,
-    marks: 138,
+    questions: 100,
+    sections: 5,
+    marks: 194,
     available: true,
   },
   {
@@ -316,9 +316,9 @@ export default function LandingPage() {
             >
               {[
                 { value: '5', label: 'Subjects', color: '#00d4ff' },
-                { value: '200+', label: 'Questions', color: '#7c3aed' },
-                { value: '15', label: 'Sections', color: '#10b981' },
-                { value: '250', label: 'Total Marks', color: '#f59e0b' },
+                { value: '525+', label: 'Questions', color: '#7c3aed' },
+                { value: '28', label: 'Sections', color: '#10b981' },
+                { value: '669', label: 'Total Marks', color: '#f59e0b' },
               ].map((stat, i) => (
                 <div key={i} className="bg-[#111827] border border-[#1e2d45] rounded-2xl p-4 text-center hover:border-[#2d3f5e] transition-colors">
                   <div className="text-2xl sm:text-3xl font-black" style={{ color: stat.color }}>{stat.value}</div>
