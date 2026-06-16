@@ -191,22 +191,34 @@ export default function Home() {
     updateQState(qId, { isChecked: true, isCorrect: allCorrect, fillCorrect })
   }, [getQState, updateQState])
 
-  // Definition check (case-insensitive, trimmed)
+  // Definition check (case-insensitive, trimmed, ignores trailing punctuation)
   const checkDefinition = useCallback((qId: number, question: Question) => {
     const state = getQState(qId)
-    const userAns = state.definitionAnswer.trim().toLowerCase()
-    const correctAns = question.answer.trim().toLowerCase()
+    const normalize = (s: string) => s
+      .trim()
+      .toLowerCase()
+      .replace(/[.,!?;:'"]+$/g, '')  // strip trailing punctuation
+      .replace(/\s+/g, ' ')
+      .trim()
+    const userAns = normalize(state.definitionAnswer)
+    const correctAns = normalize(question.answer)
     const isCorrect = userAns === correctAns
     updateQState(qId, { isChecked: true, isCorrect })
   }, [getQState, updateQState])
 
-  // Arrange check (compare joined sentence)
+  // Arrange check (compare joined sentence, normalized — ignore punctuation/case)
   const checkArrange = useCallback((qId: number, question: Question) => {
     const state = getQState(qId)
     if (state.arrangedWords.length === 0) return
     const userSentence = state.arrangedWords.map(idx => question.arrangeWords?.[idx]).join(' ')
-    const correctSentence = question.answer
-    const isCorrect = userSentence === correctSentence
+    const correctSentence = question.answer || ''
+    // Normalize: lowercase, strip all punctuation, collapse spaces
+    const normalize = (s: string) => s
+      .toLowerCase()
+      .replace(/[.,!?;:'"()[\]{}\-]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+    const isCorrect = normalize(userSentence) === normalize(correctSentence)
     updateQState(qId, { isChecked: true, isCorrect })
   }, [getQState, updateQState])
 
