@@ -6,6 +6,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 import { cpSections } from '@/data/cp-sections'
 import { csSections } from '@/data/cs-sections'
 import { iotSections } from '@/data/iot-sections'
+import { te2Sections } from '@/data/te2-sections'
 import { Section, Question } from '@/data/types'
 
 // ─── Subject Config ─────────────────────────────────────
@@ -36,6 +37,15 @@ const subjectConfig = [
     gradient: 'from-[#10b981] to-[#059669]',
     sections: iotSections,
     examPath: '/iot',
+  },
+  {
+    key: 'te2',
+    name: 'Technical English 2',
+    icon: 'En',
+    color: '#10b981',
+    gradient: 'from-[#10b981] to-[#059669]',
+    sections: te2Sections,
+    examPath: '/technical-english-2',
   },
 ]
 
