@@ -56,7 +56,7 @@ export default function Home() {
   const {
     starredIds, wrongIds, toggleStar, isStarred,
     saveWrongQuestions, removeWrong, removeStarred, clearAllReview,
-  } = useReviewStorage('microsoft-office', validQuestionIds)
+  } = useReviewStorage('msoffice', validQuestionIds)
 
   const topRef = useRef<HTMLDivElement>(null)
   const sectionNavRef = useRef<HTMLDivElement>(null)
