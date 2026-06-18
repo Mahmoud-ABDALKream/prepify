@@ -300,11 +300,11 @@ export default function Home() {
       {/* Animated background */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
         }} />
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, #7c3aed, transparent 70%)' }} />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, #00d4ff, transparent 70%)' }} />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, #10b981, transparent 70%)' }} />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, #059669, transparent 70%)' }} />
       </div>
 
       {/* Confetti */}
@@ -323,7 +323,7 @@ export default function Home() {
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: '-10px',
-                  background: ['#7c3aed', '#00d4ff', '#10b981', '#f59e0b', '#ef4444', '#ec4899'][i % 6],
+                  background: ['#10b981', '#059669', '#10b981', '#f59e0b', '#ef4444', '#ec4899'][i % 6],
                 }}
                 animate={{
                   y: [0, window.innerHeight + 100],
@@ -340,7 +340,7 @@ export default function Home() {
       <div className="relative z-1 max-w-[920px] mx-auto px-4 pb-10" ref={topRef}>
         {/* Back to Home */}
         <div className="pt-4">
-          <a href="/" className="inline-flex items-center gap-2 text-[#64748b] hover:text-[#00d4ff] text-sm transition-colors">
+          <a href="/" className="inline-flex items-center gap-2 text-[#64748b] hover:text-[#059669] text-sm transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
             Back to Home
           </a>
@@ -354,10 +354,10 @@ export default function Home() {
           transition={{ duration: 0.6 }}
         >
           <div className="flex justify-center mb-4">
-            <img src="/logo.png" alt="Prepify Logo" className="w-24 h-24 md:w-28 md:h-28 rounded-2xl shadow-[0_0_30px_rgba(124,58,237,0.3)]" />
+            <img src="/logo.png" alt="Prepify Logo" className="w-24 h-24 md:w-28 md:h-28 rounded-2xl shadow-[0_0_30px_rgba(16,185,129,0.3)]" />
           </div>
           <h1 className="text-3xl md:text-5xl font-black leading-tight mb-2">
-            <span className="bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] bg-clip-text text-transparent">Internet of Things (IoT)</span>
+            <span className="bg-gradient-to-r from-[#059669] to-[#10b981] bg-clip-text text-transparent">Internet of Things (IoT)</span>
             <br />
             <span className="text-[#10b981]">Interactive Review</span>
           </h1>
@@ -366,7 +366,7 @@ export default function Home() {
           </p>
           <div className="flex justify-center gap-6 flex-wrap mt-4">
             <div className="text-center bg-[#111827] border border-[#1e2d45] rounded-2xl px-6 py-3 min-w-[90px]">
-              <div className="text-2xl font-black text-[#00d4ff]">{totalQuestions}</div>
+              <div className="text-2xl font-black text-[#059669]">{totalQuestions}</div>
               <div className="text-[11px] text-[#64748b]">Questions</div>
             </div>
             <div className="text-center bg-[#111827] border border-[#1e2d45] rounded-2xl px-6 py-3 min-w-[90px]">
@@ -374,7 +374,7 @@ export default function Home() {
               <div className="text-[11px] text-[#64748b]">Marks</div>
             </div>
             <div className="text-center bg-[#111827] border border-[#1e2d45] rounded-2xl px-6 py-3 min-w-[90px]">
-              <div className="text-2xl font-black text-[#7c3aed]">5</div>
+              <div className="text-2xl font-black text-[#10b981]">5</div>
               <div className="text-[11px] text-[#64748b]">Sections</div>
             </div>
             <div className="text-center bg-[#111827] border border-[#1e2d45] rounded-2xl px-6 py-3 min-w-[90px]">
@@ -390,11 +390,11 @@ export default function Home() {
             <div className="flex-1 w-full">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-[11px] text-[#64748b]">Progress</span>
-                <span className="text-[11px] text-[#00d4ff] font-bold">{Math.round((answeredCount / totalQuestions) * 100)}%</span>
+                <span className="text-[11px] text-[#059669] font-bold">{Math.round((answeredCount / totalQuestions) * 100)}%</span>
               </div>
               <div className="h-2 bg-[#1e2d45] rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] rounded-full"
+                  className="h-full bg-gradient-to-r from-[#10b981] to-[#059669] rounded-full"
                   animate={{ width: `${(answeredCount / totalQuestions) * 100}%` }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
                 />
@@ -453,8 +453,8 @@ export default function Home() {
                   }}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer border ${
                     activeSection === s.id
-                      ? 'bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] text-white border-transparent shadow-[0_0_10px_rgba(0,212,255,0.3)]'
-                      : 'bg-[#1a2235] text-[#64748b] border-[#1e2d45] hover:border-[#00d4ff]/50 hover:text-[#00d4ff]'
+                      ? 'bg-gradient-to-r from-[#10b981] to-[#059669] text-white border-transparent shadow-[0_0_10px_rgba(16,185,129,0.3)]'
+                      : 'bg-[#1a2235] text-[#64748b] border-[#1e2d45] hover:border-[#059669]/50 hover:text-[#059669]'
                   }`}
                 >
                   <span>{s.icon}</span>
@@ -476,14 +476,14 @@ export default function Home() {
           >
             {/* Section header */}
             <div className="flex items-center gap-4 mt-10 mb-6 pb-4 border-b-2 border-[#1e2d45] relative">
-              <div className="w-[48px] h-[48px] bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] rounded-[14px] flex items-center justify-center text-sm font-black shrink-0 shadow-[0_0_20px_rgba(0,212,255,0.2)]">
+              <div className="w-[48px] h-[48px] bg-gradient-to-r from-[#10b981] to-[#059669] rounded-[14px] flex items-center justify-center text-sm font-black shrink-0 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
                 {section.icon}
               </div>
               <div className="flex-1">
                 <div className="text-lg font-black">{section.title}</div>
                 <div className="text-xs text-[#64748b]">Section {section.id} of {sections.length}</div>
               </div>
-              <div className="bg-[#1a2235] border border-[#1e2d45] px-4 py-2 rounded-full text-sm font-bold text-[#00d4ff] shadow-[0_0_10px_rgba(0,212,255,0.1)]">
+              <div className="bg-[#1a2235] border border-[#1e2d45] px-4 py-2 rounded-full text-sm font-bold text-[#059669] shadow-[0_0_10px_rgba(16,185,129,0.1)]">
                 {section.marks}
               </div>
             </div>
@@ -521,7 +521,7 @@ export default function Home() {
           >
             <button
               onClick={submitAll}
-              className="bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] text-white border-none rounded-2xl px-12 py-4 font-black text-xl cursor-pointer transition-all shadow-[0_0_40px_rgba(0,212,255,0.3)] hover:shadow-[0_0_60px_rgba(0,212,255,0.5)] hover:-translate-y-1 active:translate-y-0"
+              className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white border-none rounded-2xl px-12 py-4 font-black text-xl cursor-pointer transition-all shadow-[0_0_40px_rgba(16,185,129,0.3)] hover:shadow-[0_0_60px_rgba(16,185,129,0.5)] hover:-translate-y-1 active:translate-y-0"
             >
               Show Final Score
             </button>
@@ -540,7 +540,7 @@ export default function Home() {
           {/* Submission status / error notification */}
           {attemptSubmitting && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              className="bg-[#1e2d45]/50 border border-[#8b5cf6]/25 rounded-xl px-5 py-3 text-center text-sm text-[#94a3b8] mt-4">
+              className="bg-[#1e2d45]/50 border border-[#10b981]/25 rounded-xl px-5 py-3 text-center text-sm text-[#94a3b8] mt-4">
               Saving your result...
             </motion.div>
           )}
@@ -588,12 +588,12 @@ export default function Home() {
           </div>
           <div className="flex justify-center gap-4 mb-4">
             <a href="https://github.com/Mahmoud-ABDALKream" target="_blank" rel="noopener noreferrer"
-               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#111827] border border-[#1e2d45] text-[#e2e8f0] text-sm hover:border-[#7c3aed] hover:shadow-[0_0_15px_rgba(124,58,237,0.2)] transition-all duration-300">
+               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#111827] border border-[#1e2d45] text-[#e2e8f0] text-sm hover:border-[#10b981] hover:shadow-[0_0_15px_rgba(16,185,129,0.2)] transition-all duration-300">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               GitHub
             </a>
             <a href="https://mahmoud-ahmed-abdelkream.vercel.app/" target="_blank" rel="noopener noreferrer"
-               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#111827] border border-[#1e2d45] text-[#e2e8f0] text-sm hover:border-[#00d4ff] hover:shadow-[0_0_15px_rgba(0,212,255,0.2)] transition-all duration-300">
+               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#111827] border border-[#1e2d45] text-[#e2e8f0] text-sm hover:border-[#059669] hover:shadow-[0_0_15px_rgba(16,185,129,0.2)] transition-all duration-300">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0L1.5 20h6l4.5-8.5L16.5 20h6L12 0zm0 7.5L8.25 14.5h7.5L12 7.5z"/></svg>
               Portfolio
             </a>
@@ -604,7 +604,7 @@ export default function Home() {
             </a>
           </div>
           <div className="text-[#64748b] text-sm">
-            IoT Quiz — <span className="text-[#00d4ff]">Mahmoud ABD ELKream</span>
+            IoT Quiz — <span className="text-[#059669]">Mahmoud ABD ELKream</span>
           </div>
         </footer>
       </div>
@@ -658,14 +658,14 @@ function ScorePanel({
           />
           <defs>
             <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#7c3aed" />
-              <stop offset="100%" stopColor="#00d4ff" />
+              <stop offset="0%" stopColor="#10b981" />
+              <stop offset="100%" stopColor="#059669" />
             </linearGradient>
           </defs>
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <motion.div
-            className="text-4xl font-black bg-gradient-to-r from-[#00d4ff] to-[#7c3aed] bg-clip-text text-transparent"
+            className="text-4xl font-black bg-gradient-to-r from-[#059669] to-[#10b981] bg-clip-text text-transparent"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.5, type: 'spring' }}
@@ -698,16 +698,16 @@ function ScorePanel({
           <div className="text-[11px] text-[#64748b]">Wrong</div>
         </div>
         <div className="bg-[#1a2235] border border-[#1e2d45] rounded-xl p-4">
-          <div className="text-xl font-black text-[#00d4ff]">{totalQuestions - answeredCount}</div>
+          <div className="text-xl font-black text-[#059669]">{totalQuestions - answeredCount}</div>
           <div className="text-[11px] text-[#64748b]">Unanswered</div>
         </div>
         <div className="bg-[#1a2235] border border-[#1e2d45] rounded-xl p-4">
-          <div className="text-xl font-black text-[#7c3aed]">{totalQuestions}</div>
+          <div className="text-xl font-black text-[#10b981]">{totalQuestions}</div>
           <div className="text-[11px] text-[#64748b]">Total</div>
         </div>
         {timeTaken != null && timeTaken > 0 && (
           <div className="bg-[#1a2235] border border-[#1e2d45] rounded-xl p-4">
-            <div className="text-xl font-black text-[#8b5cf6]">{formatDuration(timeTaken)}</div>
+            <div className="text-xl font-black text-[#10b981]">{formatDuration(timeTaken)}</div>
             <div className="text-[11px] text-[#64748b]">Time Taken</div>
           </div>
         )}
@@ -722,7 +722,7 @@ function ScorePanel({
         </button>
         <button
           onClick={onReset}
-          className="bg-transparent text-[#64748b] border-2 border-[#1e2d45] rounded-xl px-6 py-3 font-bold text-sm cursor-pointer hover:border-[#00d4ff] hover:text-[#00d4ff] transition-all"
+          className="bg-transparent text-[#64748b] border-2 border-[#1e2d45] rounded-xl px-6 py-3 font-bold text-sm cursor-pointer hover:border-[#059669] hover:text-[#059669] transition-all"
         >
           Try Again
         </button>
@@ -772,7 +772,7 @@ function QuestionCard({
       ? '#ef4444'
       : '#f59e0b'
     : state.isSolutionRevealed
-    ? '#00d4ff'
+    ? '#059669'
     : '#1e2d45'
 
   const statusBg = state.isChecked
@@ -801,8 +801,8 @@ function QuestionCard({
             : state.isChecked
             ? 'bg-[#f59e0b] text-white'
             : state.isSolutionRevealed
-            ? 'bg-[#00d4ff] text-white'
-            : 'bg-[#1a2235] border border-[#1e2d45] text-[#00d4ff]'
+            ? 'bg-[#059669] text-white'
+            : 'bg-[#1a2235] border border-[#1e2d45] text-[#059669]'
         }`}>
           {state.isChecked && state.isCorrect === true ? '✓' :
            state.isChecked && state.isCorrect === false ? '✗' :
@@ -838,10 +838,10 @@ function QuestionCard({
             {question.marks}
           </div>
           <div className={`text-[10px] px-2 py-0.5 rounded-md font-bold ${
-            question.type === 'mcq' ? 'bg-[#7c3aed]/20 text-[#a78bfa]' :
+            question.type === 'mcq' ? 'bg-[#10b981]/20 text-[#34d399]' :
             question.type === 'tf' ? 'bg-[#ec4899]/20 text-[#f472b6]' :
             question.type === 'trace' ? 'bg-[#f59e0b]/20 text-[#fbbf24]' :
-            question.type === 'fill' ? 'bg-[#00d4ff]/20 text-[#22d3ee]' :
+            question.type === 'fill' ? 'bg-[#059669]/20 text-[#34d399]' :
             'bg-[#10b981]/20 text-[#34d399]'
           }`}>
             {question.type === 'mcq' ? 'MCQ' :
@@ -892,8 +892,8 @@ function QuestionCard({
                       : showResult && !opt.isCorrect
                       ? 'border-[#1e2d45] bg-[#0d1117] text-[#475569] opacity-50'
                       : isSelected
-                      ? 'border-[#7c3aed] bg-[rgba(124,58,237,0.15)] text-[#c4b5fd] shadow-[0_0_15px_rgba(124,58,237,0.2)]'
-                      : 'border-[#1e2d45] bg-[#0d1117] text-[#e2e8f0] hover:border-[#7c3aed]/50 hover:bg-[rgba(124,58,237,0.05)]'
+                      ? 'border-[#10b981] bg-[rgba(16,185,129,0.15)] text-[#6ee7b7] shadow-[0_0_15px_rgba(16,185,129,0.2)]'
+                      : 'border-[#1e2d45] bg-[#0d1117] text-[#e2e8f0] hover:border-[#10b981]/50 hover:bg-[rgba(16,185,129,0.05)]'
                   }`}
                 >
                   <span className={`w-[28px] h-[28px] rounded-lg flex items-center justify-center font-bold text-xs shrink-0 font-mono transition-colors ${
@@ -902,7 +902,7 @@ function QuestionCard({
                       : showResult && isSelected && !opt.isCorrect
                       ? 'bg-[#ef4444] text-white'
                       : isSelected
-                      ? 'bg-[#7c3aed] text-white'
+                      ? 'bg-[#10b981] text-white'
                       : 'bg-[#1e2d45] text-[#e2e8f0]'
                   }`}>
                     {showResult && opt.isCorrect ? '✓' :
@@ -943,7 +943,7 @@ function QuestionCard({
                           ? 'bg-[rgba(16,185,129,0.1)] border-[#10b981] text-[#10b981]'
                           : isWrong
                           ? 'bg-[rgba(239,68,68,0.1)] border-[#ef4444] text-[#ef4444] line-through'
-                          : 'bg-[#0d1117] border-[#1e2d45] text-[#e2e8f0] focus:border-[#00d4ff] focus:shadow-[0_0_10px_rgba(0,212,255,0.1)]'
+                          : 'bg-[#0d1117] border-[#1e2d45] text-[#e2e8f0] focus:border-[#059669] focus:shadow-[0_0_10px_rgba(16,185,129,0.1)]'
                       }`}
                     />
                     {isWrong && (
@@ -971,7 +971,7 @@ function QuestionCard({
               onChange={e => onUpdate(question.id, { userCode: e.target.value })}
               placeholder={question.type === 'trace' ? 'Write the expected output here...' : '#include <stdio.h>\nint main() {\n    ...\n}'}
               dir="ltr"
-              className="w-full bg-[#0a0f1e] border border-[#1e2d45] rounded-xl p-4 font-mono text-[13px] text-[#e2e8f0] min-h-[120px] resize-y outline-none transition-all duration-200 focus:border-[#00d4ff] focus:shadow-[0_0_15px_rgba(0,212,255,0.1)] placeholder:text-[#334155]"
+              className="w-full bg-[#0a0f1e] border border-[#1e2d45] rounded-xl p-4 font-mono text-[13px] text-[#e2e8f0] min-h-[120px] resize-y outline-none transition-all duration-200 focus:border-[#059669] focus:shadow-[0_0_15px_rgba(16,185,129,0.1)] placeholder:text-[#334155]"
             />
             <div className="absolute top-2 right-2 text-[10px] text-[#334155] font-mono">
               {state.userCode.length > 0 ? `${state.userCode.split('\n').length} lines` : ''}
@@ -990,7 +990,7 @@ function QuestionCard({
                 else onCheckCode()
               }}
               disabled={isMcqOrTf && !state.selectedMcq}
-              className="bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] text-white border-none rounded-lg px-5 py-2.5 font-bold text-sm cursor-pointer hover:opacity-90 transition-all hover:-translate-y-0.5 active:translate-y-0 shadow-[0_0_20px_rgba(0,212,255,0.2)] disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none"
+              className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white border-none rounded-lg px-5 py-2.5 font-bold text-sm cursor-pointer hover:opacity-90 transition-all hover:-translate-y-0.5 active:translate-y-0 shadow-[0_0_20px_rgba(16,185,129,0.2)] disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none"
             >
               Check ✓
             </button>
@@ -1007,7 +1007,7 @@ function QuestionCard({
           ) : (
             <button
               onClick={onHideSolution}
-              className="bg-[rgba(0,212,255,0.1)] text-[#00d4ff] border border-[#00d4ff]/30 rounded-lg px-5 py-2.5 font-bold text-sm cursor-pointer hover:bg-[rgba(0,212,255,0.2)] transition-all"
+              className="bg-[rgba(16,185,129,0.1)] text-[#059669] border border-[#059669]/30 rounded-lg px-5 py-2.5 font-bold text-sm cursor-pointer hover:bg-[rgba(16,185,129,0.2)] transition-all"
             >
               Hide Solution
             </button>
@@ -1066,8 +1066,8 @@ function QuestionCard({
             >
               <div className="mt-4 p-5 rounded-xl bg-[rgba(16,185,129,0.06)] border border-[rgba(16,185,129,0.2)] text-[#6ee7b7]">
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="text-[#00d4ff] text-lg">💡</span>
-                  <span className="font-black text-[#00d4ff]">Model Solution:</span>
+                  <span className="text-[#059669] text-lg">💡</span>
+                  <span className="font-black text-[#059669]">Model Solution:</span>
                 </div>
                 <div className="text-sm leading-relaxed mb-3">{question.answer}</div>
                 {question.answerCode && (
