@@ -350,11 +350,14 @@ All date/time operations use the **Africa/Cairo** timezone (UTC+2/UTC+3 with DST
 
 ---
 
-## Author
+## Author & Owner
 
-**Mahmoud ABD ELKream**
+**Mahmoud ABD ELKream** — Project Creator & Sole Maintainer
 
 - GitHub: [@Mahmoud-ABDALKREAM](https://github.com/Mahmoud-ABDALKREAM)
+- Repository: [Mahmoud-ABDALKREAM/prepify](https://github.com/Mahmoud-ABDALKREAM/prepify)
+
+> This project is independently owned and maintained by the author above. All code, design, and content were created solely by the owner. Contributions are currently closed — the project is not accepting external pull requests at this time.
 
 ---
 
