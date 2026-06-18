@@ -21,6 +21,7 @@ const subjectColors: Record<string, string> = {
   'cyber-security-2': '#ef4444',
   'iot': '#10b981',
   'technical-english-2': '#3b82f6',
+  'microsoft-office': '#f59e0b',
 }
 
 export default function SubjectsTab({ data }: Props) {

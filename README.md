@@ -46,7 +46,9 @@ The platform is powered by **Supabase** for authentication, real-time data, and 
 |---------|-----------|----------|-------------|
 | Cyber Security 2 | 120+ | 10 | 130+ |
 | C Programming | 90+ | 7 | 100+ |
-| Internet of Things (IoT) | 115 | 5 | 115+ |
+| Internet of Things (IoT) | 115+ | 5 | 115+ |
+| Technical English 2 | 199 | 5 | 450+ |
+| Microsoft Office | 149 | 9 | 175+ |
 
 ### Cyber Security 2 — Sections
 1. Multiple Choice Questions (MCQs)
@@ -75,6 +77,24 @@ The platform is powered by **Supabase** for authentication, real-time data, and 
 3. Tutorial 3 — Sensors & Actuators (True/False + MCQ)
 4. Tutorial 4 — IoT Security (MCQ + True/False)
 5. Tutorial 5 — IoT Applications (Mixed)
+
+### Technical English 2 — Sections
+1. Definitions
+2. MCQ — Vocabulary & Terms
+3. Arrange Words
+4. Translation (English ↔ Arabic)
+5. Mixed Revision
+
+### Microsoft Office — Sections
+1. Database & MS Access — Definitions
+2. MS Access — Objects & Relationships (MCQ)
+3. Database Concepts & DBMS (MCQ)
+4. True / False — Database & Office
+5. Microsoft Word — MCQ
+6. Microsoft Excel — MCQ
+7. Microsoft PowerPoint — MCQ
+8. Office Automation & Mixed Concepts
+9. True / False — Word, Excel, PowerPoint
 
 ### Analytics Dashboard (Admin)
 - **Overview** — Key metrics: total attempts, average score, pass rate, active students

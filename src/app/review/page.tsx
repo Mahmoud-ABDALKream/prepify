@@ -7,6 +7,7 @@ import { cpSections } from '@/data/cp-sections'
 import { csSections } from '@/data/cs-sections'
 import { iotSections } from '@/data/iot-sections'
 import { te2Sections } from '@/data/te2-sections'
+import { msOfficeSections } from '@/data/ms-office-sections'
 import { Section, Question } from '@/data/types'
 
 // ─── Subject Config ─────────────────────────────────────
@@ -46,6 +47,15 @@ const subjectConfig = [
     gradient: 'from-[#3b82f6] to-[#2563eb]',
     sections: te2Sections,
     examPath: '/technical-english-2',
+  },
+  {
+    key: 'msoffice',
+    name: 'Microsoft Office',
+    icon: 'MS',
+    color: '#f59e0b',
+    gradient: 'from-[#f59e0b] to-[#d97706]',
+    sections: msOfficeSections,
+    examPath: '/microsoft-office',
   },
 ]
 
