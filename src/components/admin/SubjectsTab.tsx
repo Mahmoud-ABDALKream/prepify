@@ -20,7 +20,7 @@ const subjectColors: Record<string, string> = {
   'c-programming': '#7c3aed',
   'cyber-security-2': '#ef4444',
   'iot': '#10b981',
-  'technical-english-2': '#10b981',
+  'technical-english-2': '#3b82f6',
 }
 
 export default function SubjectsTab({ data }: Props) {
@@ -37,7 +37,7 @@ export default function SubjectsTab({ data }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         {[
           { title: 'Hardest Subject', data: data.rankings.hardestSubject, color: '#ef4444', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg> },
-          { title: 'Easiest Subject', data: data.rankings.easiestSubject, color: '#10b981', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
+          { title: 'Easiest Subject', data: data.rankings.easiestSubject, color: '#3b82f6', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
           { title: 'Most Studied', data: data.rankings.mostStudiedSubject, color: '#8b5cf6', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg> },
         ].map((card, i) => card.data ? (
           <motion.div
@@ -106,12 +106,12 @@ export default function SubjectsTab({ data }: Props) {
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { label: 'Accuracy', value: `${s.avgAccuracy}%`, color: s.avgAccuracy >= 70 ? '#10b981' : '#f59e0b' },
+                    { label: 'Accuracy', value: `${s.avgAccuracy}%`, color: s.avgAccuracy >= 70 ? '#3b82f6' : '#f59e0b' },
                     { label: 'Avg Score', value: `${s.avgScore}%`, color: '#e2e8f0' },
                     { label: 'Attempts', value: s.totalAttempts, color: '#8b5cf6' },
                     { label: 'Students', value: s.uniqueStudents, color: '#6366f1' },
-                    { label: 'Difficulty', value: s.difficultyIndex, color: s.difficultyIndex > 50 ? '#ef4444' : '#10b981' },
-                    { label: 'Pass Rate', value: `${s.passRate}%`, color: s.passRate >= 70 ? '#10b981' : '#f59e0b' },
+                    { label: 'Difficulty', value: s.difficultyIndex, color: s.difficultyIndex > 50 ? '#ef4444' : '#3b82f6' },
+                    { label: 'Pass Rate', value: `${s.passRate}%`, color: s.passRate >= 70 ? '#3b82f6' : '#f59e0b' },
                   ].map(m => (
                     <div key={m.label} className="bg-[#080c18]/60 rounded-lg p-2.5 text-center">
                       <div className="text-[10px] text-[#475569] mb-0.5">{m.label}</div>

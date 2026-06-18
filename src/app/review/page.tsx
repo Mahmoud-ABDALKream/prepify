@@ -42,8 +42,8 @@ const subjectConfig = [
     key: 'te2',
     name: 'Technical English 2',
     icon: 'En',
-    color: '#10b981',
-    gradient: 'from-[#10b981] to-[#059669]',
+    color: '#3b82f6',
+    gradient: 'from-[#3b82f6] to-[#2563eb]',
     sections: te2Sections,
     examPath: '/technical-english-2',
   },
@@ -420,7 +420,7 @@ export default function ReviewPage() {
                                     q.type === 'tf' ? 'bg-[#ec4899]/20 text-[#f472b6]' :
                                     q.type === 'trace' ? 'bg-[#f59e0b]/20 text-[#fbbf24]' :
                                     q.type === 'fill' ? 'bg-[#00d4ff]/20 text-[#22d3ee]' :
-                                    'bg-[#10b981]/20 text-[#34d399]'
+                                    'bg-[#3b82f6]/20 text-[#93c5fd]'
                                   }`}>
                                     {q.type === 'mcq' ? 'MCQ' :
                                      q.type === 'tf' ? 'T/F' :
@@ -484,24 +484,24 @@ export default function ReviewPage() {
                                             key={opt.letter}
                                             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs ${
                                               opt.isCorrect
-                                                ? 'bg-[rgba(16,185,129,0.1)] border border-[rgba(16,185,129,0.25)] text-[#6ee7b7]'
+                                                ? 'bg-[rgba(59,130,246,0.1)] border border-[rgba(59,130,246,0.25)] text-[#6ee7b7]'
                                                 : 'bg-[#0d1117] border border-[#1e2d45] text-[#475569]'
                                             }`}
                                           >
                                             <span className={`w-[22px] h-[22px] rounded flex items-center justify-center font-bold text-[10px] shrink-0 ${
-                                              opt.isCorrect ? 'bg-[#10b981] text-white' : 'bg-[#1e2d45] text-[#64748b]'
+                                              opt.isCorrect ? 'bg-[#3b82f6] text-white' : 'bg-[#1e2d45] text-[#64748b]'
                                             }`}>
                                               {opt.letter}
                                             </span>
                                             <span>{opt.text}</span>
-                                            {opt.isCorrect && <span className="ml-auto text-[#10b981]">✓</span>}
+                                            {opt.isCorrect && <span className="ml-auto text-[#3b82f6]">✓</span>}
                                           </div>
                                         ))}
                                       </div>
                                     )}
 
                                     {/* Answer */}
-                                    <div className="mt-3 p-3.5 rounded-xl bg-[rgba(16,185,129,0.06)] border border-[rgba(16,185,129,0.2)]">
+                                    <div className="mt-3 p-3.5 rounded-xl bg-[rgba(59,130,246,0.06)] border border-[rgba(59,130,246,0.2)]">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className="text-[#00d4ff]">💡</span>
                                         <span className="font-bold text-[#00d4ff] text-xs">Solution:</span>
