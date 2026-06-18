@@ -295,8 +295,18 @@ export default function LandingPage() {
             >
               <a
                 href="/microsoft-office"
-                className="bg-gradient-to-r from-[#f59e0b] to-[#d97706] text-white border-none rounded-2xl px-8 py-4 font-black text-lg cursor-pointer transition-all shadow-[0_0_40px_rgba(245,158,11,0.3)] hover:shadow-[0_0_60px_rgba(245,158,11,0.5)] hover:-translate-y-1 active:translate-y-0 inline-flex items-center justify-center gap-2"
+                className="bg-gradient-to-r from-[#f59e0b] to-[#d97706] text-white border-none rounded-2xl px-8 py-4 font-black text-lg cursor-pointer transition-all shadow-[0_0_40px_rgba(245,158,11,0.3)] hover:shadow-[0_0_60px_rgba(245,158,11,0.5)] hover:-translate-y-1 active:translate-y-0 inline-flex items-center justify-center gap-2 relative"
               >
+                {/* Latest + AI badges */}
+                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+                  <span className="bg-gradient-to-r from-[#10b981] to-[#059669] text-white text-[9px] font-black tracking-wider px-2 py-0.5 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.4)] flex items-center gap-1">
+                    <span className="w-1 h-1 rounded-full bg-white animate-pulse" />
+                    NEW
+                  </span>
+                  <span className="bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.3)]">
+                    ✨ AI Grading
+                  </span>
+                </span>
                 Microsoft Office Quiz
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
               </a>

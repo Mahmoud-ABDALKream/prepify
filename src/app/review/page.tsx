@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ScrollToTop from '@/components/ScrollToTop'
 import { cpSections } from '@/data/cp-sections'
@@ -156,6 +156,23 @@ export default function ReviewPage() {
   const [reviewDataMap, setReviewDataMap] = useState<Record<string, ReviewData>>({})
   const [hydrated, setHydrated] = useState(false)
   const [showClearConfirm, setShowClearConfirm] = useState<string | null>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
+
+  // Keyboard shortcut: "/" focuses the search bar (unless already typing in an input)
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName)) {
+        e.preventDefault()
+        searchInputRef.current?.focus()
+        searchInputRef.current?.select()
+      }
+      if (e.key === 'Escape' && document.activeElement === searchInputRef.current) {
+        searchInputRef.current?.blur()
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [])
 
   // Load all review data on mount
   useEffect(() => {
@@ -181,13 +198,43 @@ export default function ReviewPage() {
         }
       }
     }
+
+    // Same-tab instant sync: when the exam page (in the same tab) stars a
+    // question, useReviewStorage dispatches this custom event. Without it we'd
+    // have to wait for a navigation/refresh to see the change.
+    const handleCustomUpdate = (e: Event) => {
+      const detail = (e as CustomEvent).detail as { subjectKey?: string } | undefined
+      const subjKey = detail?.subjectKey
+      if (subjKey && subjectConfig.find(s => s.key === subjKey)) {
+        setReviewDataMap(prev => ({
+          ...prev,
+          [subjKey]: loadReviewData(subjKey, getValidQuestionIds(
+            subjectConfig.find(s => s.key === subjKey)?.sections || []
+          )),
+        }))
+      } else {
+        // No specific subject → reload everything
+        const map: Record<string, ReviewData> = {}
+        for (const subj of subjectConfig) {
+          const validIds = getValidQuestionIds(subj.sections)
+          map[subj.key] = loadReviewData(subj.key, validIds)
+        }
+        setReviewDataMap(map)
+      }
+    }
+
     window.addEventListener('storage', handleStorage)
-    return () => window.removeEventListener('storage', handleStorage)
+    window.addEventListener('prepify-review-updated', handleCustomUpdate)
+    return () => {
+      window.removeEventListener('storage', handleStorage)
+      window.removeEventListener('prepify-review-updated', handleCustomUpdate)
+    }
   }, [])
 
   // Re-load when window regains focus (so users see updates after returning from an exam)
+  // Also handle visibilitychange for mobile reliability (focus is unreliable on mobile)
   useEffect(() => {
-    const handleFocus = () => {
+    const reloadAll = () => {
       const map: Record<string, ReviewData> = {}
       for (const subj of subjectConfig) {
         const validIds = getValidQuestionIds(subj.sections)
@@ -195,8 +242,16 @@ export default function ReviewPage() {
       }
       setReviewDataMap(map)
     }
+    const handleFocus = () => reloadAll()
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') reloadAll()
+    }
     window.addEventListener('focus', handleFocus)
-    return () => window.removeEventListener('focus', handleFocus)
+    document.addEventListener('visibilitychange', handleVisibility)
+    return () => {
+      window.removeEventListener('focus', handleFocus)
+      document.removeEventListener('visibilitychange', handleVisibility)
+    }
   }, [])
 
   // Build global review list
@@ -273,6 +328,12 @@ export default function ReviewPage() {
       try {
         localStorage.setItem(`prepify-${subjectKey}-review`, JSON.stringify(updated))
       } catch { /* ignore */ }
+      // Notify same-tab listeners (e.g. an open exam page) that data changed
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('prepify-review-updated', {
+          detail: { subjectKey, ...updated },
+        }))
+      }
       return { ...prev, [subjectKey]: updated }
     })
   }, [])
@@ -283,6 +344,11 @@ export default function ReviewPage() {
       try {
         localStorage.removeItem(`prepify-${subjectKey}-review`)
       } catch { /* ignore */ }
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('prepify-review-updated', {
+          detail: { subjectKey, ...updated },
+        }))
+      }
       return { ...prev, [subjectKey]: updated }
     })
     setShowClearConfirm(null)
@@ -294,6 +360,11 @@ export default function ReviewPage() {
       for (const subj of subjectConfig) {
         try { localStorage.removeItem(`prepify-${subj.key}-review`) } catch { /* ignore */ }
         map[subj.key] = { starred: [], wrong: [] }
+      }
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('prepify-review-updated', {
+          detail: { subjectKey: null },
+        }))
       }
       return map
     })
@@ -324,6 +395,12 @@ export default function ReviewPage() {
           </a>
           <div className="flex items-center gap-2">
             <a href="/" className="text-[#94a3b8] hover:text-[#00d4ff] text-[13px] font-medium px-3 py-2 rounded-lg hover:bg-[rgba(0,212,255,0.06)] transition-all">Home</a>
+            <a
+              href="/microsoft-office"
+              className="hidden sm:inline-flex bg-gradient-to-r from-[#f59e0b] to-[#d97706] text-white rounded-lg px-4 py-2 text-[13px] font-bold hover:opacity-90 transition-all shadow-[0_0_15px_rgba(245,158,11,0.2)] items-center gap-1.5"
+            >
+              ✨ Latest Quiz
+            </a>
             <a href="/review" className="bg-gradient-to-r from-[#f59e0b] to-[#ef4444] text-white rounded-lg px-4 py-2 text-[13px] font-bold hover:opacity-90 transition-all shadow-[0_0_15px_rgba(245,158,11,0.2)]">
               📝 Review
             </a>
@@ -370,25 +447,29 @@ export default function ReviewPage() {
           </div>
         </motion.div>
 
-        {/* Search Bar */}
+        {/* ─── Sticky Filter Bar ─── */}
+        {/* Search + subject tabs + source/type filters all in one sticky
+            container so they're always reachable while scrolling. */}
         <motion.div
-          className="mb-4"
+          className="sticky top-16 sm:top-[68px] z-30 -mx-4 sm:-mx-6 px-4 sm:px-6 py-3 mb-3 bg-[#080c18]/90 backdrop-blur-xl border-b border-[#1e2d45]/60"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.15 }}
         >
-          <div className="relative">
+          {/* Search Bar */}
+          <div className="relative mb-3">
             <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
+              ref={searchInputRef}
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search questions, answers, sections..."
-              className="w-full bg-[#111827] border border-[#1e2d45] rounded-2xl pl-12 pr-12 py-3 text-sm text-[#e2e8f0] placeholder-[#475569] focus:border-[#7c3aed] focus:outline-none focus:shadow-[0_0_15px_rgba(124,58,237,0.15)] transition-all"
+              placeholder="Search questions, answers, sections…  (press / to focus)"
+              className="w-full bg-[#111827] border border-[#1e2d45] rounded-2xl pl-12 pr-14 py-3 text-sm text-[#e2e8f0] placeholder-[#475569] focus:border-[#7c3aed] focus:outline-none focus:shadow-[0_0_15px_rgba(124,58,237,0.15)] transition-all"
             />
-            {searchQuery && (
+            {searchQuery ? (
               <button
                 onClick={() => setSearchQuery('')}
                 className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-lg bg-[#1a2235] hover:bg-[#ef4444]/20 text-[#64748b] hover:text-[#ef4444] flex items-center justify-center text-xs transition-colors cursor-pointer"
@@ -396,146 +477,190 @@ export default function ReviewPage() {
               >
                 ✕
               </button>
+            ) : (
+              <kbd className="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:flex items-center justify-center w-6 h-6 rounded-md bg-[#1a2235] border border-[#1e2d45] text-[#64748b] text-xs font-mono font-bold select-none pointer-events-none">
+                /
+              </kbd>
             )}
           </div>
-        </motion.div>
 
-        {/* Subject Tabs */}
-        <motion.div
-          className="flex gap-2 mb-3 overflow-x-auto pb-2 scrollbar-hide"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-        >
-          <button
-            onClick={() => setActiveSubject(null)}
-            className={`shrink-0 px-5 py-2.5 rounded-xl text-sm font-bold cursor-pointer transition-all ${
-              activeSubject === null
-                ? 'bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] text-white shadow-[0_0_15px_rgba(0,212,255,0.2)]'
-                : 'bg-[#1a2235] text-[#64748b] border border-[#1e2d45] hover:border-[#00d4ff]/50 hover:text-[#00d4ff]'
-            }`}
-          >
-            All Subjects ({grandTotal})
-          </button>
-          {subjectConfig.map((subj, idx) => (
+          {/* Subject Tabs — compact, horizontally scrollable */}
+          <div className="flex gap-2 mb-2.5 overflow-x-auto pb-1 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             <button
-              key={subj.key}
-              onClick={() => setActiveSubject(subj.key)}
-              className={`shrink-0 px-5 py-2.5 rounded-xl text-sm font-bold cursor-pointer transition-all flex items-center gap-2 ${
-                activeSubject === subj.key
-                  ? 'text-white shadow-[0_0_15px_rgba(0,0,0,0.2)]'
+              onClick={() => setActiveSubject(null)}
+              className={`shrink-0 px-4 py-2 rounded-xl text-[13px] font-bold cursor-pointer transition-all ${
+                activeSubject === null
+                  ? 'bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] text-white shadow-[0_0_15px_rgba(0,212,255,0.2)]'
                   : 'bg-[#1a2235] text-[#64748b] border border-[#1e2d45] hover:border-[#00d4ff]/50 hover:text-[#00d4ff]'
               }`}
-              style={activeSubject === subj.key ? {
-                background: `linear-gradient(135deg, ${subj.color}, ${subj.color}88)`,
-              } : {}}
             >
-              <span className="w-6 h-6 rounded-md flex items-center justify-center text-[10px] font-black" style={{ background: `${subj.color}33`, color: subj.color }}>
-                {subj.icon}
-              </span>
-              {subj.name}
-              <span className="text-[10px] opacity-70">({subjectCounts[idx].totalCount})</span>
+              All ({grandTotal})
             </button>
-          ))}
-        </motion.div>
-
-        {/* Filter Row: Source + Type + Actions */}
-        <motion.div
-          className="flex flex-wrap items-center gap-2 mb-4"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.25 }}
-        >
-          {/* Source filter */}
-          <div className="flex gap-1.5 bg-[#111827] border border-[#1e2d45] rounded-xl p-1">
-            {[
-              { key: 'all' as const, label: '📋 All', count: grandTotal },
-              { key: 'wrong' as const, label: '❌ Wrong', count: grandTotalWrong },
-              { key: 'starred' as const, label: '⭐ Starred', count: grandTotalStarred },
-            ].map(tab => (
-              <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-all ${
-                  activeTab === tab.key
-                    ? 'bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] text-white shadow-[0_0_10px_rgba(0,212,255,0.2)]'
-                    : 'text-[#64748b] hover:text-[#00d4ff]'
-                }`}
-              >
-                {tab.label} ({tab.count})
-              </button>
-            ))}
+            {subjectConfig.map((subj, idx) => {
+              const count = subjectCounts[idx].totalCount
+              return (
+                <button
+                  key={subj.key}
+                  onClick={() => setActiveSubject(subj.key)}
+                  className={`shrink-0 px-4 py-2 rounded-xl text-[13px] font-bold cursor-pointer transition-all flex items-center gap-1.5 ${
+                    activeSubject === subj.key
+                      ? 'text-white shadow-[0_0_15px_rgba(0,0,0,0.2)]'
+                      : 'bg-[#1a2235] text-[#64748b] border border-[#1e2d45] hover:border-[#00d4ff]/50 hover:text-[#00d4ff]'
+                  }`}
+                  style={activeSubject === subj.key ? {
+                    background: `linear-gradient(135deg, ${subj.color}, ${subj.color}88)`,
+                  } : {}}
+                >
+                  <span className="w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-black" style={{ background: `${subj.color}33`, color: subj.color }}>
+                    {subj.icon}
+                  </span>
+                  <span className="hidden sm:inline">{subj.name}</span>
+                  <span className="sm:hidden">{subj.icon}</span>
+                  <span className="text-[10px] opacity-70">({count})</span>
+                </button>
+              )
+            })}
           </div>
 
-          {/* Type filter */}
-          {availableTypes.length > 1 && (
-            <select
-              value={activeType}
-              onChange={e => setActiveType(e.target.value)}
-              className="bg-[#111827] border border-[#1e2d45] rounded-xl px-3 py-2 text-xs font-bold text-[#94a3b8] cursor-pointer focus:border-[#7c3aed] focus:outline-none transition-colors"
-            >
-              <option value="all">All Types</option>
-              {availableTypes.map(t => (
-                <option key={t} value={t}>
-                  {t === 'mcq' ? 'MCQ' :
-                   t === 'tf' ? 'True/False' :
-                   t === 'trace' ? 'Trace' :
-                   t === 'fill' ? 'Fill in Blank' :
-                   t === 'definition' ? 'Definition' :
-                   t === 'translation' ? 'Translation' :
-                   t === 'arrange' ? 'Arrange' :
-                   t === 'code' ? 'Code' : t}
-                </option>
+          {/* Filter Row: Source + Type + Actions */}
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Source filter */}
+            <div className="flex gap-1 bg-[#111827] border border-[#1e2d45] rounded-xl p-1">
+              {[
+                { key: 'all' as const, label: '📋 All', count: grandTotal },
+                { key: 'wrong' as const, label: '❌ Wrong', count: grandTotalWrong },
+                { key: 'starred' as const, label: '⭐ Starred', count: grandTotalStarred },
+              ].map(tab => (
+                <button
+                  key={tab.key}
+                  onClick={() => setActiveTab(tab.key)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-all ${
+                    activeTab === tab.key
+                      ? 'bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] text-white shadow-[0_0_10px_rgba(0,212,255,0.2)]'
+                      : 'text-[#64748b] hover:text-[#00d4ff]'
+                  }`}
+                >
+                  {tab.label} ({tab.count})
+                </button>
               ))}
-            </select>
-          )}
+            </div>
 
-          {/* Expand/Collapse All */}
-          <div className="ml-auto flex gap-1.5">
-            <button
-              onClick={expandAll}
-              disabled={filteredQuestions.length === 0}
-              className="px-3 py-1.5 rounded-xl text-xs font-bold border border-[#1e2d45] text-[#94a3b8] hover:text-[#00d4ff] hover:border-[#00d4ff]/50 transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-            >
-              Expand All
-            </button>
-            <button
-              onClick={collapseAll}
-              disabled={expandedIds.size === 0}
-              className="px-3 py-1.5 rounded-xl text-xs font-bold border border-[#1e2d45] text-[#94a3b8] hover:text-[#00d4ff] hover:border-[#00d4ff]/50 transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
-            >
-              Collapse All
-            </button>
-            {grandTotal > 0 && (
-              <button
-                onClick={() => setShowClearConfirm('all')}
-                className="px-3 py-1.5 rounded-xl text-xs font-bold border border-[#ef4444]/30 text-[#ef4444] hover:bg-[#ef4444]/10 transition-all cursor-pointer"
+            {/* Type filter */}
+            {availableTypes.length > 1 && (
+              <select
+                value={activeType}
+                onChange={e => setActiveType(e.target.value)}
+                className="bg-[#111827] border border-[#1e2d45] rounded-xl px-3 py-2 text-xs font-bold text-[#94a3b8] cursor-pointer focus:border-[#7c3aed] focus:outline-none transition-colors"
               >
-                Clear All
-              </button>
+                <option value="all">All Types</option>
+                {availableTypes.map(t => (
+                  <option key={t} value={t}>
+                    {t === 'mcq' ? 'MCQ' :
+                     t === 'tf' ? 'True/False' :
+                     t === 'trace' ? 'Trace' :
+                     t === 'fill' ? 'Fill in Blank' :
+                     t === 'definition' ? 'Definition' :
+                     t === 'translation' ? 'Translation' :
+                     t === 'arrange' ? 'Arrange' :
+                     t === 'code' ? 'Code' : t}
+                  </option>
+                ))}
+              </select>
             )}
+
+            {/* Expand/Collapse/Clear actions */}
+            <div className="ml-auto flex gap-1.5">
+              <button
+                onClick={expandAll}
+                disabled={filteredQuestions.length === 0}
+                className="px-3 py-1.5 rounded-xl text-xs font-bold border border-[#1e2d45] text-[#94a3b8] hover:text-[#00d4ff] hover:border-[#00d4ff]/50 transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                title="Expand all visible questions"
+              >
+                ⤢ Expand
+              </button>
+              <button
+                onClick={collapseAll}
+                disabled={expandedIds.size === 0}
+                className="px-3 py-1.5 rounded-xl text-xs font-bold border border-[#1e2d45] text-[#94a3b8] hover:text-[#00d4ff] hover:border-[#00d4ff]/50 transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                title="Collapse all"
+              >
+                ⤣ Collapse
+              </button>
+              {grandTotal > 0 && (
+                <button
+                  onClick={() => setShowClearConfirm('all')}
+                  className="px-3 py-1.5 rounded-xl text-xs font-bold border border-[#ef4444]/30 text-[#ef4444] hover:bg-[#ef4444]/10 transition-all cursor-pointer"
+                  title="Clear all review data across all subjects"
+                >
+                  🗑 Clear
+                </button>
+              )}
+            </div>
           </div>
         </motion.div>
 
-        {/* Results count */}
+        {/* Active filter pills — removable chips showing what's currently filtered */}
         {(searchQuery || activeTab !== 'all' || activeType !== 'all' || activeSubject) && (
-          <div className="mb-3 text-xs text-[#64748b] flex items-center gap-2">
-            <span>
-              Showing <span className="text-[#00d4ff] font-bold">{filteredQuestions.length}</span> of {grandTotal} questions
+          <div className="flex flex-wrap items-center gap-2 mb-4">
+            <span className="text-xs text-[#64748b]">
+              <span className="text-[#00d4ff] font-bold">{filteredQuestions.length}</span> / {grandTotal} shown
             </span>
-            {(searchQuery || activeTab !== 'all' || activeType !== 'all' || activeSubject) && (
+            {activeSubject && (
               <button
-                onClick={() => {
-                  setSearchQuery('')
-                  setActiveTab('all')
-                  setActiveType('all')
-                  setActiveSubject(null)
+                onClick={() => setActiveSubject(null)}
+                className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg border cursor-pointer transition-colors"
+                style={{
+                  background: `${subjectConfig.find(s => s.key === activeSubject)?.color}22`,
+                  borderColor: `${subjectConfig.find(s => s.key === activeSubject)?.color}55`,
+                  color: subjectConfig.find(s => s.key === activeSubject)?.color,
                 }}
-                className="text-[#ef4444] hover:underline cursor-pointer"
+                title="Remove subject filter"
               >
-                Reset filters
+                {subjectConfig.find(s => s.key === activeSubject)?.name}
+                <span className="text-[10px] opacity-70">✕</span>
               </button>
             )}
+            {activeTab !== 'all' && (
+              <button
+                onClick={() => setActiveTab('all')}
+                className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg bg-[#7c3aed]/15 border border-[#7c3aed]/40 text-[#a78bfa] cursor-pointer transition-colors hover:bg-[#7c3aed]/25"
+                title="Remove source filter"
+              >
+                {activeTab === 'wrong' ? '❌ Wrong' : '⭐ Starred'}
+                <span className="text-[10px] opacity-70">✕</span>
+              </button>
+            )}
+            {activeType !== 'all' && (
+              <button
+                onClick={() => setActiveType('all')}
+                className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg bg-[#00d4ff]/15 border border-[#00d4ff]/40 text-[#22d3ee] cursor-pointer transition-colors hover:bg-[#00d4ff]/25"
+                title="Remove type filter"
+              >
+                {availableTypes.find(t => t === activeType) || activeType}
+                <span className="text-[10px] opacity-70">✕</span>
+              </button>
+            )}
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg bg-[#f59e0b]/15 border border-[#f59e0b]/40 text-[#fbbf24] cursor-pointer transition-colors hover:bg-[#f59e0b]/25 max-w-[200px]"
+                title="Clear search"
+              >
+                <span className="truncate">“{searchQuery}”</span>
+                <span className="text-[10px] opacity-70">✕</span>
+              </button>
+            )}
+            <button
+              onClick={() => {
+                setSearchQuery('')
+                setActiveTab('all')
+                setActiveType('all')
+                setActiveSubject(null)
+              }}
+              className="text-xs font-bold text-[#ef4444] hover:underline cursor-pointer ml-1"
+            >
+              Reset all
+            </button>
           </div>
         )}
 
@@ -774,16 +899,27 @@ export default function ReviewPage() {
           </motion.div>
         )}
 
-        {/* Per-subject quick management (only when no filters active) */}
-        {grandTotal > 0 && !searchQuery && activeTab === 'all' && activeType === 'all' && !activeSubject && (
-          <motion.div
-            className="mt-8 bg-[#111827] border border-[#1e2d45] rounded-2xl p-5"
+        {/* Per-subject quick management — always available as a collapsible panel */}
+        {grandTotal > 0 && (
+          <motion.details
+            className="mt-8 bg-[#111827] border border-[#1e2d45] rounded-2xl overflow-hidden group"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.3 }}
           >
-            <h3 className="text-sm font-black mb-3 text-[#e2e8f0]">Per-Subject Management</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <summary className="cursor-pointer list-none px-5 py-4 flex items-center justify-between gap-3 hover:bg-[#0d1117] transition-colors select-none">
+              <div className="flex items-center gap-2">
+                <span className="text-base">🗂️</span>
+                <h3 className="text-sm font-black text-[#e2e8f0]">Per-Subject Management</h3>
+                <span className="text-[10px] text-[#64748b] bg-[#1a2235] px-2 py-0.5 rounded-full">
+                  {subjectConfig.filter(s => (subjectCounts.find(c => c.key === s.key)?.totalCount || 0) > 0).length} active
+                </span>
+              </div>
+              <svg className="w-4 h-4 text-[#64748b] transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div className="px-5 pb-5 pt-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
               {subjectConfig.filter(s => {
                 const cnt = subjectCounts.find(c => c.key === s.key)?.totalCount || 0
                 return cnt > 0
@@ -826,7 +962,7 @@ export default function ReviewPage() {
                 )
               })}
             </div>
-          </motion.div>
+          </motion.details>
         )}
 
         {/* Clear confirmation modal */}
@@ -882,15 +1018,22 @@ export default function ReviewPage() {
 
         {/* Local storage notice */}
         <motion.div
-          className="mt-6 bg-[#111827]/50 border border-[#1e2d45]/50 rounded-xl p-3 text-center"
+          className="mt-6 bg-[#111827]/50 border border-[#1e2d45]/50 rounded-xl p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <p className="text-[11px] text-[#64748b] flex items-center justify-center gap-1.5">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-            All your review data is saved locally in your browser. Clearing your browser data will reset this list.
-          </p>
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#10b981]/15 border border-[#10b981]/30 flex items-center justify-center shrink-0">
+              <svg className="w-4 h-4 text-[#10b981]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-bold text-[#6ee7b7] mb-1">100% Local — Your data never leaves your browser</p>
+              <p className="text-[11px] text-[#64748b] leading-relaxed">
+                Every star, wrong answer, and review action is saved in <code className="text-[#94a3b8] bg-[#0d1117] px-1 rounded">localStorage</code> on this device. Nothing is sent to a server. Clearing your browser data will reset this list.
+              </p>
+            </div>
+          </div>
         </motion.div>
       </div>
 

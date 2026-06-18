@@ -60,15 +60,25 @@ export function useReviewStorage(subjectKey: string, validQuestionIds?: Set<numb
   }, [REVIEW_KEY])
 
   // ─── Save to localStorage on state change ───
+  // Also dispatches a custom event so same-tab listeners (e.g. the /review
+  // page) can react instantly without waiting for a navigation/refresh.
   useEffect(() => {
     if (!hydrated) return
+    const payload = {
+      starred: Array.from(starredIds),
+      wrong: Array.from(wrongIds),
+    }
     try {
-      localStorage.setItem(REVIEW_KEY, JSON.stringify({
-        starred: Array.from(starredIds),
-        wrong: Array.from(wrongIds),
-      }))
+      localStorage.setItem(REVIEW_KEY, JSON.stringify(payload))
     } catch { /* ignore quota errors */ }
-  }, [starredIds, wrongIds, hydrated, REVIEW_KEY])
+    // Notify same-tab listeners. The native `storage` event only fires in
+    // OTHER tabs/windows, so we need this for instant in-tab sync.
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('prepify-review-updated', {
+        detail: { subjectKey, key: REVIEW_KEY, ...payload },
+      }))
+    }
+  }, [starredIds, wrongIds, hydrated, REVIEW_KEY, subjectKey])
 
   // ─── Toggle star on/off ───
   const toggleStar = useCallback((qId: number) => {
