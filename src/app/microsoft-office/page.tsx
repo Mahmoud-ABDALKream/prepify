@@ -8,6 +8,7 @@ import ReviewPanel from '@/components/ReviewPanel'
 import ScrollToTop from '@/components/ScrollToTop'
 import { useQuizTracking } from '@/hooks/useQuizTracking'
 import { useReviewStorage } from '@/hooks/useReviewStorage'
+import { useAnswerChecker } from '@/hooks/useAnswerChecker'
 import { formatDuration } from '@/lib/date-utils'
 
 import { Section, Question } from "@/data/types"
@@ -25,6 +26,9 @@ interface QuestionState {
   isSolutionRevealed: boolean
   isCorrect: boolean | null
   fillCorrect: Record<number, boolean>
+  // AI-grader feedback for definition / short-answer questions
+  aiFeedback?: string
+  aiChecking?: boolean
 }
 
 // ─── LocalStorage Key ────────────────────────────────
@@ -43,6 +47,9 @@ export default function Home() {
   const [scoreSubmitted, setScoreSubmitted] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
   const [hydrated, setHydrated] = useState(false)
+
+  // ─── AI answer checker ──────────────────────────────
+  const { check: checkAnswer, isChecking } = useAnswerChecker()
 
   // ─── Review storage (starred + wrong questions) ───
   const validQuestionIds = useMemo(() => new Set(sections.flatMap(s => s.questions.map(q => q.id))), [sections])
@@ -178,6 +185,40 @@ export default function Home() {
     const hasContent = state.userCode.trim().length > 0
     updateQState(qId, { isChecked: true, isCorrect: hasContent ? null : false })
   }, [getQState, updateQState])
+
+  // ─── Definition / short-answer check via AI ─────────
+  // Calls the lightweight /api/check-answer route and stores
+  // the verdict + short feedback in the question state.
+  const checkDefinition = useCallback(
+    async (qId: number, question: Question) => {
+      const state = getQState(qId)
+      const userAnswer = state.userCode.trim()
+      if (!userAnswer) return
+
+      // Mark as "checking" so the UI shows a spinner
+      updateQState(qId, {
+        aiChecking: true,
+        isChecked: false,
+        isCorrect: null,
+        aiFeedback: undefined,
+      })
+
+      const result = await checkAnswer(qId, {
+        question: question.text,
+        modelAnswer: question.answer,
+        userAnswer,
+        type: question.type,
+      })
+
+      updateQState(qId, {
+        aiChecking: false,
+        isChecked: true,
+        isCorrect: result.isCorrect,
+        aiFeedback: result.feedback,
+      })
+    },
+    [getQState, updateQState, checkAnswer]
+  )
 
   // Reveal solution
   const revealSolution = useCallback((qId: number) => {
@@ -489,25 +530,50 @@ export default function Home() {
             </div>
 
             {/* Questions */}
-            {section.questions.map((q, qIdx) => (
-              <QuestionCard
-                key={q.id}
-                question={q}
-                sectionTitle={section.title}
-                sectionIcon={section.icon}
-                state={getQState(q.id)}
-                onUpdate={updateQState}
-                onCheckMcq={() => checkMcq(q.id, q)}
-                onCheckFill={() => checkFill(q.id, q)}
-                onCheckCode={() => checkCode(q.id)}
-                onRevealSolution={() => revealSolution(q.id)}
-                onHideSolution={() => hideSolution(q.id)}
-                onReset={() => resetQuestion(q.id)}
-                isStarred={isStarred(q.id)}
-                onToggleStar={() => toggleStar(q.id)}
-                index={qIdx}
-              />
-            ))}
+            {section.questions.map((q, qIdx) => {
+              // Find the next question id (across section boundaries) for Enter-to-advance
+              const allQs = sections.flatMap(s => s.questions)
+              const currentFlatIdx = allQs.findIndex(x => x.id === q.id)
+              const nextQId = currentFlatIdx >= 0 && currentFlatIdx < allQs.length - 1
+                ? allQs[currentFlatIdx + 1].id
+                : null
+
+              return (
+                <QuestionCard
+                  key={q.id}
+                  question={q}
+                  sectionTitle={section.title}
+                  sectionIcon={section.icon}
+                  state={getQState(q.id)}
+                  onUpdate={updateQState}
+                  onCheckMcq={() => checkMcq(q.id, q)}
+                  onCheckFill={() => checkFill(q.id, q)}
+                  onCheckCode={() => checkCode(q.id)}
+                  onCheckDefinition={() => checkDefinition(q.id, q)}
+                  isAiChecking={isChecking(q.id)}
+                  onNextQuestion={nextQId
+                    ? () => {
+                        // Scroll the next question into view and focus its textarea
+                        setTimeout(() => {
+                          const el = document.querySelector(`[data-q-id="${nextQId}"]`) as HTMLElement | null
+                          if (el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                            const ta = el.querySelector<HTMLTextAreaElement>('textarea[data-answer-input="true"]')
+                            ta?.focus()
+                          }
+                        }, 120)
+                      }
+                    : undefined
+                  }
+                  onRevealSolution={() => revealSolution(q.id)}
+                  onHideSolution={() => hideSolution(q.id)}
+                  onReset={() => resetQuestion(q.id)}
+                  isStarred={isStarred(q.id)}
+                  onToggleStar={() => toggleStar(q.id)}
+                  index={qIdx}
+                />
+              )
+            })}
           </motion.div>
         ))}
 
@@ -741,6 +807,9 @@ function QuestionCard({
   onCheckMcq,
   onCheckFill,
   onCheckCode,
+  onCheckDefinition,
+  isAiChecking,
+  onNextQuestion,
   onRevealSolution,
   onHideSolution,
   onReset,
@@ -756,6 +825,9 @@ function QuestionCard({
   onCheckMcq: () => void
   onCheckFill: () => void
   onCheckCode: () => void
+  onCheckDefinition: () => Promise<void> | void
+  isAiChecking: boolean
+  onNextQuestion?: () => void
   onRevealSolution: () => void
   onHideSolution: () => void
   onReset: () => void
@@ -764,6 +836,7 @@ function QuestionCard({
   index: number
 }) {
   const isMcqOrTf = question.type === 'mcq' || question.type === 'tf'
+  const isDefinition = question.type === 'definition'
 
   const statusColor = state.isChecked
     ? state.isCorrect === true
@@ -785,6 +858,7 @@ function QuestionCard({
 
   return (
     <motion.div
+      data-q-id={question.id}
       className="bg-[#111827] rounded-2xl mb-5 overflow-hidden transition-all duration-300"
       style={{ border: `1.5px solid ${statusColor}`, boxShadow: state.isChecked ? `0 0 20px ${statusColor}15` : 'none' }}
       initial={{ opacity: 0, y: 20 }}
@@ -842,12 +916,14 @@ function QuestionCard({
             question.type === 'tf' ? 'bg-[#ec4899]/20 text-[#f472b6]' :
             question.type === 'trace' ? 'bg-[#f59e0b]/20 text-[#fbbf24]' :
             question.type === 'fill' ? 'bg-[#d97706]/20 text-[#fbbf24]' :
+            question.type === 'definition' ? 'bg-[#3b82f6]/20 text-[#60a5fa]' :
             'bg-[#f59e0b]/20 text-[#fbbf24]'
           }`}>
             {question.type === 'mcq' ? 'MCQ' :
              question.type === 'tf' ? 'T/F' :
              question.type === 'trace' ? 'Trace' :
-             question.type === 'fill' ? 'Fill' : 'Code'}
+             question.type === 'fill' ? 'Fill' :
+             question.type === 'definition' ? 'Write' : 'Code'}
           </div>
         </div>
       </div>
@@ -979,6 +1055,73 @@ function QuestionCard({
           </div>
         )}
 
+        {/* ── Definition / Short-Answer textarea (AI graded) ── */}
+        {isDefinition && (
+          <div className="mt-3">
+            <textarea
+              data-answer-input="true"
+              value={state.userCode}
+              onChange={e => {
+                onUpdate(question.id, { userCode: e.target.value })
+                // If user edits after a previous check, clear the verdict
+                if (state.isChecked) {
+                  onUpdate(question.id, {
+                    isChecked: false,
+                    isCorrect: null,
+                    aiFeedback: undefined,
+                  })
+                }
+              }}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault()
+                  if (state.userCode.trim().length === 0 || state.aiChecking) return
+                  // If already checked → advance to next question
+                  if (state.isChecked) {
+                    onNextQuestion?.()
+                    return
+                  }
+                  // Otherwise → run AI check, then advance when done
+                  ;(async () => {
+                    await onCheckDefinition()
+                    // Auto-advance after the AI returns (small delay for UX)
+                    setTimeout(() => onNextQuestion?.(), 350)
+                  })()
+                }
+                // Shift+Enter falls through → inserts a newline (default behavior)
+              }}
+              disabled={state.isChecked}
+              placeholder="اكتب إجابتك هنا... — Enter للتصحيح والانتقال للسؤال التالي | Shift+Enter لسطر جديد"
+              className={`w-full bg-[#0a0f1e] border rounded-xl p-4 text-[14px] leading-relaxed text-[#e2e8f0] min-h-[110px] resize-y outline-none transition-all duration-200 placeholder:text-[#475569] placeholder:text-[12px] ${
+                state.isChecked && state.isCorrect === true
+                  ? 'border-[#6ee7b7] bg-[rgba(16,185,129,0.08)] focus:shadow-[0_0_15px_rgba(16,185,129,0.15)]'
+                  : state.isChecked && state.isCorrect === false
+                  ? 'border-[#ef4444] bg-[rgba(239,68,68,0.05)]'
+                  : 'border-[#1e2d45] focus:border-[#3b82f6] focus:shadow-[0_0_15px_rgba(59,130,246,0.15)]'
+              }`}
+            />
+            <div className="flex items-center justify-between mt-1.5 px-1">
+              <div className="text-[11px] text-[#475569] flex items-center gap-1.5">
+                {state.aiChecking || isAiChecking ? (
+                  <>
+                    <span className="inline-block w-3 h-3 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin" />
+                    <span className="text-[#60a5fa]">AI is checking your answer...</span>
+                  </>
+                ) : state.isChecked ? (
+                  <span className={state.isCorrect === true ? 'text-[#6ee7b7]' : 'text-[#fca5a5]'}>
+                    {state.aiFeedback || (state.isCorrect === true ? 'Correct!' : 'Try again.')}
+                  </span>
+                ) : (
+                  <span>Press <kbd className="px-1.5 py-0.5 bg-[#1a2235] border border-[#1e2d45] rounded text-[10px] font-mono text-[#94a3b8]">Enter</kbd> to check · <kbd className="px-1.5 py-0.5 bg-[#1a2235] border border-[#1e2d45] rounded text-[10px] font-mono text-[#94a3b8]">Shift+Enter</kbd> for new line</span>
+                )}
+              </div>
+              <div className="text-[10px] text-[#334155] font-mono">
+                {state.userCode.length > 0 ? `${state.userCode.split(/\s+/).filter(Boolean).length} words` : ''}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* ── Action Buttons ── */}
         <div className="flex gap-2.5 mt-4 flex-wrap justify-end">
           {/* Check Answer */}
@@ -987,12 +1130,23 @@ function QuestionCard({
               onClick={() => {
                 if (isMcqOrTf) onCheckMcq()
                 else if (question.type === 'fill') onCheckFill()
+                else if (isDefinition) onCheckDefinition()
                 else onCheckCode()
               }}
-              disabled={isMcqOrTf && !state.selectedMcq}
+              disabled={
+                (isMcqOrTf && !state.selectedMcq) ||
+                (isDefinition && (state.userCode.trim().length === 0 || state.aiChecking))
+              }
               className="bg-gradient-to-r from-[#f59e0b] to-[#d97706] text-white border-none rounded-lg px-5 py-2.5 font-bold text-sm cursor-pointer hover:opacity-90 transition-all hover:-translate-y-0.5 active:translate-y-0 shadow-[0_0_20px_rgba(245,158,11,0.2)] disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none"
             >
-              Check ✓
+              {isDefinition && (state.aiChecking || isAiChecking) ? (
+                <span className="flex items-center gap-2">
+                  <span className="inline-block w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Checking...
+                </span>
+              ) : (
+                'Check ✓'
+              )}
             </button>
           )}
 
@@ -1020,6 +1174,17 @@ function QuestionCard({
               className="bg-transparent text-[#64748b] border border-[#1e2d45] rounded-lg px-4 py-2.5 text-sm cursor-pointer hover:border-[#64748b] transition-colors"
             >
               Reset
+            </button>
+          )}
+
+          {/* Next Question button (only shown after a definition is checked) */}
+          {isDefinition && state.isChecked && onNextQuestion && (
+            <button
+              onClick={onNextQuestion}
+              className="bg-[rgba(59,130,246,0.15)] text-[#60a5fa] border border-[#3b82f6]/40 rounded-lg px-5 py-2.5 font-bold text-sm cursor-pointer hover:bg-[rgba(59,130,246,0.25)] transition-all flex items-center gap-1.5"
+            >
+              Next Question
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7-7 7M3 12h18" /></svg>
             </button>
           )}
         </div>
