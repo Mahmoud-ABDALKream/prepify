@@ -11,7 +11,8 @@ import { useReviewStorage } from '@/hooks/useReviewStorage'
 import { formatDuration } from '@/lib/date-utils'
 
 import { Section, Question } from "@/data/types"
-import { te2Sections as sections } from "@/data/te2-sections"
+import { te2Sections } from "@/data/te2-sections"
+import { useSubjectSections } from "@/hooks/useSubjectSections"
 
 // ─── Data imported from shared files ──────────────────
 // sections is now imported from @/data/te2-sections
@@ -53,6 +54,9 @@ export default function Home() {
     attemptSubmitting, attemptSubmitted, attemptError,
     handleStartQuiz, handleSkipPopup, submitQuizAttempt, retrySubmit, setShowStartPopup,
   } = useQuizTracking('te2', 'te2-full')
+
+  // ─── Load sections from Supabase (fallback to local TS) ───
+  const { sections, loading: sectionsLoading } = useSubjectSections<Section>('technical-english-2', te2Sections)
 
   const [questionStates, setQuestionStates] = useState<Record<number, QuestionState>>({})
   const [activeSection, setActiveSection] = useState<number | null>(null)
@@ -338,6 +342,17 @@ export default function Home() {
       return qAcc + (isNaN(m) ? 0 : m)
     }, 0)
   }, 0)
+
+  if (sectionsLoading && sections.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#080c18] text-[#e2e8f0] font-sans flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-sky-500/30 border-t-sky-500 rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-sm text-slate-400">Loading questions…</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-[#080c18] text-[#e2e8f0] font-sans">

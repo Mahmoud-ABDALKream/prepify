@@ -11,7 +11,8 @@ import { useReviewStorage } from '@/hooks/useReviewStorage'
 import { formatDuration } from '@/lib/date-utils'
 
 import { Section, Question } from '@/data/types'
-import { cpSections as sections } from '@/data/cp-sections'
+import { cpSections } from '@/data/cp-sections'
+import { useSubjectSections } from '@/hooks/useSubjectSections'
 
 // ─── Types re-exported for local use ────────────────────
 type QuestionLocal = Question
@@ -41,6 +42,9 @@ export default function Home() {
     attemptSubmitting, attemptSubmitted, attemptError,
     handleStartQuiz, handleSkipPopup, submitQuizAttempt, retrySubmit, setShowStartPopup,
   } = useQuizTracking('c-programming', 'cp-full')
+
+  // ─── Load sections from Supabase (fallback to local TS) ───
+  const { sections, loading: sectionsLoading } = useSubjectSections<Section>('c-programming', cpSections)
 
   const [questionStates, setQuestionStates] = useState<Record<number, QuestionState>>({})
   const [activeSection, setActiveSection] = useState<number | null>(null)
@@ -277,6 +281,17 @@ export default function Home() {
       return qAcc + (isNaN(m) ? 0 : m)
     }, 0)
   }, 0)
+
+  if (sectionsLoading && sections.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#080c18] text-[#e2e8f0] font-sans flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-sm text-slate-400">Loading questions…</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-[#080c18] text-[#e2e8f0] font-sans">

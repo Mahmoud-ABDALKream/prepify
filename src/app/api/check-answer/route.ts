@@ -5,13 +5,15 @@ export const dynamic = 'force-dynamic'
 export const maxDuration = 30 // seconds — keep the call snappy
 
 // ─── POST /api/check-answer ────────────────────────────────────────────
-// Lightweight AI grader: receives a question, the model answer, and the
-// student's answer. Returns { isCorrect, feedback }.
+// Semantic AI grader: understands the *meaning* of the model answer,
+// extracts the key concepts that MUST appear, then checks the student's
+// answer for conceptual coverage — not string similarity.
 //
 // Design goals:
-//   - FAST — single turn, thinking disabled, short response
-//   - LENIENT — student answers are not expected to be model answers
-//   - FOCUSED — only judges whether the meaning/concept is correct
+//   - SMART — judges meaning, not wording
+//   - STRICT — incomplete or partially-correct answers are marked wrong
+//   - TRANSPARENT — feedback explicitly names what's missing / wrong
+//   - MULTILINGUAL — auto-detects question language, replies in same language
 interface CheckAnswerRequest {
   question: string
   modelAnswer: string
@@ -36,34 +38,55 @@ export async function POST(request: NextRequest) {
     }
 
     // ─── Short-circuit: trivial exact match ───
-    // Skip the AI call entirely if the student typed something obviously correct.
     const normalize = (s: string) => s.trim().toLowerCase().replace(/[.\s]+$/g, '')
     if (normalize(userAnswer) === normalize(modelAnswer)) {
       return NextResponse.json({
         isCorrect: true,
-        feedback: 'Correct! Exact match with the model answer.',
+        feedback: '✓ Correct! Exact match with the model answer.',
+        score: 100,
       })
     }
 
     // ─── Call the LLM ───
     const zai = await ZAI.create()
 
-    const systemPrompt = `You are a FAST, LENIENT exam grader for a university-level Microsoft Office / Database course.
+    const systemPrompt = `You are a STRICT, CONCEPT-AWARE exam grader for university-level courses (Microsoft Office, Database, Programming, IoT, Cyber Security, Technical English).
 
-Your job: decide whether the student's answer is CONCEPTUALLY CORRECT — i.e. it captures the same core meaning as the model answer.
+Your job: judge whether the student's answer *demonstrates real understanding* of the model answer — not whether the wording matches.
 
-Rules:
-- Student answers do NOT need to be model answers. Accept paraphrases, partial answers, or answers in different word order.
-- Accept answers in English OR Arabic OR a mix of both.
-- Minor spelling/grammar mistakes are OK as long as the meaning is clear.
-- Mark CORRECT if the student shows they understand the key concept.
-- Mark WRONG only if the student is clearly mistaken, off-topic, or missing the key point entirely.
-- Respond with STRICT JSON only, no markdown fences, no extra text.
+GRADING PROCEDURE (do this internally before responding):
+1. Read the question and identify what concept is being tested.
+2. From the MODEL ANSWER, extract the 2-5 KEY CONCEPTS that any correct answer MUST contain. (e.g. for "What is a primary key?" the key concepts are: uniquely identifies / row / not null / unique.)
+3. Read the student's answer and check, for each key concept, whether it is present AND correct.
+4. Detect factual errors, contradictions, or off-topic content → these are failures, not partial credit.
+5. Assign a score 0-100:
+   - 90-100: all key concepts present and correct (accept paraphrasing, different order, English/Arabic mix)
+   - 60-89:  most key concepts present, minor gaps → STILL WRONG (mark isCorrect=false) but explain
+   - 30-59:  partial understanding, major gaps → WRONG
+   - 0-29:   mostly missing or wrong → WRONG
+6. isCorrect = TRUE only when score >= 90 AND no factual errors.
 
-Response format:
+STRICTNESS RULES:
+- A student who only gives an example without defining the concept → WRONG (missing the definition).
+- A student who lists 1 of 3 required steps → WRONG (missing steps).
+- A student who states something factually incorrect → WRONG, even if other parts are fine.
+- A student who copies the question text back → WRONG.
+- A student who writes "I don't know" or unrelated text → WRONG, score 0.
+- Paraphrasing, synonyms, English/Arabic mixing, minor typos → all FINE if meaning is intact.
+
+LANGUAGE: Reply in the SAME language as the question. If question is Arabic → feedback in Arabic. If English → feedback in English. If mixed → Arabic.
+
+FEEDBACK FORMAT (max 2 short sentences):
+- If correct: brief praise + the strongest concept they nailed.
+- If wrong: name the SPECIFIC concept(s) missing or wrong. Do NOT give away the full model answer — just point to the gap.
+
+Respond with STRICT JSON only, no markdown fences, no extra text:
 {
   "isCorrect": true | false,
-  "feedback": "one short sentence (max 12 words). If correct, praise briefly. If wrong, hint at what's missing."
+  "score": 0-100,
+  "keyConceptsFound": ["concept1", "concept2"],
+  "keyConceptsMissing": ["concept3"],
+  "feedback": "max 2 short sentences"
 }`
 
     const userPrompt = `Question: ${question}
@@ -72,7 +95,7 @@ Model answer: ${modelAnswer}
 
 Student's answer: ${userAnswer}
 
-Judge the student's answer. Respond with JSON only.`
+Grade the student's answer using the procedure above. Respond with JSON only.`
 
     const completion = await zai.chat.completions.create({
       messages: [
@@ -84,51 +107,83 @@ Judge the student's answer. Respond with JSON only.`
 
     const raw = completion.choices[0]?.message?.content ?? ''
 
-    // ─── Parse the JSON response (tolerant of stray text) ───
+    // ─── Parse the JSON response (3-level tolerant fallback) ───
     let isCorrect = false
+    let score = 0
     let feedback = ''
+    let conceptsFound: string[] = []
+    let conceptsMissing: string[] = []
 
-    // Try direct parse first
-    try {
-      const parsed = JSON.parse(raw)
+    const applyParsed = (parsed: any) => {
       isCorrect = Boolean(parsed.isCorrect)
+      score = typeof parsed.score === 'number' ? Math.max(0, Math.min(100, parsed.score)) : (isCorrect ? 100 : 0)
       feedback = typeof parsed.feedback === 'string' ? parsed.feedback : ''
-    } catch {
-      // Fallback: extract the first {...} block
-      const match = raw.match(/\{[\s\S]*\}/)
-      if (match) {
-        try {
-          const parsed = JSON.parse(match[0])
-          isCorrect = Boolean(parsed.isCorrect)
-          feedback = typeof parsed.feedback === 'string' ? parsed.feedback : ''
-        } catch {
-          // Last resort: look for true/false keywords
-          const lower = raw.toLowerCase()
-          isCorrect = /"iscorrect"\s*:\s*true/.test(lower) || /\bcorrect\b/.test(lower)
-          feedback = raw.slice(0, 160)
-        }
-      } else {
-        const lower = raw.toLowerCase()
-        isCorrect = /\bcorrect\b/.test(lower) && !/\bwrong\b/.test(lower) && !/\bincorrect\b/.test(lower)
-        feedback = raw.slice(0, 160)
+      if (Array.isArray(parsed.keyConceptsFound)) {
+        conceptsFound = parsed.keyConceptsFound.filter((c: any) => typeof c === 'string').slice(0, 6)
+      }
+      if (Array.isArray(parsed.keyConceptsMissing)) {
+        conceptsMissing = parsed.keyConceptsMissing.filter((c: any) => typeof c === 'string').slice(0, 6)
       }
     }
 
+    // Level 1: direct parse
+    try {
+      applyParsed(JSON.parse(raw))
+    } catch {
+      // Level 2: extract first {...} block
+      const match = raw.match(/\{[\s\S]*\}/)
+      if (match) {
+        try {
+          applyParsed(JSON.parse(match[0]))
+        } catch {
+          // Level 3: keyword heuristics
+          const lower = raw.toLowerCase()
+          isCorrect = /"iscorrect"\s*:\s*true/.test(lower) && !/"iscorrect"\s*:\s*false/.test(lower)
+          if (!isCorrect && /\b(wrong|incorrect|missing|partial)\b/.test(lower)) {
+            isCorrect = false
+          } else if (!isCorrect && /\bcorrect\b/.test(lower) && !/\b(wrong|incorrect)\b/.test(lower)) {
+            isCorrect = true
+          }
+          score = isCorrect ? 100 : 0
+          feedback = raw.slice(0, 200)
+        }
+      } else {
+        // No JSON at all — last-ditch keyword scan
+        const lower = raw.toLowerCase()
+        isCorrect = /\bcorrect\b/.test(lower) && !/\b(wrong|incorrect)\b/.test(lower)
+        score = isCorrect ? 100 : 0
+        feedback = raw.slice(0, 200)
+      }
+    }
+
+    // ─── Build a richer feedback message if AI's was sparse ───
     if (!feedback) {
-      feedback = isCorrect ? 'Correct!' : 'Not quite — check the model answer.'
+      if (isCorrect) {
+        feedback = '✓ Correct — your answer captures the key concepts.'
+      } else {
+        const missingHint = conceptsMissing.length > 0
+          ? ` Missing: ${conceptsMissing.join(', ')}.`
+          : ' Review the model answer and try again.'
+        feedback = `✗ Not quite.${missingHint}`
+      }
+    } else if (!feedback.startsWith('✓') && !feedback.startsWith('✗')) {
+      feedback = (isCorrect ? '✓ ' : '✗ ') + feedback
     }
 
     return NextResponse.json({
       isCorrect,
+      score,
       feedback,
+      conceptsFound,
+      conceptsMissing,
       type: type || 'definition',
     })
   } catch (error) {
     console.error('check-answer error:', error)
-    // Fail soft — return a neutral "needs review" state instead of erroring the UI
     return NextResponse.json(
       {
         isCorrect: false,
+        score: 0,
         feedback: 'Could not reach the AI grader. Please try again.',
         error: error instanceof Error ? error.message : 'Unknown error',
       },
